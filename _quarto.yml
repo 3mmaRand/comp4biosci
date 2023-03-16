@@ -8,15 +8,21 @@ execute:
   include: true
 
 book:
-  title: "Data Analysis using R"
-  subtitle: "including what they forgot to teach you about computers"
+  title: "Computational Analysis for Bioscientists"
+  subtitle: "Data Analysis in R and what they forgot to teach you about computers!"
   author: "Emma Rand"
   date: "March 2023"
   site-url: "https://3mmarand.github.io/combio/"
   chapters:
     - index.qmd
     - intro.qmd
-    - file_systems.qmd
+    - part: what_they_forgot.qmd
+      chapters: 
+        - file_systems.qmd
+    - part: getting_started_with_data.qmd
+      chapters: 
+        - ideas_about_data.qmd
+        - working_with_data_rstudio.qmd
     - summary.qmd
     - references.qmd
 
@@ -24,7 +30,9 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: cosmo
+      dark: solar
   pdf:
     documentclass: scrreprt
 
