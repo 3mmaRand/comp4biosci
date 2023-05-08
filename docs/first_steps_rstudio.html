@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Computational Analysis for Bioscientists - 4&nbsp; First Steps in RStudio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./working_with_data_rstudio.html" rel="next">
+<link href="./ideas_about_data.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">
+<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span>
+</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Computational Analysis for Bioscientists</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">What they forgot to teach you about computers</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./file_systems.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">Getting started with data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ideas about data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./working_with_data_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with data in RStudio</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./keyboard-shortcuts-tips.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#what-are-r-and-rstudio" id="toc-what-are-r-and-rstudio" class="nav-link active" data-scroll-target="#what-are-r-and-rstudio"><span class="toc-section-number">4.1</span>  What are R and Rstudio?</a></li>
+  <li><a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link" data-scroll-target="#installing-r-and-rstudio"><span class="toc-section-number">4.2</span>  Installing R and Rstudio</a></li>
+  <li>
+<a href="#introduction-to-rstudio" id="toc-introduction-to-rstudio" class="nav-link" data-scroll-target="#introduction-to-rstudio"><span class="toc-section-number">4.3</span>  Introduction to RStudio</a>
+  <ul class="collapse">
+<li><a href="#changing-the-appearance" id="toc-changing-the-appearance" class="nav-link" data-scroll-target="#changing-the-appearance"><span class="toc-section-number">4.3.1</span>  Changing the appearance</a></li>
+  <li><a href="#your-first-piece-of-code" id="toc-your-first-piece-of-code" class="nav-link" data-scroll-target="#your-first-piece-of-code"><span class="toc-section-number">4.3.2</span>  Your first piece of code</a></li>
+  <li><a href="#assigning-variables" id="toc-assigning-variables" class="nav-link" data-scroll-target="#assigning-variables"><span class="toc-section-number">4.3.3</span>  Assigning variables</a></li>
+  <li><a href="#using-scripts" id="toc-using-scripts" class="nav-link" data-scroll-target="#using-scripts"><span class="toc-section-number">4.3.4</span>  Using Scripts</a></li>
+  <li><a href="#other-types-of-file-in-rstudio" id="toc-other-types-of-file-in-rstudio" class="nav-link" data-scroll-target="#other-types-of-file-in-rstudio"><span class="toc-section-number">4.3.5</span>  Other types of file in RStudio</a></li>
+  </ul>
+</li>
+  <li><a href="#recap-of-rstudio-anatomy" id="toc-recap-of-rstudio-anatomy" class="nav-link" data-scroll-target="#recap-of-rstudio-anatomy"><span class="toc-section-number">4.4</span>  Recap of RStudio anatomy</a></li>
+  <li>
+<a href="#data-types-and-structures-in-r" id="toc-data-types-and-structures-in-r" class="nav-link" data-scroll-target="#data-types-and-structures-in-r"><span class="toc-section-number">4.5</span>  Data types and structures in R</a>
+  <ul class="collapse">
+<li><a href="#types-of-values" id="toc-types-of-values" class="nav-link" data-scroll-target="#types-of-values"><span class="toc-section-number">4.5.1</span>  Types of values</a></li>
+  <li><a href="#data-structures" id="toc-data-structures" class="nav-link" data-scroll-target="#data-structures"><span class="toc-section-number">4.5.2</span>  Data structures</a></li>
+  </ul>
+</li>
+  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link" data-scroll-target="#rstudio-projects"><span class="toc-section-number">4.6</span>  RStudio Projects</a></li>
+  <li><a href="#installing-packages" id="toc-installing-packages" class="nav-link" data-scroll-target="#installing-packages"><span class="toc-section-number">4.7</span>  Installing packages</a></li>
+  <li><a href="#your-first-graph" id="toc-your-first-graph" class="nav-link" data-scroll-target="#your-first-graph"><span class="toc-section-number">4.8</span>  Your first graph</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">4.9</span>  Summary</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">
+<span class="chapter-number">4</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header><ul>
+<li>what is R and Rstudio. Installing them</li>
+<li>intro to rstudio, scripts</li>
+<li>data types and data structures, project oriented workflow</li>
+<li>using the help</li>
+<li>Your first plot!</li>
+</ul>
+<section id="what-are-r-and-rstudio" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="what-are-r-and-rstudio">
+<span class="header-section-number">4.1</span> What are R and Rstudio?</h2>
+</section><section id="installing-r-and-rstudio" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="installing-r-and-rstudio">
+<span class="header-section-number">4.2</span> Installing R and Rstudio</h2>
+</section><section id="introduction-to-rstudio" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="introduction-to-rstudio">
+<span class="header-section-number">4.3</span> Introduction to RStudio</h2>
+<p>In this section we will introduce you to working in RStudio. We will explain the windows that you see when you first open RStudio and how to change its appearance to suit you. Then we will see how we use R as a calculator and how assign values to R objects.</p>
+<section id="changing-the-appearance" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="changing-the-appearance">
+<span class="header-section-number">4.3.1</span> Changing the appearance</h3>
+<p>When you first open RStudio it will display three panes and have a white background <a href="#fig-rstudio-first-open">Figure&nbsp;<span>4.1</span></a></p>
+<div id="fig-rstudio-first-open" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/rstudio-first-open.png" class="img-fluid figure-img" alt="screenshot of RStudio's default appearance" width="800"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.1: When you first open RStudio it will be white with three panes</figcaption><p></p>
+</figure>
+</div>
+<p>We will talk more about these three panes soon but first, let’s get into character - the character of a programmer! You might have noticed that people comfortable around computers are often using dark backgrounds. A dark background reduces eye strain and often makes “code syntax” more obvious making it faster to learn and understand at a glance. Code syntax is the set of rules that define what the various combinations of symbols mean. It takes time to learn these rules and you will learn best by repeated exposure to writing, reading and copying code. You have done this before when you learned your first spoken language. All languages have syntax rules governing the order of words and we rarely think about these consciously, instead relying on what sounds and looks right. And what sounds and looks right grows out repeated exposure. For example, 35% of languages, including English, Chinese, Yoruba and Polish use the Subject-Verb-Object syntax rule:</p>
+<ul>
+<li>English: Emma likes R</li>
+<li>Chinese: 艾玛喜欢R Emma xǐhuān R</li>
+<li>Yoruba: Emma fẹran R</li>
+<li>Polish: Emma lubi R</li>
+</ul>
+<p>and 40% use Subject-Object-Verb including Turkish and Korean</p>
+<ul>
+<li>Turkish: Emma R’yi seviyor</li>
+<li>Korean: 엠마는 R을 좋아한다 emmaneun Reul joh-ahanda</li>
+</ul>
+<p>You learned this rule in your language very early, long before you were conscious of it, just by being exposed to it frequently. In this book I try to tell you the syntax rules, but you will learn most from looking at, and copying code. Because of this, it is well worth tinkering with the appearance of RStudio to see what Editor theme makes code elements most obvious to you.</p>
+<p>There is a tool bar at the top of RStudio. Choose the <code>Tools</code> option and then <code>Global options</code>. This will open a window where many options can be changed <a href="#fig-tools-global-options-appearance">Figure&nbsp;<span>4.2</span></a>.</p>
+<div id="fig-tools-global-options-appearance" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/tools-global-options-appearance.png" class="img-fluid figure-img" alt="screenshot of RStudio's Global Options window showing the Appearance options" width="800"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.2: Tools | Global Options opens a window. One of the options is Appearance</figcaption><p></p>
+</figure>
+</div>
+<p>Go to the <code>Appearance</code> Options and choose and Editor theme you like, followed by OK.</p>
+<p>The default theme is Textmate. You will notice that all the Editor themes have syntax highlighting so that keywords, variable names, operators, etc are coloured but some themes have stronger contrasts than others. For beginners, I recommend Vibrant Ink, Chaos or Merbivore rather than Dreamweaver or Gob which have little contrast between some elements. However, individuals differ so experiment for yourself. I tend to vary between Solarised light and dark.</p>
+<p>You can also turn one Screen Reader Support in the Accessibility Options in Tools | Global Options.</p>
+<p>Back to the Panes. You should be looking at three windows: One on the left and two on the right<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>The window on the left, labelled Console, is where R commands are executed. In a moment we will start by typing commands in this window. Over on the right hand side, at the top, have several tabs, with the Environment tab showing. This is where all the objects and data that you create will be listed. Behind the Environment tab is the History and later you will be able to view this to see a history of all your commands.</p>
+<p>On the bottom right hand side, we have a tab called Plots which is where your plots will go, a tab called Files which is a file explorer just like Windows Explorer or Mac Finder, and a Packages tab where you can see all the packages that are installed. The Packages tab also provides a way to install additional packages. The Help tab has access to all the manual pages.</p>
+<p>Right, let’s start coding!</p>
+</section><section id="your-first-piece-of-code" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="your-first-piece-of-code">
+<span class="header-section-number">4.3.2</span> Your first piece of code</h3>
+<p>We can use R just like a calculator. Put your cursor after the <code>&gt;</code> in the Console, type <code>3 + 4</code> and ↵ Enter to send that command:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span><span class="op">+</span><span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<p>The <code>&gt;</code> is called the “prompt”. You do not have to type it, it tells you that R is ready for input.</p>
+<p>Where I’ve written <code>3+4</code>, I have no spaces. However, you <em>can</em> have spaces, and in fact, it’s good practice to use spaces around your operators because it makes your code easier to read. So a better way of writing this would be:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">+</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<p>In the output we have the number <code>7</code>, which, obviously, is the answer. From now on, you should assume commands typed at the console should be followed by ↵ Enter to send them.</p>
+<p>The one in brackets, <code>[1]</code>, is an index. It is telling you that the <code>7</code> is the first element of the output. We can see this more clear if we create something with more output. For example, <code>50:100</code> will print the numbers from 50 to 100.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">50</span><span class="op">:</span><span class="fl">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68
+[20]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87
+[39]  88  89  90  91  92  93  94  95  96  97  98  99 100</code></pre>
+</div>
+</div>
+<p>The numbers in the square brackets at the beginning of the line give you the index of the first element in the line. R is telling you where you are in the output.</p>
+</section><section id="assigning-variables" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="assigning-variables">
+<span class="header-section-number">4.3.3</span> Assigning variables</h3>
+<p>Very often we want to keep input values or output for future use. We do this with ‘assignment’ An assignment is a statement in programming that is used to set a value to a variable name. In R, the operator used to do assignment is <code>&lt;-</code>. It assigns the value on the right-hand to the value on the left-hand side.</p>
+<p>To assign the value <code>3</code> to <code>x</code> we do:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and ↵ Enter to send that command.</p>
+<p>The assignment operator is made of two characters, the <code>&lt;</code> and the <code>-</code> and there is a keyboard short cut: Alt+- (windows) or Option+- (Mac). Using the shortcut means you’ll automatically get spaces. You won’t see any output when the command has been executed because there is no output. However, you will see <code>x</code> listed under Values in the Environment tab (top right).</p>
+<p>Your turn! Assign the value of <code>4</code> to a variable called <code>y</code>:</p>
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Check you can see <code>y</code> listed in the Environment tab.</p>
+<p>We can use these values in calculations just like we could in in maths and algebra.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<p>We get the output of <code>7</code> just as we expect. Suppose we make a mistake when typing, for example, accidentally pressing the u button instead of the y button:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'u' not found</code></pre>
+</div>
+</div>
+<p>We get an error. We will probably see this error quite often - it means we have tried to use a variable that is not in our Environment. So when you get that error, have a quick look up at your environment<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>We made a typo and will want to try again. We usefully have access to all the commands that previously entered when we use the ↑ Up Arrow. This is known as command recall. Pressing the ↑ Up Arrow once recalls the last command; pressing it twice recalls the command before the last one and so on.</p>
+<p>Recall the <code>x + u</code> command (you may need to use the ↓ Down Arrow to get back to get it) and use the Back space key to remove the <code>u</code> and then add a <code>y</code>.</p>
+<p>A lot of what we type is going to be wrong - that is not because you are a beginner, it is same for everybody! On the whole, you type it wrong until you get it right and then you move to the next part. This means you are going to have to access your previous commands often. The History - behind the Environment tab - contains everything you can see with the ↑ Up Arrow. You can imagine that as you increase the number of commands you run in a session, having access the this record of everything you did is useful. However, the thing about the history is, that it has <em>everything</em> you typed, including all the wrong things!</p>
+<p>What we really want is a record of everything we did that was right! This is why we use scripts instead of typing directly into the console.</p>
+</section><section id="using-scripts" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="using-scripts">
+<span class="header-section-number">4.3.4</span> Using Scripts</h3>
+<p>An R script is a plain text file with a <code>.R</code> extension and containing R code. Instead of typing into the console, we normally type into a script and then send the commands to the console when we are ready to run them. Then if we’ve made any mistakes, we just correct our script and by the end of the session, it contains a record of everything we typed that worked.</p>
+<p>You have several options open a new script:</p>
+<ul>
+<li>button: Green circle with a white cross, top left and choose R Script</li>
+<li>menu: File | New File | R Script</li>
+<li>keyboard shortcut: Ctrl+Shift+N (Windows) / Shift+Command+N (Mac)</li>
+</ul>
+<p>Open a script and add the two assignments to it:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To send the first line to the console, we place our cursor on the line (anywhere) and press Ctrl-Enter (Windows) / Command-Return. That line will be executed in the console and in the script, our cursor will jump to the next line. Now, send the second command to the console in the same way.</p>
+<p>From this point forward, you should assume commands should be typed into the script and sent to the console.</p>
+<p>Add the incorrect command attempting to sum the two variables:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'u' not found</code></pre>
+</div>
+</div>
+<p>To correct this, we do not add another line to the script but instead edit the existing command:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<p>In addition to making it easy to keep a record of your work, scripts have another big advantage, you can include ‘comments’ - pieces of text that describe what the code is doing. Comments are indicated with a <code>#</code> in front of them. You can write anything you like after a <code>#</code> and R will recognise that it is not code and doesn’t need to be run.</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># This script performs the sum of two values</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span>    <span class="co"># can be altered</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span>    <span class="co"># can be altered</span></span>
+<span></span>
+<span><span class="co"># perform sum</span></span>
+<span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+</div>
+<p>The comments should be highlighted in a different colour than the code. They will be italic in some Editor themes.</p>
+<p>You have several options save a script:</p>
+<ul>
+<li>button: use the floppy disc icon</li>
+<li>menu: File | Save</li>
+<li>keyboard shortcut: Ctrl+S (Windows) / Command+S (Mac)</li>
+</ul>
+<p>You could use a name like <code>test1.R</code> - note the <code>.R</code> extension wil be added automatically.</p>
+</section><section id="other-types-of-file-in-rstudio" class="level3" data-number="4.3.5"><h3 data-number="4.3.5" class="anchored" data-anchor-id="other-types-of-file-in-rstudio">
+<span class="header-section-number">4.3.5</span> Other types of file in RStudio</h3>
+<ul>
+<li>
+<code>.R</code> script code but not the objects. You always want to save this</li>
+<li>
+<code>.Rdata</code> also known as the workspace or session, the objects, but not the code. You usually do not want to save this. Some exceptions e.g., if it takes quite a long time to run the commands.</li>
+<li>text files</li>
+</ul>
+<p>I recommend changing some of the default settings to make your life a little easier. Go back into the Global Options window with Tools | Global Options. The top tab is General <a href="#fig-tools-global-options-general">Figure&nbsp;<span>4.3</span></a>.</p>
+<div id="fig-tools-global-options-general" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/tools-global-options-general.png" class="img-fluid figure-img" alt="screenshot of RStudio's Global Options window showing the General options" width="800"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.3: Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.</figcaption><p></p>
+</figure>
+</div>
+<p>First, we will set our default working directory. Under ‘Default working directory (when not in a project<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>):’ click Browse and navigate to a through your file system to a folder where you want to work. You may want to create a folder specifically for studying this book.</p>
+<p>Second, we will change the Workspace options. Turn off ‘Restore .RData into workspace at startup’ and change ‘Save workspace to .RData on exit’ to ‘Never’. These options mean R will start up clean each time.</p>
+</section></section><section id="recap-of-rstudio-anatomy" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="recap-of-rstudio-anatomy">
+<span class="header-section-number">4.4</span> Recap of RStudio anatomy</h2>
+<p>This figure (see <a href="#fig-rstudio-anatomy">Figure&nbsp;<span>4.4</span></a><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>) summarises shows what each of the four RStudio panes and what they are used for to summarise much of what we have covered so far.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-rstudio-anatomy" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.4: A screenshot of RStudio’s four panes annotated with what each pane is for.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="data-types-and-structures-in-r" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="data-types-and-structures-in-r">
+<span class="header-section-number">4.5</span> Data types and structures in R</h2>
+<p>just the basics but you can get a long way with these</p>
+<section id="types-of-values" class="level3" data-number="4.5.1"><h3 data-number="4.5.1" class="anchored" data-anchor-id="types-of-values">
+<span class="header-section-number">4.5.1</span> Types of values</h3>
+</section><section id="data-structures" class="level3" data-number="4.5.2"><h3 data-number="4.5.2" class="anchored" data-anchor-id="data-structures">
+<span class="header-section-number">4.5.2</span> Data structures</h3>
+</section></section><section id="rstudio-projects" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="rstudio-projects">
+<span class="header-section-number">4.6</span> RStudio Projects</h2>
+<ul>
+<li>
+<code>.RProj</code> indicates a folder is an RStudio Project</li>
+</ul></section><section id="installing-packages" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="installing-packages">
+<span class="header-section-number">4.7</span> Installing packages</h2>
+</section><section id="your-first-graph" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="your-first-graph">
+<span class="header-section-number">4.8</span> Your first graph</h2>
+<p>very simple ggplot, geom point scatter</p>
+</section><section id="summary" class="level2" data-number="4.9"><h2 data-number="4.9" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">4.9</span> Summary</h2>
+
+
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>If this is not a fresh install of RStudio, you might be looking at fours windows, two on the left and two on the right. That’s fine - we will al be using four shortly. For the time being, you might want to close the “Script” window using the small cross next to “Untitled1”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>When we are using scripts, it is very easy to write code but forget to run it. Very often when you see this error it will because you have written the code to create an object but forgotten to execute it.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We will find out what an RStudio Project is very soon. You will want to use a project for most of your work - they make everything a little easier.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>You can zoom into this at the <a href="https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg">Direct link</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./ideas_about_data.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Ideas about data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./working_with_data_rstudio.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Working with data in RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
