@@ -1,6 +1,5 @@
 # First Steps in RStudio
 
-      
 -   what is R and Rstudio. Installing them
 -   intro to rstudio, scripts
 -   data types and data structures, project oriented workflow
@@ -37,7 +36,7 @@ You learned this rule in your language very early, long before you were consciou
 
 There is a tool bar at the top of RStudio. Choose the `Tools` option and then `Global options`. This will open a window where many options can be changed @fig-tools-global-options-appearance.
 
-![Tools | Global Options opens a window. One of the options is Appearance](images/tools-global-options-appearance.png){#fig-tools-global-options-appearance fig-alt="screenshot of RStudio's Global Options window showing the Appearance options" width="800"}
+![Tools \| Global Options opens a window. One of the options is Appearance](images/tools-global-options-appearance.png){#fig-tools-global-options-appearance fig-alt="screenshot of RStudio's Global Options window showing the Appearance options" width="800"}
 
 Go to the `Appearance` Options and choose and Editor theme you like, followed by OK.
 
@@ -51,8 +50,7 @@ The window on the left, labelled Console, is where R commands are executed. In a
 
 On the bottom right hand side, we have a tab called Plots which is where your plots will go, a tab called Files which is a file explorer just like Windows Explorer or Mac Finder, and a Packages tab where you can see all the packages that are installed. The Packages tab also provides a way to install additional packages. The Help tab has access to all the manual pages.
 
-
-Right, let's start coding! 
+Right, let's start coding!
 
 ### Your first piece of code
 
@@ -62,11 +60,9 @@ We can use R just like a calculator. Put your cursor after the `>` in the Consol
 3+4
 ```
 
-
 The `>` is called the "prompt". You do not have to type it, it tells you that R is ready for input.
 
 Where I've written `3+4`, I have no spaces. However, you *can* have spaces, and in fact, it's good practice to use spaces around your operators because it makes your code easier to read. So a better way of writing this would be:
-
 
 ```{r}
 3 + 4
@@ -84,8 +80,7 @@ The numbers in the square brackets at the beginning of the line give you the ind
 
 ### Assigning variables
 
-Very often we want to keep input values or output for future use. We do this with 'assignment'
-An assignment is a statement in programming that is used to set a value to a variable name. In R, the operator used to do assignment is ` <-`. It assigns the value on the right-hand to the value on the left-hand side.
+Very often we want to keep input values or output for future use. We do this with 'assignment' An assignment is a statement in programming that is used to set a value to a variable name. In R, the operator used to do assignment is `<-`. It assigns the value on the right-hand to the value on the left-hand side.
 
 To assign the value `3` to `x` we do:
 
@@ -95,16 +90,14 @@ x <- 3
 
 and ↵ Enter to send that command.
 
-The assignment operator is made of two characters, the `<` and the `-` and there is a keyboard short cut: Alt+- (windows) or Option+- (Mac). Using the shortcut means you'll automatically get spaces. 
-You won't see any output when the command has been executed because there is no output. However, you will see `x` listed under Values in the Environment tab (top right).
+The assignment operator is made of two characters, the `<` and the `-` and there is a keyboard short cut: Alt+- (windows) or Option+- (Mac). Using the shortcut means you'll automatically get spaces. You won't see any output when the command has been executed because there is no output. However, you will see `x` listed under Values in the Environment tab (top right).
 
 Your turn! Assign the value of `4` to a variable called `y`:
+
 ```{r}
 #| code-fold: true
 y <- 4
 ```
-
-
 
 Check you can see `y` listed in the Environment tab.
 
@@ -113,7 +106,6 @@ We can use these values in calculations just like we could in in maths and algeb
 ```{r}
 x + y
 ```
-
 
 We get the output of `7` just as we expect. Suppose we make a mistake when typing, for example, accidentally pressing the u button instead of the y button:
 
@@ -124,14 +116,13 @@ x + u
 
 We get an error. We will probably see this error quite often - it means we have tried to use a variable that is not in our Environment. So when you get that error, have a quick look up at your environment[^first_steps_rstudio-2].
 
-We made a typo and will want to try again. We usefully have access to all the commands that  previously entered when we use the ↑ Up Arrow. This is known as command recall. Pressing the ↑ Up Arrow once recalls the last command; pressing it twice recalls the command before the last one and so on.  
+We made a typo and will want to try again. We usefully have access to all the commands that previously entered when we use the ↑ Up Arrow. This is known as command recall. Pressing the ↑ Up Arrow once recalls the last command; pressing it twice recalls the command before the last one and so on.
 
 Recall the `x + u` command (you may need to use the ↓ Down Arrow to get back to get it) and use the Back space key to remove the `u` and then add a `y`.
 
-
 A lot of what we type is going to be wrong - that is not because you are a beginner, it is same for everybody! On the whole, you type it wrong until you get it right and then you move to the next part. This means you are going to have to access your previous commands often. The History - behind the Environment tab - contains everything you can see with the ↑ Up Arrow. You can imagine that as you increase the number of commands you run in a session, having access the this record of everything you did is useful. However, the thing about the history is, that it has *everything* you typed, including all the wrong things!
 
-What we really want is a record of everything we did that was right! This is why we use scripts instead of typing directly into the console. 
+What we really want is a record of everything we did that was right! This is why we use scripts instead of typing directly into the console.
 
 ### Using Scripts
 
@@ -140,11 +131,11 @@ An R script is a plain text file with a `.R` extension and containing R code. In
 You have several options open a new script:
 
 -   button: Green circle with a white cross, top left and choose R Script
--   menu: File | New File | R Script
+-   menu: File \| New File \| R Script
 -   keyboard shortcut: Ctrl+Shift+N (Windows) / Shift+Command+N (Mac)
 
-
 Open a script and add the two assignments to it:
+
 ```{r}
 x <- 3
 y <- 4
@@ -167,8 +158,7 @@ To correct this, we do not add another line to the script but instead edit the e
 x + y
 ```
 
-
-In addition to making it easy to keep a record of your work, scripts have another big advantage, you can include 'comments' - pieces of text that describe what the code is doing.  Comments are indicated with a `#` in front of them. You can write anything you like after a `#` and R will recognise that it is not code and doesn't need to be run.
+In addition to making it easy to keep a record of your work, scripts have another big advantage, you can include 'comments' - pieces of text that describe what the code is doing. Comments are indicated with a `#` in front of them. You can write anything you like after a `#` and R will recognise that it is not code and doesn't need to be run.
 
 ```{r}
 # This script performs the sum of two values
@@ -179,12 +169,13 @@ y <- 4    # can be altered
 # perform sum
 x + y
 ```
+
 The comments should be highlighted in a different colour than the code. They will be italic in some Editor themes.
 
 You have several options save a script:
 
 -   button: use the floppy disc icon
--   menu: File | Save 
+-   menu: File \| Save
 -   keyboard shortcut: Ctrl+S (Windows) / Command+S (Mac)
 
 You could use a name like `test1.R` - note the `.R` extension wil be added automatically.
@@ -195,10 +186,9 @@ You could use a name like `test1.R` - note the `.R` extension wil be added autom
 -   `.Rdata` also known as the workspace or session, the objects, but not the code. You usually do not want to save this. Some exceptions e.g., if it takes quite a long time to run the commands.
 -   text files
 
-I recommend changing some of the default settings to make your life a little easier. Go back into the Global Options window with Tools | Global Options. The top tab is General @fig-tools-global-options-general.
+I recommend changing some of the default settings to make your life a little easier. Go back into the Global Options window with Tools \| Global Options. The top tab is General @fig-tools-global-options-general.
 
-![Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.](images/tools-global-options-general.png){#fig-tools-global-options-general fig-alt="screenshot of RStudio's Global Options window showing the General options" width="800"}
-
+![Tools \| Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.](images/tools-global-options-general.png){#fig-tools-global-options-general fig-alt="screenshot of RStudio's Global Options window showing the General options" width="800"}
 
 First, we will set our default working directory. Under 'Default working directory (when not in a project[^first_steps_rstudio-3]):' click Browse and navigate to a through your file system to a folder where you want to work. You may want to create a folder specifically for studying this book.
 
@@ -206,7 +196,8 @@ Second, we will change the Workspace options. Turn off 'Restore .RData into work
 
 ## Recap of RStudio anatomy
 
-This figure (see @fig-rstudio-anatomy[^first_steps_rstudio-4]) summarises shows what each of the four RStudio panes and what they are used for to summarise much of what we have covered so far. 
+This figure (see @fig-rstudio-anatomy[^first_steps_rstudio-4]) summarises shows what each of the four RStudio panes and what they are used for to summarise much of what we have covered so far.
+
 ```{r}
 #| echo: false
 #| label: fig-rstudio-anatomy
@@ -216,33 +207,304 @@ knitr::include_graphics("http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg
 
 ## Data types and structures in R
 
-just the basics but you can get a long way with these
+In this section, I'm going to introduce you to R's data types or the ones we're going to use very often and also some functions and how R functions are used.
 
-### Types of values
+These are not all the R data types and structures but it is a subset you can get along way with
 
-### Data structures
+We are going to consider
+
+-   types of value also known as data types
+
+-   functions
+
+-   data structures
+
+### Data types
+
+This refers to the type of value that something is. They might be numbers or or 'logical' (either true of false). We assign a number, like the value of 23 to a variable called `x` like this:
+
+```{r}
+x <- 23
+```
+
+We do not need to use quotes for numbers but we do need to use them for characters. We assign the word banana to the variable `a` like this:
+
+```{r}
+a <- "banana"
+```
+
+This because R wouldn't know whether you were referring to a value or a existing object called `banana`. This is why you can't have variable name like `14` - R would not be able to tell the difference between the number 14 and an object named `14`.
+
+All words, including single characters, need to have quotes around them. You can even force a number to be a character by putting quotes around it:
+
+```{r}
+b <- "23"
+```
+
+Notice that things inside quotes appear in a different colour (the colour will depend on the Editor theme your chose). This will help you identify when you have forgotten some closing quotes[^first_steps_rstudio-5]:
+
+```{r}
+#| eval: false
+a <- "banana
+x <- 23
+
+```
+
+We also have these special values that are called logicals, and that's something that is a true or false.
+
+```{r}
+c <- TRUE
+```
+
+TRUE. Now, what you can see there, although this is word, is actually a special word in R. Not quotes needed
+
+So that's why it's come out a different colour.
+
+You can see the variable `c` has the value TRUE. It also could have the value FALSE.
+
+```{r}
+c <- FALSE
+```
+
+As you type false, the colour changes as it recognises the special word `FALSE`. Pay attention to the editor theme's colouring - it is trying to help you
+
+### Functions
+
+The aim of this section is to help you understand the logic of using a function. can't introduction all the functions
+
+It has a function name and then a set of brackets. The function names typically minimally explain what the function does. What goes inside the brackets are called arguments. When coding we often talk about passing arguments to functions.
+
+``` r
+function_name(argument)
+```
+
+A function can take zero to many arguments. where you give several arguments, they are separated by comments
+
+``` r
+function_name(argument1, argument2, argument3)
+```
+
+getwd() no arguments
+
+The first function you are going to use function `str()`, for structure.
+
+```{r}
+str(x)
+```
+
+It's telling me that `x` is a number.
+
+Your turn! Use `str()` on `b`:
+
+```{r}
+#| code-fold: true
+str(b)
+```
+
+`str()` is a function I use a lot to check what sort of R object I have.
+
+These are like single values we've got here, and often because we work on the data, we've actually got collections of values, so whole rows or whole columns of numbers that all pertain to the same thing.
+
+### Data structures: vectors
+
+Let's say it could be 10 heights, for example, and you're going to want to collect those numbers together into a data structure. And the minimal data structure is called a vector.
+
+So I can create a vector, which collects together several numbers using a , function, `c()`
+
+And this is one of the only functions in R which has a single letter. And because it has a single letter, sometimes people get confused about it but it is just a function. Just like `str()` is a function. It has a function name and then a set of brackets.
+
+To create a vector called `vect` of several numbers we use
+
+```{r}
+vect <- c(23, 42, 7, 9, 54, 2)
+```
+
+a data piece called "vect", which is actually a vector. And it has you can see six numbers in it. And then it's also telling you that there are six elements or that the indices go from one to six.
+
+```{r}
+str(vect)
+```
+
+So it's numbers. And there's 6 of them.
+
+We can also do vectors of characters. Use the letters of the word banana: 
+
+```{r}
+vect_char <- c("b", "a", "n", "a", "n", "a")
+```
+
+ Now, the other feature that helps you a lot is a feature I absolutely love in RStudio is that if you forget quotes or brackets,
+
+you can put them around the outside of things very easily. So let's say I'm going to create a vector of numbers and forgot the function I need to collect together these in brackets.
+
+So if I highlight those words and I do the shift and then open bracket instead of overwriting  you actually put the brackets around the outside.
+
+This is a feature you get to love so much and use so often that it really annoys me when you use other programs overwrite when you wanted to put something in quotes
+
+So we could also have vectors of logical values. So previously I just had a single value, false or true.
+```{r}
+vect_logic <- c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE)
+```
+
+still need to use the c() function to collect them together. But because these are special words, I don't need to put quotes around them at all.
+
+It's a special word. So normally we have our data in some kind of structure.
+
+### Indexing vectors
+
+And this is the minimal structure of the vector. And if we want to get information out of those vectors, so we only want one value.
+
+Like the first one. Then we have to index them. So I'm going to index this
+
+I have to use square brackets. So if we use that and then I open some square brackets, you see the closing brackets open up as well.
+
+ And if I use the index of two, that will print out for me the number twelve.
+
+There we go. The bottom there's is number twelve so that the indices start counting from one.
+
+footnote unlike Python, if you're familiar with Python, where you start counting from zero.
+
+So that number 23 as the index one. The index to the number 42 index three. And you can index logical factors and character factors in exactly the same way.
+
+So if I was to use a word, let's say I want to get an `a` out.
+
+
+That's on the index. Number three. 
+
+Similarly with the logic groups, as I've called it, if I use the index one, it should give me the value.
+
+True. There we go. I'm getting the value true.
+
+So this is where you want to select just a single value. Sometimes we want to select more than one value.
+
+get all the `a` out
+ So we might want to have the second value. And the fourth value from backed.
+So if I want the second and the fourth, I'm going to need to give both the second and the fourth index.
+
+But I need to collect these together in a sea because I'm trying to give it to things to refer to one.
+
+Index. I need to put those two things together That means I want the second and the fourth element. So there I have twelve.
+
+
+So to ensure that both of those are interpreted as for the first dimension, single dimension, then you need to Clairton together with a C.
+
+So here we've called we've selected from vectors using indices, but we could also select from vectors using logical vectors.
+
+So if we look at using this vector. Vector here, and I'm gonna select from that using the logic.
+
+ So if I say that and then you square brackets and give it logic.
+
+So what's inside logic is true, false, false, true.
+
+So what that's gonna do is return twenty three, but not twelve, not 42.
+
+And then it will return 19. So he's saying which of the values should be returned are the ones where logic evaluates to true.
+
+There you go. So I've got 23 and 19. The first and the last.
+
+Well, this is something we use quite often. We may not explicitly make the logic factor,
+
+but we may have some condition in here which actually evaluates to logical thing a logical set of logical values like above 20 or something like that.
+
+So, for example, I can just do that now, naturally. So if I go that.
+
+So if I do that great of fifteen, this is going to return the values, true or false, depending on whether the value in fact is great or less than 50.
+
+ So there I get true, false, true, true. So if you look at your values here.
+
+Twelve is the only one under fifteen, so that's come out as false.
+
+And then you might use that expression to select from your vector.
+
+So that would go inside the square brackets
+
+So here I am selecting from "vect", where the value of "vect" is above 15.
+
+So that's selecting for me where everywhere where we have a "true". So the first, third and fourth values. 
+
+We have this function here mean(). Which will give you the mean of some values, as you might expect.
+
+And it only works on numbers. This will give the mean of those numbers inside vect
+
+it is giving me a value of 24 there. If I try and use this function
+
+on "another" or on "word", both of which are character vectors,
+
+R is going to complain. There's the error message:
+
+NA means it's not not-applicable. There's no such value.
+
+And then you get a warning telling you why that's not worked.
+
+This gives me a chance actually to talk a little bit about arguments in functions.
+
+So what I'm going to do is I'm going to create a vector which has an additional value in it, which is NA and I have called it "vect2" to. "vect2" contains numbers and NA. It is a special value. It means not applicable. It's not a zero but a missing value
+
+So I let's run that. I've got this vector of it's numbers,
+
+R knows its numbers. But this last number doesn't exist.
+
+And if I try and calculate the mean on this vector
+
+R is going to complain. You get an NA. So if you try to calculate the mean of a vector of values with an NA in, you'll get an NA as an answer. `mean()` has an argument that allows you to cope with that situation, which is one that comes calls up a lot, which is just to exclude the missing values before you calculate the mean.
+
+It is called `na.rm`. And you can see RStudio is trying to help me out here with the with the argument that I want.
+
+So I'm going to set `na.rm to TRUE`. So that means calculate the mean of this vector after removing the missing values
+```{r}
+# mean(, na.rm = TRUE)
+```
+
+
+You have the function name, open brackets, and then each different argument in the function is separated by commas.
+
+### Data structures: dataframes
+
+So at the moment, we've got values which are in individual vectors, but very often we have data that's collected together into sets.
+
+So you might have several variables or vectors in in a single dataset. And the dataframe is the way we collect those together.
+And it's the the most common unit of data in R. It is the data structure that we use all the time.
+
+All the statistical functions and plotting functions and so on, use dataframes as inputs.
+
+And we can create a data frame. I'm going to call it "df" and I use this function data.frame().
+
+And then I'm going to give it the variables, "vect" and "word".
+
+And run it, and now you see that's come up here above in the global environment as data "df". And this is a data frame. It's collected together these vectors. Let me click on that. I can get this spreadsheet like view of that data now.
+
+So this is the sort of format that you're going to see all the time.
+
+And if you want to refer to one of these vectors, they don't exist except inside data frame.
+
+To refer to them, you have to use this dollar notation. df
+
+then a dollar and then the name of the variable that you want.
+
+So that will print out vect for me.
+
+c(1:5, 10.5, "next") \[1\] "1" "2" "3" "4" "5" "10.5" "next"
+
+### tibbles
 
 ## RStudio Projects
 
 -   `.RProj` indicates a folder is an RStudio Project
 
-
 ## Installing packages
-
 
 ## Your first graph
 
 very simple ggplot, geom point scatter
 
-
 ## Summary
-
-
 
 [^first_steps_rstudio-1]: If this is not a fresh install of RStudio, you might be looking at fours windows, two on the left and two on the right. That's fine - we will al be using four shortly. For the time being, you might want to close the "Script" window using the small cross next to "Untitled1".
 
-[^first_steps_rstudio-2]: When we are using scripts, it is very easy to write code but forget to run it. Very often when you see this error it will because you have written the code to create an object but forgotten to execute it. 
+[^first_steps_rstudio-2]: When we are using scripts, it is very easy to write code but forget to run it. Very often when you see this error it will because you have written the code to create an object but forgotten to execute it.
 
 [^first_steps_rstudio-3]: We will find out what an RStudio Project is very soon. You will want to use a project for most of your work - they make everything a little easier.
 
 [^first_steps_rstudio-4]: You can zoom into this at the [Direct link](https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg)
+
+[^first_steps_rstudio-5]: RStudio makes it hard for you to forget closing quotes and brackets because when you type an opening quote or bracket, it automatically adds its closing partner. When people are learning they are sometimes tempted to delete these so they can type what goes inside the quotes/brackets and then manually add the closing partner. I strongly recommend you don't not delete them. RStudio adds the closing character but it leaves your cursor in the right position to complete the contents.
