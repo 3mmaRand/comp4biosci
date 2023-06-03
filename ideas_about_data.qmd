@@ -1,26 +1,125 @@
 # Ideas about data
 
--   ideas about data - data types, types of variables, - distributions - the normal distribution - summarising, one variable, several variables - role in analysis - plot variables, one, two - tidy data
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+status("drafting")
+```
+This chapter covers some important concepts data. Data is made up of properties we have measured or recorded, known as variables, and observations, the individual things with those properties. Data is most commonly (and helpfully) organised with variables in columns and each observation on a row.
+
+We can define a variable in two main ways:
+
+1. by what kinds of value it can take and how frequently each of its possible values occur
+2. by what role the variable takes in analysis
+
+Both of these determine how we summarise, plot and analyse data.
 
 
-## Types of data
+## Role in analysis
 
-variables
+When we do research, we typically have variables that we choose or set and variables that we measure. The variables we choose or set are called independent or explanatory variables. The variables we measure are called dependent or response variables. 
+
+
+
+TODO: examples
+
+## Kinds of value: data types
+
+The types of values a variable can take determines how we summarise, plot and analyse them. Sometimes this is obvious - when you can recorded the colour of an observation you can't find the mean colour of the sample but you can report the most common colour.
+
+An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.
+
+### Discrete data
+Discrete variables can take only specific values, like genotype or the number of leaves
+
+#### Nominal and Ordinal
+Nominal and ordinal data are categorical and often act as explanatory variables.  
+Nominal variable have no particular order, for example, the eye colour of Drosophila or the genotype of a mouse. When summarising data on eye colour, it wouldn't matter what order the information was given or plotted. Ordinal variables have an order. The Likert scale used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them.
+
+Summarising nominal or ordinal data
+The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value.
+
+#### Counts
+Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values
 
 ### Continuous data
 
-### Discrete data
+Continuous variables are measurements that can take *any* value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. For example,
 
-#### Counts
-
-#### Nominal and Ordinal
 
 ## Distributions
 
-the normal distribution
+The distribution of a variable describes the types of values it can take and the likelihood of each value occurring. For example, for a variable like human height values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur.
 
--   summarising, one variable, several variables - role in analysis - plot variables, one, two - tidy data
+```{r}
+m <- 1.65
+sd <- 0.06
+ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = m, sd = sd)) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0)) +
+  annotate("text", x = 1.5, y = 4.5,
+           label = "Values are rare") +
+    annotate("text", x = 1.65, y = 4.5,
+           label = "Values are common") +
+    annotate("text", x = 1.8, y = 4.5,
+           label = "Values are rare") +
+  theme_classic()
+```
 
-## The role of variables in analysis
 
-response and explanatory
+
+### The normal distribution
+
+### Distribution of counts
+
+
+## Theory and practice
+The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have might differ from what we would expect for a particular variable. For example, we would expect the mass of cats to be continuous but if our scales only measure to the nearest kilogram then 
+
+```{r}
+m <- 4
+sd <- 0.8
+set.seed(1234)
+a <- ggplot(data = data.frame(Mass = c(m - 3 * sd, m + 3 * sd)), aes(Mass)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = m, sd = sd)) + 
+  scale_y_continuous(breaks = NULL, name = "", 
+                     expand = c(0, 0)) +
+  annotate("text", x = m - 2 * sd, y = 0.4,
+           label = "Theory") +
+  theme_classic()
+
+b <- ggplot(data = data.frame(Mass = round(rnorm(1000, m, sd), 0)), aes(Mass)) +
+  geom_histogram(binwidth = 1, colour = "black", fill = "white") +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0)) +
+  annotate("text", x = m - 2 * sd, y = 400,
+           label = "Practice") +
+  theme_classic()
+
+a + b
+```
+
+
+
+```{r}
+m <- 120000
+sd <- 20000
+set.seed(12)
+ggplot() +
+  geom_histogram(data = data.frame(hairs = round(rnorm(60000, m, sd), 0)),
+                 aes(hairs),
+                 bins = 120, colour = "black", fill = "white") +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0)) +
+  scale_x_continuous("Number of hairs on head") +
+  theme_classic()
+
+
+```
+
+

@@ -1,17 +1,24 @@
 # First Steps in RStudio
 
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+status("polishing")
+```
+
 This chapter starts by explaining what R and RStudio are and how you can install them on your own machine. We introduce you to working in RStudio, changing its appearance to suit you and to the key things you need to know about R.
 
 ## What are R and Rstudio?
 
 ### What is R?
 
-R is a programming language and environment for statistical computing and graphics which is free and open source. It is widely used in industry and academia. It is what is known as a “domain-specific” language meaning that it is designed especially for doing data analysis and visualisation rather than a “general-purpose” programming language like Python and C++. It makes doing the sorts of things that bioscientists do a bit easier than in a general purpose-language.
+R is a programming language and environment for statistical computing and graphics which is free and open source. It is widely used in industry and academia. It is what is known as a "domain-specific" language meaning that it is designed especially for doing data analysis and visualisation rather than a "general-purpose" programming language like Python and C++. It makes doing the sorts of things that bioscientists do a bit easier than in a general purpose-language.
 
 ### What is RStudio?
 
-RStudio is what is known as an “integrated development environment” (IDE) for R made by [Posit](https://posit.co/). IDEs have features that make it easier to do coding like syntax highlighting, code completion and viewers for files, code objects, packages and plots. You don’t have to use RStudio to use R but it is very helpful.
-
+RStudio is what is known as an "integrated development environment" (IDE) for R made by [Posit](https://posit.co/). IDEs have features that make it easier to do coding like syntax highlighting, code completion and viewers for files, code objects, packages and plots. You don't have to use RStudio to use R but it is very helpful.
 
 ### Why is it better to use R than Excel, googlesheets or some other spreadsheet program?
 
@@ -21,14 +28,14 @@ Spreadsheet programs are not statistical packages so although you can carry out 
 
 -   R is free and open source which it will always be available to you .
 -   Carrying out data analysis using coding makes everything you do reproducible
--   The skills and expertise you gain through learning R are highly transferable – much more so than those acquired using SPSS.
--   See Thomas Mock’s demonstration of doing some data analysis in R including “The Kick Ass Curve”: https://rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/
+-   The skills and expertise you gain through learning R are highly transferable -- much more so than those acquired using SPSS.
+-   See Thomas Mock's demonstration of doing some data analysis in R including "The Kick Ass Curve": https://rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/
 
-There are other good options such as Julia and Python and you are encouraged to explore these. We chose R in part because of the R community which is one of R’s greatest assets, being vibrant, inclusive and supportive of users at all levels. https://ropensci.org/blog/2017/06/23/community/
+There are other good options such as Julia and Python and you are encouraged to explore these. We chose R in part because of the R community which is one of R's greatest assets, being vibrant, inclusive and supportive of users at all levels. https://ropensci.org/blog/2017/06/23/community/
 
 ## Installing R and Rstudio
 
-You will need to install both R and RStudio to use them on your own machine.  Installation is normally straightforward but you can follow a tutorial here: https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome
+You will need to install both R and RStudio to use them on your own machine. Installation is normally straightforward but you can follow a tutorial here: https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome
 
 ### Installing R
 
@@ -36,7 +43,7 @@ Go to <https://cloud.r-project.org/> and download the "Precompiled binary distri
 
 #### For Windows
 
-Click "Download R for Windows", then "base", then "Download R 4.#.# for Windows". This will download an `.exe` file. Once downloaded, open (double click) that file to start the installation. 
+Click "Download R for Windows", then "base", then "Download R 4.#.# for Windows". This will download an `.exe` file. Once downloaded, open (double click) that file to start the installation.
 
 #### For Mac
 
@@ -48,11 +55,9 @@ Click "Download R for Linux". Instructions on installing are given for Debian, R
 
 ### Installing R Studio
 
-Go to <https://posit.co/download/rstudio-desktop/> 
-
+Go to <https://posit.co/download/rstudio-desktop/>
 
 ## Install the **`tidyverse`** package
-
 
 Install **`tidyverse`**:
 
@@ -60,7 +65,6 @@ Install **`tidyverse`**:
 #| eval: false
 install.packages("tidyverse")
 ```
-
 
 ## Introduction to RStudio
 
@@ -452,11 +456,14 @@ The functions we have used so far, `c()` and `str()` have worked without us havi
 ```{r}
 mean(ages)
 ```
-Imagine Charlie would like their age removed from the dataset or that we never knew their age. We would not want a vector containing just five elements because the ages would not match the people in the same position in the vector. Instead, we would have a missing value at that position. Missing values are `NA` (not applicable) in R and  `NA` is another special word, like `TRUE` and `FALSE`, that doesn't need quotes. We can set Charlie's age to NA using indexing:
+
+Imagine Charlie would like their age removed from the dataset or that we never knew their age. We would not want a vector containing just five elements because the ages would not match the people in the same position in the vector. Instead, we would have a missing value at that position. Missing values are `NA` (not applicable) in R and `NA` is another special word, like `TRUE` and `FALSE`, that doesn't need quotes. We can set Charlie's age to NA using indexing:
+
 ```{r}
 ages[names == "Charlie"] <- NA
 ages
 ```
+
 The `==` means "is equal to" and the result of `names == "Charlie"` is a vector of logicals: `FALSE FALSE FALSE  TRUE FALSE FALSE`. This means `ages[names == "Charlie"]` references the age in `ages` at the index of Charlie in `names`
 
 If we now try to calculate the mean age:
@@ -464,6 +471,7 @@ If we now try to calculate the mean age:
 ```{r}
 mean(ages)
 ```
+
 We get an NA! What we really want is an average of the ages we do have. The `mean()` function has an argument that allows you to cope with that situation called `na.rm`. By default, `na.rm` is set to `FALSE` but we can set it to `TRUE` using
 
 ```{r}
@@ -472,7 +480,7 @@ mean(ages, na.rm = TRUE)
 
 ### Data structures: dataframes
 
-We have three vectors, `names`, `ages` and `chocolate` which are all part of the same dataset. By far the most common way of organising data in R is within a "dataframe". A dataframe, has rows and columns: each column represents a variable and each row represents a case.  To make a dataframe using our three vectors we use:
+We have three vectors, `names`, `ages` and `chocolate` which are all part of the same dataset. By far the most common way of organising data in R is within a "dataframe". A dataframe, has rows and columns: each column represents a variable and each row represents a case. To make a dataframe using our three vectors we use:
 
 ```{r}
 people <- data.frame(names, ages, chocolate)
@@ -484,10 +492,7 @@ You will see `people` listed in the Global environment under Data. To open a spr
 
 ### Tibbles
 
-
 ## Summary
-
-
 
 [^first_steps_rstudio-1]: If this is not a fresh install of RStudio, you might be looking at fours windows, two on the left and two on the right. That's fine - we will al be using four shortly. For the time being, you might want to close the "Script" window using the small cross next to "Untitled1".
 

@@ -1,12 +1,63 @@
 # Workflow in RStudio
+```{r}
+#| results: "asis"
+#| echo: false
 
+source("_common.R")
+status("drafting")
+```
 
+## Understanding the pipe `|>`
+
+The pipe operator improves code readability by:
+
+-   structuring sequences of data operations left-to-right and top to bottom rather than from inside and out),
+-   minimizing the need for intermediates,
+-   making it easy to add steps anywhere in the sequence of operations.
+
+For example, suppose we want to apply a log-square root transformation which is sometimes applied to make a flat distribution more normal. There are two approaches we could use without the pipe: nesting the functions and creating an intermediate. We will consider both of these. First, let us generate a few numbers of work with:
+
+```{r}
+# generate some numbers
+# this will give me ten random numbers between 1 and 100
+nums <- sample(1:100, size = 10)
+```
+
+To apply the transformation we can nest the functions so the output put of `sqrt(nums)` becomes the input of `log()`:
+
+```{r}
+# apply a log-square root transformation
+tnums <- log(sqrt(nums))
+tnums
+```
+
+The first function to be applied is innermost. When we are using just two functions, the level of nesting does not cause too much difficulty in reading the code. However, you can image this gets more unreadable as the number of functions applied increases. It also makes it harder to debug and find out where an error might be. One solution is to create intermediate variables so the commands a given in order:
+
+```{r}
+# apply a log-square root transformation
+sqrtnums <- sqrt(nums)
+tnums <- log(sqrtnums)
+```
+
+Using intermediates make your code easier to follow at first but clutters up your environment and code with variables you don't care about. You also start of run out names!
+
+The pipe is a more elegant and readable solution. It allows you to send the output of one operation as input to the next function. The pipe has long been used by Unix operating systems (where the pipe operator is `|`). The R pipe operator is `|>`, a short cut for which is Ctrl+Shift+M.
+
+Using the pipe, we can apply out transformation with:
+
+```{r}
+tnums <- nums |> 
+  sqrt() |> 
+  log()
+```
+
+The command are in the order applied, there are no intermediates and the code is easier to debug and to build-up step-by-step..
+
+Note that `|>` is the pipe that comes with base R which was only added in the last couple of years. Before it existed, `**tidyverse**` had a pipe operator provided by the `*magrittr**` package. The magrittr pipe is `%>%`. In your googling, you may well see code written using the `%>%`. In most cases, the pipes are interchangeable.
 
 ## RStudio Projects
 
 -   `.RProj` indicates a folder is an RStudio Project
-
-
 
 ## folder arrangement
 
