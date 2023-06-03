@@ -9,6 +9,8 @@ library(patchwork)
 # adapted from R for Data Science (2e) by Hadley Wickham, 
 # Mine Çetinkaya-Rundel, and Garrett Grolemund.
 # Orignal: https://github.com/hadley/r4ds/blob/main/_common.R
+
+
 status <- function(type) {
   status <- switch(type,
                    polishing = "almost readable but is a first draft and may substantial edits",
@@ -26,11 +28,15 @@ class <- switch(type,
    
   cat(paste0(
     "\n",
-    ":::: status\n",
-    "::: callout-", class, " \n",
+    "::: {.callout-", class, "} \n",
     "You are reading a work in progress. ",
-    "This page ", status, ". ",
-    ":::\n",
-    "::::\n"
+    "This page ", status, ".\n",
+    ":::\n"
   ))
 }
+
+
+
+
+
+  
