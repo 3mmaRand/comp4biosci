@@ -33,7 +33,8 @@ jobs:
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
         with:
-          target: gh-pages
+          # The branch the action should deploy to.
+          branch: gh-pages
           # The folder the action should deploy. Adapt if you changed in Quarto config
           folder: docs
         env:
