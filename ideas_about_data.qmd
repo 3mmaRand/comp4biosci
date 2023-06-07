@@ -16,7 +16,7 @@ This chapter covers some important concepts data. Data is made up of:
 
 Data is most commonly (and helpfully) organised with variables in columns and each observation on a row.
 
-We can classify a variable in two main ways: by what role the variable takes in analysis and by what kinds of value it can take, and how frequently each of its possible values occur. The type of value and the likelihood of values appearing is known as a variable's *distribution*. Both of these determine how we summarise, plot and analyse data.
+We can classify a variable in two main ways: by what role the variable takes in analysis and by what kinds of value it can take and how frequently its possible values occur. The type of value and the likelihood of values appearing is known as a variable's *distribution*. Both of these determine how we summarise, plot and analyse data.
 
 ## Roles of variables in analysis
 
@@ -24,7 +24,218 @@ When we do research, we typically have variables that we choose or set and varia
 
 ## Distributions
 
-The distribution of a variable describes the types of values it can take and the likelihood of each value occurring. For example, for a variable like human height the values have decimal places and follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (@fig-normal-distribtion).
+any variable has a distribution
+
+A distribution is the values a variable can take and the
+chance of them occurring
+
+Distribution is a function (relationship)
+
+Parameters tune the shape of the distribution
+
+
+The distribution of a variable describes the types of values it can take and the likelihood of each value occurring. 
+
+An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.
+
+```{r}
+#| echo: false
+#| label: fig-distrib-contin
+#| fig-cap: "."
+mean <- 4.2
+sd <-  1.2
+
+dnorm_limit <- function(x) {
+    y <- dnorm(x, mean, sd)
+    y[x < 5 |  x > 10] <- NA
+    return(y)
+}
+
+ggplot(data = data.frame(x = c(0, 9)), aes(x)) +
+  stat_function(fun = dnorm, 
+                n = 101, 
+                args = list(mean, sd)) + 
+  stat_function(fun = dnorm_limit, 
+                geom = "area", 
+                fill = "lightseagreen") +
+  annotate("text",
+           x = 1, y = 0.2,
+           label = "Function") +
+  annotate("segment",
+           x = 1, y = 0.19,
+           xend = 2.5, yend = 0.125,
+           arrow = arrow(type = "closed", 
+                         length = unit(0.03, "npc"))) +
+  annotate("text",
+           x = 6.5, y = 0.25,
+           label = "Shaded area under curve\nis the probability of getting\na value of X or more") +
+  annotate("segment",
+           x = 6.5, y = 0.22,
+           xend = 5.5, yend = 0.1,
+           arrow = arrow(type = "closed", 
+                         length = unit(0.03, "npc"))) +
+  scale_y_continuous(breaks = NULL, 
+                     name = "",
+                     expand = c(0, 0)) +
+  scale_x_continuous(name = "Value a continuous variable can take",
+                     expand = c(0, 0),
+                     breaks = 5, labels = "X") +
+  
+  theme_classic()
+
+```
+
+```{r}
+#| echo: false
+#| label: fig-distrib-discrete
+#| fig-cap: "."
+mean <- 1.5
+
+
+ggplot(data.frame(x = c(0:6)), aes(factor(x), fill = factor(x))) +
+  geom_col(aes(y = dpois(x, mean)), colour = "black" ) +
+  annotate("text",
+           x = 6.4, y = 0.20,
+           label = "Probability of getting\na value of exactly Y") +
+  annotate("segment",
+           x = 6.4, y = 0.18,
+           xend = 6, yend = 0.12,
+           arrow = arrow(type = "closed", 
+                         length = unit(0.03, "npc"))) +
+  scale_y_continuous(breaks = NULL, 
+                     name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.25)) +
+  scale_x_discrete(name = "Value a discrete variable can take",
+                  breaks = 5, labels = "Y") +
+  scale_fill_manual(values = c("white",
+                               "white",
+                               "white",
+                               "white",
+                               "white",
+                               "lightseagreen",
+                               "white")) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+```
+
+
+### Discrete data
+
+Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.
+
+#### Categories: Nominal and Ordinal
+
+Categorical data can be nominal and ordinal depending on whether they are ordered. Nominal variable have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn't matter in what order the information was given or plotted. Ordinal variables have an order. The Likert scale @likert1932 used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (@fig-categories).
+
+```{r}
+#| echo: false
+#| label: fig-categories
+#| fig-cap: "The categories of bird species are unordered - or nominal - but those in a likert variable are ordinal."
+
+birds <- data.frame(Response = c("Robin",
+                                 "Chaffinch",
+                                 "Thrush",
+                                 "Wren"),
+                    Frequency = c(12, 6, 10, 13))
+
+a <- birds |> ggplot(aes(x = Response, y = Frequency)) +
+  geom_col() +
+  scale_x_discrete(name = "Species") +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0 , 20)) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+
+likert <- data.frame(Response = factor(c("Strongly agree",
+                                         "Agree",
+                                         "Disagree",
+                                         "Strongly disagree"), 
+                                       levels = c("Strongly agree",
+                                                  "Agree",
+                                                  "Disagree",
+                                                  "Strongly disagree")),
+                     Frequency = c(15, 18, 10, 2))
+
+b <- likert |> ggplot(aes(x = Response, y = Frequency)) +
+  geom_col() +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0 , 20)) +
+  theme_classic() +
+  theme(legend.position = "none")
+
+a + b
+```
+
+The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value (@tbl-likert).
+
+```{r}
+#| echo: false
+#| label: tbl-likert
+#| tbl-cap: "Frequency of reposnes."
+
+knitr::kable(likert) |> kableExtra::kable_styling()
+
+```
+
+#### Counts
+
+Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical and has a tail to the right - especially for lower count ranges.
+
+A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. @fig-counts shows the number of groundsel plants in a hundred 1 metre square quadrats[^ideas_about_data-1]. 
+[^ideas_about_data-1]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.
+
+```{r}
+#| echo: false
+#| label: fig-counts
+#| fig-cap: "Counts are discrete. They often follow a Poisson distribution."
+set.seed(5)
+nquad <- 100
+mu <- 0.7
+plants <- data.frame(nplants = rpois(nquad, mu)) 
+sample_m <- mean(plants$nplants)
+sample_median <- median(plants$nplants)
+
+plants |> ggplot(aes(x = factor(nplants))) +
+  geom_bar() +
+  geom_vline(xintercept = sample_m + 1,
+             colour = "darkcyan", 
+             linewidth = 2) +
+  geom_vline(xintercept = sample_median + 1,
+             colour = "darkorchid", 
+             linewidth = 2) +
+  annotate("text", x = 2.1, y = 55,
+           label = paste("mean = ", sample_m),
+           colour = "darkcyan") +
+    annotate("text", x = 1.3, y = 55,
+           label = paste("median = ", sample_median),
+           colour = "darkorchid") +
+  scale_x_discrete(name = "Number of plants per quadrat") +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0 , 60),
+                     name = "Number of quadrats") +
+  theme_classic() +
+  theme(legend.position = "none")
+
+```
+The mean of `r sample_m` groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants. The average is being dragged up by the few quadrats containing 3 plants.
+
+For count variables - and other variables that are not symmetrical, it is often better to give the median and interquartile range.
+
+The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.
+
+
+### Continuous data
+
+Continuous variables are measurements that can take *any* value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. For example,
+
+### The normal distribution
+
+Properties of normal distributions
+
+For example, a variable like human height has values with decimal places which follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (@fig-normal-distribtion).
 
 ```{r}
 #| echo: false
@@ -47,89 +258,15 @@ ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
   theme_classic()
 ```
 
-An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.
-
-### Discrete data
-
-Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.
-
-#### Categories: Nominal and Ordinal
-
-Categorical data can be nominal and ordinal depending on whether they are ordered. Nominal variable have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn't matter what order the information was given or plotted. Ordinal variables have an order. The Likert scale @likert1932 used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (@fig-categories)
-
-
-
-```{r}
-#| echo: false
-#| layout-ncol: 2
-#| label: fig-categories
-#| fig-cap: "The categories of bird species are unordered - or nominal - but those in a likert variable are ordinal."
-
-birds <- data.frame(Response = c("Robin",
-                                 "Chaffinch",
-                                 "Thrush",
-                                 "Wren"),
-                    Frequency = c(12, 6, 10, 13))
-
-birds |> ggplot(aes(x = Response, y = Frequency)) +
-  geom_col() +
-  scale_x_discrete(name = "Species") +
-  scale_y_continuous(expand = c(0, 0),
-                     limits = c(0 , 20)) +
-  theme_classic() +
-  theme(legend.position = "none")
-
-
-likert <- data.frame(Response = factor(c("Strongly agree",
-                                         "Agree",
-                                         "Disagree",
-                                         "Strongly disagree"), 
-                                       levels = c("Strongly agree",
-                                                  "Agree",
-                                                  "Disagree",
-                                                  "Strongly disagree")),
-                     Frequency = c(15, 18, 10, 2))
-
-likert |> ggplot(aes(x = Response, y = Frequency)) +
-  geom_col() +
-  scale_y_continuous(expand = c(0, 0),
-                     limits = c(0 , 20)) +
-  theme_classic() +
-  theme(legend.position = "none")
-
-
-```
-The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value (@tbl-likert).
-
-
-```{r}
-#| echo: false
-#| label: tbl-likert
-#| tbl-cap: "Frequency of reposnes."
-
-knitr::kable(likert) |> kableExtra::kable_styling()
-
-```
-
-#### Counts
-
-Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values
-
-### Continuous data
-
-Continuous variables are measurements that can take *any* value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. For example,
-
-
-
-### The normal distribution
-
-### Distribution of counts
-
 ## Theory and practice
 
-The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have might differ from what we would expect for a particular variable. For example, we would expect the mass of cats to be continuous but if our scales only measure to the nearest kilogram then
+The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have might differ from what we would expect for a particular variable. For example, we would expect the mass of cats to be continuous but if our scales only measure to the nearest kilogram then it becomes discrete because 1kg is big compared to the range of values we expect. We only expect values of 1, 2, 3, 4, 5, 6 and 7.
 
 ```{r}
+#| echo: false
+#| label: fig-contin-is-discrete
+#| fig-cap: "The mass of cats in kilograms is theoretically continuous. If we measure only to the nearest kilogram, mass becomes discrete because 1kg covers a large chunk of the range."
+
 m <- 4
 sd <- 0.8
 set.seed(1234)
@@ -146,14 +283,20 @@ b <- ggplot(data = data.frame(Mass = round(rnorm(1000, m, sd), 0)), aes(Mass)) +
   geom_histogram(binwidth = 1, colour = "black", fill = "white") +
   scale_y_continuous(breaks = NULL, name = "",
                      expand = c(0, 0)) +
-  annotate("text", x = m - 2 * sd, y = 400,
-           label = "Practice") +
+  annotate("text", x = m - 2.5 * sd, y = 400,
+           label = "Practice when\nmeasured to\nthe nearest 1kg") +
   theme_classic()
 
 a + b
 ```
 
 ```{r}
+#| echo: false
+#| label: fig-discrete-is-contin
+#| fig-cap: "The number of hairs on a human head discrete. But one increment is a tiny proportion of the range of values so the number of hairs is practically continuous."
+
+
+
 m <- 120000
 sd <- 20000
 set.seed(12)
