@@ -51,7 +51,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -91,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="nav-sidebar floating">
 
@@ -226,22 +245,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#role-in-analysis" id="toc-role-in-analysis" class="nav-link active" data-scroll-target="#role-in-analysis"><span class="header-section-number">5.1</span> Role in analysis</a></li>
+<li><a href="#roles-of-variables-in-analysis" id="toc-roles-of-variables-in-analysis" class="nav-link active" data-scroll-target="#roles-of-variables-in-analysis"><span class="header-section-number">5.1</span> Roles of variables in analysis</a></li>
   <li>
-<a href="#kinds-of-value-data-types" id="toc-kinds-of-value-data-types" class="nav-link" data-scroll-target="#kinds-of-value-data-types"><span class="header-section-number">5.2</span> Kinds of value: data types</a>
+<a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">5.2</span> Distributions</a>
   <ul class="collapse">
 <li><a href="#discrete-data" id="toc-discrete-data" class="nav-link" data-scroll-target="#discrete-data"><span class="header-section-number">5.2.1</span> Discrete data</a></li>
   <li><a href="#continuous-data" id="toc-continuous-data" class="nav-link" data-scroll-target="#continuous-data"><span class="header-section-number">5.2.2</span> Continuous data</a></li>
+  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">5.2.3</span> The normal distribution</a></li>
+  <li><a href="#distribution-of-counts" id="toc-distribution-of-counts" class="nav-link" data-scroll-target="#distribution-of-counts"><span class="header-section-number">5.2.4</span> Distribution of counts</a></li>
   </ul>
 </li>
-  <li>
-<a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">5.3</span> Distributions</a>
-  <ul class="collapse">
-<li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">5.3.1</span> The normal distribution</a></li>
-  <li><a href="#distribution-of-counts" id="toc-distribution-of-counts" class="nav-link" data-scroll-target="#distribution-of-counts"><span class="header-section-number">5.3.2</span> Distribution of counts</a></li>
-  </ul>
-</li>
-  <li><a href="#theory-and-practice" id="toc-theory-and-practice" class="nav-link" data-scroll-target="#theory-and-practice"><span class="header-section-number">5.4</span> Theory and practice</a></li>
+  <li><a href="#theory-and-practice" id="toc-theory-and-practice" class="nav-link" data-scroll-target="#theory-and-practice"><span class="header-section-number">5.3</span> Theory and practice</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -261,79 +275,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-</header><div class="callout callout-style-default callout-important callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable.</p>
+<p>You are reading a work in progress. This page is a first draft but should be readable..</p>
 </div>
 </div>
-<p>This chapter covers some important concepts data. Data is made up of properties we have measured or recorded, known as variables, and observations, the individual things with those properties. Data is most commonly (and helpfully) organised with variables in columns and each observation on a row.</p>
-<p>We can define a variable in two main ways:</p>
-<ol type="1">
-<li>by what kinds of value it can take and how frequently each of its possible values occur</li>
-<li>by what role the variable takes in analysis</li>
-</ol>
-<p>Both of these determine how we summarise, plot and analyse data.</p>
-<section id="role-in-analysis" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="role-in-analysis">
-<span class="header-section-number">5.1</span> Role in analysis</h2>
-<p>When we do research, we typically have variables that we choose or set and variables that we measure. The variables we choose or set are called independent or explanatory variables. The variables we measure are called dependent or response variables.</p>
-<p>TODO: examples</p>
-</section><section id="kinds-of-value-data-types" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="kinds-of-value-data-types">
-<span class="header-section-number">5.2</span> Kinds of value: data types</h2>
-<p>The types of values a variable can take determines how we summarise, plot and analyse them. Sometimes this is obvious - when you can recorded the colour of an observation you can’t find the mean colour of the sample but you can report the most common colour.</p>
+<p>This chapter covers some important concepts data. Data is made up of:</p>
+<ul>
+<li><p>properties we have measured or recorded, known as variables, and</p></li>
+<li><p>observations, the individual things with those properties.</p></li>
+</ul>
+<p>Data is most commonly (and helpfully) organised with variables in columns and each observation on a row.</p>
+<p>We can classify a variable in two main ways: by what role the variable takes in analysis and by what kinds of value it can take, and how frequently each of its possible values occur. The type of value and the likelihood of values appearing is known as a variable’s <em>distribution</em>. Both of these determine how we summarise, plot and analyse data.</p>
+<section id="roles-of-variables-in-analysis" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="roles-of-variables-in-analysis">
+<span class="header-section-number">5.1</span> Roles of variables in analysis</h2>
+<p>When we do research, we typically have variables that we choose or set and variables that we measure. The variables we choose or set are called independent or explanatory variables. The variables we measure are called dependent or response variables. For example, we might measure the concentration of enzymes and hormones in blood samples of individuals with different genotypes. The genotype acts as the explanatory variable and the blood measurements are response. We would be interested in whether the blood measures differ between genotypes.</p>
+</section><section id="distributions" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="distributions">
+<span class="header-section-number">5.2</span> Distributions</h2>
+<p>The distribution of a variable describes the types of values it can take and the likelihood of each value occurring. For example, for a variable like human height the values have decimal places and follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (<a href="#fig-normal-distribtion">Figure&nbsp;<span>5.1</span></a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-normal-distribtion" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="ideas_about_data_files/figure-html/fig-normal-distribtion-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.1: Human height follows a normal distribution.</figcaption></figure>
+</div>
+</div>
+</div>
 <p>An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.</p>
 <section id="discrete-data" class="level3" data-number="5.2.1"><h3 data-number="5.2.1" class="anchored" data-anchor-id="discrete-data">
 <span class="header-section-number">5.2.1</span> Discrete data</h3>
-<p>Discrete variables can take only specific values, like genotype or the number of leaves</p>
-<section id="nominal-and-ordinal" class="level4" data-number="5.2.1.1"><h4 data-number="5.2.1.1" class="anchored" data-anchor-id="nominal-and-ordinal">
-<span class="header-section-number">5.2.1.1</span> Nominal and Ordinal</h4>
-<p>Nominal and ordinal data are categorical and often act as explanatory variables.<br>
-Nominal variable have no particular order, for example, the eye colour of Drosophila or the genotype of a mouse. When summarising data on eye colour, it wouldn’t matter what order the information was given or plotted. Ordinal variables have an order. The Likert scale used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them.</p>
-<p>Summarising nominal or ordinal data The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value.</p>
+<p>Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.</p>
+<section id="categories-nominal-and-ordinal" class="level4" data-number="5.2.1.1"><h4 data-number="5.2.1.1" class="anchored" data-anchor-id="categories-nominal-and-ordinal">
+<span class="header-section-number">5.2.1.1</span> Categories: Nominal and Ordinal</h4>
+<p>Categorical data can be nominal and ordinal depending on whether they are ordered. Nominal variable have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn’t matter what order the information was given or plotted. Ordinal variables have an order. The Likert scale <span class="citation" data-cites="likert1932">Likert (<a href="references.html#ref-likert1932" role="doc-biblioref">1932</a>)</span> used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (<span class="quarto-unresolved-ref">?fig-categories</span>)</p>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-categories-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="ideas_about_data_files/figure-html/fig-categories-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.2: The categories of bird species are unordered - or nominal - but those in a likert variable are ordinal.</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-categories-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="ideas_about_data_files/figure-html/fig-categories-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.3: The categories of bird species are unordered - or nominal - but those in a likert variable are ordinal.</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<p>The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value (<a href="#tbl-likert">Table&nbsp;<span>5.1</span></a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-likert" class="anchored">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;5.1: Frequency of reposnes.</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Response</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Frequency</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Strongly agree</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Agree</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Disagree</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strongly disagree</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
 </section><section id="counts" class="level4" data-number="5.2.1.2"><h4 data-number="5.2.1.2" class="anchored" data-anchor-id="counts">
 <span class="header-section-number">5.2.1.2</span> Counts</h4>
 <p>Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values</p>
 </section></section><section id="continuous-data" class="level3" data-number="5.2.2"><h3 data-number="5.2.2" class="anchored" data-anchor-id="continuous-data">
 <span class="header-section-number">5.2.2</span> Continuous data</h3>
 <p>Continuous variables are measurements that can take <em>any</em> value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. For example,</p>
-</section></section><section id="distributions" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="distributions">
-<span class="header-section-number">5.3</span> Distributions</h2>
-<p>The distribution of a variable describes the types of values it can take and the likelihood of each value occurring. For example, for a variable like human height values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur.</p>
-<div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">1.65</span></span>
-<span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fl">0.06</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">sd</span>, <span class="va">m</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">Height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">stat_function</span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dnorm</span>, n <span class="op">=</span> <span class="fl">101</span>, </span>
-<span>                args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">m</span>, sd <span class="op">=</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="cn">NULL</span>, name <span class="op">=</span> <span class="st">""</span>,</span>
-<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>, y <span class="op">=</span> <span class="fl">4.5</span>,</span>
-<span>           label <span class="op">=</span> <span class="st">"Values are rare"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.65</span>, y <span class="op">=</span> <span class="fl">4.5</span>,</span>
-<span>           label <span class="op">=</span> <span class="st">"Values are common"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.8</span>, y <span class="op">=</span> <span class="fl">4.5</span>,</span>
-<span>           label <span class="op">=</span> <span class="st">"Values are rare"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="ideas_about_data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<section id="the-normal-distribution" class="level3" data-number="5.3.1"><h3 data-number="5.3.1" class="anchored" data-anchor-id="the-normal-distribution">
-<span class="header-section-number">5.3.1</span> The normal distribution</h3>
-</section><section id="distribution-of-counts" class="level3" data-number="5.3.2"><h3 data-number="5.3.2" class="anchored" data-anchor-id="distribution-of-counts">
-<span class="header-section-number">5.3.2</span> Distribution of counts</h3>
-</section></section><section id="theory-and-practice" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="theory-and-practice">
-<span class="header-section-number">5.4</span> Theory and practice</h2>
+</section><section id="the-normal-distribution" class="level3" data-number="5.2.3"><h3 data-number="5.2.3" class="anchored" data-anchor-id="the-normal-distribution">
+<span class="header-section-number">5.2.3</span> The normal distribution</h3>
+</section><section id="distribution-of-counts" class="level3" data-number="5.2.4"><h3 data-number="5.2.4" class="anchored" data-anchor-id="distribution-of-counts">
+<span class="header-section-number">5.2.4</span> Distribution of counts</h3>
+</section></section><section id="theory-and-practice" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="theory-and-practice">
+<span class="header-section-number">5.3</span> Theory and practice</h2>
 <p>The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have might differ from what we would expect for a particular variable. For example, we would expect the mass of cats to be continuous but if our scales only measure to the nearest kilogram then</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fl">0.8</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Mass <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">m</span> <span class="op">-</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">sd</span>, <span class="va">m</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">sd</span><span class="op">)</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">Mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -355,11 +402,11 @@ Nominal variable have no particular order, for example, the eye colour of Drosop
 <span></span>
 <span><span class="va">a</span> <span class="op">+</span> <span class="va">b</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ideas_about_data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="ideas_about_data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">120000</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">120000</span></span>
 <span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fl">20000</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -371,11 +418,16 @@ Nominal variable have no particular order, for example, the eye colour of Drosop
 <span>  <span class="fu">scale_x_continuous</span><span class="op">(</span><span class="st">"Number of hairs on head"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ideas_about_data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="ideas_about_data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-likert1932" class="csl-entry" role="listitem">
+Likert, R. 1932. <span>“A Technique for the Measurement of Attitudes.”</span> <em>Archives of Psychology</em> 22 140: 55–55.
+</div>
+</div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -722,6 +774,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/combio\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./getting_started_with_data.html" class="pagination-link">
