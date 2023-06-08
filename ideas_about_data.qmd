@@ -260,7 +260,7 @@ ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
 
 ## Theory and practice
 
-The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have might differ from what we would expect for a particular variable. For example, we would expect the mass of cats to be continuous but if our scales only measure to the nearest kilogram then it becomes discrete because 1kg is big compared to the range of values we expect. We only expect values of 1, 2, 3, 4, 5, 6 and 7.
+The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then it the values become discrete because the only the values of 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (@fig-contin-is-discrete)
 
 ```{r}
 #| echo: false
@@ -289,6 +289,7 @@ b <- ggplot(data = data.frame(Mass = round(rnorm(1000, m, sd), 0)), aes(Mass)) +
 
 a + b
 ```
+In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 10,0204 hairs is so tiny the variable is practically continuous (@fig-discrete-is-contin). 
 
 ```{r}
 #| echo: false
@@ -311,3 +312,7 @@ ggplot() +
 
 
 ```
+
+A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.
+
+## Summary

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.361">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Computational Analysis for Bioscientists - 8&nbsp; Working with data in RStudio</title>
+<title>Computational Analysis for Bioscientists - 2&nbsp; Machines and operating systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,8 +26,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="next">
-<link href="./workflow_rstudio.html" rel="prev">
+<link href="./file_systems.html" rel="next">
+<link href="./what_they_forgot.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -66,7 +66,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data</a></li><li class="breadcrumb-item"><a href="./working_with_data_rstudio.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Working with data in RStudio</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what_they_forgot.html">What they forgot to teach you about computers</a></li><li class="breadcrumb-item"><a href="./machine_and_os.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link">
+  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
   </div>
 </li>
@@ -160,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./working_with_data_rstudio.html" class="sidebar-item-text sidebar-link active">
+  <a href="./working_with_data_rstudio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Working with data in RStudio</span></span></a>
   </div>
 </li>
@@ -192,15 +192,17 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#getting-data-in-to-r" id="toc-getting-data-in-to-r" class="nav-link active" data-scroll-target="#getting-data-in-to-r"><span class="header-section-number">8.0.1</span> Getting data in to R</a></li>
-  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data"><span class="header-section-number">8.1</span> Summarising data</a></li>
-  <li><a href="#summarising-and-plotting-a-single-variable" id="toc-summarising-and-plotting-a-single-variable" class="nav-link" data-scroll-target="#summarising-and-plotting-a-single-variable"><span class="header-section-number">8.2</span> Summarising and plotting a single variable</a></li>
+<li><a href="#computer-or-tablet" id="toc-computer-or-tablet" class="nav-link active" data-scroll-target="#computer-or-tablet"><span class="header-section-number">2.1</span> Computer or tablet?</a></li>
+  <li><a href="#what-is-an-operating-system" id="toc-what-is-an-operating-system" class="nav-link" data-scroll-target="#what-is-an-operating-system"><span class="header-section-number">2.2</span> What is an operating system?</a></li>
+  <li><a href="#types-of-operating-system" id="toc-types-of-operating-system" class="nav-link" data-scroll-target="#types-of-operating-system"><span class="header-section-number">2.3</span> Types of operating system</a></li>
+  <li><a href="#microsoft-windows-and-apple-macos" id="toc-microsoft-windows-and-apple-macos" class="nav-link" data-scroll-target="#microsoft-windows-and-apple-macos"><span class="header-section-number">2.4</span> Microsoft Windows and Apple macOS</a></li>
+  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux"><span class="header-section-number">2.5</span> Linux</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Working with data in RStudio</span>
+<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span>
 </h1>
 </div>
 
@@ -227,24 +229,69 @@ Important
 <p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable..</p>
 </div>
 </div>
-<ul>
-<li>importing data, types of file, different methds</li>
-<li>summarising data, one two,</li>
-<li>More plots</li>
-<li>saving plots</li>
-<li>tidying data</li>
-</ul>
-<section id="getting-data-in-to-r" class="level3" data-number="8.0.1"><h3 data-number="8.0.1" class="anchored" data-anchor-id="getting-data-in-to-r">
-<span class="header-section-number">8.0.1</span> Getting data in to R</h3>
-<p>read_table</p>
-</section><section id="summarising-data" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="summarising-data">
-<span class="header-section-number">8.1</span> Summarising data</h2>
-<p>concepts: mean, median, mode, standard deviation, sample distribution of the mean, standard error</p>
-<p>the role of data types in the type of summary</p>
-</section><section id="summarising-and-plotting-a-single-variable" class="level2" data-number="8.2"><h2 data-number="8.2" class="anchored" data-anchor-id="summarising-and-plotting-a-single-variable">
-<span class="header-section-number">8.2</span> Summarising and plotting a single variable</h2>
-<p>normal distribution, mean, sd, se, n, histogram categories mode, counts, barchart,</p>
-<p>using the help Your first plot! importing data, types of file, different methds summarising data, one two, More plots saving plots tidying data</p>
+<section id="computer-or-tablet" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="computer-or-tablet">
+<span class="header-section-number">2.1</span> Computer or tablet?</h2>
+<p>Computers (laptop or desktop) and tablets can both be useful for doing a science degree but if you have to choose just one, I would recommend a computer. This is because</p>
+<ol type="1">
+<li><p>Computers typically offer more processing power, storage capacity, and flexibility for running complex software all of which are important in science.</p></li>
+<li><p>Scientific and academic software often cannot be installed on tablets - at least not easily.</p></li>
+<li><p>Your institution most likely has a networked computer system with computers that you use in taught workshop and which are available to you throughout your degree. Many people find it easier to use a similar computer at home so they can follow instructions from the workshop exactly to continue the work at home</p></li>
+<li><p>We often need to multitask and use several programs at once. The greater power and screen size of a computer usually makes this easier.</p></li>
+</ol>
+<p>Tablets are more portable and have touch-screens and stylus support and this makes them easier to use for note taking in lectures and annotating documents. Some laptops also have touch-screens but they can be expensive. Overtime computers will adopt more of the advantages of tablets and tablets will adopt more of the advantages of computers.</p>
+</section><section id="what-is-an-operating-system" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="what-is-an-operating-system">
+<span class="header-section-number">2.2</span> What is an operating system?</h2>
+<p>Every computer or mobile device has an operating system (OS) which controls how all the other software on a computer interacts with the computer hardware. You may already have a preference for a particular OS. They start the computer up, manage the memory and all the processes, and control all the devices connected to the computer. As a consequence, all the other software on a computer has to be able to work with the operating system installed.</p>
+<p>Most people do not install the operating system but buy their machine with it pre-installed.</p>
+</section><section id="types-of-operating-system" class="level2" data-number="2.3"><h2 data-number="2.3" class="anchored" data-anchor-id="types-of-operating-system">
+<span class="header-section-number">2.3</span> Types of operating system</h2>
+</section><section id="microsoft-windows-and-apple-macos" class="level2" data-number="2.4"><h2 data-number="2.4" class="anchored" data-anchor-id="microsoft-windows-and-apple-macos">
+<span class="header-section-number">2.4</span> Microsoft Windows and Apple macOS</h2>
+<p>Windows and Mac are the two most widely used OS on personal computers. Apple Mac computers use only Apple macOS but Windows OS are used by many machine manufacturers. Both OS are proprietor meaning that they are designed and sold by the companies and are not meant to be altered by users. It also means the other applications they make are designed to work best with their OS.</p>
+<p>You might already have had - or seen - a Mac versus Windows debate but in reality it is down to preference for most users. If you already have experience with one, you will probably prefer to keep using it but if you are buying for the first time, I recommend using the same as your institution uses. This makes it more likely that instructions for taught material will just work on your machine and more likely that people around you will be able to help.</p>
+<p>One of the differences uses most notice between Windows and Mac machine is the keyboard keys and characters differences.</p>
+<table class="table">
+<caption>Keyboard equivalents for Windows and Mac</caption>
+<thead><tr class="header">
+<th>Windows</th>
+<th>Mac</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Enter</td>
+<td>Return</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>Command</td>
+</tr>
+<tr class="odd">
+<td>Alt</td>
+<td>Option</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>For RStudio, the section on <a href="keyboard_shortcuts-tips.qmd">Keyboard Shortcuts and tips</a> will help.</p>
+<p>Another difference is in installing software</p>
+</section><section id="linux" class="level2" data-number="2.5"><h2 data-number="2.5" class="anchored" data-anchor-id="linux">
+<span class="header-section-number">2.5</span> Linux</h2>
+<p>Linux is a family of open source OS. Open source means that anyone can modify and share the software.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -611,13 +658,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./workflow_rstudio.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span>
+      <a href="./what_they_forgot.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">What they forgot to teach you about computers</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./file_systems.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
