@@ -7,6 +7,40 @@ source("_common.R")
 status("drafting")
 ```
 
+
+
+
+
+Find your current working directory with:
+
+```{r}
+getwd()
+```
+
+
+
+## Change the default working directory
+
+If you do not like the working directory that R automatically chooses on starting up you can change it using the Tools menu
+
+Tools | Global Options. Then, under the General tab, edit the box labelled "Default working directory (when not in a project):".
+
+When using RStudio Projects the working directory is the Project directory.
+
+### What's in my directory?
+
+You can list the contents of a directory using the `dir()` command
+
+-   `dir()` list the contents of the working directory
+-   `dir("..")` list the contents of the directory above the working directory
+-   `dir(../..)` list the contents of the directory two directories above the working directory
+-   `dir("data-raw")` list the contents of a folder call data-raw which is in the working directory.
+
+
+Most of the time you should use relative paths because that makes your work portable.
+You only need to use absolute paths when you are referring to filesystem outside the one you are using.
+
+
 ## Understanding the pipe `|>`
 
 The pipe operator improves code readability by:

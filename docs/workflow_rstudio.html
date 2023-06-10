@@ -226,12 +226,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#understanding-the-pipe" id="toc-understanding-the-pipe" class="nav-link active" data-scroll-target="#understanding-the-pipe"><span class="header-section-number">7.1</span> Understanding the pipe <code>|&gt;</code></a></li>
-  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link" data-scroll-target="#rstudio-projects"><span class="header-section-number">7.2</span> RStudio Projects</a></li>
-  <li><a href="#folder-arrangement" id="toc-folder-arrangement" class="nav-link" data-scroll-target="#folder-arrangement"><span class="header-section-number">7.3</span> folder arrangement</a></li>
-  <li><a href="#consistency" id="toc-consistency" class="nav-link" data-scroll-target="#consistency"><span class="header-section-number">7.4</span> consistency</a></li>
-  <li><a href="#commenting" id="toc-commenting" class="nav-link" data-scroll-target="#commenting"><span class="header-section-number">7.5</span> commenting</a></li>
-  <li><a href="#using-the-help" id="toc-using-the-help" class="nav-link" data-scroll-target="#using-the-help"><span class="header-section-number">7.6</span> using the help</a></li>
+<li>
+<a href="#change-the-default-working-directory" id="toc-change-the-default-working-directory" class="nav-link active" data-scroll-target="#change-the-default-working-directory"><span class="header-section-number">7.1</span> Change the default working directory</a>
+  <ul class="collapse">
+<li><a href="#whats-in-my-directory" id="toc-whats-in-my-directory" class="nav-link" data-scroll-target="#whats-in-my-directory"><span class="header-section-number">7.1.1</span> What’s in my directory?</a></li>
+  </ul>
+</li>
+  <li><a href="#understanding-the-pipe" id="toc-understanding-the-pipe" class="nav-link" data-scroll-target="#understanding-the-pipe"><span class="header-section-number">7.2</span> Understanding the pipe <code>|&gt;</code></a></li>
+  <li><a href="#rstudio-projects" id="toc-rstudio-projects" class="nav-link" data-scroll-target="#rstudio-projects"><span class="header-section-number">7.3</span> RStudio Projects</a></li>
+  <li><a href="#folder-arrangement" id="toc-folder-arrangement" class="nav-link" data-scroll-target="#folder-arrangement"><span class="header-section-number">7.4</span> folder arrangement</a></li>
+  <li><a href="#consistency" id="toc-consistency" class="nav-link" data-scroll-target="#consistency"><span class="header-section-number">7.5</span> consistency</a></li>
+  <li><a href="#commenting" id="toc-commenting" class="nav-link" data-scroll-target="#commenting"><span class="header-section-number">7.6</span> commenting</a></li>
+  <li><a href="#using-the-help" id="toc-using-the-help" class="nav-link" data-scroll-target="#using-the-help"><span class="header-section-number">7.7</span> using the help</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -264,8 +270,34 @@ Important
 <p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable..</p>
 </div>
 </div>
-<section id="understanding-the-pipe" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="understanding-the-pipe">
-<span class="header-section-number">7.1</span> Understanding the pipe <code>|&gt;</code>
+<p>Find your current working directory with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/er13/OneDrive - University of York/Desktop/Desktop/undergrad-teaching-york/comp4biosci"</code></pre>
+</div>
+</div>
+<section id="change-the-default-working-directory" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="change-the-default-working-directory">
+<span class="header-section-number">7.1</span> Change the default working directory</h2>
+<p>If you do not like the working directory that R automatically chooses on starting up you can change it using the Tools menu</p>
+<p>Tools | Global Options. Then, under the General tab, edit the box labelled “Default working directory (when not in a project):”.</p>
+<p>When using RStudio Projects the working directory is the Project directory.</p>
+<section id="whats-in-my-directory" class="level3" data-number="7.1.1"><h3 data-number="7.1.1" class="anchored" data-anchor-id="whats-in-my-directory">
+<span class="header-section-number">7.1.1</span> What’s in my directory?</h3>
+<p>You can list the contents of a directory using the <code><a href="https://rdrr.io/r/base/list.files.html">dir()</a></code> command</p>
+<ul>
+<li>
+<code><a href="https://rdrr.io/r/base/list.files.html">dir()</a></code> list the contents of the working directory</li>
+<li>
+<code>dir("..")</code> list the contents of the directory above the working directory</li>
+<li>
+<code>dir(../..)</code> list the contents of the directory two directories above the working directory</li>
+<li>
+<code>dir("data-raw")</code> list the contents of a folder call data-raw which is in the working directory.</li>
+</ul>
+<p>Most of the time you should use relative paths because that makes your work portable. You only need to use absolute paths when you are referring to filesystem outside the one you are using.</p>
+</section></section><section id="understanding-the-pipe" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="understanding-the-pipe">
+<span class="header-section-number">7.2</span> Understanding the pipe <code>|&gt;</code>
 </h2>
 <p>The pipe operator improves code readability by:</p>
 <ul>
@@ -275,23 +307,23 @@ Important
 </ul>
 <p>For example, suppose we want to apply a log-square root transformation which is sometimes applied to make a flat distribution more normal. There are two approaches we could use without the pipe: nesting the functions and creating an intermediate. We will consider both of these. First, let us generate a few numbers of work with:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># generate some numbers</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># generate some numbers</span></span>
 <span><span class="co"># this will give me ten random numbers between 1 and 100</span></span>
 <span><span class="va">nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To apply the transformation we can nest the functions so the output put of <code>sqrt(nums)</code> becomes the input of <code><a href="https://rdrr.io/r/base/Log.html">log()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># apply a log-square root transformation</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># apply a log-square root transformation</span></span>
 <span><span class="va">tnums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">tnums</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 2.012676 2.158744 2.038769 0.804719 1.629048 1.242453 2.131340 1.965913
- [9] 1.567747 2.171903</code></pre>
+<pre><code> [1] 1.965913 1.831781 2.244318 2.087194 1.700599 2.063567 1.945910 1.763180
+ [9] 1.868835 1.445186</code></pre>
 </div>
 </div>
 <p>The first function to be applied is innermost. When we are using just two functions, the level of nesting does not cause too much difficulty in reading the code. However, you can image this gets more unreadable as the number of functions applied increases. It also makes it harder to debug and find out where an error might be. One solution is to create intermediate variables so the commands a given in order:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># apply a log-square root transformation</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># apply a log-square root transformation</span></span>
 <span><span class="va">sqrtnums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span></span>
 <span><span class="va">tnums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">sqrtnums</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -299,25 +331,25 @@ Important
 <p>The pipe is a more elegant and readable solution. It allows you to send the output of one operation as input to the next function. The pipe has long been used by Unix operating systems (where the pipe operator is <code>|</code>). The R pipe operator is <code>|&gt;</code>, a short cut for which is Ctrl+Shift+M.</p>
 <p>Using the pipe, we can apply out transformation with:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tnums</span> <span class="op">&lt;-</span> <span class="va">nums</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">tnums</span> <span class="op">&lt;-</span> <span class="va">nums</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The command are in the order applied, there are no intermediates and the code is easier to debug and to build-up step-by-step..</p>
 <p>Note that <code>|&gt;</code> is the pipe that comes with base R which was only added in the last couple of years. Before it existed, <code>**tidyverse**</code> had a pipe operator provided by the <code>*magrittr**</code> package. The magrittr pipe is <code>%&gt;%</code>. In your googling, you may well see code written using the <code>%&gt;%</code>. In most cases, the pipes are interchangeable.</p>
-</section><section id="rstudio-projects" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="rstudio-projects">
-<span class="header-section-number">7.2</span> RStudio Projects</h2>
+</section><section id="rstudio-projects" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="rstudio-projects">
+<span class="header-section-number">7.3</span> RStudio Projects</h2>
 <ul>
 <li>
 <code>.RProj</code> indicates a folder is an RStudio Project</li>
-</ul></section><section id="folder-arrangement" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="folder-arrangement">
-<span class="header-section-number">7.3</span> folder arrangement</h2>
-</section><section id="consistency" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="consistency">
-<span class="header-section-number">7.4</span> consistency</h2>
-</section><section id="commenting" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="commenting">
-<span class="header-section-number">7.5</span> commenting</h2>
-</section><section id="using-the-help" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="using-the-help">
-<span class="header-section-number">7.6</span> using the help</h2>
+</ul></section><section id="folder-arrangement" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="folder-arrangement">
+<span class="header-section-number">7.4</span> folder arrangement</h2>
+</section><section id="consistency" class="level2" data-number="7.5"><h2 data-number="7.5" class="anchored" data-anchor-id="consistency">
+<span class="header-section-number">7.5</span> consistency</h2>
+</section><section id="commenting" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="commenting">
+<span class="header-section-number">7.6</span> commenting</h2>
+</section><section id="using-the-help" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="using-the-help">
+<span class="header-section-number">7.7</span> using the help</h2>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
