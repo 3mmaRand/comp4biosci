@@ -26,15 +26,13 @@ When we do research, we typically have variables that we choose or set and varia
 
 any variable has a distribution
 
-A distribution is the values a variable can take and the
-chance of them occurring
+A distribution is the values a variable can take and the chance of them occurring
 
 Distribution is a function (relationship)
 
 Parameters tune the shape of the distribution
 
-
-The distribution of a variable describes the types of values it can take and the likelihood of each value occurring. 
+The distribution of a variable describes the types of values it can take and the likelihood of each value occurring.
 
 An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.
 
@@ -120,7 +118,6 @@ ggplot(data.frame(x = c(0:6)), aes(factor(x), fill = factor(x))) +
 
 ```
 
-
 ### Discrete data
 
 Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.
@@ -184,8 +181,7 @@ knitr::kable(likert) |> kableExtra::kable_styling()
 
 Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical and has a tail to the right - especially for lower count ranges.
 
-A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. @fig-counts shows the number of groundsel plants in a hundred 1 metre square quadrats[^ideas_about_data-1]. 
-[^ideas_about_data-1]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.
+A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. @fig-counts shows the number of groundsel plants in a hundred 1 metre square quadrats\[\^ideas_about_data-1\]. \[\^ideas_about_data-1\]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.
 
 ```{r}
 #| echo: false
@@ -220,12 +216,12 @@ plants |> ggplot(aes(x = factor(nplants))) +
   theme(legend.position = "none")
 
 ```
+
 The mean of `r sample_m` groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants. The average is being dragged up by the few quadrats containing 3 plants.
 
 For count variables - and other variables that are not symmetrical, it is often better to give the median and interquartile range.
 
 The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.
-
 
 ### Continuous data
 
@@ -289,7 +285,8 @@ b <- ggplot(data = data.frame(Mass = round(rnorm(1000, m, sd), 0)), aes(Mass)) +
 
 a + b
 ```
-In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 10,0204 hairs is so tiny the variable is practically continuous (@fig-discrete-is-contin). 
+
+In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 10,0204 hairs is so tiny the variable is practically continuous (@fig-discrete-is-contin).
 
 ```{r}
 #| echo: false
@@ -316,3 +313,15 @@ ggplot() +
 A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.
 
 ## Summary
+
+1.  Data: Data consists of variables (properties measured or recorded) and observations (individual things with those properties). Data is commonly organised with variables in columns and observations in rows.
+
+2.  Roles of Variables in Analysis: Variables in research can be independent or explanatory variables (chosen or set by researchers) and dependent or response variables (measured by researchers).
+
+3.  Distributions: A variable's distribution describes the types of values it can take and the likelihood of each value occurring. Variables can be classified as discrete (specific values) or continuous (any value within a range). The shape of a distribution is determined by parameters.
+
+4.  Discrete Data: Discrete variables can be categories (e.g., genotype) or counts (e.g., the number of petals). Categorical data can be nominal (no order) or ordinal (ordered, like a Likert scale).
+
+5.  Continuous Data: Continuous variables can take any value within a range. Examples include measurements like length, mass, volume, and optical density. Human height is often modelled by a normal distribution.
+
+6.  Theory and Practice: While the theoretical distinction between continuous and discrete values is clear, the actual values obtained in practice may deviate from the expected distribution. Measurement precision and range affect whether a variable is considered continuous or discrete. A rule of thumb suggests that if the mean count is above approximately 100, the distribution of counts approximates a normal distribution.

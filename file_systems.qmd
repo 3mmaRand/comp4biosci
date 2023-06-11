@@ -110,7 +110,7 @@ Windows Explorer and Mac Finder do not show the file extensions on file names by
 
 -   choose Finder \| Preferences \| Advanced then check "Show all filename extensions" box @fig-show-extensions-windows
 
-::: {layout-ncol="1"}
+::: {layout-nrow="2"}
 ![Windows](images/show-extensions-windows.png){#fig-show-extensions-windows}
 
 ![Mac](images/show-extensions-mac.png){#fig-show-extensions-mac}
@@ -134,8 +134,7 @@ The working directory of a program is the default location a program is using. I
 
 ## File Paths
 
-A path gives the address - or location - of a filesystem object, such as a file or directory. Paths appear in the address bar of your browser or file manager. We need to know a file path whenever we want to read, write or refer to a file using code rather than interactively pointing and clicking to navigate. In a file path, each directory is represented as a separate component separated by a backslash`\`  or a forward slash `/`. 
-Most systems use forward slashes but Windows uses backslashes[^file_systems-1] to separate path components and that is how the path will appear in the address bar of Windows Explorer. However, in R you can use paths with forward slashes even on windows. 
+A path gives the address - or location - of a filesystem object, such as a file or directory. Paths appear in the address bar of your browser or file manager. We need to know a file path whenever we want to read, write or refer to a file using code rather than interactively pointing and clicking to navigate. In a file path, each directory is represented as a separate component separated by a backslash`\`  or a forward slash `/`. Most systems use forward slashes but Windows uses backslashes[^file_systems-1] to separate path components and that is how the path will appear in the address bar of Windows Explorer. However, in R you can use paths with forward slashes even on windows.
 
 A path can be **absolute** or **relative** depending on the starting point.
 
@@ -147,40 +146,60 @@ An Absolute path contains the complete list of directories needed to locate a fi
 
 A relative path gives the location of a filesystem object *relative* to the working directory. Whenever the file you want to reference is in the working directory you can use just its name but if it is in a different folder you need to give the relative path. Some examples:
 
--   if your working directory was `docs`, the relative path for `doc3.txt` would be `data/doc3.txt`. 
+-   if your working directory was `docs`, the relative path for `doc3.txt` would be `data/doc3.txt`.
 
--   if your working directory was `docs` the relative path for `abe.exe` files would be `../programs/abe.exe`. 
+-   if your working directory was `docs` the relative path for `abe.exe` files would be `../programs/abe.exe`.
 
 `../` allows you to look in the directory above the working directory and `../..` allows you to look in the directory two levels above the working directory and so on.
 
 🎬 Your turn! Use the file system above to answer these questions.
 
--   What is the absolute path for the document` doc4.txt` on a Mac computer?
+-   What is the absolute path for the document`doc4.txt` on a Mac computer?
 
--   What is the absolute path for the document `doc4.txt` on a Windows computer? 
+-   What is the absolute path for the document `doc4.txt` on a Windows computer?
 
--   Assuming your working directory is `docs`, what is the relative path for the document `doc2.txt`? 
+-   Assuming your working directory is `docs`, what is the relative path for the document `doc2.txt`?
 
--   Assuming your working directory is `data`, what is the relative path for the document `doc2.txt`? 
+-   Assuming your working directory is `data`, what is the relative path for the document `doc2.txt`?
 
 ::: {.callout-tip collapse="true"}
-
 ## 📖
 
--  `/Users/user1/docs/data/doc4.txt` 
+-   `/Users/user1/docs/data/doc4.txt`
 
--   `C:/Users/user1/docs/data/doc4.txt` 
+-   `C:/Users/user1/docs/data/doc4.txt`
 
 -   `doc2.txt`
 
--   `../doc2.txt`? 
+-   `../doc2.txt`?
 :::
 
-Most of the time you should use relative paths because that makes your work portable.
-You only need to use absolute paths when you are referring to filesystem outside the one you are using.
+Most of the time you should use relative paths because that makes your work portable. You only need to use absolute paths when you are referring to filesystem outside the one you are using.
 
-## save files from the internet
+## Save files from the internet
 
-chrome://settings/downloads
+Files downloaded from the internet go to a folder called `Downloads` by default on many browsers. This is annoying when you often want to place a file in a particular folder. I recommend you change this behaviour.
 
-[^file_systems-1]: Windows uses backslashes because it did not have directories in 1981 when it's predecessor, MS DOS, was released. At the time it used the \`/\` character for 'switches' (instead of the existing convention \`-\` ) so when it did start using directories it couldn't use \`/\`
+Chrome Go to <chrome://settings/downloads> and turn on "Ask where to save each file before downloading"
+
+## Summary
+
+1.  A file system consists of files and folders organized hierarchically. It is crucial to comprehend different file types, navigate the computer's file system, and effectively organize and manipulate files.
+
+2.  Plain text files, also known as ASCII files, contain only text characters without formatting, images, or colors. They have various extensions, such as `.txt`, `.tab`, `.csv`, `.R`, `.py`, .fasta, and others.
+
+3.  While file extensions are intended to indicate content and format, it's important to remember that programs may behave differently with file extensions. Most text editors will attempt to open any file regardless of the extension, but some programs may only open files with the correct extension.
+
+4.  A directory is a folder
+
+5.  In a file system, files are organized into directories. Directories can contain sub-directories, creating a hierarchical structure. The top-level directory is known as the root directory.
+
+6.  File managers, such as File Explorer in Windows and Finder in Mac, are used to interact with the file system.
+
+7.  The working directory of a program is the default location where files are read from or written to. It is important to understand working directories when referencing files in code.
+
+8.  File paths provide the address or location of a file or directory in the file system. Paths can be absolute or relative. Absolute paths contain the complete list of directories from the root, while relative paths are based on the working directory.
+
+9.  Using relative paths is recommended for portability, as it allows files to be referenced relative to the working directory.
+
+[^file_systems-1]: Windows uses backslashes because it did not have directories in 1981 when it's predecessor, MS DOS, was released. At the time it used the `/` character for 'switches' (instead of the existing convention `-` ) so when it did start using directories it couldn't use `/`
