@@ -1,4 +1,5 @@
 # Workflow in RStudio
+
 ```{r}
 #| results: "asis"
 #| echo: false
@@ -7,19 +8,13 @@ source("_common.R")
 status("drafting")
 ```
 
-
 TODO: overview
-
-
 
 ## RStudio Projects
 
-
 -   `.RProj` indicates a folder is an RStudio Project
 
-
-
-### Organising an RStudio Project 
+### Organising an RStudio Project
 
 folder arrangement
 
@@ -27,16 +22,11 @@ consistency
 
 commenting
 
-
 ## Some useful settings
 
-Change the default working directory.
-If you do not like the working directory that R automatically chooses on starting up you can change it using the Tools menu
+When using RStudio Projects the working directory is the Project directory but when you start RStudio up and want to make a new project you might find the default location doesn't suit you. You can [change the default directory when not in a project](https://3mmarand.github.io/comp4biosci/first_steps_rstudio.html#changing-some-defaults-to-make-life-easier).
 
-Tools | Global Options. Then, under the General tab, edit the box labelled "Default working directory (when not in a project):".
-
-When using RStudio Projects the working directory is the Project directory.
-
+[change Workspace options.](https://3mmarand.github.io/comp4biosci/first_steps_rstudio.html#changing-some-defaults-to-make-life-easier)
 
 show code diagnostics
 
@@ -44,66 +34,53 @@ show margins
 
 rainbow brackets
 
-don't savve workspace
-
 fresh env each star up
 
-
-
 ## Handy housekeeping command
-
-
 
 ### Where am I?
 
 There are several ways you can find out what your working directory is.
 
-1. Code. The `getwd()` (**get** **w**orking **d**irectory)
+1.  Code. The `getwd()` (**get** **w**orking **d**irectory)
 
 ```{r}
 #| eval: false
 getwd()
 ```
 
-2. Along the top of the Console window. There is also a little arrow you can click to show your working directory in the Files pane.
+2.  Along the top of the Console window. There is also a little arrow you can click to show your working directory in the Files pane.
 
-3. In the Files pane, provided to have not navigated around in there. If you have, you can view your working directory using blue wheel and choosing "Go To Working Directory" or by using the arrow on the top of the Console window 
-
+3.  In the Files pane, provided to have not navigated around in there. If you have, you can view your working directory using blue wheel and choosing "Go To Working Directory" or by using the arrow on the top of the Console window
 
 ### What files can I see?
 
 There are several ways you can see the files and folders in your working directory.
 
-1. Code. The `dir()` (**dir**ectory)
+1.  Code. The `dir()` (**dir**ectory)
 
-      ```{r}
-      #| eval: false
-      dir()
-      ```
+    ```{r}
+    #| eval: false
+    dir()
+    ```
 
     -   `dir()` list the contents of the working directory
     -   `dir("..")` list the contents of the directory above the working directory
     -   `dir(../..)` list the contents of the directory two directories above the working directory
     -   `dir("data-raw")` list the contents of a folder call data-raw which is in the working directory.
 
-
-2.  Look in the the Files pane, provided to have not navigated around in there. If you have, you can view your working directory using blue wheel and choosing "Go To Working Directory" or by using the arrow on the top of the Console window 
-
-
+2.  Look in the the Files pane, provided to have not navigated around in there. If you have, you can view your working directory using blue wheel and choosing "Go To Working Directory" or by using the arrow on the top of the Console window
 
 ### What R objects can I see?
 
-1. Code. The `ls()` (**l**i**s**t)
+1.  Code. The `ls()` (**l**i**s**t)
 
-      ```{r}
-      #| eval: false
-      ls()
-      ```
+    ```{r}
+    #| eval: false
+    ls()
+    ```
 
 2.  Look in the the Environment pane
-
-
-
 
 ## Understanding the pipe `|>`
 
@@ -153,7 +130,4 @@ The command are in the order applied, there are no intermediates and the code is
 
 Note that `|>` is the pipe that comes with base R which was only added in the last couple of years. Before it existed, `**tidyverse**` had a pipe operator provided by the `*magrittr**` package. The magrittr pipe is `%>%`. In your googling, you may well see code written using the `%>%`. In most cases, the pipes are interchangeable.
 
-
-
-
-
+[What They Forgot to Teach You About R](https://rstats.wtf/) @bryanWFT

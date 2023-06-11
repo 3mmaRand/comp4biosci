@@ -26,7 +26,7 @@ When we do research, we typically have variables that we choose or set and varia
 
 Any variable has a *distribution* which describes the values the variable can take and the chance of them occurring. The distribution is a function (relationship) which captures how the values are mapped to the probability of them occurring. A distribution has a general type, given by the function and is further tuned by the *parameters* in the function. For example variables like height, length, concentration, mass and intensity follow a *normal distribution* also know as the bell-shaped curve so that they look similar. However, they have different means and standard deviations. The mean and the standard deviation are the parameters of the normal distribution.
 
-An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.
+An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range (@fig-distrib-contin). Discrete variables can take only specific values (@fig-distrib-discrete).
 
 ```{r}
 #| echo: false
@@ -175,7 +175,9 @@ knitr::kable(likert) |> kableExtra::kable_styling()
 
 Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical and has a tail to the right - especially for lower count ranges.
 
-A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. @fig-counts shows the number of groundsel plants in a hundred 1 metre square quadrats\[\^ideas_about_data-1\]. \[\^ideas_about_data-1\]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.
+A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. @fig-counts shows the number of groundsel plants in a hundred 1 metre square quadrats[^ideas_about_data-1]. 
+
+
 
 ```{r}
 #| echo: false
@@ -319,3 +321,5 @@ A rule of thumb is that if the mean count is above about 100, then the distribut
 5.  Continuous Data: Continuous variables can take any value within a range. Examples include measurements like length, mass, volume, and optical density. Human height is often modelled by a normal distribution.
 
 6.  Theory and Practice: While the theoretical distinction between continuous and discrete values is clear, the actual values obtained in practice may deviate from the expected distribution. Measurement precision and range affect whether a variable is considered continuous or discrete. A rule of thumb suggests that if the mean count is above approximately 100, the distribution of counts approximates a normal distribution.
+
+[^ideas_about_data-1]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.
