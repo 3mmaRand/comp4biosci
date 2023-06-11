@@ -266,17 +266,13 @@ Warning
 <p>When we do research, we typically have variables that we choose or set and variables that we measure. The variables we choose or set are called independent or explanatory variables. The variables we measure are called dependent or response variables. For example, we might measure the concentration of enzymes and hormones in blood samples of individuals with different genotypes. The genotype acts as the explanatory variable and the blood measurements are response. We would be interested in whether the blood measures differ between genotypes.</p>
 </section><section id="distributions" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="distributions">
 <span class="header-section-number">5.2</span> Distributions</h2>
-<p>any variable has a distribution</p>
-<p>A distribution is the values a variable can take and the chance of them occurring</p>
-<p>Distribution is a function (relationship)</p>
-<p>Parameters tune the shape of the distribution</p>
-<p>The distribution of a variable describes the types of values it can take and the likelihood of each value occurring.</p>
+<p>Any variable has a <em>distribution</em> which describes the values the variable can take and the chance of them occurring. The distribution is a function (relationship) which captures how the values are mapped to the probability of them occurring. A distribution has a general type, given by the function and is further tuned by the <em>parameters</em> in the function. For example variables like height, length, concentration, mass and intensity follow a <em>normal distribution</em> also know as the bell-shaped curve so that they look similar. However, they have different means and standard deviations. The mean and the standard deviation are the parameters of the normal distribution.</p>
 <p>An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-distrib-contin" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="ideas_about_data_files/figure-html/fig-distrib-contin-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5.1: .</figcaption></figure>
+<figcaption class="figure-caption">Figure&nbsp;5.1: A continuous variable has a smooth distribution and the probability of getting a particular value or less is given by the area under the curve. The example is a normal distribution.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -284,7 +280,7 @@ Warning
 <div class="cell-output-display">
 <div id="fig-distrib-discrete" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="ideas_about_data_files/figure-html/fig-distrib-discrete-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5.2: .</figcaption></figure>
+<figcaption class="figure-caption">Figure&nbsp;5.2: A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. The example is a Poisson distribtion.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -349,7 +345,7 @@ Warning
 </div>
 </div>
 <p>The mean of 0.73 groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants. The average is being dragged up by the few quadrats containing 3 plants.</p>
-<p>For count variables - and other variables that are not symmetrical, it is often better to give the median and interquartile range.</p>
+<p>For count variables - and other variables that are not symmetrical - it is often better to give the median and interquartile range.</p>
 <p>The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.</p>
 </section></section><section id="continuous-data" class="level3" data-number="5.2.2"><h3 data-number="5.2.2" class="anchored" data-anchor-id="continuous-data">
 <span class="header-section-number">5.2.2</span> Continuous data</h3>
@@ -368,16 +364,16 @@ Warning
 </div>
 </section></section><section id="theory-and-practice" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="theory-and-practice">
 <span class="header-section-number">5.3</span> Theory and practice</h2>
-<p>The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then it the values become discrete because the only the values of 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (<a href="#fig-contin-is-discrete">Figure&nbsp;<span>5.6</span></a>)</p>
+<p>The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then the values become discrete because the only the values possible are 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (<a href="#fig-contin-is-discrete">Figure&nbsp;<span>5.6</span></a>)</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-contin-is-discrete" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="ideas_about_data_files/figure-html/fig-contin-is-discrete-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;5.6: The mass of cats in kilograms is theoretically continuous. If we measure only to the nearest kilogram, mass becomes discrete because 1kg covers a large chunk of the range.</figcaption></figure>
+<figcaption class="figure-caption">Figure&nbsp;5.6: The mass of cats in kilograms is theoretically continuous (left). If we measure only to the nearest kilogram, mass becomes discrete because 1kg covers a large chunk of the range (right).</figcaption></figure>
 </div>
 </div>
 </div>
-<p>In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 10,0204 hairs is so tiny the variable is practically continuous (<a href="#fig-discrete-is-contin">Figure&nbsp;<span>5.7</span></a>).</p>
+<p>In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 100,204 hairs is so tiny the variable is practically continuous (<a href="#fig-discrete-is-contin">Figure&nbsp;<span>5.7</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-discrete-is-contin" class="quarto-figure quarto-figure-center anchored">

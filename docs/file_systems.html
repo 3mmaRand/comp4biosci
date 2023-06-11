@@ -17,6 +17,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -256,7 +290,7 @@ Warning
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Some common text file extensions and the content the extension usually indicates.</caption>
+<caption>Some common text file extensions and the content the extension usually indicates. </caption>
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Extension</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Content usually inside</th>
@@ -300,9 +334,20 @@ Warning
 <span class="header-section-number">3.3</span> Plain text files with markup</h2>
 <p>Text files can also include “markup” which are text characters used to annotate text to control how it is displayed or processed. Such files retain their portability and are human readable. You will have used them often!</p>
 <div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ext</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>ext <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">".html"</span>, <span class="st">".md"</span>, <span class="st">".Rmd"</span>, <span class="st">".JSON"</span>, <span class="st">".tex"</span>, <span class="st">".qmd"</span><span class="op">)</span>,</span>
+<span>                  content <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hypertext Markup Language - for documents designed to be displayed in a web browser."</span>, </span>
+<span>                              <span class="st">"markdown - a lightweight markup language designed to be human readable"</span>, </span>
+<span>                              <span class="st">"R markdown - like markdown but can include R code"</span>, </span>
+<span>                              <span class="st">"JavaScript Object Notation - commonly used for transmitting data in web applications using attribute-value pairs."</span>,</span>
+<span>                              <span class="st">"TeX - a typesetting langauge especially where the writer needs precise spacing and/or unusual fonts and characters such as in maths, linguistics and music."</span>,</span>
+<span>                              <span class="st">"Quarto markdown - next-generation version of R Markdown designed to work with *any* programming langauge."</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">ext</span>,</span>
+<span>             col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Extension"</span>, <span class="st">"Used for"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Some common markup file extensions and the content the extension usually indicates.</caption>
+<caption>Some common markup file extensions and the content the extension usually indicates. </caption>
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Extension</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Used for</th>
@@ -381,37 +426,36 @@ Warning
 </div>
 <p>Windows Explorer and Mac Finder do not show the file extensions on file names by default but I find it helpful to be able to see them. You can show the file extensions like this:</p>
 <ul>
-<li><p>under View, in the Show/hide group, select the “File name extensions” check box <a href="#fig-show-extensions-windows">Figure&nbsp;<span>3.4</span></a></p></li>
-<li><p>choose Finder | Preferences | Advanced then check “Show all filename extensions” box <a href="#fig-show-extensions-windows">Figure&nbsp;<span>3.4</span></a></p></li>
+<li><p>under View, in the Show/hide group, select the “File name extensions” check box <a href="#fig-show-extensions-windows">Figure&nbsp;<span>3.4 (a)</span></a></p></li>
+<li><p>choose Finder | Preferences | Advanced then check “Show all filename extensions” box <a href="#fig-show-extensions-windows">Figure&nbsp;<span>3.4 (a)</span></a></p></li>
 </ul>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-show-extensions" class="quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
 <div id="fig-show-extensions-windows" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/show-extensions-windows.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.4: Windows</figcaption></figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-show-extensions-mac" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/show-extensions-mac.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.5: Mac</figcaption></figure>
+<figure class="figure"><p><img src="images/show-extensions-windows.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions"></p>
+<figcaption class="figure-caption">(a) Windows</figcaption></figure>
 </div>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p>Showing file extensions in Windows and Mac</p>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-show-extensions-mac" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/show-extensions-mac.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions"></p>
+<figcaption class="figure-caption">(b) Mac</figcaption></figure>
 </div>
 </div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.4: Showing file extensions in Windows and Mac</figcaption><p></p>
+</figure>
 </div>
 </section><section id="root-and-home-directories" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="root-and-home-directories">
 <span class="header-section-number">3.7</span> Root and home directories</h2>
 <p>The top-level of directory on a computer system is known as the “root directory”. The root is represented as a <code>/</code> in Mac and Linux operating systems. In Windows the root directory is also known as a drive. In most cases, this will be the <code>C:\</code> drive.</p>
-<p>Even though the root directory is at the base of the file tree (or the top, depending on how you view it), it is not necessarily where our journey through the file system starts when we launch a new session on our computer. Instead our journey begins in the so called “home directory”. You home directory is not usually named <code>home</code> but with your username for that computer. Your personal files and directories can be found inside this folder. This is where your computer assumes you want to start when you open your file manager. On Windows and Mac your home directory is a directory <em>inside</em> the directory called <code>Users</code> immediately under the root and named with your username (<a href="#fig-file-system-root">Figure&nbsp;<span>3.6</span></a>).</p>
+<p>Even though the root directory is at the base of the file tree (or the top, depending on how you view it), it is not necessarily where our journey through the file system starts when we launch a new session on our computer. Instead our journey begins in the so called “home directory”. You home directory is not usually named <code>home</code> but with your username for that computer. Your personal files and directories can be found inside this folder. This is where your computer assumes you want to start when you open your file manager. On Windows and Mac your home directory is a directory <em>inside</em> the directory called <code>Users</code> immediately under the root and named with your username (<a href="#fig-file-system-root">Figure&nbsp;<span>3.5</span></a>).</p>
 <div id="fig-file-system-root" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/file-system-root.png" class="img-fluid figure-img" alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."></p>
-<figcaption class="figure-caption">Figure&nbsp;3.6: The hierarchy from the root. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder</figcaption></figure>
+<figcaption class="figure-caption">Figure&nbsp;3.5: The hierarchy from the root. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder</figcaption></figure>
 </div>
 <p>There will be other folders immediately below the root directory (on the same level of the hierarchy as <code>Users</code>). These contain system-level files and folders that you do not usually needed to open, edit or move. For example, <code>Program Files</code> is where programs are installed.</p>
 </section><section id="working-directories" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="working-directories">

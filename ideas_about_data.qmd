@@ -24,22 +24,14 @@ When we do research, we typically have variables that we choose or set and varia
 
 ## Distributions
 
-any variable has a distribution
-
-A distribution is the values a variable can take and the chance of them occurring
-
-Distribution is a function (relationship)
-
-Parameters tune the shape of the distribution
-
-The distribution of a variable describes the types of values it can take and the likelihood of each value occurring.
+Any variable has a *distribution* which describes the values the variable can take and the chance of them occurring. The distribution is a function (relationship) which captures how the values are mapped to the probability of them occurring. A distribution has a general type, given by the function and is further tuned by the *parameters* in the function. For example variables like height, length, concentration, mass and intensity follow a *normal distribution* also know as the bell-shaped curve so that they look similar. However, they have different means and standard deviations. The mean and the standard deviation are the parameters of the normal distribution.
 
 An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range. Discrete variables can take only specific values.
 
 ```{r}
 #| echo: false
 #| label: fig-distrib-contin
-#| fig-cap: "."
+#| fig-cap: "A continuous variable has a smooth distribution and the probability of getting a particular value or less is given by the area under the curve. The example is a normal distribution."
 mean <- 4.2
 sd <-  1.2
 
@@ -56,16 +48,16 @@ ggplot(data = data.frame(x = c(0, 9)), aes(x)) +
   stat_function(fun = dnorm_limit, 
                 geom = "area", 
                 fill = "lightseagreen") +
-  annotate("text",
-           x = 1, y = 0.2,
+  annotate("text", size = 5,
+           x = 1, y = 0.22,
            label = "Function") +
   annotate("segment",
-           x = 1, y = 0.19,
+           x = 1, y = 0.2,
            xend = 2.5, yend = 0.125,
            arrow = arrow(type = "closed", 
                          length = unit(0.03, "npc"))) +
-  annotate("text",
-           x = 6.5, y = 0.25,
+  annotate("text", size = 5,
+           x = 6.7, y = 0.26,
            label = "Shaded area under curve\nis the probability of getting\na value of X or more") +
   annotate("segment",
            x = 6.5, y = 0.22,
@@ -79,42 +71,44 @@ ggplot(data = data.frame(x = c(0, 9)), aes(x)) +
                      expand = c(0, 0),
                      breaks = 5, labels = "X") +
   
-  theme_classic()
+  theme_classic() +
+  theme(axis.text.x = element_text(size = 20))
 
 ```
 
 ```{r}
 #| echo: false
 #| label: fig-distrib-discrete
-#| fig-cap: "."
-mean <- 1.5
+#| fig-cap: "A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. The example is a Poisson distribtion."
+mean <- 2
 
 
 ggplot(data.frame(x = c(0:6)), aes(factor(x), fill = factor(x))) +
   geom_col(aes(y = dpois(x, mean)), colour = "black" ) +
-  annotate("text",
-           x = 6.4, y = 0.20,
+  annotate("text", size = 5,
+           x = 4.5, y = 0.26,
            label = "Probability of getting\na value of exactly Y") +
   annotate("segment",
-           x = 6.4, y = 0.18,
-           xend = 6, yend = 0.12,
+           x = 4.4, y = 0.23,
+           xend = 4, yend = 0.15,
            arrow = arrow(type = "closed", 
                          length = unit(0.03, "npc"))) +
   scale_y_continuous(breaks = NULL, 
                      name = "",
                      expand = c(0, 0),
-                     limits = c(0, 0.25)) +
+                     limits = c(0, 0.3)) +
   scale_x_discrete(name = "Value a discrete variable can take",
-                  breaks = 5, labels = "Y") +
+                  breaks = 3, labels = "Y") +
   scale_fill_manual(values = c("white",
                                "white",
                                "white",
-                               "white",
-                               "white",
                                "lightseagreen",
+                               "white",
+                               "white",
                                "white")) +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        axis.text.x = element_text(size = 20))
 
 ```
 
@@ -219,7 +213,7 @@ plants |> ggplot(aes(x = factor(nplants))) +
 
 The mean of `r sample_m` groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants. The average is being dragged up by the few quadrats containing 3 plants.
 
-For count variables - and other variables that are not symmetrical, it is often better to give the median and interquartile range.
+For count variables - and other variables that are not symmetrical - it is often better to give the median and interquartile range.
 
 The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.
 
@@ -256,12 +250,12 @@ ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
 
 ## Theory and practice
 
-The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then it the values become discrete because the only the values of 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (@fig-contin-is-discrete)
+The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then the values become discrete because the only the values possible are 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (@fig-contin-is-discrete)
 
 ```{r}
 #| echo: false
 #| label: fig-contin-is-discrete
-#| fig-cap: "The mass of cats in kilograms is theoretically continuous. If we measure only to the nearest kilogram, mass becomes discrete because 1kg covers a large chunk of the range."
+#| fig-cap: "The mass of cats in kilograms is theoretically continuous (left). If we measure only to the nearest kilogram, mass becomes discrete because 1kg covers a large chunk of the range (right)."
 
 m <- 4
 sd <- 0.8
@@ -286,7 +280,7 @@ b <- ggplot(data = data.frame(Mass = round(rnorm(1000, m, sd), 0)), aes(Mass)) +
 a + b
 ```
 
-In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 10,0204 hairs is so tiny the variable is practically continuous (@fig-discrete-is-contin).
+In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 100,204 hairs is so tiny the variable is practically continuous (@fig-discrete-is-contin).
 
 ```{r}
 #| echo: false

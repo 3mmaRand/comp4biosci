@@ -26,6 +26,7 @@ One of the simplest types of file is a "text file", also known as ASCII files, w
 
 ```{r}
 #| label: tab-text-file-extensions
+#| tbl-cap: "Some common text file extensions and the content the extension usually indicates."
 #| echo: false
 
 ext <- data.frame(ext = c(".txt", ".tab", ".csv", ".R", ".py", ".fasta"),
@@ -36,7 +37,7 @@ ext <- data.frame(ext = c(".txt", ".tab", ".csv", ".R", ".py", ".fasta"),
                               "Python commands and comments",
                               "Nucleotide or amino acid sequences"))
 
-knitr::kable(ext, caption = "Some common text file extensions and the content the extension usually indicates.",
+knitr::kable(ext,
              col.names = c("Extension", "Content usually inside")) |> 
   kableExtra::kable_styling()
 
@@ -54,7 +55,8 @@ Text files can also include "markup" which are text characters used to annotate 
 
 ```{r}
 #| label: tab-mark-up-text-file-extensions
-#| echo: false
+#| tbl-cap: "Some common markup file extensions and the content the extension usually indicates."
+#| #| echo: false
 
 ext <- data.frame(ext = c(".html", ".md", ".Rmd", ".JSON", ".tex", ".qmd"),
                   content = c("Hypertext Markup Language - for documents designed to be displayed in a web browser.", 
@@ -64,7 +66,7 @@ ext <- data.frame(ext = c(".html", ".md", ".Rmd", ".JSON", ".tex", ".qmd"),
                               "TeX - a typesetting langauge especially where the writer needs precise spacing and/or unusual fonts and characters such as in maths, linguistics and music.",
                               "Quarto markdown - next-generation version of R Markdown designed to work with *any* programming langauge."))
 
-knitr::kable(ext, caption = "Some common markup file extensions and the content the extension usually indicates.",
+knitr::kable(ext,
              col.names = c("Extension", "Used for")) |> 
   kableExtra::kable_styling()
 
@@ -97,6 +99,7 @@ It is easiest to picture a file system, or part of it, as a tree that starts at 
 File managers are the basic way that you interact with the file system on your computer. They allows you to move, copy, and delete files. You can also launch applications from them and and connect to other networks. The windows file explorer is called File Explorer and on Mac it is called Finder (@fig-explorer-icons).
 
 ::: {#fig-explorer-icons layout-ncol="2"}
+
 ![File Explorer (Windows)](images/icon-file-explorer-windows.png){#fig-windows-explorer width="100"}
 
 ![Finder (Mac)](images/icon-finder-mac.png){#fig-mac-finder width="100"}
@@ -110,10 +113,13 @@ Windows Explorer and Mac Finder do not show the file extensions on file names by
 
 -   choose Finder \| Preferences \| Advanced then check "Show all filename extensions" box @fig-show-extensions-windows
 
-::: {layout-nrow="2"}
+::: {#fig-show-extensions layout-nrow="2"}
+
 ![Windows](images/show-extensions-windows.png){#fig-show-extensions-windows}
 
+
 ![Mac](images/show-extensions-mac.png){#fig-show-extensions-mac}
+
 
 Showing file extensions in Windows and Mac
 :::
