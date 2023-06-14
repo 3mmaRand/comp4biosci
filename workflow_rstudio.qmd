@@ -5,36 +5,61 @@
 #| echo: false
 
 source("_common.R")
-status("drafting")
+status("polishing")
 ```
 
-TODO: overview
+This chapter give you some tips for make your workflow in RStudio easier.
 
 ## RStudio Projects
 
--   `.RProj` indicates a folder is an RStudio Project
+### What is an RStudio Project?
 
-### Organising an RStudio Project
+Using an RStudio Project will help you organise your analysis work, make it much easier to manage working directories and paths and also to collaborate with others including yourself on another computer! An RStudio Project is a folder that contains a file with the extension `.RProj` and all the code, data, and other files associated with a particular piece of work.
 
-folder arrangement
+For example, if you were analysing some data on stem cells you might have an RStudio Project called "stem-cells". This would be a folder called `stem-cells`, known as the project folder, which contains the `stem-cells.Rproj` file - both of these are created automatically. Then you might create folders for the data and for figures from the analysis along with the script that contains code for importing the data, doing the analysis, creating the figures and writing the figures to file.
 
-consistency
+```
+-- stem-cells
+   |__stem-cells.Rproj
+   |__analysis.R
+   |__data-raw
+      |__2019-03-21_donor_1.csv
+      |__2019-03-21_donor_2.csv
+      |__2019-03-21_donor_3.csv
+   |__figures
+      |__01_volcano_donor_1_vs_donor_2.png
+      |__02_volcano_donor_1_vs_donor_3.png
 
-commenting
+```
+When you open an RStudio Project, it automatically sets the project directory as the working directory. This means when you write your code with paths relative to the project directory your code will work the same on any computer you send that RStudio Project to.
+
+
+### Creating an RStudio Project
+
+-   Click on the drop-down menu on top right where it says "Project: (None)"
+
+-   Choose "New Directory", then "New Project"
+
+-   Click the Browse button next to "Create project as a subdirectory of:" to navigate to a place in your file system where you want to create the project folder. 
+
+-   Type a name the "Directory name". This should be something that helps you identify the contents. Follow the advice in [Naming things](organising_work.html#naming-things)
+
 
 ## Some useful settings
 
-When using RStudio Projects the working directory is the Project directory but when you start RStudio up and want to make a new project you might find the default location doesn't suit you. You can [change the default directory when not in a project](https://3mmarand.github.io/comp4biosci/first_steps_rstudio.html#changing-some-defaults-to-make-life-easier).
+You can adjust some of the default settings in RStudio you suit your own needs better. The settings are accessed through the Tools Menu under Global options. I like the following settings:
 
-[change Workspace options.](https://3mmarand.github.io/comp4biosci/first_steps_rstudio.html#changing-some-defaults-to-make-life-easier)
+-   When using RStudio Projects the working directory is the Project directory but when you start RStudio up and want to make a new project you might find the default location doesn't suit you. You can [change the default directory when not in a project](first_steps_rstudio.html#changing-some-defaults-to-make-life-easier).
 
-show code diagnostics
+-   To ensure you have a fresh session with no R objects in the workspace you can [change Workspace options](first_steps_rstudio.html#changing-some-defaults-to-make-life-easier).
 
-show margins
-
-rainbow brackets
-
-fresh env each star up
+-   In the Code options
+     
+     -   Display - check Use rainbow brackets which makes it easier to see which bracket are pairs
+     -   Display - check Show margin which will add a line at 80 characters to help you use new lines more often and not create very long lines of code that are difficult to read
+     -   Diagnostics - check Show diagnostics for R which will put a marker on the line that includes a syntax error and make a suggestion what the error is
+     -   Diagnostics - check Provide R style diagnostics (e.g. whitespace) which will help you layout your code
+     -   
 
 ## Handy housekeeping command
 
