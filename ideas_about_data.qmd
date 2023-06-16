@@ -111,12 +111,33 @@ ggplot(data.frame(x = c(0:6)), aes(factor(x), fill = factor(x))) +
         axis.text.x = element_text(size = 20))
 
 ```
+## Summarising data
 
-### Discrete data
+We summarise data by giving a measure of *central tendency* and a measure of *dispersion*.  A measure of central tendency is a single value that represents the middle or centre of a variable's distribution. The three most common measures are:
+
+-   the mean, or more accurately, the arithmetic mean, $\bar{x} = \frac{\sum{x}}{n}$
+
+-   the median: the middle value for a variable with values arranged in order of magnitude
+
+-   the mode: the most frequent value in the variable.
+
+Measures of dispersion describe the spread of values around the centre and indicate how much variability there is in the variable. The most common measures of dispersion are:
+
+-   the range: the difference between the maximum value and the minimum value in a variable
+
+-   the interquartile range: two values, the first quartile and the thrid quartile. The first quartile is half way between the median value and the lowest value when the values are arranged in order and the third quartile is halfway between the median value and the highest value 
+
+-   the variance: the average of the squared differences between each value and the variable's mean, $\bar{x} = \frac{(\sum{x - \bar{x})^2}}{n - 1}$
+
+-   the standard deviation: the square root of the variance.
+
+
+
+## Discrete data
 
 Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.
 
-#### Categories: Nominal and Ordinal
+### Categories: Nominal and Ordinal
 
 Categorical data can be nominal and ordinal depending on whether they are ordered. Nominal variable have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn't matter in what order the information was given or plotted. Ordinal variables have an order. The Likert scale @likert1932 used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (@fig-categories).
 
@@ -160,7 +181,7 @@ b <- likert |> ggplot(aes(x = Response, y = Frequency)) +
 a + b
 ```
 
-The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value (@tbl-likert).
+The most appropriate way to summarise nominal or ordinal data is to report the mode (most frequent value) or tabulate the number of each value (@tbl-likert).
 
 ```{r}
 #| echo: false
@@ -171,7 +192,7 @@ knitr::kable(likert) |> kableExtra::kable_styling()
 
 ```
 
-#### Counts
+### Counts
 
 Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical and has a tail to the right - especially for lower count ranges.
 
@@ -219,13 +240,11 @@ For count variables - and other variables that are not symmetrical - it is often
 
 The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.
 
-### Continuous data
+## Continuous data
 
-Continuous variables are measurements that can take *any* value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. For example,
+Continuous variables are measurements that can take *any* value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. A large number of continuous variables follow the normal distribution.
 
 ### The normal distribution
-
-Properties of normal distributions
 
 For example, a variable like human height has values with decimal places which follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (@fig-normal-distribtion).
 
@@ -249,6 +268,8 @@ ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
            label = "Values are rare") +
   theme_classic()
 ```
+
+The mean and standard deviation are the best way to summarise a normally distributed variable.
 
 ## Theory and practice
 
@@ -308,6 +329,7 @@ ggplot() +
 
 A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.
 
+
 ## Summary
 
 1.  Data: Data consists of variables (properties measured or recorded) and observations (individual things with those properties). Data is commonly organised with variables in columns and observations in rows.
@@ -316,10 +338,11 @@ A rule of thumb is that if the mean count is above about 100, then the distribut
 
 3.  Distributions: A variable's distribution describes the types of values it can take and the likelihood of each value occurring. Variables can be classified as discrete (specific values) or continuous (any value within a range). The shape of a distribution is determined by parameters.
 
-4.  Discrete Data: Discrete variables can be categories (e.g., genotype) or counts (e.g., the number of petals). Categorical data can be nominal (no order) or ordinal (ordered, like a Likert scale).
+4.  Discrete Data: Discrete variables can be categories or counts. Categorical data can be nominal (no order) or ordinal (ordered) and are best summarised with the mode or a table. Counts are often best summarised by the median and interquartile range.
 
-5.  Continuous Data: Continuous variables can take any value within a range. Examples include measurements like length, mass, volume, and optical density. Human height is often modelled by a normal distribution.
+5.  Continuous Data: Continuous variables can take any value within a range. The normal distribution is the most common continuous distribution and is best summarised with the mean and standard deviation.
 
 6.  Theory and Practice: While the theoretical distinction between continuous and discrete values is clear, the actual values obtained in practice may deviate from the expected distribution. Measurement precision and range affect whether a variable is considered continuous or discrete. A rule of thumb suggests that if the mean count is above approximately 100, the distribution of counts approximates a normal distribution.
+
 
 [^ideas_about_data-1]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.

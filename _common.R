@@ -13,8 +13,8 @@ library(patchwork)
 
 status <- function(type) {
   status <- switch(type,
-                   polishing = "is a first draft but should be readable.",
-                   drafting = "is a dumping ground for ideas and not really readable.",
+                   polishing = "is a first draft but should be readable",
+                   drafting = "is a dumping ground for ideas and not really readable",
                    complete = "is compete but needs final proof reading",
                    stop("Invalid `type`", call. = FALSE)
   )

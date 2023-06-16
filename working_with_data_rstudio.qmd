@@ -7,26 +7,276 @@
 source("_common.R")
 status("drafting")
 ```
-         
--   importing data, types of file, different methds
--   summarising data, one two,
--   More plots
--   saving plots
--   tidying data
 
+Importing data, summarising and visualising it and saving figures.
 
-### Getting data in to R
+## Importing data from files
 
-read_table
+In [First Steps in RStudio](first_steps_rstudio.html) we typed data into R. This is not practical when you have a lot of data, or you are using data file that has been supplied to you by a person or a machine. Instead, we much more commonly import data into R from a file. This requires you know two pieces of information.
+
+1.  What format the data are in
+
+    The format of the data determines what function you will use to import it and the file extension often indicates format.
+
+    -   `.txt` a plain text file[^working_with_data_rstudio-1], where the columns are often separated by a space but might also be separated by a tab, a backslash or forward slash, or some other character
+    -   `.csv` a plain text file where the columns are separated by commas
+    -   `.xlsx` an Excel file More detail on file types was covered in [Understanding file systems](file_systems.html#files)
+
+2.  Where the file is relative to your working directory
+
+    `R` can only read in a file if you say where it is, i.e., you give its **relative path**. More detail on relative file paths and working directories was covered in [Understanding file systems](file_systems.html#working-directories)
+
+[^working_with_data_rstudio-1]: Plain text files can be opened in notepad or other similar editor and still be readable.
+
+🎬 Your turn! If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects) then a new script.
+
+This chapter covers reading `.txt` files and `.csv` files using `**tidyerse**` functions and excel files using the `**readxl**` package. We will demonstrate what needs to be done differently if the file is not in your working directory.
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+### Importing data from `.txt` file
+
+The data in [adipocytes.txt](data-raw/adipocytes.txt) give the concentration of a hormone called adiponectin in some cells. There are two columns: the first gives the adiponectin concentration and the second, treatment, indicates whether the cells were treated with nicotinic acid or not. A `.txt` extension suggests this is plain text file with columns separated by spaces. However, before we attempt to read it in, when should take a look at it. We can do this from RStudio by clicking on the file in the Files pane. Any plain text file will open in the top left pane.
+
+![The adipocytes.txt data file open. We can see the columns are separated by spaces](images/text-data-file-open.png){#fig-text-data-file-open fig-alt="screenshot of RStudio showing the data file open" width="600"}
+
+The files are separated by spaces as we suspected. We use the `read_table()` command to read in plain text files of single columns or where the columns are separated by spaces:
+
+```{r}
+#| eval: false
+cells <- read_table("adipocytes.txt")
+```
+
+The data from the file has been read into a dataframe called `cells`. You will and you will be able to see it in the Environment window. Clicking on it in the Environment window will open a spreadsheet-like view of the dataframe.
+
+### Importing a from a`.csv` file
+
+The data [seal.csv](data-raw/seal.csv) give the myoglobin concentration of skeletal muscle for three species of seal. There are two columns: the first gives the myoglobin concentration and the second indicates species.
+
+The `.csv` extension suggests this is plain text file with columns separated by commas. We will again check this before we attempt to read it in. Click on the file in the Files pane - a pop-up will appear for files ending `.csv` or `.xlsx`. Choose View File[^working_with_data_rstudio-2].
+
+[^working_with_data_rstudio-2]: **Don\'t** be tempted to import data this way. Unless you are careful, your data import will not be scripted or will not be scripted correctly.
+
+![Rstudio Files pane showing the data files and the View File option that appears when you click on the a particular file](images/csv-data-file-view.png){#csv-data-file-view fig-alt="screenshot of RStudio showing the View File option that appears when you click on the a particular file" width="600"}
+
+CSV files will open in the top left pane (Excel files will launch Excel). We can see that the file does contain comma separated values. There is a`read_csv()` function which works very like `read_table()`[^working_with_data_rstudio-3]:
+
+[^working_with_data_rstudio-3]: note `read_csv()` and `read_table()` are the same functions with some different settings
+
+```{r}
+#| eval: false
+seal <- read_csv("seals.csv")
+```
+
+### Importing a from a`.xlsx` file
+
+The data in [blood.xlsx](data-raw/blood.xlsx) are measurements of several blood parameters from fifty people with Crohn's disease, a lifelong condition where parts of the digestive system become inflamed. Twenty-five of people are in the early stages of diagnosis and 25 have started treatment.
+
+```{r}
+#| eval: false
+blood <- read_excel("blood.xlsx")
+```
+
+### Importing data from a file not in your working directory
+
+Suppose our [adipocytes.txt](data-raw/adipocytes.txt) were in a folder, `data-raw`, in our working directory.
+
+```
+-- myproject
+   |__myproject.Rproj
+   |__import.R
+   |__data-raw
+      |__adipocytes.txt
+      |__blood.xlsx
+      |__seal.csv
+
+```
+We need to adjust the code to give the relative path to the datafile:
+
+```{r}
+cells <- read_table("data-raw/adipocytes.txt")
+```
+
+🎬 Your turn! Modify the data import code to import seal.csv from a folder called data-raw inside the working directory.
+
+```{r}
+#| code-fold: true
+seal <- read_csv("data-raw/seal.csv")
+```
 
 ## Summarising data
 
-concepts: mean, median, mode, standard deviation, sample distribution of the mean, standard error
+We will demonstrate summarising using the `cells` dataframe. `adiponectin` is the response and is continuous and `treatment` is an explanatory with categorical with two levels (groups).
 
-the role of data types in the type of summary
+The most useful summary statistics for a continuous variable like `adiponectin` are the means, standard deviations, sample sizes and standard errors. We use the `group_by()` and `summarise()` functions along with the functions that do the calculations.
 
-## Summarising and plotting a single variable
+To create a data frame called `cell_summary` that contains the means, standard deviations, sample sizes and standard errors for the control and nicotinic acid treated samples:
 
-normal distribution, mean, sd, se, n, histogram categories mode, counts, barchart,
+```{r}
+cell_summary <- cells %>%
+  group_by(treatment) %>%
+  summarise(mean = mean(adiponectin),
+            std = sd(adiponectin),
+            n = length(adiponectin),
+            se = std/sqrt(n))
 
-using the help Your first plot! importing data, types of file, different methds summarising data, one two, More plots saving plots tidying data
+```
+
+type or click on environment to open a spreadsheet-like view
+
+```{r}
+cell_summary
+```
+
+### Visualise data
+
+Most commonly, we put the explanatory variable on the *x* axis and the response variable on the *y* axis. A continuous response, particularly one that follows the normal distribution, is best summarised with the mean and the standard error. In my opinion, you should also show all the raw data points if possible.
+
+We are going to create a figure like this:
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_point(data = cells, aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "gray50") +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean, ymax = mean),
+                width = 0.2) +
+  scale_y_continuous(name = "Adiponectin (pg/mL)", 
+                     limits = c(0, 12), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(name = "Treatment", 
+                   labels = c("Control", "Nicotinic acid")) +
+  theme_classic()
+
+```
+
+In this figure, we have the data points themselves which are in `cells` dataframe and the means and standard errors which are in the `cell_summary` dataframe. That is, we have two dataframes we want to plot.
+
+The dataframes and aesthetics for ggplotcan be specified *within a `geom_xxxx`* (rather than in the `ggplot()`). This is very useful if the geom only applies to some of the data you want to plot.
+
+::: callout-tip
+## Tip: `ggplot()`
+
+You put the `data` argument and `aes()` inside `ggplot()` if you want all the `geoms` to use that dataframe and variables. If you want a different dataframe for a `geom`, put the `data` argument and `aes()` inside the `geom_xxxx()`
+:::
+
+I will build the plot up in small steps you should edit your *existing* `ggplot()` command as we go.
+
+Plot the data points first. wE how we have given the data argument and the aesthetics inside the geom. The variables `treatment` and `adiponectin` are in the `cells` dataframe
+
+```{r}
+ggplot() +
+  geom_point(data = cells, 
+             aes(x = treatment, y = adiponectin))
+```
+
+![](images/do_in_R.png) So the data points don't overlap, we can add some random jitter in the *x* direction (edit your existing code):
+
+```{r}
+ggplot() +
+  geom_point(data = cells, 
+             aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0))
+```
+
+Note that `position = position_jitter(width = 0.1, height = 0)` is inside the `geom_point()` parentheses, after the `aes()` and a comma.
+
+We've set the vertical jitter to 0 because, in contrast to the categorical *x*-axis, movement on the *y*-axis has meaning (the adiponectin levels).
+
+![](images/do_in_R.png) Let's make the points a light grey (edit your existing code):
+
+```{r}
+ggplot() +
+  geom_point(data = cells, 
+             aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "grey50")
+```
+
+Now to add the errorbars. These go from one standard error below the mean to one standard error above the mean.
+
+![](images/do_in_R.png) Add a `geom_errorbar()` for errorbars (edit your existing code):
+
+```{r}
+ggplot() +
+  geom_point(data = cells, aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "grey50") +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean - se, ymax = mean + se),
+                width = 0.3) 
+  
+```
+
+We have specified the `cell_summary` dataframe and the variables `treatment`, `mean` and `se` are in that.
+
+There are several ways you could add the mean. You could use `geom_point()` but I like to use `geom_errorbar()` again with the `ymin` and `ymax` both set to the mean.
+
+![](images/do_in_R.png) Add a `geom_errorbar()` for the mean (edit your existing code):
+
+```{r}
+ggplot() +
+  geom_point(data = cells, aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "grey50") +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean, ymax = mean),
+                width = 0.2)
+  
+```
+
+![](images/do_in_R.png) Alter the axis labels and limits using `scale_y_continuous()` and `scale_x_discrete()` (edit your existing code):
+
+```{r}
+ggplot() +
+  geom_point(data = cells, aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "grey50") +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean, ymax = mean),
+                width = 0.2) +
+  scale_y_continuous(name = "Adiponectin (pg/mL)", 
+                     limits = c(0, 12), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(name = "Treatment", 
+                   labels = c("Control", "Nicotinic acid"))
+  
+```
+
+You only need to use `scale_y_continuous()` and `scale_x_discrete()` to use labels that are different from those in the dataset. Often this is to use proper terminology and captialisation.
+
+![](images/do_in_R.png) Format the figure in a way that is more suitable for including in a report using `theme_classic()` (edit your existing code):
+
+```{r}
+ggplot() +
+  geom_point(data = cells, aes(x = treatment, y = adiponectin),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "gray50") +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
+  geom_errorbar(data = cell_summary, 
+                aes(x = treatment, ymin = mean, ymax = mean),
+                width = 0.2) +
+  scale_y_continuous(name = "Adiponectin (pg/mL)", 
+                     limits = c(0, 12), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(name = "Treatment", 
+                   labels = c("Control", "Nicotinic acid")) +
+  theme_classic()
+```

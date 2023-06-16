@@ -76,6 +76,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><script async="" src="https://hypothes.is/embed.js"></script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
@@ -192,16 +193,23 @@ div.csl-indent {
    
   <ul>
 <li><a href="#roles-of-variables-in-analysis" id="toc-roles-of-variables-in-analysis" class="nav-link active" data-scroll-target="#roles-of-variables-in-analysis"><span class="toc-section-number">5.1</span>  Roles of variables in analysis</a></li>
+  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="toc-section-number">5.2</span>  Distributions</a></li>
+  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data"><span class="toc-section-number">5.3</span>  Summarising data</a></li>
   <li>
-<a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="toc-section-number">5.2</span>  Distributions</a>
+<a href="#discrete-data" id="toc-discrete-data" class="nav-link" data-scroll-target="#discrete-data"><span class="toc-section-number">5.4</span>  Discrete data</a>
   <ul class="collapse">
-<li><a href="#discrete-data" id="toc-discrete-data" class="nav-link" data-scroll-target="#discrete-data"><span class="toc-section-number">5.2.1</span>  Discrete data</a></li>
-  <li><a href="#continuous-data" id="toc-continuous-data" class="nav-link" data-scroll-target="#continuous-data"><span class="toc-section-number">5.2.2</span>  Continuous data</a></li>
-  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="toc-section-number">5.2.3</span>  The normal distribution</a></li>
+<li><a href="#categories-nominal-and-ordinal" id="toc-categories-nominal-and-ordinal" class="nav-link" data-scroll-target="#categories-nominal-and-ordinal"><span class="toc-section-number">5.4.1</span>  Categories: Nominal and Ordinal</a></li>
+  <li><a href="#counts" id="toc-counts" class="nav-link" data-scroll-target="#counts"><span class="toc-section-number">5.4.2</span>  Counts</a></li>
   </ul>
 </li>
-  <li><a href="#theory-and-practice" id="toc-theory-and-practice" class="nav-link" data-scroll-target="#theory-and-practice"><span class="toc-section-number">5.3</span>  Theory and practice</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">5.4</span>  Summary</a></li>
+  <li>
+<a href="#continuous-data" id="toc-continuous-data" class="nav-link" data-scroll-target="#continuous-data"><span class="toc-section-number">5.5</span>  Continuous data</a>
+  <ul class="collapse">
+<li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="toc-section-number">5.5.1</span>  The normal distribution</a></li>
+  </ul>
+</li>
+  <li><a href="#theory-and-practice" id="toc-theory-and-practice" class="nav-link" data-scroll-target="#theory-and-practice"><span class="toc-section-number">5.6</span>  Theory and practice</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">5.7</span>  Summary</a></li>
   </ul></nav>
     </div>
 <!-- main -->
@@ -231,7 +239,7 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a first draft but should be readable..</p>
+<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
 <p>This chapter covers some important concepts data. Data is made up of:</p>
@@ -266,11 +274,25 @@ Warning
 </div>
 </div>
 </div>
-<section id="discrete-data" class="level3" data-number="5.2.1"><h3 data-number="5.2.1" class="anchored" data-anchor-id="discrete-data">
-<span class="header-section-number">5.2.1</span> Discrete data</h3>
+</section><section id="summarising-data" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="summarising-data">
+<span class="header-section-number">5.3</span> Summarising data</h2>
+<p>We summarise data by giving a measure of <em>central tendency</em> and a measure of <em>dispersion</em>. A measure of central tendency is a single value that represents the middle or centre of a variable’s distribution. The three most common measures are:</p>
+<ul>
+<li><p>the mean, or more accurately, the arithmetic mean, <span class="math inline">\(\bar{x} = \frac{\sum{x}}{n}\)</span></p></li>
+<li><p>the median: the middle value for a variable with values arranged in order of magnitude</p></li>
+<li><p>the mode: the most frequent value in the variable.</p></li>
+</ul>
+<p>Measures of dispersion describe the spread of values around the centre and indicate how much variability there is in the variable. The most common measures of dispersion are:</p>
+<ul>
+<li><p>the range: the difference between the maximum value and the minimum value in a variable</p></li>
+<li><p>the interquartile range: two values, the first quartile and the thrid quartile. The first quartile is half way between the median value and the lowest value when the values are arranged in order and the third quartile is halfway between the median value and the highest value</p></li>
+<li><p>the variance: the average of the squared differences between each value and the variable’s mean, <span class="math inline">\(\bar{x} = \frac{(\sum{x - \bar{x})^2}}{n - 1}\)</span></p></li>
+<li><p>the standard deviation: the square root of the variance.</p></li>
+</ul></section><section id="discrete-data" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="discrete-data">
+<span class="header-section-number">5.4</span> Discrete data</h2>
 <p>Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.</p>
-<section id="categories-nominal-and-ordinal" class="level4" data-number="5.2.1.1"><h4 data-number="5.2.1.1" class="anchored" data-anchor-id="categories-nominal-and-ordinal">
-<span class="header-section-number">5.2.1.1</span> Categories: Nominal and Ordinal</h4>
+<section id="categories-nominal-and-ordinal" class="level3" data-number="5.4.1"><h3 data-number="5.4.1" class="anchored" data-anchor-id="categories-nominal-and-ordinal">
+<span class="header-section-number">5.4.1</span> Categories: Nominal and Ordinal</h3>
 <p>Categorical data can be nominal and ordinal depending on whether they are ordered. Nominal variable have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn’t matter in what order the information was given or plotted. Ordinal variables have an order. The Likert scale <span class="citation" data-cites="likert1932">Likert (<a href="references.html#ref-likert1932" role="doc-biblioref">1932</a>)</span> used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (<a href="#fig-categories">Figure&nbsp;<span>5.3</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -281,7 +303,7 @@ Warning
 </div>
 </div>
 </div>
-<p>The most appropriate way to summarise nominal or ordinal data is to report the most frequent values or tabulate the number of each value (<a href="#tbl-likert">Table&nbsp;<span>5.1</span></a>).</p>
+<p>The most appropriate way to summarise nominal or ordinal data is to report the mode (most frequent value) or tabulate the number of each value (<a href="#tbl-likert">Table&nbsp;<span>5.1</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-likert" class="anchored">
@@ -314,8 +336,8 @@ Warning
 </div>
 </div>
 </div>
-</section><section id="counts" class="level4" data-number="5.2.1.2"><h4 data-number="5.2.1.2" class="anchored" data-anchor-id="counts">
-<span class="header-section-number">5.2.1.2</span> Counts</h4>
+</section><section id="counts" class="level3" data-number="5.4.2"><h3 data-number="5.4.2" class="anchored" data-anchor-id="counts">
+<span class="header-section-number">5.4.2</span> Counts</h3>
 <p>Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical and has a tail to the right - especially for lower count ranges.</p>
 <p>A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. <a href="#fig-counts">Figure&nbsp;<span>5.4</span></a> shows the number of groundsel plants in a hundred 1 metre square quadrats<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="cell">
@@ -330,12 +352,11 @@ Warning
 <p>The mean of 0.73 groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants. The average is being dragged up by the few quadrats containing 3 plants.</p>
 <p>For count variables - and other variables that are not symmetrical - it is often better to give the median and interquartile range.</p>
 <p>The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.</p>
-</section></section><section id="continuous-data" class="level3" data-number="5.2.2"><h3 data-number="5.2.2" class="anchored" data-anchor-id="continuous-data">
-<span class="header-section-number">5.2.2</span> Continuous data</h3>
-<p>Continuous variables are measurements that can take <em>any</em> value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. For example,</p>
-</section><section id="the-normal-distribution" class="level3" data-number="5.2.3"><h3 data-number="5.2.3" class="anchored" data-anchor-id="the-normal-distribution">
-<span class="header-section-number">5.2.3</span> The normal distribution</h3>
-<p>Properties of normal distributions</p>
+</section></section><section id="continuous-data" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="continuous-data">
+<span class="header-section-number">5.5</span> Continuous data</h2>
+<p>Continuous variables are measurements that can take <em>any</em> value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. A large number of continuous variables follow the normal distribution.</p>
+<section id="the-normal-distribution" class="level3" data-number="5.5.1"><h3 data-number="5.5.1" class="anchored" data-anchor-id="the-normal-distribution">
+<span class="header-section-number">5.5.1</span> The normal distribution</h3>
 <p>For example, a variable like human height has values with decimal places which follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (<a href="#fig-normal-distribtion">Figure&nbsp;<span>5.5</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -346,8 +367,9 @@ Warning
 </div>
 </div>
 </div>
-</section></section><section id="theory-and-practice" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="theory-and-practice">
-<span class="header-section-number">5.3</span> Theory and practice</h2>
+<p>The mean and standard deviation are the best way to summarise a normally distributed variable.</p>
+</section></section><section id="theory-and-practice" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="theory-and-practice">
+<span class="header-section-number">5.6</span> Theory and practice</h2>
 <p>The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then the values become discrete because the only the values possible are 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (<a href="#fig-contin-is-discrete">Figure&nbsp;<span>5.6</span></a>)</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -369,14 +391,14 @@ Warning
 </div>
 </div>
 <p>A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.</p>
-</section><section id="summary" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">5.4</span> Summary</h2>
+</section><section id="summary" class="level2" data-number="5.7"><h2 data-number="5.7" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">5.7</span> Summary</h2>
 <ol type="1">
 <li><p>Data: Data consists of variables (properties measured or recorded) and observations (individual things with those properties). Data is commonly organised with variables in columns and observations in rows.</p></li>
 <li><p>Roles of Variables in Analysis: Variables in research can be independent or explanatory variables (chosen or set by researchers) and dependent or response variables (measured by researchers).</p></li>
 <li><p>Distributions: A variable’s distribution describes the types of values it can take and the likelihood of each value occurring. Variables can be classified as discrete (specific values) or continuous (any value within a range). The shape of a distribution is determined by parameters.</p></li>
-<li><p>Discrete Data: Discrete variables can be categories (e.g., genotype) or counts (e.g., the number of petals). Categorical data can be nominal (no order) or ordinal (ordered, like a Likert scale).</p></li>
-<li><p>Continuous Data: Continuous variables can take any value within a range. Examples include measurements like length, mass, volume, and optical density. Human height is often modelled by a normal distribution.</p></li>
+<li><p>Discrete Data: Discrete variables can be categories or counts. Categorical data can be nominal (no order) or ordinal (ordered) and are best summarised with the mode or a table. Counts are often best summarised by the median and interquartile range.</p></li>
+<li><p>Continuous Data: Continuous variables can take any value within a range. The normal distribution is the most common continuous distribution and is best summarised with the mean and standard deviation.</p></li>
 <li><p>Theory and Practice: While the theoretical distinction between continuous and discrete values is clear, the actual values obtained in practice may deviate from the expected distribution. Measurement precision and range affect whether a variable is considered continuous or discrete. A rule of thumb suggests that if the mean count is above approximately 100, the distribution of counts approximates a normal distribution.</p></li>
 </ol>
 
@@ -647,8 +669,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (!isInternal(link.href)) {
           // target, if specified
           link.setAttribute("target", "_blank");
-          // default icon
-          link.classList.add("external");
       }
     }
 });
