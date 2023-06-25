@@ -1,0 +1,78 @@
+# The logic of hyothesis testing
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+status("drafting")
+```
+
+## Why do we do statistical testing?
+
+
+## Samples and populations
+
+
+## Sampling distributions
+
+
+## Logic of hypothesis testing
+
+null hypothesis What you expect to happen if nothing
+interesting biologically is occurring.
+
+$H_0$
+
+alternative hypothesis $H_1$
+
+reject or not reject
+
+
+### Hypothesis Testing: steps
+
+1.  Set up H0 “no effect”
+
+2.  Design experiment to test null hypothesis and collect data
+
+3.  Determine the probability of our data if H0 is true
+
+4.  Decide whether to reject or not reject the H0 based on that probability p ≤ 0.05 reject H0; p > 0.05 do not reject H0
+
+
+### Example
+
+Question: Does this fertiliser increase the crop yield?
+
+1.  Set up the null hypothesis
+    There is no difference between the mass of plants grown with fertiliser, $\bar{x_f}$, and the mass of the plants grown without fertiliser, $\bar{x_c}$.
+
+
+```{r}
+#| echo: false
+#| label: fig-null-hyp-crop-fert
+#| fig-cap: "The null hypothesis is that the mean of the plants grown with fertiliser is the same as those grown without fertiliser (the control)."
+
+m <- 250
+sd <- 40
+ggplot(data = data.frame(mass = rep(c(m - 3 * sd, m + 3 * sd), times = 2),
+                         treatment = c("control", "control", "fertiliser", "fertiliser")),
+       aes(mass)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = m, sd = sd)) +
+  geom_vline(xintercept = m) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0)) +
+  scale_x_continuous(breaks = c(50, 100, 150, 200, 250, 300, 350, 400),
+                     expand = c(0, 0)) + 
+  annotate("text", x = 175, y = 0.0075, label = glue::glue("mean = {m}")) +
+  facet_wrap(. ~ treatment, nrow = 2, scales = "free") +
+  theme_classic() +
+  theme(strip.background = element_blank(),
+        strip.text = element_text(size = 14))
+```
+
+
+$H_0 : \bar{x_f} -\bar{x_c} = 0$.
+
+
+### Type 1 and type 2 errors
