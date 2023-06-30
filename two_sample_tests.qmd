@@ -1,4 +1,11 @@
-# Two Sample tests
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Two-Sample tests
+
 ```{r}
 #| results: "asis"
 #| echo: false
@@ -7,4 +14,295 @@ source("_common.R")
 status("drafting")
 ```
 
-## vvvv
+## Overview
+
+regression - the explanatory variable was continuous. now we turn to
+cases where our explanatory variable is discrete - a group variable with
+two groups
+
+give an example
+
+we use lm and or wilxon.test depending on our data. lm is based on the
+normal distribution so it needs some assumptions to be met for the p
+values to be accurate.
+
+tests based on the normal distribution as known as parametric because
+they work using parameters of the normal distribution (the mean and
+standard deviation. Null hypotheses are about the mean or difference between means. 
+
+the alternatives are called non-parametric tests and they have fewer
+assumptions. the downside is they are less powerful - less able to
+detect a difference where one exists. Non-parametric tests make fewer assumptions Based on the ranks rather than the actual data Null hypotheses are about the mean rank (not the mean)
+
+
+we might be able to decide before we do the test or we might need to check the assumptions of the lm after we have applied it and then change if needed
+
+### lm assumptions
+
+the "residuals" are normally distributed and have homogeneity of
+variance A residual is the difference between the predicted and observed
+value
+
+in regression the predicted value is the value on the line. When you
+have a theoretical explanatory variable, the predicted value is the
+group mean. these are equivalent. the mean of one group is the
+intercept; the mean of the other group is the slope
+
+Use common sense - the response should be continuous (or nearly
+continuous see earlier in the chapter about data). not lots of repeated
+values. Plot the residuals Test against the normal distribution
+
+When the assumptions are not met
+
+-   transformation e.g., log
+
+-   non-parametric test
+
+### paired and unpaired samples
+
+Is there a difference between the maths and stats marks of 10 students?
+
+```{r}
+
+```
+
+Two samples but values are not independent. They could be - Same
+individual - Same time or location Key: do pairs of observations have
+something in common that make them more similar to each other than to
+other observations.
+
+### Reporting
+
+give the results and the proof. stats are the references of of your
+results sections
+
+Reporting the result: "significance of effect, direction of effect,
+magnitude of effect"
+
+figures should demonstrate the statement. should show the data and the
+model
+
+
+Supports your claim: 
+-   how the data (all if possible) 
+–   show the ‘model’ (the predicted values i.e., means and error bars) 
+–   Say what kind of error bars/measures of dispersion
+–   Full but concise figure legends
+-   Figure legend https://blog.bioturing.com/2018/05/10/how-to-craft-a-figure-legend-for-scientific-papers/
+-   refer to figure in text
+
+## Two independent samples example parametric
+
+### scenario
+
+A number of [subspecies of the common
+chaffinch](https://en.wikipedia.org/wiki/Common_chaffinch) have been described, based principally on the differences in the pattern and colour of the adult male plumage. Two of groups of these subspecies are: - "coelebs group" that occurs in Europe and Asia - "canariensis group" on the Canary Islands
+
+Example: is there a difference between the masses of different subspecies of chaffinches?
+
+No link between pairs of values, Could reorder
+
+### explore
+
+#### import
+
+
+```{r}
+chaff <- read_table("data/chaff.txt")
+```
+
+All the responses in one column with other variables indicating the
+group
+
+Tidy data [@wickham2014] - Each variable should be in one column. - Each
+different observation of that variable should be in a different row. -
+There should be one table for each "kind" of data. - If you have
+multiple tables, they should include a column in the table that allows
+them to be linked.
+
+#### Plot your data roughly - violin, points, boxplot
+
+```{r}
+ggplot(data = chaff,
+       aes(x = subspecies, y = mass)) +
+  geom_boxplot()
+```
+
+order on the graph - alphabetical
+
+#### Summarise
+
+```{r}
+chaff_summary <- chaff |> 
+  group_by(subspecies) |> 
+  summarise(mean = mean(mass),
+            std = sd(mass),
+            n = length(mass),
+            se = std/sqrt(n))
+```
+
+
+
+### test
+
+
+```{r}
+lm(data = chaff, mass ~ subspecies)
+```
+
+explain output: The two group means, 95% CI on the difference between the two means, The bit that says whether it is significant p value. What tests matter (not the intercept). *p* < 0.05 Conclusion: there is a significant difference between the subspecies in mass. point out the values we will quote in results 
+
+### check assumptions
+
+Check the assumptions: All t-tests assume the “residuals” are normally
+distributed and have homogeneity of variance. 
+
+First use common sense: mass is a continuous and we would expect it to be normally
+distributed thus we would expect the residuals to be normally distributed
+
+Second by plotting residuals: calculate the residuals – the difference between predicted and observed (i.e., group mean and value).
+
+mod object has access
+
+Checking the assumptions: normally distributed residuals
+
+-   Variance is about the same for all values of x
+-   Looks roughly normal, symmetrical
+-   test with shapiro. is NS. note that not significant means not significantly different from a normal distribution. It does not mean definitely normally distributed
+
+
+### report
+
+Reporting the result: “significance of effect, direction of effect, magnitude of
+effect”
+
+Canariensis chaffinches ($\bar{x} \pm s.e: 22.48 \pm 0.48$) are significantly heavier than coelebs ($20.28 \pm 0.48$ ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See figure 1.
+
+### illustrate
+
+
+
+
+## Two independent samples example non-parametric
+
+The two sample Wilcoxon also known as the Mann-Whitney. the type of question is the same but the response variable is not continuous or the residuals are not normally distributed or the sample size is too small to tell if they are normally distributed.
+
+
+### scenario
+
+Example: comparing the number of leaves on 8 mutant and wild type arabidopsis plants (small samples, counts)
+
+
+### explore
+
+#### import
+
+#### Plot your data roughly - violin, points, boxplot
+
+```{r}
+ggplot(data = arabidopsis, 
+       aes(x = type, y = leaves)) +
+  geom_boxplot()
+```
+
+
+
+#### Summarise
+
+```{r}
+arabidopsissum <- arabidopsis |> 
+  group_by(type) |> 
+  summarise(median = median(leaves),
+            n = length(leaves))
+```
+
+
+### test
+
+```{r}
+wilcox.test(data = arabidopsis, leaves ~ type)
+```
+
+Warning message:
+In wilcox.test.default(x = c(3, 5, 6, 7, 3, 4, 5, 8), y = c(8, 9, :cannot compute exact p-value with ties
+
+
+### report
+
+There are significantly more leaves on wild-type (median = 8.5) than mutant (median = 5) plants (Mann-Whitney: W=5, n1 = 8, n2 = 8, p = 0.005)
+
+### illustrate
+
+box plot
+
+
+## Two paired samples example parametric
+
+### scenario
+
+Is there a difference between the maths and stats marks of 10 students?
+
+### explore
+
+
+#### import
+
+```{r}
+pivot_wider
+
+# create a differences column
+```
+
+
+#### Plot your data roughly 
+
+boxplot of differences
+
+#### Summarise
+
+calculate the mean differnce and se of mean diff
+
+
+### test
+https://steverxd.github.io/Stat_tests/one-mean.html#one-sample
+
+```{r}
+mod <- lm(mark ~ 1)
+```
+
+
+### check assumptions
+normally and homogenously distributed residuals
+differences
+
+### report
+
+Individual students score significantly higher in maths than in statistics (t = 2.34;
+d.f. = 9; p = 0.044) with an average difference of 6.5%.
+
+### illustrate
+
+spaghetti plot
+
+
+## Two paired samples example non-parametric
+
+### scenario
+
+maths and stats marks
+
+### explore
+
+#### import
+
+#### Plot your data roughly - violin, points, boxplot
+
+#### Summarise
+
+### test
+
+### check assumptions
+
+### report
+
+### illustrate

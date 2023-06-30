@@ -7,4 +7,120 @@ source("_common.R")
 status("drafting")
 ```
 
-## vvvv
+## 
+
+More than two samples: One-way ANOVA and Kruskal-Wallis
+
+last chapter
+
+-   Independent and non-independent samples
+-   Two-sample-tests – paired and unpaired, parametric and non-parametric
+
+This chapter: Extend our ability to test for differences between two or more groups: one-way ANOVA and its non-parametric equivalent Kruskal-Wallis
+
+-   Why not do several two-sample tests?
+-   ANOVA terminology and concepts
+-   ANOVA assumptions
+-   Running, interpreting and reporting an ANOVA
+-   Post-hoc analysis (after a significant ANOVA)
+-   When assumptions are not met: Kruskal-Wallis
+-   Running, interpreting and reporting Kruskal-Wallis
+-   Post-hoc analysis (after a significant Kruskal-Wallis)
+
+
+Why ANOVA
+Type I error: Rejecting the null hypothesis when it is true. This will happen with a probability of 0.05 Doing lots of comparisons increases the type 1 error rate ANOVA tests for an effect of the explanatory variable without increasing type 1 error rate
+
+Assumptions and alternative
+
+ANOVA assumes the “residuals” are normally distributed and have homogeneity of variance
+Kruskal-Wallis is the non-parametric equivalent when assumptions are not met
+
+
+Which growth medium is best for growing bacterial cultures?
+
+Explanatory variable is type of media: categorical with 3 groups
+Control
+Control + sugar
+Control + sugar + amino acids 
+
+Response variable is colony diameters (mm)
+
+One response, one categorical explanatory variable (“one-way ANOVA” or “one-factor ANOVA”)
+These data are in tidy format.
+
+[culture.csv](data-raw/culture.csv)
+
+Plot your data roughly
+
+Summarise the data
+```{r}
+culture_summary <- culture %>%
+  group_by(medium) %>%
+  summarise(mean = mean(diameter),
+            std = sd(diameter),
+            n = length(diameter),
+            se = std/sqrt(n))
+```
+
+ANOVA assumes the “residuals” are normally distributed and have
+homogeneity of variance First use common sense: colony diameter is continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed
+
+
+Reporting the result: “significance, direction, magnitude”
+
+There is a significant effect of media on the diameter of bacterial colonies (ANOVA: F = 6.11; d.f. = 2, 27; p = 0.006).
+Or
+There is a significant difference in diameters between colonies grown on different media (ANOVA: F = 6.11; d.f. = 2, 27; P=0.006).
+
+What about direction and magnitude??
+
+Which means differ? Post-hoc test needed 
+```{r}
+library(lsmeans)
+library(multcompView)
+```
+
+```{r}
+lsmeans(mod, ~ species) %>%
+  pairs()
+
+```
+
+There is a significant effect of media on the diameter of bacterial colonies (F =
+6.11; d.f. = 2, 27; p = 0.006) with colonies growing significantly better when both sugar
+and amino acids are
+added to the medium
+(see Figure 1).
+
+
+
+```{r}
+ggplot() +
+  geom_jitter(data = seal, 
+              aes(x = species, y = myoglobin), 
+              width = 0.25, colour = "grey") +
+  geom_errorbar(data = seal_summary,
+                aes(x = species,
+                    ymin = mean,
+                    ymax = mean),
+                width = .3) +
+  geom_errorbar(data = seal_summary,
+                aes(x = species,
+                    ymin = mean - se,
+                    ymax = mean + se),
+                width = .5) +
+  geom_segment(aes(x = 1, y = 71, xend = 2, yend = 71),
+               size = 1) +
+  geom_segment(aes(x = 1, y = 71, xend = 1, yend = 69),
+               size = 1) +
+  geom_segment(aes(x = 2, y = 71, xend = 2, yend = 69),
+               size = 1) +
+  annotate("text", x = 1.5, y = 73,  label = "**", size = 6) +
+  scale_x_discrete(name = "Species") +
+  scale_y_continuous(name = expression("Myoglobin concentration g "*Kg^{-1}),
+                     expand = c(0, 0),
+                     limits = c(0, 75)) +
+  theme_classic()
+```
+
