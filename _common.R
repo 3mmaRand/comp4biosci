@@ -7,6 +7,7 @@ knitr::opts_chunk$set(
   fig.width = 5)
 
 
+
 # book notes --------------------------------------------------------------
 
 # adapted from R for Data Science (2e) by Hadley Wickham, 

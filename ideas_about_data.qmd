@@ -35,10 +35,11 @@ An important distinction is between discrete and continuous types of data. Conti
 mean <- 4.2
 sd <-  1.2
 
+# function for shading under a normal distribution curve
 dnorm_limit <- function(x) {
-    y <- dnorm(x, mean, sd)
-    y[x < 5 |  x > 10] <- NA
-    return(y)
+  y <- dnorm(x, mean, sd)
+  y[x < 5 |  x > 10] <- NA
+  return(y)
 }
 
 ggplot(data = data.frame(x = c(0, 9)), aes(x)) +

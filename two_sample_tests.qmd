@@ -108,7 +108,7 @@ No link between pairs of values, Could reorder
 
 
 ```{r}
-chaff <- read_table("data/chaff.txt")
+chaff <- read_table("data-raw/chaff.txt")
 ```
 
 All the responses in one column with other variables indicating the
@@ -147,8 +147,14 @@ chaff_summary <- chaff |>
 
 
 ```{r}
-lm(data = chaff, mass ~ subspecies)
+mod <- lm(data = chaff, mass ~ subspecies)
 ```
+
+
+```{r}
+summary(mod)
+```
+
 
 explain output: The two group means, 95% CI on the difference between the two means, The bit that says whether it is significant p value. What tests matter (not the intercept). *p* < 0.05 Conclusion: there is a significant difference between the subspecies in mass. point out the values we will quote in results 
 
@@ -176,10 +182,31 @@ Checking the assumptions: normally distributed residuals
 Reporting the result: “significance of effect, direction of effect, magnitude of
 effect”
 
-Canariensis chaffinches ($\bar{x} \pm s.e: 22.48 \pm 0.48$) are significantly heavier than coelebs ($20.28 \pm 0.48$ ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See figure 1.
+Canariensis chaffinches ($\bar{x} \pm s.e: 22.48 \pm 0.48$) are significantly heavier than Coelebs ($20.28 \pm 0.48$ ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-chaff.
 
 ### illustrate
+Erros bars are $\pm$ 1 s.e.
+```{r}
+#| label: fig-chaff
+#| fig-cap: "Mass of two subspecies of chaffinch. "
 
+ggplot() +
+  geom_point(data = chaff, aes(x = subspecies, y = mass),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "gray50") +
+  geom_errorbar(data = chaff_summary, 
+                aes(x = subspecies, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
+  geom_errorbar(data = chaff_summary, 
+                aes(x = subspecies, ymin = mean, ymax = mean),
+                width = 0.2) +
+  scale_y_continuous(name = "Mass (g)", 
+                     limits = c(0, 30), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(name = "Subspecies", 
+                   labels = c("Canariensis", "Coelebs")) +
+  theme_classic()
+```
 
 
 
@@ -197,6 +224,11 @@ Example: comparing the number of leaves on 8 mutant and wild type arabidopsis pl
 
 #### import
 
+```{r}
+arabidopsis <- read_table("data-raw/arabidopsis.txt")
+```
+
+
 #### Plot your data roughly - violin, points, boxplot
 
 ```{r}
@@ -210,7 +242,7 @@ ggplot(data = arabidopsis,
 #### Summarise
 
 ```{r}
-arabidopsissum <- arabidopsis |> 
+arabidopsis_summary <- arabidopsis |> 
   group_by(type) |> 
   summarise(median = median(leaves),
             n = length(leaves))
@@ -248,15 +280,28 @@ Is there a difference between the maths and stats marks of 10 students?
 #### import
 
 ```{r}
-pivot_wider
-
-# create a differences column
+marks <- read_table("data-raw/marks.txt")
 ```
 
 
-#### Plot your data roughly 
 
-boxplot of differences
+
+#### Plot your data roughly 
+```{r}
+ggplot(data = marks, aes(x = subject, y = mark)) +
+  geom_point() +
+  geom_line(aes(group = student))
+
+```
+
+
+```{r}
+marks_wide <- marks |> 
+  pivot_wider(id_cols = student,
+              names_from = subject,
+              values_from = mark)
+
+```
 
 #### Summarise
 
@@ -267,13 +312,25 @@ calculate the mean differnce and se of mean diff
 https://steverxd.github.io/Stat_tests/one-mean.html#one-sample
 
 ```{r}
-mod <- lm(mark ~ 1)
+mod <- lm(data = marks_wide, maths - stats ~ 1)
+```
+
+
+```{r}
+summary(mod)
 ```
 
 
 ### check assumptions
+
 normally and homogenously distributed residuals
 differences
+
+```{r}
+ggplot(marks_wide, aes(x = maths - stats)) +
+  geom_histogram(bins = 5)
+```
+
 
 ### report
 
@@ -291,17 +348,7 @@ spaghetti plot
 
 maths and stats marks
 
-### explore
-
-#### import
-
-#### Plot your data roughly - violin, points, boxplot
-
-#### Summarise
-
 ### test
-
-### check assumptions
 
 ### report
 

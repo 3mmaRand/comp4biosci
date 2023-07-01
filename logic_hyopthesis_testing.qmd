@@ -1,112 +1,222 @@
 # The logic of hyothesis testing
+
 ```{r}
 #| results: "asis"
 #| echo: false
 
 source("_common.R")
-status("drafting")
+status("polishing")
 ```
 
-## Why do we do statistical testing?
+## What is Hypothesis testing?
 
-
-## Samples and populations
-
-
-## Sampling distributions
-
+Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. We almost always have to use samples because we are very rarely able to measure every observation in a population. For example, if we are interested in knowing if maternal poverty influences birth weight we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance.
 
 ## Logic of hypothesis testing
 
-null hypothesis What you expect to happen if nothing
-interesting biologically is occurring.
-Hypothesis testing is a statistical technique used to make inferences or draw conclusions about a population based on sample data. The process involves formulating two competing hypotheses, the null hypothesis (H0) and the alternative hypothesis (H1), and evaluating the evidence in the sample data to determine which hypothesis is more likely.
-
 The logic behind hypothesis testing follows these general steps:
 
-Formulating the hypotheses:
+1.  Formulating a "Null Hypothesis" denoted $H_0$. The null hypothesis is what we expect to happen if nothing interesting is happening. It states that there is no difference between groups or no relationship between variables. In contrast, the "Alternative Hypothesis" ($H_1$) states that there is a significant difference between groups or a relationship between variables.
+2.  Designing an experiment that generates data to test the null hypothesis. 
+3.  Determine the probability (the *p*-value) of getting our experimental data, or data more extreme, if $H_0$ is true.
+4.  Deciding whether to reject or not reject the $H_0$ based on that probability:
+    -   If p ≤ 0.05 we reject $H_0$
+    -   If p \> 0.05 do not reject $H_0$
 
-Null Hypothesis (H0): It represents the default assumption or the status quo. It states that there is no significant difference or relationship between variables or no effect of a treatment.
-Alternative Hypothesis (H1): It contradicts the null hypothesis and states that there is a significant difference or relationship between variables or an effect of a treatment.
-Choosing a significance level (α):
+If the null hypothesis is rejected it means we have evidence that $H_0$ is untrue and support for $H_1$. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. Note that it does not mean that $H_0$ is true, just that it cannot be discounted. Since, there is a real state to $H_0$, it is either true or not true and we make a decision to reject or not reject it, we can be wrong.
 
-The significance level, denoted by α, is the probability of rejecting the null hypothesis when it is actually true. It determines the threshold for accepting or rejecting the null hypothesis.
-Commonly used significance levels are 0.05 (5%) or 0.01 (1%). A lower significance level implies stronger evidence required to reject the null hypothesis.
-Collecting and analyzing sample data:
+### Type I and type II errors
 
-Data is collected through experiments or sampling methods.
-Descriptive statistics are computed to summarize the sample data, such as means, standard deviations, etc.
-Applying a statistical test:
+Type I and type II errors describe the cases when we make the wrong decision about the null hypothesis. These errors are inherent in the approach rather than mistakes you can prevent.
 
-A specific statistical test is selected based on the nature of the data and the research question.
-The choice of test depends on factors like the type of data (continuous or categorical), number of groups being compared, and assumptions about the data distribution.
-Calculating test statistics and p-value:
+-   A type I error occurs when we reject a null hypothesis that is true. This can be thought of as a false positive. It is a real error in that we have a real difference or effect. Since we use a probability of 0.05 to reject the null hypothesis, we will make a type I error 5% of the time.
+-   A type II error occurs when we do not reject a null hypothesis that is false. This is a false negative. It is not a real error in the sense that we only conclude we do not have enough evidence to reject the null hypothesis.
+-   If we reject a null hypothesis that is false we have not made an error.
+-   if we do not reject a null hypothesis that is true we have not made an error.
 
-The test statistic is calculated based on the sample data and the chosen statistical test.
-The p-value is the probability of observing a test statistic as extreme as, or more extreme than, the one calculated, assuming the null hypothesis is true.
-The p-value quantifies the strength of evidence against the null hypothesis. A smaller p-value suggests stronger evidence against the null hypothesis.
-Comparing p-value to the significance level:
+![Type I and Type II errors.](images/type-1-2-errors.png){fig-alt="tabular representation of type I and II error. If we reject a true H0 we have made a type I error; if we do not reject a true H0 we have not made an error. If we do not reject a false H0 we have not made an error; if we do reject a false H0 we have made a type II error"}
 
-If the p-value is less than the chosen significance level (p-value < α), it is considered statistically significant.
-In such cases, the null hypothesis is rejected in favor of the alternative hypothesis. It suggests that the observed effect or difference is unlikely to be due to random chance.
-Interpreting the results:
+We can decrease our chance of making a type I error by reducing the the *p*-value required to reject the null hypothesis but this will increase our chance of making a type II error. We can decrease our chance of making a type II error by collecting enough data. The amount of data needed will depend on the the size of the effect relative to the random variation in the data.
 
-If the null hypothesis is rejected, it implies that there is evidence to support the alternative hypothesis.
-If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis, and we fail to reject the null hypothesis.
-It's important to note that hypothesis testing does not prove the truth of a hypothesis, but rather provides evidence either supporting or contradicting it based on the available data. The process helps in making informed decisions and drawing conclusions about populations based on sample information.
+## Sampling distribution of the mean
 
-$H_0$
-
-alternative hypothesis $H_1$
-
-reject or not reject
+The sampling distribution of the mean is a fundamental concept in hypothesis testing and constructing confidence intervals. Parametric tests such as regression, two-sample tests and ANOVA (all applied with `lm()`) are based on the sampling distribution of the mean. It is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples were taken.
 
 
-### Hypothesis Testing: steps
+The key characteristics of the sampling distribution of the mean are:
 
-1.  Set up H0 “no effect”
+-   The mean of the sampling distribution of the mean is equal to the population mean
 
-2.  Design experiment to test null hypothesis and collect data
+-   The standard deviation of the sampling distribution of the mean is known the standard error of the mean and is always smaller than the standard deviation of the values. There is a fixed relationship between the standard deviation of a sample or population and the standard error of the mean: $s.e. = \frac{s.d.}{\sqrt{n}}$
 
-3.  Determine the probability of our data if H0 is true
-
-4.  Decide whether to reject or not reject the H0 based on that probability p ≤ 0.05 reject H0; p > 0.05 do not reject H0
-
-
-### Example
-
-Question: Does this fertiliser increase the crop yield?
-
-1.  Set up the null hypothesis
-    There is no difference between the mass of plants grown with fertiliser, $\bar{x_f}$, and the mass of the plants grown without fertiliser, $\bar{x_c}$.
+When we are determining the probability of getting our experimental data, or data more extreme, if $H_0$ is true, it is the sampling distribution of the mean that matters. We ask what is the probability of getting a sample mean like this.
 
 
 ```{r}
 #| echo: false
-#| label: fig-null-hyp-crop-fert
-#| fig-cap: "The null hypothesis is that the mean of the plants grown with fertiliser is the same as those grown without fertiliser (the control)."
+#| label: fig-sample-dist-means
+#| fig-cap: "The sampling distribution of the means is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples of size n were taken. The sampling distribution of the mean has a standard devation which is smaller than the population and is called the standard error."
+mu <- 3300
+sd <- 900
+n <- 12
+se <- sd/sqrt(n)
+mean <- 3000
 
-m <- 250
-sd <- 40
-ggplot(data = data.frame(mass = rep(c(m - 3 * sd, m + 3 * sd), times = 2),
-                         treatment = c("control", "control", "fertiliser", "fertiliser")),
+
+ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
        aes(mass)) +
   stat_function(fun = dnorm, n = 101, 
-                args = list(mean = m, sd = sd)) +
-  geom_vline(xintercept = m) +
+                args = list(mean = mu, sd = sd)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = mu, sd = se)) +
+  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
   scale_y_continuous(breaks = NULL, name = "",
-                     expand = c(0, 0)) +
-  scale_x_continuous(breaks = c(50, 100, 150, 200, 250, 300, 350, 400),
-                     expand = c(0, 0)) + 
-  annotate("text", x = 175, y = 0.0075, label = glue::glue("mean = {m}")) +
-  facet_wrap(. ~ treatment, nrow = 2, scales = "free") +
+                     expand = c(0, 0),
+                     limits = c(0, 0.0016)) +
+  scale_x_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(1000, 6000)) + 
+  annotate("text", size = 5,
+           x = 1800, y = 0.00055,
+           label = "Distribution of the values") +
+  annotate("segment",
+           x = 1800, y = 0.0005,
+           xend = 2000, yend = dnorm(2000, mu, sd),
+           arrow = arrow(type = "closed", 
+                         length = unit(0.03, "npc"))) +
+  annotate("text", size = 5,
+           x = 4600, y = 0.0011,
+           label = "Distribution of the\nsample means") +
+  annotate("segment",
+           x = 4600, y = 0.001,
+           xend = 3600, yend = dnorm(3600, mu, se),
+           arrow = arrow(type = "closed", 
+                         length = unit(0.03, "npc"))) +
   theme_classic() +
-  theme(strip.background = element_blank(),
-        strip.text = element_text(size = 14))
+  theme(axis.line.y = element_blank())
 ```
 
 
-$H_0 : \bar{x_f} -\bar{x_c} = 0$.
+
+### Example
+Let's work through this logic using an example.
+
+Question: National average birth weight is 3300 grams with an s.d. = 900 grams. Does maternal poverty influence birth weight?
 
 
-### Type 1 and type 2 errors
+
+1.  Set up the null hypothesis There is no effect of maternal poverty on birth weight so the mean of a sample of babies born into poverty is equal to the national average (@fig-null-example). This is written as $H_0: \bar{x} = 3300$. The alternative hypothesis is that the sample mean is not equal to the national average. This is written as $H_1: \bar{x} \neq 3300$.
+
+
+```{r}
+#| echo: false
+#| label: fig-null-example
+#| fig-cap: "Distribution of the population of birth weights has a mean of 3300 g and a standard deviation of 900. The null hypothesis is that the mean birth weight of babies born to women in poverty is the same as the national average of 3300 g."
+
+mu <- 3300
+sd <- 900
+ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
+       aes(mass)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = mu, sd = sd)) +
+  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, sd)) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.0016)) +
+  scale_x_continuous(breaks = c(1000, 2000, 3000, 4000, 5000, 6000),
+                     expand = c(0, 0),
+                     limits = c(1000, 6000)) + 
+  annotate("text", x = 3300, y = 0.0006, label = glue::glue("mean = {mu}")) +
+  theme_classic() +
+  theme(axis.line.y = element_blank())
+```
+2.  We take a sample of $n = 12$ women who live in poverty and determine the mean birth weight of their babies. We calculate $\bar{x} = 3000 g$. This is lower than the national average but might we get a sample like that even if the null hypothesis is true?
+
+3.  Determine the probability (the *p*-value) of getting our experimental data, or more extreme data, if $H_0$ is true. (@fig-sample-dist-means-example)
+
+```{r}
+#| echo: false
+#| label: fig-sample-dist-means-example
+#| fig-cap: "The sampling distribution of the means tells us the probability of getting our sample mean or a sample mean more extreme."
+
+n <- 12
+se <- sd/sqrt(n)
+mean <- 3000
+
+# function for shading under a normal distribution curve
+dnorm_limit <- function(x) {
+  y <- dnorm(x, mu, se)
+  y[x < 2000 |  x > mean] <- NA
+  return(y)
+}
+
+ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
+       aes(mass)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = mu, sd = sd)) +
+  stat_function(fun = dnorm_limit,
+                geom = "area",
+                fill = "lightseagreen") +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = mu, sd = se)) +
+  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
+  annotate("text", size = 5,
+           x = 1800, y = 0.00055,
+           label = glue::glue("Probability of {mean}\nor less"),
+           colour = "lightseagreen")  +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.0016)) +
+  scale_x_continuous(breaks = c(1000, 2000, 3000, 4000, 5000, 6000),
+                     expand = c(0, 0),
+                     limits = c(1000, 6000)) + 
+  theme_classic() +
+  theme(axis.line.y = element_blank())
+```
+
+```{r}
+#| echo: false
+#| label: fig-sample-dist-means-example2
+#| fig-cap: "The sampling distribution of the means tells us the probability of getting our sample mean or a sample mean more extreme."
+
+
+# function for shading the other side
+dnorm_limit2 <- function(x) {
+  y <- dnorm(x, mu, se)
+  y[x < 3600 |  x > 4500] <- NA
+  return(y)
+}
+
+ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
+       aes(mass)) +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = mu, sd = sd)) +
+  stat_function(fun = dnorm_limit,
+                geom = "area",
+                fill = "lightseagreen") +
+  stat_function(fun = dnorm_limit2,
+                geom = "area",
+                fill = "lightseagreen") +
+  annotate("text", size = 5,
+           x = 1800, y = 0.00055,
+           label = glue::glue("Probability of {mean}\nor more extreme"),
+           colour = "lightseagreen")  +
+  stat_function(fun = dnorm, n = 101, 
+                args = list(mean = mu, sd = se)) +
+  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.0016)) +
+  scale_x_continuous(breaks = c(1000, 2000, 3000, 4000, 5000, 6000),
+                     expand = c(0, 0),
+                     limits = c(1000, 6000)) + 
+  theme_classic() +
+  theme(axis.line.y = element_blank())
+```
+
+
+4.  Deciding whether to reject or not reject the $H_0$ based on that probability. If the shaded area is less than 0.05 we reject the null hypothesis and conclude maternal poverty does influence birth weight. If the shaded area is more than 0.05 we do not reject the null hypothesis. 
+
+
+
+

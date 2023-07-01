@@ -160,8 +160,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./working_with_data_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Working with data in RStudio</span></span></a>
+  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
   </div>
 </li>
       </ul>
@@ -202,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two Sample tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -239,15 +239,17 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#why-do-we-do-statistical-testing" id="toc-why-do-we-do-statistical-testing" class="nav-link active" data-scroll-target="#why-do-we-do-statistical-testing"><span class="header-section-number">9.1</span> Why do we do statistical testing?</a></li>
-  <li><a href="#samples-and-populations" id="toc-samples-and-populations" class="nav-link" data-scroll-target="#samples-and-populations"><span class="header-section-number">9.2</span> Samples and populations</a></li>
-  <li><a href="#sampling-distributions" id="toc-sampling-distributions" class="nav-link" data-scroll-target="#sampling-distributions"><span class="header-section-number">9.3</span> Sampling distributions</a></li>
+<li><a href="#what-is-hypothesis-testing" id="toc-what-is-hypothesis-testing" class="nav-link active" data-scroll-target="#what-is-hypothesis-testing"><span class="header-section-number">9.1</span> What is Hypothesis testing?</a></li>
   <li>
-<a href="#logic-of-hypothesis-testing" id="toc-logic-of-hypothesis-testing" class="nav-link" data-scroll-target="#logic-of-hypothesis-testing"><span class="header-section-number">9.4</span> Logic of hypothesis testing</a>
+<a href="#logic-of-hypothesis-testing" id="toc-logic-of-hypothesis-testing" class="nav-link" data-scroll-target="#logic-of-hypothesis-testing"><span class="header-section-number">9.2</span> Logic of hypothesis testing</a>
   <ul class="collapse">
-<li><a href="#hypothesis-testing-steps" id="toc-hypothesis-testing-steps" class="nav-link" data-scroll-target="#hypothesis-testing-steps"><span class="header-section-number">9.4.1</span> Hypothesis Testing: steps</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">9.4.2</span> Example</a></li>
-  <li><a href="#type-1-and-type-2-errors" id="toc-type-1-and-type-2-errors" class="nav-link" data-scroll-target="#type-1-and-type-2-errors"><span class="header-section-number">9.4.3</span> Type 1 and type 2 errors</a></li>
+<li><a href="#type-i-and-type-ii-errors" id="toc-type-i-and-type-ii-errors" class="nav-link" data-scroll-target="#type-i-and-type-ii-errors"><span class="header-section-number">9.2.1</span> Type I and type II errors</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sampling-distribution-of-the-mean" id="toc-sampling-distribution-of-the-mean" class="nav-link" data-scroll-target="#sampling-distribution-of-the-mean"><span class="header-section-number">9.3</span> Sampling distribution of the mean</a>
+  <ul class="collapse">
+<li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">9.3.1</span> Example</a></li>
   </ul>
 </li>
   </ul></nav>
@@ -269,55 +271,108 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header><div class="callout callout-style-default callout-important callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable.</p>
+<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
-<section id="why-do-we-do-statistical-testing" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="why-do-we-do-statistical-testing">
-<span class="header-section-number">9.1</span> Why do we do statistical testing?</h2>
-</section><section id="samples-and-populations" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="samples-and-populations">
-<span class="header-section-number">9.2</span> Samples and populations</h2>
-</section><section id="sampling-distributions" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="sampling-distributions">
-<span class="header-section-number">9.3</span> Sampling distributions</h2>
-</section><section id="logic-of-hypothesis-testing" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="logic-of-hypothesis-testing">
-<span class="header-section-number">9.4</span> Logic of hypothesis testing</h2>
-<p>null hypothesis What you expect to happen if nothing interesting biologically is occurring.</p>
-<p><span class="math inline">\(H_0\)</span></p>
-<p>alternative hypothesis <span class="math inline">\(H_1\)</span></p>
-<p>reject or not reject</p>
-<section id="hypothesis-testing-steps" class="level3" data-number="9.4.1"><h3 data-number="9.4.1" class="anchored" data-anchor-id="hypothesis-testing-steps">
-<span class="header-section-number">9.4.1</span> Hypothesis Testing: steps</h3>
+<section id="what-is-hypothesis-testing" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="what-is-hypothesis-testing">
+<span class="header-section-number">9.1</span> What is Hypothesis testing?</h2>
+<p>Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. We almost always have to use samples because we are very rarely able to measure every observation in a population. For example, if we are interested in knowing if maternal poverty influences birth weight we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance.</p>
+</section><section id="logic-of-hypothesis-testing" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="logic-of-hypothesis-testing">
+<span class="header-section-number">9.2</span> Logic of hypothesis testing</h2>
+<p>The logic behind hypothesis testing follows these general steps:</p>
 <ol type="1">
-<li><p>Set up H0 “no effect”</p></li>
-<li><p>Design experiment to test null hypothesis and collect data</p></li>
-<li><p>Determine the probability of our data if H0 is true</p></li>
-<li><p>Decide whether to reject or not reject the H0 based on that probability p ≤ 0.05 reject H0; p &gt; 0.05 do not reject H0</p></li>
-</ol></section><section id="example" class="level3" data-number="9.4.2"><h3 data-number="9.4.2" class="anchored" data-anchor-id="example">
-<span class="header-section-number">9.4.2</span> Example</h3>
-<p>Question: Does this fertiliser increase the crop yield?</p>
+<li>Formulating a “Null Hypothesis” denoted <span class="math inline">\(H_0\)</span>. The null hypothesis is what we expect to happen if nothing interesting is happening. It states that there is no difference between groups or no relationship between variables. In contrast, the “Alternative Hypothesis” (<span class="math inline">\(H_1\)</span>) states that there is a significant difference between groups or a relationship between variables.</li>
+<li>Designing an experiment that generates data to test the null hypothesis.</li>
+<li>Determine the probability (the <em>p</em>-value) of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true.</li>
+<li>Deciding whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability:
+<ul>
+<li>If p ≤ 0.05 we reject <span class="math inline">\(H_0\)</span>
+</li>
+<li>If p &gt; 0.05 do not reject <span class="math inline">\(H_0\)</span>
+</li>
+</ul>
+</li>
+</ol>
+<p>If the null hypothesis is rejected it means we have evidence that <span class="math inline">\(H_0\)</span> is untrue and support for <span class="math inline">\(H_1\)</span>. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. Note that it does not mean that <span class="math inline">\(H_0\)</span> is true, just that it cannot be discounted. Since, there is a real state to <span class="math inline">\(H_0\)</span>, it is either true or not true and we make a decision to reject or not reject it, we can be wrong.</p>
+<section id="type-i-and-type-ii-errors" class="level3" data-number="9.2.1"><h3 data-number="9.2.1" class="anchored" data-anchor-id="type-i-and-type-ii-errors">
+<span class="header-section-number">9.2.1</span> Type I and type II errors</h3>
+<p>Type I and type II errors describe the cases when we make the wrong decision about the null hypothesis. These errors are inherent in the approach rather than mistakes you can prevent.</p>
+<ul>
+<li>A type I error occurs when we reject a null hypothesis that is true. This can be thought of as a false positive. It is a real error in that we have a real difference or effect. Since we use a probability of 0.05 to reject the null hypothesis, we will make a type I error 5% of the time.</li>
+<li>A type II error occurs when we do not reject a null hypothesis that is false. This is a false negative. It is not a real error in the sense that we only conclude we do not have enough evidence to reject the null hypothesis.</li>
+<li>If we reject a null hypothesis that is false we have not made an error.</li>
+<li>if we do not reject a null hypothesis that is true we have not made an error.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="images/type-1-2-errors.png" class="img-fluid figure-img" alt="tabular representation of type I and II error. If we reject a true H0 we have made a type I error; if we do not reject a true H0 we have not made an error. If we do not reject a false H0 we have not made an error; if we do reject a false H0 we have made a type II error"></p>
+<figcaption class="figure-caption">Type I and Type II errors.</figcaption></figure>
+</div>
+<p>We can decrease our chance of making a type I error by reducing the the <em>p</em>-value required to reject the null hypothesis but this will increase our chance of making a type II error. We can decrease our chance of making a type II error by collecting enough data. The amount of data needed will depend on the the size of the effect relative to the random variation in the data.</p>
+</section></section><section id="sampling-distribution-of-the-mean" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="sampling-distribution-of-the-mean">
+<span class="header-section-number">9.3</span> Sampling distribution of the mean</h2>
+<p>The sampling distribution of the mean is a fundamental concept in hypothesis testing and constructing confidence intervals. Parametric tests such as regression, two-sample tests and ANOVA (all applied with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>) are based on the sampling distribution of the mean. It is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples were taken.</p>
+<p>The key characteristics of the sampling distribution of the mean are:</p>
+<ul>
+<li><p>The mean of the sampling distribution of the mean is equal to the population mean</p></li>
+<li><p>The standard deviation of the sampling distribution of the mean is known the standard error of the mean and is always smaller than the standard deviation of the values. There is a fixed relationship between the standard deviation of a sample or population and the standard error of the mean: <span class="math inline">\(s.e. = \frac{s.d.}{\sqrt{n}}\)</span></p></li>
+</ul>
+<p>When we are determining the probability of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true, it is the sampling distribution of the mean that matters. We ask what is the probability of getting a sample mean like this.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sample-dist-means" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="logic_hyopthesis_testing_files/figure-html/fig-sample-dist-means-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption class="figure-caption">Figure&nbsp;9.1: The sampling distribution of the means is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples of size n were taken. The sampling distribution of the mean has a standard devation which is smaller than the population and is called the standard error.</figcaption></figure>
+</div>
+</div>
+</div>
+<section id="example" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="example">
+<span class="header-section-number">9.3.1</span> Example</h3>
+<p>Let’s work through this logic using an example.</p>
+<p>Question: National average birth weight is 3300 grams with an s.d. = 900 grams. Does maternal poverty influence birth weight?</p>
 <ol type="1">
-<li>Set up the null hypothesis There is no difference between the mass of plants grown with fertiliser, <span class="math inline">\(\bar{x_f}\)</span>, and the mass of the plants grown without fertiliser, <span class="math inline">\(\bar{x_c}\)</span>.</li>
+<li>Set up the null hypothesis There is no effect of maternal poverty on birth weight so the mean of a sample of babies born into poverty is equal to the national average (<a href="#fig-null-example">Figure&nbsp;<span class="quarto-unresolved-ref">fig-null-example</span></a>). This is written as <span class="math inline">\(H_0: \bar{x} = 3300\)</span>. The alternative hypothesis is that the sample mean is not equal to the national average. This is written as <span class="math inline">\(H_1: \bar{x} \neq 3300\)</span>.</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-null-hyp-crop-fert" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="logic_hyopthesis_testing_files/figure-html/fig-null-hyp-crop-fert-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;9.1: The null hypothesis is that the mean of the plants grown with fertiliser is the same as those grown without fertiliser (the control).</figcaption></figure>
+<div id="fig-null-example" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="logic_hyopthesis_testing_files/figure-html/fig-null-example-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption class="figure-caption">Figure&nbsp;9.2: Distribution of the population of birth weights has a mean of 3300 g and a standard deviation of 900. The null hypothesis is that the mean birth weight of babies born to women in poverty is the same as the national average of 3300 g.</figcaption></figure>
 </div>
 </div>
 </div>
-<p><span class="math inline">\(H_0 : \bar{x_f} -\bar{x_c} = 0\)</span>.</p>
-</section><section id="type-1-and-type-2-errors" class="level3" data-number="9.4.3"><h3 data-number="9.4.3" class="anchored" data-anchor-id="type-1-and-type-2-errors">
-<span class="header-section-number">9.4.3</span> Type 1 and type 2 errors</h3>
+<ol start="2" type="1">
+<li><p>We take a sample of <span class="math inline">\(n = 12\)</span> women who live in poverty and determine the mean birth weight of their babies. We calculate <span class="math inline">\(\bar{x} = 3000 g\)</span>. This is lower than the national average but might we get a sample like that even if the null hypothesis is true?</p></li>
+<li><p>Determine the probability (the <em>p</em>-value) of getting our experimental data, or more extreme data, if <span class="math inline">\(H_0\)</span> is true. (<a href="#fig-sample-dist-means-example">Figure&nbsp;<span class="quarto-unresolved-ref">fig-sample-dist-means-example</span></a>)</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sample-dist-means-example" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="logic_hyopthesis_testing_files/figure-html/fig-sample-dist-means-example-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption class="figure-caption">Figure&nbsp;9.3: The sampling distribution of the means tells us the probability of getting our sample mean or a sample mean more extreme.</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sample-dist-means-example2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="logic_hyopthesis_testing_files/figure-html/fig-sample-dist-means-example2-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption class="figure-caption">Figure&nbsp;9.4: The sampling distribution of the means tells us the probability of getting our sample mean or a sample mean more extreme.</figcaption></figure>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Deciding whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability. If the shaded area is less than 0.05 we reject the null hypothesis and conclude maternal poverty does influence birth weight. If the shaded area is more than 0.05 we do not reject the null hypothesis.</li>
+</ol>
 
 
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
