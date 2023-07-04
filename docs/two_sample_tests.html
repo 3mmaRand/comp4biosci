@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.2.269">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 13&nbsp; Two-Sample tests</title>
 <style>
@@ -14,10 +14,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -44,19 +43,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging-indent div.csl-entry {
+.hanging div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -70,7 +98,8 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}</style>
+}
+</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -107,234 +136,200 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script><script async="" src="https://hypothes.is/embed.js"></script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_sample_tests.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">
+<span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span>
+</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome!</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">What they forgot to teach you about computers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">What they forgot to teach you about computers</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
+  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./file_systems.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span></a>
+  <a href="./file_systems.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./organising_work.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span></a>
+  <a href="./organising_work.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">Getting started with data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
+  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+  <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistical Analysis - Part 1</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">Statistical Analysis - Part 1</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+  <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></span></a>
+  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+  <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+  <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+  <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+  <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">13.1</span> Overview</a>
+<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="toc-section-number">13.1</span>  Overview</a>
   <ul class="collapse">
-<li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="header-section-number">13.1.1</span> General linear model assumptions</a></li>
-  <li><a href="#independent-samples-and-paired-samples." id="toc-independent-samples-and-paired-samples." class="nav-link" data-scroll-target="#independent-samples-and-paired-samples."><span class="header-section-number">13.1.2</span> Independent samples and paired samples.</a></li>
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">13.1.3</span> Reporting</a></li>
+<li><a href="#independent-samples-and-paired-samples." id="toc-independent-samples-and-paired-samples." class="nav-link" data-scroll-target="#independent-samples-and-paired-samples."><span class="toc-section-number">13.1.1</span>  Independent samples and paired samples.</a></li>
+  <li><a href="#t-tests" id="toc-t-tests" class="nav-link" data-scroll-target="#t-tests"><span class="toc-section-number">13.1.2</span>  <em>T</em>-tests</a></li>
+  <li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="toc-section-number">13.1.3</span>  General linear model assumptions</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="toc-section-number">13.1.4</span>  Reporting</a></li>
   </ul>
 </li>
   <li>
-<a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">13.2</span> Examples</a>
+<a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="toc-section-number">13.2</span>  Examples</a>
   <ul class="collapse">
-<li><a href="#two-independent-samples-example-parametric" id="toc-two-independent-samples-example-parametric" class="nav-link" data-scroll-target="#two-independent-samples-example-parametric"><span class="header-section-number">13.2.1</span> Two independent samples example parametric</a></li>
-  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">13.2.2</span> Check assumptions</a></li>
-  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">13.2.3</span> Report</a></li>
-  <li><a href="#two-independent-samples-example-non-parametric" id="toc-two-independent-samples-example-non-parametric" class="nav-link" data-scroll-target="#two-independent-samples-example-non-parametric"><span class="header-section-number">13.2.4</span> Two independent samples example non-parametric</a></li>
-  <li><a href="#import-and-explore-1" id="toc-import-and-explore-1" class="nav-link" data-scroll-target="#import-and-explore-1"><span class="header-section-number">13.2.5</span> import and explore</a></li>
-  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test"><span class="header-section-number">13.2.6</span> test</a></li>
-  <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">13.2.7</span> report</a></li>
+<li><a href="#two-independent-samples-example-parametric" id="toc-two-independent-samples-example-parametric" class="nav-link" data-scroll-target="#two-independent-samples-example-parametric"><span class="toc-section-number">13.2.1</span>  Two independent samples example parametric</a></li>
+  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="toc-section-number">13.2.2</span>  Check assumptions</a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="toc-section-number">13.2.3</span>  Report</a></li>
+  <li><a href="#two-independent-samples-example-non-parametric" id="toc-two-independent-samples-example-non-parametric" class="nav-link" data-scroll-target="#two-independent-samples-example-non-parametric"><span class="toc-section-number">13.2.4</span>  Two independent samples example non-parametric</a></li>
+  <li><a href="#import-and-explore-1" id="toc-import-and-explore-1" class="nav-link" data-scroll-target="#import-and-explore-1"><span class="toc-section-number">13.2.5</span>  Import and explore</a></li>
+  <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="toc-section-number">13.2.6</span>  Report</a></li>
   </ul>
 </li>
   <li>
-<a href="#two-paired-samples-example-parametric" id="toc-two-paired-samples-example-parametric" class="nav-link" data-scroll-target="#two-paired-samples-example-parametric"><span class="header-section-number">13.3</span> Two paired samples example parametric</a>
+<a href="#two-paired-samples-example-parametric" id="toc-two-paired-samples-example-parametric" class="nav-link" data-scroll-target="#two-paired-samples-example-parametric"><span class="toc-section-number">13.3</span>  Two paired samples example parametric</a>
   <ul class="collapse">
-<li><a href="#import-and-explore-2" id="toc-import-and-explore-2" class="nav-link" data-scroll-target="#import-and-explore-2"><span class="header-section-number">13.3.1</span> import and explore</a></li>
-  <li><a href="#test-1" id="toc-test-1" class="nav-link" data-scroll-target="#test-1"><span class="header-section-number">13.3.2</span> test</a></li>
-  <li><a href="#check-assumptions-1" id="toc-check-assumptions-1" class="nav-link" data-scroll-target="#check-assumptions-1"><span class="header-section-number">13.3.3</span> check assumptions</a></li>
-  <li><a href="#report-2" id="toc-report-2" class="nav-link" data-scroll-target="#report-2"><span class="header-section-number">13.3.4</span> report</a></li>
+<li><a href="#import-and-explore-2" id="toc-import-and-explore-2" class="nav-link" data-scroll-target="#import-and-explore-2"><span class="toc-section-number">13.3.1</span>  Import and explore</a></li>
+  <li><a href="#check-assumptions-1" id="toc-check-assumptions-1" class="nav-link" data-scroll-target="#check-assumptions-1"><span class="toc-section-number">13.3.2</span>  Check assumptions</a></li>
+  <li><a href="#report-2" id="toc-report-2" class="nav-link" data-scroll-target="#report-2"><span class="toc-section-number">13.3.3</span>  Report</a></li>
   </ul>
 </li>
-  <li>
-<a href="#two-paired-samples-example-non-parametric" id="toc-two-paired-samples-example-non-parametric" class="nav-link" data-scroll-target="#two-paired-samples-example-non-parametric"><span class="header-section-number">13.4</span> Two paired samples example non-parametric</a>
-  <ul class="collapse">
-<li><a href="#test-2" id="toc-test-2" class="nav-link" data-scroll-target="#test-2"><span class="header-section-number">13.4.1</span> test</a></li>
-  <li><a href="#report-3" id="toc-report-3" class="nav-link" data-scroll-target="#report-3"><span class="header-section-number">13.4.2</span> report</a></li>
-  <li><a href="#illustrate" id="toc-illustrate" class="nav-link" data-scroll-target="#illustrate"><span class="header-section-number">13.4.3</span> illustrate</a></li>
-  </ul>
-</li>
+  <li><a href="#two-paired-samples-example-non-parametric" id="toc-two-paired-samples-example-non-parametric" class="nav-link" data-scroll-target="#two-paired-samples-example-non-parametric"><span class="toc-section-number">13.4</span>  Two paired samples example non-parametric</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">13.5</span>  Summary</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">
+<h1 class="title d-none d-lg-block">
 <span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span>
 </h1>
 </div>
@@ -349,17 +344,17 @@ div.csl-indent {
   </div>
   
 
-</header><div class="callout callout-style-default callout-important callout-titled">
+</header><div class="callout-warning callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Important
+<div class="callout-caption-container flex-fill">
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable.</p>
+<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
 <section id="overview" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="overview">
@@ -367,20 +362,23 @@ Important
 <p>In the last chapter learned how to about single linear regression, a technique used when the explanatory variable is continuous. We now turn our attention to cases where our explanatory variable is categorical and has two groups. For example, we might want to know if there is a difference in mass between two subspecies of chaffinch, or if marks in two subjects are the same.</p>
 <p>We use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> or <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> to carry out a two-sample test depending on whether the assumptions of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> are met. The general linear models applied with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> are based on the normal distribution and known as parametric tests because they use the parameters of the normal distribution (the mean and standard deviation) to determine if an effect is significant. Null hypotheses are about a mean or difference between means. The assumptions need to be met for the <em>p</em>-values generated to be accurate.</p>
 <p>If the assumptions are not met, we can use alternatives known as non-parametric tests. Non-parametric tests are based on the ranks of values rather than the actual values themselves. Null hypotheses are about the mean rank rather than he mean. These tests have fewer assumptions and can be used in more situations but the downside is they tend to be less powerful. This means they are less able to detect a difference where one exists.</p>
-<section id="general-linear-model-assumptions" class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="general-linear-model-assumptions">
-<span class="header-section-number">13.1.1</span> General linear model assumptions</h3>
+<section id="independent-samples-and-paired-samples." class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="independent-samples-and-paired-samples.">
+<span class="header-section-number">13.1.1</span> Independent samples and paired samples.</h3>
+<p>An important consideration in conducting tests is whether the values in one groups are independent of the values in another group. Non-independence occurs when the two measures are linked. They could be the same individual, the same time time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. The key consideration is whether pairs of observations in different groups have something in common that make them more similar to each other than to other observations.</p>
+</section><section id="t-tests" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="t-tests">
+<span class="header-section-number">13.1.2</span> <em>T</em>-tests</h3>
+<p>A linear model with one explanatory variable with two groups is also known as a two-sample <em>t</em>-test when the samples are independent and as a paired-samples <em>t</em>-test when they are not. R has a <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function which allows you to fit a linear model with just two groups. We teach you to use and interpret <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> because it is more generalisable - you will be able to use it when you have three or more groups or additional explanatory variables. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> rather than <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for two-group situations - the <em>p</em>-values will be identical.</p>
+</section><section id="general-linear-model-assumptions" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="general-linear-model-assumptions">
+<span class="header-section-number">13.1.3</span> General linear model assumptions</h3>
 <p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
-<p>If we have a continuous response and a categotical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
+<p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
 <ul>
-<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the reponse to be continuous</li>
+<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
 <li>There should decimal places and few repeated values.</li>
 </ul>
 <p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution</p>
-</section><section id="independent-samples-and-paired-samples." class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="independent-samples-and-paired-samples.">
-<span class="header-section-number">13.1.2</span> Independent samples and paired samples.</h3>
-<p>An important consideration in conducting tests is whether the values in one groups are independent of the values in another group. Non-independence occurs when the two measures are linked. They could be the same individual, the same time time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. The key consideration is whether pairs of observations in different groups have something in common that make them more similar to each other than to other observations.</p>
-</section><section id="reporting" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">13.1.3</span> Reporting</h3>
+</section><section id="reporting" class="level3" data-number="13.1.4"><h3 data-number="13.1.4" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">13.1.4</span> Reporting</h3>
 <p>In reporting the result of two-sample test we give:</p>
 <ol type="1">
 <li>
@@ -422,176 +420,175 @@ Important
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<thead><tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">subspecies</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">mass</th>
-</tr></thead>
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; "><table class="table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> subspecies </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> mass </th>
+  </tr></thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">18.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">22.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">22.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">18.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">22.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">19.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">17.8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">20.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">22.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">16.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">20.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">18.7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">22.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">21.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">21.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">19.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">23.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">17.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">19.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coelebs</td>
-<td style="text-align: right;">24.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">22.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">20.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">25.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">20.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">21.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">17.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">26.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">20.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">24.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">21.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">23.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">24.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">21.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">23.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">20.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">21.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">21.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">23.7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">23.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">canariensis</td>
-<td style="text-align: right;">21.8</td>
-</tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 18.3 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 22.1 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 22.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 18.5 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 22.2 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 19.3 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 17.8 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 20.2 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 22.1 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 16.6 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 20.7 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 18.7 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 22.6 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 21.5 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 21.7 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 19.9 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 23.1 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 17.8 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 19.5 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> coelebs </td>
+   <td style="text-align:right;"> 24.6 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 22.7 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 20.6 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 25.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 20.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 21.6 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 17.0 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 26.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 20.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 24.7 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 21.8 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 23.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 24.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 21.0 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 23.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 20.5 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 21.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 21.5 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 23.7 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 23.4 </td>
+  </tr>
+<tr>
+<td style="text-align:left;"> canariensis </td>
+   <td style="text-align:right;"> 21.8 </td>
+  </tr>
 </tbody>
-</table>
-</div>
+</table></div>
 
 </div>
 </div>
@@ -663,12 +660,13 @@ Important
 <p>The <em>p</em>-values on each line are tests of whether that coefficient is different from zero. Thus it is:</p>
 <p><code>subspeciescoelebs  -1.7950     0.6781  -2.647   0.0118 *</code></p>
 <p>that tells us the difference between the means is significant.</p>
-<p>The <em>F</em> value and <em>p</em>-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a two-sample test, just like a regression this is exactly equivalent to the test of the slope against zero and the two <em>p</em>-values will be the same.</p>
+<p>The <em>F</em> value and <em>p</em>-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a two-sample test, just like a regression, this is exactly equivalent to the test of the slope against zero and the two <em>p</em>-values will be the same.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-two-sample-lm-model" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-two-sample-lm-model-1.png" class="img-fluid figure-img" width="480"></p>
-<figcaption class="figure-caption">Figure&nbsp;13.1: Note that y axis starts at 15 to create more space for the annotations.</figcaption></figure>
+<p></p><figcaption class="figure-caption">Figure&nbsp;13.1: In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the ‘slope’ which is what has to added to the intercept to get the second group mean. Note that y axis starts at 15 to create more space for the annotations.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -722,24 +720,35 @@ Important
 <span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Subspecies"</span>, </span>
 <span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Canariensis"</span>, <span class="st">"Coelebs"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">28</span>, yend <span class="op">=</span> <span class="fl">28</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">29</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.012"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-chaff" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-chaff-1.png" class="img-fluid figure-img" width="480"></p>
-<figcaption class="figure-caption">Figure&nbsp;13.2: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.</figcaption></figure>
+<p></p><figcaption class="figure-caption">Figure&nbsp;13.2: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
 </section><section id="two-independent-samples-example-non-parametric" class="level3" data-number="13.2.4"><h3 data-number="13.2.4" class="anchored" data-anchor-id="two-independent-samples-example-non-parametric">
 <span class="header-section-number">13.2.4</span> Two independent samples example non-parametric</h3>
-<p>The two sample Wilcoxon also known as the Mann-Whitney. the type of question is the same but the response variable is not continuous or the residuals are not normally distributed or the sample size is too small to tell if they are normally distributed.</p>
-<p>Example: comparing the number of leaves on 8 mutant and wild type arabidopsis plants (small samples, counts)</p>
+<p>The two sample Wilcoxon, also known as the Mann-Whitney, is the non-parametric equivalent of the linear model with two independent samples. The general question you have about your data - are these two groups different - is the same, but one of more of the following is true:</p>
+<ul>
+<li>the response variable is not continuous</li>
+<li>the residuals are not normally distributed</li>
+<li>the sample size is too small to tell if they are normally distributed.</li>
+</ul>
+<p>The data in <a href="data-raw/arabidopsis.txt">arabidopsis.txt</a> give the number of leaves on eight wildtype and eight mutant Arabidopsis plants. We want to know if the two types of plants have differing numbers of leaves. These are counts so are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.</p>
 </section><section id="import-and-explore-1" class="level3" data-number="13.2.5"><h3 data-number="13.2.5" class="anchored" data-anchor-id="import-and-explore-1">
-<span class="header-section-number">13.2.5</span> import and explore</h3>
+<span class="header-section-number">13.2.5</span> Import and explore</h3>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arabidopsis</span> <span class="op">&lt;-</span> <span class="fu">read_table</span><span class="op">(</span><span class="st">"data-raw/arabidopsis.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Plot your data roughly - violin, points, boxplot</p>
+<p>Create a quick plot of the data:</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, </span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">type</span>, y <span class="op">=</span> <span class="va">leaves</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -748,17 +757,29 @@ Important
 <p><img src="two_sample_tests_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
-<p>Summarise</p>
+<p>Summarising the data using the median and interquartile range is more aligned to the type of data and the type of analysis than using means and standard deviations:</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arabidopsis_summary</span> <span class="op">&lt;-</span> <span class="va">arabidopsis</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">type</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">leaves</span><span class="op">)</span>,</span>
+<span>            interquartile  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html">IQR</a></span><span class="op">(</span><span class="va">leaves</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">leaves</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="test" class="level3" data-number="13.2.6"><h3 data-number="13.2.6" class="anchored" data-anchor-id="test">
-<span class="header-section-number">13.2.6</span> test</h3>
+<p>View the results:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, <span class="va">leaves</span> <span class="op">~</span> <span class="va">type</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arabidopsis_summary</span></span>
+<span><span class="co">## # A tibble: 2 × 4</span></span>
+<span><span class="co">##   type   median interquartile     n</span></span>
+<span><span class="co">##   &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;</span></span>
+<span><span class="co">## 1 mutant    5             2.5     8</span></span>
+<span><span class="co">## 2 wild      8.5           1.5     8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="apply-wilcox.test" class="level4" data-number="13.2.5.1"><h4 data-number="13.2.5.1" class="anchored" data-anchor-id="apply-wilcox.test">
+<span class="header-section-number">13.2.5.1</span> Apply <code>wilcox.test()</code>
+</h4>
+<p>The way we pass the dataframe and variables to <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> is just the same as for <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>. We give the data argument and a “formula” which says <code>leaves ~ type</code> meaning “explain leaves by type”.</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, <span class="va">leaves</span> <span class="op">~</span> <span class="va">type</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Wilcoxon rank sum test with continuity correction</span></span>
 <span><span class="co">## </span></span>
@@ -766,92 +787,179 @@ Important
 <span><span class="co">## W = 5, p-value = 0.005051</span></span>
 <span><span class="co">## alternative hypothesis: true location shift is not equal to 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Warning message: In wilcox.test.default(x = c(3, 5, 6, 7, 3, 4, 5, 8), y = c(8, 9, :cannot compute exact p-value with ties</p>
-</section><section id="report-1" class="level3" data-number="13.2.7"><h3 data-number="13.2.7" class="anchored" data-anchor-id="report-1">
-<span class="header-section-number">13.2.7</span> report</h3>
-<p>There are significantly more leaves on wild-type (median = 8.5) than mutant (median = 5) plants (Mann-Whitney: W=5, n1 = 8, n2 = 8, p = 0.005)</p>
-<p>illustrate</p>
-<p>box plot</p>
+<p>The warning message “Warning: cannot compute exact p-value with ties” is not something to worry about too much. It is a warning rather than an indication that your results are incorrect. It means the <em>p</em> -value is based on an approximation rather than being exact because there are ties (some values are the same).</p>
+<p>The result of the test is given on this line: <code>W = 5, p-value = 0.005051</code>. <code>W</code> is the test statistic. The <em>p</em>-value is less than 0.05 meaning there is a significant difference in the number of leaves on wildtype and mutant plants.</p>
+</section></section><section id="report-1" class="level3" data-number="13.2.6"><h3 data-number="13.2.6" class="anchored" data-anchor-id="report-1">
+<span class="header-section-number">13.2.6</span> Report</h3>
+<p>There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: <em>W</em> = 5, <span class="math inline">\(n_1\)</span> = 8, <span class="math inline">\(n_2\)</span> = 8, p = 0.005). See <a href="#fig-arabid">Figure&nbsp;<span>13.3</span></a>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, </span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">type</span>, y <span class="op">=</span> <span class="va">leaves</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of leaves"</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span>, </span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span>, </span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mutatnt"</span>, <span class="st">"Wildtype"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">10.5</span>, yend <span class="op">=</span> <span class="fl">10.5</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">11</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.005"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-arabid" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-arabid-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;13.3: Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section></section><section id="two-paired-samples-example-parametric" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="two-paired-samples-example-parametric">
 <span class="header-section-number">13.3</span> Two paired samples example parametric</h2>
-<p>Is there a difference between the maths and stats marks of 10 students?</p>
+<p>The data in <a href="data-raw/marks.csv">marks.csv</a> give the marks for ten students in two subjects: Data Analysis and Biology. These data are paired because we have two marks from one student so that a mark in one group has a closer relationship with one of the marks in the other group than with any of the the other. We want to know if students to equally well in both subjects.</p>
 <section id="import-and-explore-2" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="import-and-explore-2">
-<span class="header-section-number">13.3.1</span> import and explore</h3>
+<span class="header-section-number">13.3.1</span> Import and explore</h3>
+<p>Import the data:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks</span> <span class="op">&lt;-</span> <span class="fu">read_table</span><span class="op">(</span><span class="st">"data-raw/marks.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/marks.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Plot your data roughly</p>
+<p>Since these data are paired, it makes sense to highlight how the marks differ for each student. One way of doing that is to draw a line linking their marks in each subject. This is known as a spaghetti plot. We can use two geoms: <code>geom_point()</code> and <code>geom_line()</code>. We join a student’s marks we need to set the <code>group</code> aesthetic to <code>student.</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">student</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="480"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
+<p>A paired test requires us to test whether the difference in marks between the two subjects is zero on average. One handy way to achieve this is to organise our groups into two columns. The <code>pivot_wider()</code> function will do this for us. We need to tell it what column gives the identifiers (i.e., matches the the pairs) - the student number in this case. We also need to say which variable contains what will become the column names and which contains the values.</p>
+<p>Pivot the data so there is a column for each subject:</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_wide</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="va">marks_wide</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">pivot_wider</span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">student</span>,</span>
 <span>              names_from <span class="op">=</span> <span class="va">subject</span>,</span>
 <span>              values_from <span class="op">=</span> <span class="va">mark</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Summarise</p>
-<p>calculate the mean differnce and se of mean diff</p>
-</section><section id="test-1" class="level3" data-number="13.3.2"><h3 data-number="13.3.2" class="anchored" data-anchor-id="test-1">
-<span class="header-section-number">13.3.2</span> test</h3>
-<p>https://steverxd.github.io/Stat_tests/one-mean.html#one-sample</p>
+<p>We can summarise the difference between subject, <code>DataAnalysis - Biology</code> as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks_wide</span>, <span class="va">maths</span> <span class="op">-</span> <span class="va">stats</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_wide</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>mean_diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span><span class="op">)</span>,</span>
+<span>            sd_diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span><span class="op">)</span>,</span>
+<span>            n_diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span><span class="op">)</span>,</span>
+<span>            se_diff <span class="op">=</span> <span class="va">sd_diff</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n_diff</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## # A tibble: 1 × 4</span></span>
+<span><span class="co">##   mean_diff sd_diff n_diff se_diff</span></span>
+<span><span class="co">##       &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">## 1         7    8.96     10    2.83</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The mean difference is positive meaning students have higher marks on Data Analysis on average.</p>
+<section id="apply-lm-1" class="level4" data-number="13.3.1.1"><h4 data-number="13.3.1.1" class="anchored" data-anchor-id="apply-lm-1">
+<span class="header-section-number">13.3.1.1</span> Apply <code>lm()</code>
+</h4>
+<p>We can create a paired-sample model with the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks_wide</span>, <span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The response here is the differences <code>DataAnalysis - Biology</code> and the <code>~ 1</code> indicates we only have one group so we are only interested in testing a single mean against a value of zero. Another way of saying this is we have an “intercept only model” meaning were are estimating only β0 - there is no β1.</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Call:</span></span>
-<span><span class="co">## lm(formula = maths - stats ~ 1, data = marks_wide)</span></span>
+<span><span class="co">## lm(formula = DataAnalysis - Biology ~ 1, data = marks_wide)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
 <span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
-<span><span class="co">## -12.50  -7.25   1.00   5.50  11.50 </span></span>
+<span><span class="co">## -13.00  -7.75   1.50   5.75  11.00 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
 <span><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
-<span><span class="co">## (Intercept)    6.500      2.778    2.34    0.044 *</span></span>
+<span><span class="co">## (Intercept)    7.000      2.832   2.471   0.0355 *</span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 8.784 on 9 degrees of freedom</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 8.957 on 9 degrees of freedom</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="check-assumptions-1" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="check-assumptions-1">
-<span class="header-section-number">13.3.3</span> check assumptions</h3>
-<p>normally and homogenously distributed residuals differences</p>
+<p>The Estimates in the Coefficients table gives the <code>(Intercept)</code> which is the mean of <code>DataAnalysis - Biology</code>. The average difference between subjects is 7.0 marks. The <em>p</em>-value of 0.0355 means 7.0 does differ signifcantly from zero.</p>
+</section></section><section id="check-assumptions-1" class="level3" data-number="13.3.2"><h3 data-number="13.3.2" class="anchored" data-anchor-id="check-assumptions-1">
+<span class="header-section-number">13.3.2</span> Check assumptions</h3>
+<p>We might expect marks, and thus the difference between marks to be normally distributed. However, this is a small sample and choosing a non-parametric test instead would be sensible. We will continue with this example to demonstrate how to interpret and report on the result in this simple case.</p>
+<p>We do not need to plot the residuals against the fitted values (<code>plot(mod, which = 1)</code>) for a paired test. The purpose of a residuals vs fitted plot is to check the variance is to check that variance is the same for all fitted values. For a paired test, we only have one fitted value, the mean difference.</p>
+<p>The normality of the residuals should be checked.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">marks_wide</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">maths</span> <span class="op">-</span> <span class="va">stats</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="480"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
-</section><section id="report-2" class="level3" data-number="13.3.4"><h3 data-number="13.3.4" class="anchored" data-anchor-id="report-2">
-<span class="header-section-number">13.3.4</span> report</h3>
-<p>Individual students score significantly higher in maths than in statistics (t = 2.34; d.f. = 9; p = 0.044) with an average difference of 6.5%.</p>
-<p>spaghetti plot</p>
+<p>We only have 10 values so the distribution is never going to look smooth. We can’t draw strong conclusions from this but we do at least have a peak at 0. Similarly a normality test is likely to be non-significant because of the sample size so a non-significant result is not strong evidence of the residuals following a normal distribution:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Shapiro-Wilk normality test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  mod$residuals</span></span>
+<span><span class="co">## W = 0.90358, p-value = 0.2398</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="report-2" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="report-2">
+<span class="header-section-number">13.3.3</span> Report</h3>
+<p>Individual students score significantly higher in Data Analysis than in Biology (<em>t</em> = 2.47; <em>d.f.</em> = 9; <em>p</em> = 0.0355) with an average difference of 6.5%. See <a href="#fig-marks">Figure&nbsp;<span>13.4</span></a></p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">student</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Mark"</span>,</span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">105</span>, yend <span class="op">=</span> <span class="fl">105</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">108</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0355"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-marks" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-marks-1.png" class="img-fluid figure-img" width="480"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;13.4: Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section></section><section id="two-paired-samples-example-non-parametric" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="two-paired-samples-example-non-parametric">
 <span class="header-section-number">13.4</span> Two paired samples example non-parametric</h2>
-<p>maths and stats marks</p>
-<section id="test-2" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="test-2">
-<span class="header-section-number">13.4.1</span> test</h3>
-</section><section id="report-3" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="report-3">
-<span class="header-section-number">13.4.2</span> report</h3>
-</section><section id="illustrate" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="illustrate">
-<span class="header-section-number">13.4.3</span> illustrate</h3>
+<section id="apply-wilcox.test-1" class="level4" data-number="13.4.0.1"><h4 data-number="13.4.0.1" class="anchored" data-anchor-id="apply-wilcox.test-1">
+<span class="header-section-number">13.4.0.1</span> Apply <code>wilcox.test()</code>
+</h4>
+<p>To apply a paired test with <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> we need to use the long format data (tidy) and add the <code>paired = TRUE</code> argument.</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="va">mark</span> <span class="op">~</span> <span class="va">subject</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Wilcoxon signed rank test with continuity correction</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  mark by subject</span></span>
+<span><span class="co">## V = 6.5, p-value = 0.03641</span></span>
+<span><span class="co">## alternative hypothesis: true location shift is not equal to 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="report-3" class="level4" data-number="13.4.0.2"><h4 data-number="13.4.0.2" class="anchored" data-anchor-id="report-3">
+<span class="header-section-number">13.4.0.2</span> Report</h4>
+<p>Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: <em>V</em> = 6.55; <span class="math inline">\(n\)</span> = 10; p = 0.036). See@fig-marks</p>
+</section></section><section id="summary" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">13.5</span> Summary</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-Wickham2014-nl" class="csl-entry" role="doc-biblioentry">
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
 </div>
 </div>
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>You might like to try removing <code>aes(group = student)</code> to see what ggplot does when the lines are not grouped by student.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is not the only way to apply a paired test. When there are only two groups and no other explanatory variables we can use <code>t.test(data = marks, mark ~ subject, paired = TRUE)</code>. A more general method which works when you have two or more non-independent values (e.g., more than two subjects) or additional explanatory variables, is to create a “linear mixed model” with <code>lmer()</code><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -993,23 +1101,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -1074,92 +1168,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1198,12 +1206,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+      var filterRegex = new RegExp(/https:\/\/3mmarand\.github\.io\/comp4biosci\//);
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

@@ -56,12 +56,12 @@ Plot your data roughly
 
 Summarise the data
 ```{r}
-culture_summary <- culture %>%
-  group_by(medium) %>%
-  summarise(mean = mean(diameter),
-            std = sd(diameter),
-            n = length(diameter),
-            se = std/sqrt(n))
+# culture_summary <- culture %>%
+#   group_by(medium) %>%
+#   summarise(mean = mean(diameter),
+#             std = sd(diameter),
+#             n = length(diameter),
+#             se = std/sqrt(n))
 ```
 
 ANOVA assumes the “residuals” are normally distributed and have
@@ -83,8 +83,8 @@ library(multcompView)
 ```
 
 ```{r}
-lsmeans(mod, ~ species) %>%
-  pairs()
+# lsmeans(mod, ~ species) %>%
+#   pairs()
 
 ```
 
@@ -97,31 +97,31 @@ added to the medium
 
 
 ```{r}
-ggplot() +
-  geom_jitter(data = seal, 
-              aes(x = species, y = myoglobin), 
-              width = 0.25, colour = "grey") +
-  geom_errorbar(data = seal_summary,
-                aes(x = species,
-                    ymin = mean,
-                    ymax = mean),
-                width = .3) +
-  geom_errorbar(data = seal_summary,
-                aes(x = species,
-                    ymin = mean - se,
-                    ymax = mean + se),
-                width = .5) +
-  geom_segment(aes(x = 1, y = 71, xend = 2, yend = 71),
-               size = 1) +
-  geom_segment(aes(x = 1, y = 71, xend = 1, yend = 69),
-               size = 1) +
-  geom_segment(aes(x = 2, y = 71, xend = 2, yend = 69),
-               size = 1) +
-  annotate("text", x = 1.5, y = 73,  label = "**", size = 6) +
-  scale_x_discrete(name = "Species") +
-  scale_y_continuous(name = expression("Myoglobin concentration g "*Kg^{-1}),
-                     expand = c(0, 0),
-                     limits = c(0, 75)) +
-  theme_classic()
+# ggplot() +
+#   geom_jitter(data = seal, 
+#               aes(x = species, y = myoglobin), 
+#               width = 0.25, colour = "grey") +
+#   geom_errorbar(data = seal_summary,
+#                 aes(x = species,
+#                     ymin = mean,
+#                     ymax = mean),
+#                 width = .3) +
+#   geom_errorbar(data = seal_summary,
+#                 aes(x = species,
+#                     ymin = mean - se,
+#                     ymax = mean + se),
+#                 width = .5) +
+#   geom_segment(aes(x = 1, y = 71, xend = 2, yend = 71),
+#                size = 1) +
+#   geom_segment(aes(x = 1, y = 71, xend = 1, yend = 69),
+#                size = 1) +
+#   geom_segment(aes(x = 2, y = 71, xend = 2, yend = 69),
+#                size = 1) +
+#   annotate("text", x = 1.5, y = 73,  label = "**", size = 6) +
+#   scale_x_discrete(name = "Species") +
+#   scale_y_continuous(name = expression("Myoglobin concentration g "*Kg^{-1}),
+#                      expand = c(0, 0),
+#                      limits = c(0, 75)) +
+#   theme_classic()
 ```
 
