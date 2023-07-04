@@ -39,7 +39,12 @@ class <- switch(type,
   ))
 }
 
+#  blue, pink, green triadic
 
+pal1 <- c("#eef8fa", "#faeef8","#f8faee")
+pal2 <- c("#9fd8e3", "#e39fd8", "#d8e39f")
+pal3 <- c("#64c0d2", "#d264c0", "#c0d264")
+pal4 <- c("#256c7a", "#7a256c", "#6c7a25")
 
 
 

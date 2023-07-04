@@ -156,14 +156,14 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
                 args = list(mean = mu, sd = sd)) +
   stat_function(fun = dnorm_limit,
                 geom = "area",
-                fill = "lightseagreen") +
+                fill = pal2[1]) +
   stat_function(fun = dnorm, n = 101, 
                 args = list(mean = mu, sd = se)) +
   geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
   annotate("text", size = 5,
            x = 1800, y = 0.00055,
            label = glue::glue("Probability of {mean}\nor less"),
-           colour = "lightseagreen")  +
+           colour = pal4[1])  +
   scale_y_continuous(breaks = NULL, name = "",
                      expand = c(0, 0),
                      limits = c(0, 0.0016)) +
@@ -193,14 +193,14 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
                 args = list(mean = mu, sd = sd)) +
   stat_function(fun = dnorm_limit,
                 geom = "area",
-                fill = "lightseagreen") +
+                fill = pal2[1]) +
   stat_function(fun = dnorm_limit2,
                 geom = "area",
-                fill = "lightseagreen") +
+                fill = pal2[1]) +
   annotate("text", size = 5,
            x = 1800, y = 0.00055,
            label = glue::glue("Probability of {mean}\nor more extreme"),
-           colour = "lightseagreen")  +
+           colour = pal4[1])  +
   stat_function(fun = dnorm, n = 101, 
                 args = list(mean = mu, sd = se)) +
   geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
