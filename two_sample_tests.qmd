@@ -54,18 +54,17 @@ In reporting the result of two-sample test we give:
 
 Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:
 
-```         
 -   parametric: means and standard errors 
 -   non-parametric: boxplots with medians and interquartile range
-```
+
 
 We will explore all of these ideas with some examples.
 
-## Examples
+## 🎬 Your turn!
 
-🎬 Your turn! If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects) then a new script.
+If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects) then a new script.
 
-### Two independent samples example parametric
+## Two independent samples example parametric
 
 A number of [subspecies of the common chaffinch](https://en.wikipedia.org/wiki/Common_chaffinch) have been described, based principally on the differences in the pattern and colour of the adult male plumage. Two of groups of these subspecies are:
 
@@ -74,7 +73,7 @@ A number of [subspecies of the common chaffinch](https://en.wikipedia.org/wiki/C
 
 The data in [chaff.txt](data-raw/chaff.txt) give the masses of twenty individuals from each subspecies. We want to know if the subspecies differ in mass. These groups are independent - there is no link between values in one group and any value in the other group.
 
-#### Import and explore
+### Import and explore
 
 Import the data:
 
@@ -90,7 +89,7 @@ knitr::kable(chaff) %>%
   kableExtra::scroll_box(height = "200px")
 ```
 
-These data are in tidy format [@Wickham2014-nl] - all the mass values mass are in one column with another column indicating the subspecies. This means they are well formatted for analysis and plotting.
+These data are in tidy format [@Wickham2014-nl] - all the mass values are in one column with another column indicating the subspecies. This means they are well formatted for analysis and plotting.
 
 In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
 
@@ -123,7 +122,7 @@ We have save the results to `chaff_summary` so that we can use the means and sta
 chaff_summary
 ```
 
-#### Apply `lm()`
+### Apply `lm()`
 
 We can create a two-sample model like this:
 
@@ -174,7 +173,7 @@ ggplot() +
            y = mod$coefficients[1] + 4,
            label = glue::glue("Intercept (β0) is mean of\n{ chaff_summary$subspecies[1] }: { mod$coefficients[1]}"), 
            colour = pal3[2],
-           size = 3) +
+           size = 4) +
   geom_segment(aes(x = 1.5,
                    xend = 1.5,
                    y = mod$coefficients[1],
@@ -192,7 +191,7 @@ ggplot() +
            y = mod$coefficients[1] + 5,
            label = glue::glue("subspeciescoelebs (β1) is the\ndifference between mean of\n{ chaff_summary$subspecies[1] } and { chaff_summary$subspecies[2] }: { mod$coefficients[2] }"), 
            colour = pal3[2],
-           size = 3) +
+           size = 4) +
   theme_classic()
 
 ```
@@ -255,7 +254,7 @@ ggplot() +
   theme_classic()
 ```
 
-### Two independent samples example non-parametric
+## Two independent samples example non-parametric
 
 The two sample Wilcoxon, also known as the Mann-Whitney, is the non-parametric equivalent of the linear model with two independent samples. The general question you have about your data - are these two groups different - is the same, but one of more of the following is true:
 
@@ -295,7 +294,7 @@ View the results:
 arabidopsis_summary
 ```
 
-#### Apply `wilcox.test()`
+### Apply `wilcox.test()`
 
 The way we pass the dataframe and variables to `wilcox.test()` is just the same as for `lm()`. We give the data argument and a "formula" which says `leaves ~ type` meaning "explain leaves by type".
 
@@ -378,8 +377,7 @@ marks_wide |>
 The mean difference is positive meaning students have higher marks on Data Analysis on average.
 
 
-
-#### Apply `lm()`
+### Apply `lm()`
 
 We can create a paired-sample model with the `lm()` function[^two_sample_tests-2] like this:
 
@@ -442,7 +440,7 @@ ggplot(data = marks, aes(x = subject, y = mark)) +
 
 ## Two paired samples example non-parametric
 
-#### Apply `wilcox.test()`
+### Apply `wilcox.test()`
 
 To apply a paired test with `wilcox.test()` we need to use the long format data (tidy) and add the `paired = TRUE` argument.
 
@@ -451,7 +449,7 @@ To apply a paired test with `wilcox.test()` we need to use the long format data 
 wilcox.test(data = marks, mark ~ subject, paired = TRUE)
 ```
 
-#### Report
+### Report
 
 Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: *V* = 6.55; $n$ = 10; p = 0.036). See@fig-marks
 

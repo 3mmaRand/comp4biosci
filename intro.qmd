@@ -14,7 +14,12 @@ bioscience
 
 undergrads
 
-## About the content
+
+## Approach of this book
+
+
+##  Overview of the contents
+
 It is in sections
 
 part 1 what they forgot to teach you
@@ -25,16 +30,54 @@ part 2 Getting started with data. give summary
 
 part 3 Data Analysis, improve name, give summary (babs 2)
 
-## Your turn!
-When you see.. Try to answer before looking at the code
 
-🎬 Your turn! Assign the value of `4` to a variable called `y`:
+
+
+## Conventions used in the book
+
+Code and any output appears in blocks formatted like this:
 
 ```{r}
-#| code-fold: true
-y <- 4
+#| eval: false
+
+stag <- read_table("data-raw/stag.txt")
+glimpse(stag)
 ```
 
+Lines of output start with a `#`. 
+
+Within the text:
+-  packages are indicated in bold code font like this: **`ggplot2`**
+-  functions are indicated in code font with brackets after their name like this: `ggplot()`
+-  R objects are indicated in code font like this: `stag`
+
+
+The content of a code block can be copied using the icon in its top right corner.
+
+I use packages from the **`tidyverse`** [@tidyverse] including **`ggplot2`** [@ggplot2], **`dplyr`** [@dplyr], **`tidyr`** [@tidyr] and **`readr`** [@readr] throughout the book. All the code assumes you have loaded the core **`tidyverse`** packages with: 
+
+```{r}
+#| eval: false
+
+library(tidyverse)
+```
+
+If you run examples and get an error like this: 
+
+```{r}
+#| eval: false
+
+# Error in read_table("data-raw/stag.txt") : 
+#  could not find function "read_table"
+```
+
+It is likely you need to load the **`tidyverse`** as shown above.
+
+All other packages will be loaded explicitly with `library()` statements where needed. 
+
+
+
+🎬 Your turn! indicates that you might want to code along with examples or that there is an opportunity to check your understanding by answering a question. Questions are answered in words or with a piece of code. The answers are given in collapsed sections so you can try to answer them before checking the answer. For example, a question answered in words looks like this:
 
 
 🎬 Your turn! Use the file system above to answer these questions.
@@ -49,12 +92,19 @@ y <- 4
 
 :::
 
+And a question answered with a piece of code looks like this:
+
+
+🎬 Your turn! Assign the value of `4` to a variable called `y`:
+
+```{r}
+#| code-fold: true
+#| 
+y <- 4
+```
 
 
 
-
-
-conventions used in this book
 
 
 ## Commenting
@@ -64,3 +114,11 @@ make a private group
 https://web.hypothes.is/help/annotating-with-groups/
 
 ## Code of Conduct for commenting
+
+## Credits
+
+This book is written with R [@R-core], Quarto [@allaire2022], `knitr` [@knitr], `kableExtra` [@kableExtra]. My R session information is shown below:
+
+```{r}
+sessionInfo()
+```

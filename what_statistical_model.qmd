@@ -8,37 +8,234 @@ source("_common.R")
 status("drafting")
 ```
 
-## 
+## What is a statistical model
+
+A statistical model is a mathematical equation that helps us understand the relationships between variables. We think about how well our data fit a particular model to infer something about how the values arose or to make predictions about future values. Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.
+
+## Linear models
+
+We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See @fig-linear-bact.
+
+```{r}
+#| echo: false
+set.seed(123)
+df1 <- data.frame(Nutrient = seq(0.1, 3, 0.1))
+df1 <- df1 |> 
+  mutate(Diameter = (3 + Nutrient * 2) + rnorm(length(Nutrient)))
+mod <- lm(data = df1, Diameter ~ Nutrient)
+b0 <- mod$coefficients[1] |> round(2)
+b1 <- mod$coefficients[2] |> round(2)
+
+```
+
+```{r}
+#| echo: false
+#| label: fig-linear-bact
+#| fig-cap: "The effect of nutrient level on bacterial colony diamters without and with a linear model."
+
+a <- ggplot(df1, aes(x = Nutrient, y = Diameter)) +
+  geom_point() +
+  scale_x_continuous(expand = c(0, 0),
+                     limits = c(0, 3.2)) +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0, 12)) +
+  theme_classic()
+b <- ggplot(df1, aes(x = Nutrient, y = Diameter)) +
+  geom_point() +
+  scale_x_continuous(expand = c(0, 0),
+                     limits = c(0, 3.2)) +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(0, 12)) +
+  geom_smooth(method = "lm", 
+              se = FALSE,
+              colour = "black") +
+  geom_text(label = glue::glue("Diameter = {b0} + {b1} * Nutrient"),
+            x = 2, y = 11) +
+  theme_classic()
+a + b
+
+```
+
+The equation of this line is a statistical model that allows us to make predictions about colony diameter from nutrient levels. A line - or linear model - has the form:
+
+$$
+y = \beta_{0} + \beta_{1}x
+$$ {#eq-linear-model}
+
+Where:
+
+-   $y$ is the response variable and $x$ is the explanatory variable.
+-   $\beta_{0}$ is the value of $y$ when $x = 0$ usually known as the intercept
+-   $\beta_{1}$ is the amount added to $y$ for each unit increase in $x$ usually known as the slope
+
+$\beta_{0}$ and $\beta_{1}$ are called the *coefficients* - or *parameters* - of the model.
+
+
+Linear models are amongst the most commonly used statistics. Regression, *t*-tests and ANOVA are all linear models collectively known as the *General Linear Model*.
+
+
+## Model fitting
+
+The process of estimating the parameters $\beta_{0}$ and $\beta_{1}$ from data is known as *fitting a linear model*. The line gives the predicted values of $y$. The actual measured value of $y$ will differ from the predicted value and this difference is called a *residual* or an *error*. The line is a best fit in the sense that $\beta_{0}$ and $\beta_{1}$ minimise the *sum of the squared residuals*, $SSE$.
+
+$$
+SSE = \sum(y_{i}-\hat{y})^2
+$$ {#eq-sse}
+
+Where:
+
+-   $y_{i}$ represents each of the measured $y$ values from the 1st to the *i*th
+-   $\hat{y}$ is predicted value
+
+Since $\beta_{0}$ and $\beta_{1}$ are those that minimise the $SSE$, they are described as *least squares estimates*. You do not need to worry about this too much but it is a useful piece of statistical jargon to have heard of because it pops up often. The mean of a sample is also a least squares estimate - the sum of the squared differences between each value and the mean is smaller than the sum of the squared differences between each value and any other value.
+
+The role played by $SSE$ in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of $y$ and the predicted value is small but $SSE$ will also depend on the size of $y$ and the sample size. This means we express $SSE$ as a proportion of the total variation in $y$, $SST$:
+
+$$
+\frac{SSE}{SST}
+$$ {#eq-residual-var}
+
+$\frac{SSE}{SST}$ is the *residual variation* - the proportion of variance left over after the model fitting. The proportion of variance explained by the model is called R-squared, $R^2$. It is:
+
+$$
+R^2=1-\frac{SSE}{SST}
+$$ {#eq-r-squared}
+
+If there were no explanatory variables, the value we would predict for the response variable is its mean. Thus a good model should fit the response better than the mean. The output of `lm()` includes the $R^2$. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. @fig-lm-fit
+
+![A linear model with different fits. A) the model is a poor fit - the explanatory variable is no better than the response mean for predicting the response. B) the model is good fit - the explanatory variable explains a high proportion of the variance in the response. C) the model is a perfect fit - the response can be predicted perfectly from the explanatory variable. Measured response values are in pink, the predictions are in green and the dashed blue line gives the mean of the response.](images/lm_fit.svg){#fig-lm-fit width="400"}
+
+Since the distribution of the responses for a given $x$ is assumed to be normal and the variances of those distributions are assumed to be homogeneous, both are also true of the residuals. It is our examination of the residuals which allows us to evaluate whether the assumptions are met.
+
+See @fig-lm-annotated for a graphical representation of linear modelling terms introduced so far.
+
+
+![A linear model annotated with the terms used in modelling. Measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$ (the slope) are indicated.](images/generic_lm.svg){#fig-lm-annotated width="400"}
 
 
 
-- fit a relationship, examine how well the data fit
+
+## General linear models in R
 
 
-- measures of fit RSS, var explained by model vs variance left over
+We use the `lm()` function in R to analyse data with the general linear model. When you have one explanatory variable the command is:
+
+<code>
+lm(data = *dataframe*, *response* \~ *explanatory*)
+</code>
+
+The `response ~ explanatory` part is known as the model **formula**.
+
+When you have two explanatory variable we add the second explanatory variable to the formula using a `+` or a `*`. The command is:
+
+<code>
+lm(data = *dataframe*, *response* \~ *explanatory1* + *explanatory2*)
+</code>
+
+or
+
+<code>
+lm(data = *dataframe*, *response* \~ *explanatory1* \* *explanatory2*)
+</code>
+
+A model with `explanatory1 + explanatory2` considers the effects of the two variables independently. A model with `explanatory1 * explanatory2` considers the effects of the two variables *and* any interaction between them. You will learn more about independent effects and interactions in [Two-way ANOVA](docs/two_way_anova.html)
+
+We usually assign the output of `lm()` commands to an object and view it with `summary()`. The typical workflow would be:
+
+<code> 
+mod \<- lm(data = *dataframe*, *response* \~ *explanatory*)\
+summary(mod) 
+</code>
+
+There are two sorts of statistical tests in the output of `summary(mod)`: tests of whether each coefficient is significantly different from zero; and an *F*-test of the model overall.
+
+The *F*-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant.
 
 
-- test model parameters against zero
+## Checking assumptions
 
-- general linear model the basis on many statistical tests
+TODO
 
-residuals
-The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
-
-in regression the predicted value is the value on the line. When you
-have a theoretical explanatory variable, the predicted value is the
-group mean. these are equivalent. the mean of one group is the
-intercept; the mean of the other group is the slope
-
-asumptions
+The assumptions relate to the type of relationship chosen and hypothesis testing about the parameters. We assumed the relationship between diameter and nutrients is linear. The general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
 
 
-regression, two sample, three sample
 
+The assumptions of the model are checked using the `plot()` function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.
 
-### Reporting
+```{r}
+#| echo: false
 
-When reporting the results of statistical tests we need to make sure we tell the reader everything they need to know and give the evidence it to support it. What they need to know is given in statements describing what difference or effect is significant and the evidence is from the test statistic and *p*-value from the test. You can think the statistical test values as being the evidence for the statements in your results sections, just as citations are the evidence for the statements in your introduction.  
+set.seed(1238)
+b0 <- 4
+b1 <- 2.5
+n <- 100
+x <- rnorm(n, mean = 10, sd = 2)
+y <-  (b0 + b1 * x) + rnorm(n)
+df <- data.frame(x = x, y = y)
+mod <- lm(data = df, x ~ y)
+
+```
+
+The two plots which are most useful are the "Q-Q" plot (plot 2) and the "Residuals vs Fitted" plot (plot 1). These are given as values to the `which` argument of `plot()`.
+
+### The Q-Q plot
+
+The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.
+
+```{r}
+plot(mod, which = 2)
+```
+
+The points should fall roughly on the line if the residuals are normally distributed. In the example above, the residuals appear normally distributed.
+
+The following are two examples in which the residuals are not normally distributed.
+
+```{r}
+#| echo: false
+
+set.seed(100)
+y <-  (b0 + b1 * x) + rexp(n,rate = 5)
+df <- data.frame(x = x, y = y)
+mod2 <- lm(data = df, x ~ y)
+plot(mod2, which = 2)
+```
+
+If you see patterns like these you should find an alternative to a general linear model such as a non-parametric test or a generalised linear model. Sometimes, applying a transformation to the response variable will result in better meeting the assumptions.
+
+### The Residuals vs Fitted plot
+
+```{r}
+#| echo: false
+
+set.seed(1234)
+y <-  (b0 + b1 * x) + rpois(n,lambda = 1)
+df <- data.frame(x = x, y = y)
+mod3 <- lm(data = df, x ~ y)
+plot(mod3, which = 2)
+```
+
+The Residuals vs Fitted plot shows if residuals have homogeneous variance or non-linear patterns. Non-linear relationships between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line as they are here:
+
+```{r}
+plot(mod, which = 1)
+```
+
+The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns.
+
+```{r}
+#| echo: false
+
+set.seed(100)
+y <-  (b0 + b1 * x) + rexp(n,rate = 0.1)
+df <- data.frame(x = x, y = y)
+mod2 <- lm(data = df, x ~ y)
+plot(mod2, which = 1)
+plot(mod3, which = 1)
+```
+
+## Reporting
+
+When reporting the results of statistical tests we need to make sure we tell the reader everything they need to know and give the evidence it to support it. What they need to know is given in statements describing what difference or effect is significant and the evidence is from the test statistic and *p*-value from the test. You can think the statistical test values as being the evidence for the statements in your results sections, just as citations are the evidence for the statements in your introduction.
 
 In reporting the result of a test we give:
 
@@ -48,16 +245,7 @@ In reporting the result of a test we give:
 
 3.  the magnitude of effect
 
-figures should demonstrate the statement. should show the data and the
-model
+Figures should demonstrate the statement. Ideally they will include all the data and the 'model',i.e., means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. https://blog.bioturing.com/2018/05/10/how-to-craft-a-figure-legend-for-scientific-papers/ - refer to figure in text
 
-
-Supports your claim: 
--   how the data (all if possible) 
-–   show the ‘model’ (the predicted values i.e., means and error bars) 
-–   Say what kind of error bars/measures of dispersion
-–   Full but concise figure legends
--   Figure legend https://blog.bioturing.com/2018/05/10/how-to-craft-a-figure-legend-for-scientific-papers/
--   refer to figure in text
 
 

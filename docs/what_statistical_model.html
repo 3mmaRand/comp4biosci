@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.361">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 11&nbsp; What is a statistical model</title>
 <style>
@@ -14,8 +14,42 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -54,175 +88,214 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
-}</script><script async="" src="https://hypothes.is/embed.js"></script>
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">
-<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span>
-</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./what_statistical_model.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">What they forgot to teach you about computers</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What they forgot to teach you about computers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></a>
+  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./file_systems.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a>
+  <a href="./file_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./organising_work.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></a>
+  <a href="./organising_work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">Getting started with data</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started with data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a>
+  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a>
+  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></a>
+  <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></a>
+  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">Statistical Analysis - Part 1</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Analysis - Part 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></a>
+  <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a>
+  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></a>
+  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></a>
+  <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></a>
+  <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></a>
+  <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two_way_anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></a>
+  <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"><span class="toc-section-number">11.1</span>  </a>
+<li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link active" data-scroll-target="#what-is-a-statistical-model"><span class="header-section-number">11.1</span> What is a statistical model</a></li>
+  <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models"><span class="header-section-number">11.2</span> Linear models</a></li>
+  <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="header-section-number">11.3</span> Model fitting</a></li>
+  <li><a href="#general-linear-models-in-r" id="toc-general-linear-models-in-r" class="nav-link" data-scroll-target="#general-linear-models-in-r"><span class="header-section-number">11.4</span> General linear models in R</a></li>
+  <li>
+<a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">11.5</span> Checking assumptions</a>
   <ul class="collapse">
-<li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="toc-section-number">11.1.1</span>  Reporting</a></li>
+<li><a href="#the-q-q-plot" id="toc-the-q-q-plot" class="nav-link" data-scroll-target="#the-q-q-plot"><span class="header-section-number">11.5.1</span> The Q-Q plot</a></li>
+  <li><a href="#the-residuals-vs-fitted-plot" id="toc-the-residuals-vs-fitted-plot" class="nav-link" data-scroll-target="#the-residuals-vs-fitted-plot"><span class="header-section-number">11.5.2</span> The Residuals vs Fitted plot</a></li>
   </ul>
 </li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">11.6</span> Reporting</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title d-none d-lg-block">
+<h1 class="title">
 <span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span>
 </h1>
 </div>
@@ -237,12 +310,12 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header><div class="callout-important callout callout-style-default callout-captioned">
+</header><div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Important
 </div>
 </div>
@@ -250,20 +323,131 @@ Important
 <p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable.</p>
 </div>
 </div>
-<section id="section" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="section">
-<span class="header-section-number">11.1</span> </h2>
+<section id="what-is-a-statistical-model" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="what-is-a-statistical-model">
+<span class="header-section-number">11.1</span> What is a statistical model</h2>
+<p>A statistical model is a mathematical equation that helps us understand the relationships between variables. We think about how well our data fit a particular model to infer something about how the values arose or to make predictions about future values. Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.</p>
+</section><section id="linear-models" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="linear-models">
+<span class="header-section-number">11.2</span> Linear models</h2>
+<p>We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See <a href="#fig-linear-bact">Figure&nbsp;<span>11.1</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-linear-bact" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-linear-bact-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption class="figure-caption">Figure&nbsp;11.1: The effect of nutrient level on bacterial colony diamters without and with a linear model.</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The equation of this line is a statistical model that allows us to make predictions about colony diameter from nutrient levels. A line - or linear model - has the form:</p>
+<p><span id="eq-linear-model"><span class="math display">\[
+y = \beta_{0} + \beta_{1}x
+\tag{11.1}\]</span></span></p>
+<p>Where:</p>
 <ul>
-<li><p>fit a relationship, examine how well the data fit</p></li>
-<li><p>measures of fit RSS, var explained by model vs variance left over</p></li>
-<li><p>test model parameters against zero</p></li>
-<li><p>general linear model the basis on many statistical tests</p></li>
+<li>
+<span class="math inline">\(y\)</span> is the response variable and <span class="math inline">\(x\)</span> is the explanatory variable.</li>
+<li>
+<span class="math inline">\(\beta_{0}\)</span> is the value of <span class="math inline">\(y\)</span> when <span class="math inline">\(x = 0\)</span> usually known as the intercept</li>
+<li>
+<span class="math inline">\(\beta_{1}\)</span> is the amount added to <span class="math inline">\(y\)</span> for each unit increase in <span class="math inline">\(x\)</span> usually known as the slope</li>
 </ul>
-<p>residuals The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
-<p>in regression the predicted value is the value on the line. When you have a theoretical explanatory variable, the predicted value is the group mean. these are equivalent. the mean of one group is the intercept; the mean of the other group is the slope</p>
-<p>asumptions</p>
-<p>regression, two sample, three sample</p>
-<section id="reporting" class="level3" data-number="11.1.1"><h3 data-number="11.1.1" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">11.1.1</span> Reporting</h3>
+<p><span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> are called the <em>coefficients</em> - or <em>parameters</em> - of the model.</p>
+<p>Linear models are amongst the most commonly used statistics. Regression, <em>t</em>-tests and ANOVA are all linear models collectively known as the <em>General Linear Model</em>.</p>
+</section><section id="model-fitting" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="model-fitting">
+<span class="header-section-number">11.3</span> Model fitting</h2>
+<p>The process of estimating the parameters <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> from data is known as <em>fitting a linear model</em>. The line gives the predicted values of <span class="math inline">\(y\)</span>. The actual measured value of <span class="math inline">\(y\)</span> will differ from the predicted value and this difference is called a <em>residual</em> or an <em>error</em>. The line is a best fit in the sense that <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> minimise the <em>sum of the squared residuals</em>, <span class="math inline">\(SSE\)</span>.</p>
+<p><span id="eq-sse"><span class="math display">\[
+SSE = \sum(y_{i}-\hat{y})^2
+\tag{11.2}\]</span></span></p>
+<p>Where:</p>
+<ul>
+<li>
+<span class="math inline">\(y_{i}\)</span> represents each of the measured <span class="math inline">\(y\)</span> values from the 1st to the <em>i</em>th</li>
+<li>
+<span class="math inline">\(\hat{y}\)</span> is predicted value</li>
+</ul>
+<p>Since <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> are those that minimise the <span class="math inline">\(SSE\)</span>, they are described as <em>least squares estimates</em>. You do not need to worry about this too much but it is a useful piece of statistical jargon to have heard of because it pops up often. The mean of a sample is also a least squares estimate - the sum of the squared differences between each value and the mean is smaller than the sum of the squared differences between each value and any other value.</p>
+<p>The role played by <span class="math inline">\(SSE\)</span> in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of <span class="math inline">\(y\)</span> and the predicted value is small but <span class="math inline">\(SSE\)</span> will also depend on the size of <span class="math inline">\(y\)</span> and the sample size. This means we express <span class="math inline">\(SSE\)</span> as a proportion of the total variation in <span class="math inline">\(y\)</span>, <span class="math inline">\(SST\)</span>:</p>
+<p><span id="eq-residual-var"><span class="math display">\[
+\frac{SSE}{SST}
+\tag{11.3}\]</span></span></p>
+<p><span class="math inline">\(\frac{SSE}{SST}\)</span> is the <em>residual variation</em> - the proportion of variance left over after the model fitting. The proportion of variance explained by the model is called R-squared, <span class="math inline">\(R^2\)</span>. It is:</p>
+<p><span id="eq-r-squared"><span class="math display">\[
+R^2=1-\frac{SSE}{SST}
+\tag{11.4}\]</span></span></p>
+<p>If there were no explanatory variables, the value we would predict for the response variable is its mean. Thus a good model should fit the response better than the mean. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> includes the <span class="math inline">\(R^2\)</span>. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. <a href="#fig-lm-fit">Figure&nbsp;<span>11.2</span></a></p>
+<div id="fig-lm-fit" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/lm_fit.svg" class="img-fluid figure-img" width="400"></p>
+<figcaption class="figure-caption">Figure&nbsp;11.2: A linear model with different fits. A) the model is a poor fit - the explanatory variable is no better than the response mean for predicting the response. B) the model is good fit - the explanatory variable explains a high proportion of the variance in the response. C) the model is a perfect fit - the response can be predicted perfectly from the explanatory variable. Measured response values are in pink, the predictions are in green and the dashed blue line gives the mean of the response.</figcaption></figure>
+</div>
+<p>Since the distribution of the responses for a given <span class="math inline">\(x\)</span> is assumed to be normal and the variances of those distributions are assumed to be homogeneous, both are also true of the residuals. It is our examination of the residuals which allows us to evaluate whether the assumptions are met.</p>
+<p>See <a href="#fig-lm-annotated">Figure&nbsp;<span>11.3</span></a> for a graphical representation of linear modelling terms introduced so far.</p>
+<div id="fig-lm-annotated" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/generic_lm.svg" class="img-fluid figure-img" width="400"></p>
+<figcaption class="figure-caption">Figure&nbsp;11.3: A linear model annotated with the terms used in modelling. Measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> (the intercept) and <span class="math inline">\(\beta_{1}\)</span> (the slope) are indicated.</figcaption></figure>
+</div>
+</section><section id="general-linear-models-in-r" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="general-linear-models-in-r">
+<span class="header-section-number">11.4</span> General linear models in R</h2>
+<p>We use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function in R to analyse data with the general linear model. When you have one explanatory variable the command is:</p>
+<p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>) </code></p>
+<p>The <code>response ~ explanatory</code> part is known as the model <strong>formula</strong>.</p>
+<p>When you have two explanatory variable we add the second explanatory variable to the formula using a <code>+</code> or a <code>*</code>. The command is:</p>
+<p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory1</em> + <em>explanatory2</em>) </code></p>
+<p>or</p>
+<p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory1</em> * <em>explanatory2</em>) </code></p>
+<p>A model with <code>explanatory1 + explanatory2</code> considers the effects of the two variables independently. A model with <code>explanatory1 * explanatory2</code> considers the effects of the two variables <em>and</em> any interaction between them. You will learn more about independent effects and interactions in <a href="docs/two_way_anova.html">Two-way ANOVA</a></p>
+<p>We usually assign the output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> commands to an object and view it with <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>. The typical workflow would be:</p>
+<p><code> mod &lt;- lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>)<br>
+summary(mod) </code></p>
+<p>There are two sorts of statistical tests in the output of <code>summary(mod)</code>: tests of whether each coefficient is significantly different from zero; and an <em>F</em>-test of the model overall.</p>
+<p>The <em>F</em>-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant.</p>
+</section><section id="checking-assumptions" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="checking-assumptions">
+<span class="header-section-number">11.5</span> Checking assumptions</h2>
+<p>TODO</p>
+<p>The assumptions relate to the type of relationship chosen and hypothesis testing about the parameters. We assumed the relationship between diameter and nutrients is linear. The general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
+<p>The assumptions of the model are checked using the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.</p>
+<p>The two plots which are most useful are the “Q-Q” plot (plot 2) and the “Residuals vs Fitted” plot (plot 1). These are given as values to the <code>which</code> argument of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
+<section id="the-q-q-plot" class="level3" data-number="11.5.1"><h3 data-number="11.5.1" class="anchored" data-anchor-id="the-q-q-plot">
+<span class="header-section-number">11.5.1</span> The Q-Q plot</h3>
+<p>The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>The points should fall roughly on the line if the residuals are normally distributed. In the example above, the residuals appear normally distributed.</p>
+<p>The following are two examples in which the residuals are not normally distributed.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>If you see patterns like these you should find an alternative to a general linear model such as a non-parametric test or a generalised linear model. Sometimes, applying a transformation to the response variable will result in better meeting the assumptions.</p>
+</section><section id="the-residuals-vs-fitted-plot" class="level3" data-number="11.5.2"><h3 data-number="11.5.2" class="anchored" data-anchor-id="the-residuals-vs-fitted-plot">
+<span class="header-section-number">11.5.2</span> The Residuals vs Fitted plot</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>The Residuals vs Fitted plot shows if residuals have homogeneous variance or non-linear patterns. Non-linear relationships between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line as they are here:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="480"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</section></section><section id="reporting" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">11.6</span> Reporting</h2>
 <p>When reporting the results of statistical tests we need to make sure we tell the reader everything they need to know and give the evidence it to support it. What they need to know is given in statements describing what difference or effect is significant and the evidence is from the test statistic and <em>p</em>-value from the test. You can think the statistical test values as being the evidence for the statements in your results sections, just as citations are the evidence for the statements in your introduction.</p>
 <p>In reporting the result of a test we give:</p>
 <ol type="1">
@@ -271,11 +455,10 @@ Important
 <li><p>the direction of effect</p></li>
 <li><p>the magnitude of effect</p></li>
 </ol>
-<p>figures should demonstrate the statement. should show the data and the model</p>
-<p>Supports your claim: - how the data (all if possible) – show the ‘model’ (the predicted values i.e., means and error bars) – Say what kind of error bars/measures of dispersion – Full but concise figure legends - Figure legend https://blog.bioturing.com/2018/05/10/how-to-craft-a-figure-legend-for-scientific-papers/ - refer to figure in text</p>
+<p>Figures should demonstrate the statement. Ideally they will include all the data and the ‘model’,i.e., means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. https://blog.bioturing.com/2018/05/10/how-to-craft-a-figure-legend-for-scientific-papers/ - refer to figure in text</p>
 
 
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -417,9 +600,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -484,6 +681,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -522,12 +805,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp(/https:\/\/3mmarand\.github\.io\/comp4biosci\//);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
