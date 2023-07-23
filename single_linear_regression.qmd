@@ -9,7 +9,10 @@ status("drafting")
 
 ## Overview
 
-choice of test depends on var types; 
+Single linear regression is an appropriate way to analyse data when:
+
+
+-   choice of test depends on var types; 
 
 include principle: var explained by model is greater then residual var. are the parameters different from zero. 
 
@@ -72,26 +75,23 @@ knitr::kable(shrimp) %>%
 
 These data are in tidy format [@Wickham2014-nl] - all the respiration values are in one column with another column indicating the water bath temperature. There is only one water bath per row. This means they are well formatted for analysis and plotting.
 
-In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
+In the first instance, it is sensible to create a rough plot of our data (See @fig-shrimp-rough). Plotting data early helps us in multiple ways:
+-   it helps identify whether there missing or extreme values
+-   it allows us to see if the relationship is roughly linear
+-   it tells us whether any relationship positive or negative 
 
-Scatter plots (`geom_point()`) are a good choice for exploratory plotting with data like these
+Scatter plots (`geom_point()`) are a good choice for exploratory plotting with data like these.
 
 ```{r}
-# set.seed(222)
-# shrimp <- data.frame(temperature = rep(10:14, each = 3))
-# noise <- rnorm(length(shrimp$temperature), sd = 1.1) |> round(2)
-# shrimp <- shrimp |> 
-#   mutate(respiration = (2 + temperature * 1.) + noise)
-# write_delim(shrimp, "data-raw/shrimp.txt")
+#| label: fig-shrimp-rough
+#| fig-cap: "A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly"
 
 ggplot(data = shrimp,
        aes(x = temperature, y = respiration)) +
   geom_point()
 ```
 
-
-
-The figure suggests that respiration rate increases with temperature.
+The figure suggests that respiration rate increases with temperature and there are no particularly extreme values. We can also see that any relationship is roughly linear. 
 
 ### Apply `lm()`
 
@@ -106,16 +106,23 @@ And examine the model with:
 ```{r}
 summary(mod)
 ```
+```{r}
+#| echo: false
+
+b0 <- mod$coefficients[1] |> round(2)
+b1 <- mod$coefficients[2] |> round(2)
+```
+
 
 The Estimates in the Coefficients table give:
 
--   `(Intercept)` which is the value of the *y* (the response) when the value of *x* (the explanatory) is zero. 
+-   the `(Intercept)` known as $\beta_0$,  which is the value of the *y* (the response) when the value of *x* (the explanatory) is zero. 
 
--   `temperature` which is the slope - the amount of *y* you add for each unit of *x*. `temperature` is positive so respiration rate increases with temperature
+-   the slope labelled `temperature` known as $\beta_1$, which is the amount of *y* you add for each unit of *x*. `temperature` is positive so respiration rate increases with temperature
 
 The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
 
-`temperature   0.7310     0.1905   3.838  0.00205 **`
+`temperature  0.91850    0.09182  10.003 1.79e-07 ***`
 
 that tells us the relationship is significant.
 
@@ -124,14 +131,11 @@ The *F* value and *p*-value in the last line are a test of whether the model as 
 ```{r}
 #| echo: false
 #| label: fig-regression-lm-model
-#| fig-cap: "In a linear model, the first estimate is the intercept and the second estimate is the 'slope'.  Note that y axis starts at 15 to create more space for the annotations."
-b0 <- mod$coefficients[1] |> round(2)
-b1 <- mod$coefficients[2] |> round(2)
-
+#| fig-cap: "In a linear model, the first estimate is the intercept and the second estimate is the 'slope'."
 ggplot(data = shrimp, 
                 aes(x = temperature, y = respiration)) +
-  geom_point(colour = pal3[2]) +   
-  geom_abline(intercept = b0, 
+  geom_point(colour = "black") +   
+  geom_abline(intercept = b0,
               slope = b1,
               pal3[1], linetype = 2) +
   geom_smooth(method = "lm", 
@@ -145,31 +149,34 @@ ggplot(data = shrimp,
                      name = "Respiration (units)") +
   geom_segment(aes(x = 2,
                    xend = 0,
-                   y = b0 + 10,
+                   y = b0 + 6,
                    yend = b0),
                colour = pal3[2]) +
   annotate("text",
-           x = 5, 
-           y = b0 + 16,
+           x = 3, 
+           y = b0 + 6.5,
            label = glue::glue("Intercept (β0) is { b0 }"), 
            colour = pal3[2],
            size = 4) +
-  geom_segment(aes(x = 11,
-                   xend = 11,
-                   y = b0 + b1 * 10,
-                   yend = b0 + b1 * 11),
-               colour = pal3[3],
-               arrow = arrow(length = unit(0.03, "npc"), 
-                             ends = "both")) +
-  geom_segment(aes(x = 1.7,
-                   xend = 1.5,
-                   y = b0 + 3,
-                   yend = b0 - 1),
+  geom_segment(aes(x = 9,
+                   xend = 9,
+                   y = b0 + b1 * 8,
+                   yend = b0 + b1 * 9),
+               colour = pal3[3]) +
+   geom_segment(aes(x = 8,
+                   xend = 9,
+                   y = b0 + b1 * 8,
+                   yend = b0 + b1 * 8),
+               colour = pal3[3]) +
+  geom_segment(aes(x = 9,
+                   xend = 12,
+                   y = b0 + b1 * 8.5,
+                   yend = b0 + 1.3),
                colour = pal3[2]) +
   annotate("text",
-           x = 2, 
-           y = b0 + 5,
-           label = glue::glue("temperature (β1) is { b1 }"), 
+           x = 12, 
+           y = b0 + 1,
+           label = glue::glue("slope (β1) is { b1 }"), 
            colour = pal3[2],
            size = 4) +
   theme_classic()
@@ -190,7 +197,7 @@ plot(mod, which = 1)
 
 ```{r}
 ggplot(mapping = aes(x = mod$residuals)) + 
-  geom_histogram(bins = 10)
+  geom_histogram(bins = 5)
 ```
 
 ```{r}
@@ -205,31 +212,23 @@ Checking the assumptions: normally distributed residuals
 
 ### Report
 
-Canariensis shrimpinches ($\bar{x} \pm s.e: 22.48 \pm 0.48$) are significantly heavier than Coelebs ($20.28 \pm 0.48$ ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-shrimp.
+The temperature explained a significant amount of the variation in respiration rate (ANOVA: *F* = 67; *d.f*. = 1, 13; *p* < 0.001). The regression line is: Respiration rate = `r b0` + `r b1` * temperature. See @fig-shrimp.
 
 ```{r}
 #| label: fig-shrimp
-#| fig-cap: "respiration of two temperature of shrimpinch. Errors bars are ± 1 s.e."
+#| fig-cap: "The effect of altering water bath temperature on the average respiration rate of brine shrimps."
 
-# ggplot() +
-#   geom_point(data = shrimp, aes(x = temperature, y = respiration),
-#              position = position_jitter(width = 0.1, height = 0),
-#              colour = "gray50") +
-#   geom_errorbar(data = shrimp_summary, 
-#                 aes(x = temperature, ymin = mean - se, ymax = mean + se),
-#                 width = 0.3) +
-#   geom_errorbar(data = shrimp_summary, 
-#                 aes(x = temperature, ymin = mean, ymax = mean),
-#                 width = 0.2) +
-#   scale_y_continuous(name = "respiration (g)", 
-#                      limits = c(0, 30), 
-#                      expand = c(0, 0)) +
-#   scale_x_discrete(name = "temperature", 
-#                    labels = c("Canariensis", "Coelebs")) +
-#   annotate("segment", x = 1, xend = 2, 
-#            y = 28, yend = 28,
-#            colour = "black") +
-#   annotate("text", x = 1.5,  y = 29, 
-#            label = expression(italic(p)~"= 0.012")) +
-#   theme_classic()
+ggplot(data = shrimp, 
+                aes(x = temperature, y = respiration)) +
+  geom_point(size = 2) +   
+  geom_smooth(method = "lm", 
+              se = FALSE,
+              colour = "black") +
+  scale_x_continuous(expand = c(0,0),
+                     limits = c(0, 15.5),
+                      name = "Temperature (C)") +
+  scale_y_continuous(expand = c(0,0), 
+                     limits = c(0, 20),
+                     name = "Respiration (units)") +
+  theme_classic()
 ```

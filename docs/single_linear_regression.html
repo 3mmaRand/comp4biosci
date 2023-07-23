@@ -350,7 +350,10 @@ Important
 </div>
 <section id="overview" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="overview">
 <span class="header-section-number">12.1</span> Overview</h2>
-<p>choice of test depends on var types;</p>
+<p>Single linear regression is an appropriate way to analyse data when:</p>
+<ul>
+<li>choice of test depends on var types;</li>
+</ul>
 <p>include principle: var explained by model is greater then residual var. are the parameters different from zero.</p>
 <p>We will consider linear regression only best fitting straight line:</p>
 <section id="assumptions" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="assumptions">
@@ -392,64 +395,64 @@ Important
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">13.64</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11.94</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">9.54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">10.22</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">12.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11.93</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">13.52</td>
+<td style="text-align: right;">12.30</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">12.58</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">15.95</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">13.20</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">12.73</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">12.66</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">15.72</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">12</td>
+<td style="text-align: right;">10</td>
 <td style="text-align: right;">14.47</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">13.68</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">14.28</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">16.16</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">17.56</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">13.56</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">15.56</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">14</td>
-<td style="text-align: right;">15.24</td>
+<td style="text-align: right;">16.88</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">14</td>
-<td style="text-align: right;">16.66</td>
+<td style="text-align: right;">18.96</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">14</td>
-<td style="text-align: right;">15.78</td>
+<td style="text-align: right;">17.78</td>
 </tr>
 </tbody>
 </table>
@@ -458,24 +461,20 @@ Important
 </div>
 </div>
 <p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the respiration values are in one column with another column indicating the water bath temperature. There is only one water bath per row. This means they are well formatted for analysis and plotting.</p>
-<p>In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
-<p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these</p>
+<p>In the first instance, it is sensible to create a rough plot of our data (See <a href="#fig-shrimp-rough">Figure&nbsp;<span>12.1</span></a>). Plotting data early helps us in multiple ways: - it helps identify whether there missing or extreme values - it allows us to see if the relationship is roughly linear - it tells us whether any relationship positive or negative</p>
+<p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># set.seed(222)</span></span>
-<span><span class="co"># shrimp &lt;- data.frame(temperature = rep(10:14, each = 3))</span></span>
-<span><span class="co"># noise &lt;- rnorm(length(shrimp$temperature), sd = 1.1) |&gt; round(2)</span></span>
-<span><span class="co"># shrimp &lt;- shrimp |&gt; </span></span>
-<span><span class="co">#   mutate(respiration = (2 + temperature * 1.) + noise)</span></span>
-<span><span class="co"># write_delim(shrimp, "data-raw/shrimp.txt")</span></span>
-<span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>,</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">respiration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="480"></p>
+<div id="fig-shrimp-rough" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-rough-1.png" class="img-fluid figure-img" width="288"></p>
+<figcaption class="figure-caption">Figure&nbsp;12.1: A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly</figcaption></figure>
 </div>
 </div>
-<p>The figure suggests that respiration rate increases with temperature.</p>
+</div>
+<p>The figure suggests that respiration rate increases with temperature and there are no particularly extreme values. We can also see that any relationship is roughly linear.</p>
 </section><section id="apply-lm" class="level3" data-number="12.3.2"><h3 data-number="12.3.2" class="anchored" data-anchor-id="apply-lm">
 <span class="header-section-number">12.3.2</span> Apply <code>lm()</code>
 </h3>
@@ -492,33 +491,33 @@ Important
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
 <span><span class="co">##     Min      1Q  Median      3Q     Max </span></span>
-<span><span class="co">## -1.4467 -0.7207 -0.1757  0.9353  1.6133 </span></span>
+<span><span class="co">## -1.7880 -0.8780 -0.1773  0.9393  1.8620 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)   </span></span>
-<span><span class="co">## (Intercept)   5.3347     2.3012   2.318  0.03738 * </span></span>
-<span><span class="co">## temperature   0.7310     0.1905   3.838  0.00205 **</span></span>
+<span><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)   4.8613     1.1703   4.154  0.00113 ** </span></span>
+<span><span class="co">## temperature   0.9227     0.1126   8.194 1.72e-06 ***</span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 1.043 on 13 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.5312, Adjusted R-squared:  0.4952 </span></span>
-<span><span class="co">## F-statistic: 14.73 on 1 and 13 DF,  p-value: 0.002053</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 1.234 on 13 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.8378, Adjusted R-squared:  0.8253 </span></span>
+<span><span class="co">## F-statistic: 67.13 on 1 and 13 DF,  p-value: 1.719e-06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Estimates in the Coefficients table give:</p>
 <ul>
-<li><p><code>(Intercept)</code> which is the value of the <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero.</p></li>
-<li><p><code>temperature</code> which is the slope - the amount of <em>y</em> you add for each unit of <em>x</em>. <code>temperature</code> is positive so respiration rate increases with temperature</p></li>
+<li><p>the <code>(Intercept)</code> known as <span class="math inline">\(\beta_0\)</span>, which is the value of the <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero.</p></li>
+<li><p>the slope labelled <code>temperature</code> known as <span class="math inline">\(\beta_1\)</span>, which is the amount of <em>y</em> you add for each unit of <em>x</em>. <code>temperature</code> is positive so respiration rate increases with temperature</p></li>
 </ul>
 <p>The <em>p</em>-values on each line are tests of whether that coefficient is different from zero. Thus it is:</p>
-<p><code>temperature   0.7310     0.1905   3.838  0.00205 **</code></p>
+<p><code>temperature  0.91850    0.09182  10.003 1.79e-07 ***</code></p>
 <p>that tells us the relationship is significant.</p>
 <p>The <em>F</em> value and <em>p</em>-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a regression, this is exactly equivalent to the test of the slope against zero and the two <em>p</em>-values will be the same.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-regression-lm-model" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-regression-lm-model-1.png" class="img-fluid figure-img" width="480"></p>
-<figcaption class="figure-caption">Figure&nbsp;12.1: In a linear model, the first estimate is the intercept and the second estimate is the ‘slope’. Note that y axis starts at 15 to create more space for the annotations.</figcaption></figure>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-regression-lm-model-1.png" class="img-fluid figure-img" width="288"></p>
+<figcaption class="figure-caption">Figure&nbsp;12.2: In a linear model, the first estimate is the intercept and the second estimate is the ‘slope’.</figcaption></figure>
 </div>
 </div>
 </div>
@@ -530,14 +529,14 @@ Important
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="480"></p>
+<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="480"></p>
+<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
 <div class="cell">
@@ -546,7 +545,7 @@ Important
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.94232, p-value = 0.4125</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.95115, p-value = 0.5428</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Checking the assumptions: normally distributed residuals</p>
 <ul>
@@ -555,29 +554,27 @@ Important
 <li>test with shapiro. is NS. note that not significant means not significantly different from a normal distribution. It does not mean definitely normally distributed</li>
 </ul></section><section id="report" class="level3" data-number="12.3.4"><h3 data-number="12.3.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">12.3.4</span> Report</h3>
-<p>Canariensis shrimpinches (<span class="math inline">\(\bar{x} \pm s.e: 22.48 \pm 0.48\)</span>) are significantly heavier than Coelebs (<span class="math inline">\(20.28 \pm 0.48\)</span> ) (<em>t</em> = 2.65; <em>d.f.</em> = 38; <em>p</em> = 0.012). See <span class="quarto-unresolved-ref">?fig-shrimp</span>.</p>
+<p>The temperature explained a significant amount of the variation in respiration rate (ANOVA: <em>F</em> = 67; <em>d.f</em>. = 1, 13; <em>p</em> &lt; 0.001). The regression line is: Respiration rate = 4.86 + 0.92 * temperature. See <a href="#fig-shrimp">Figure&nbsp;<span>12.3</span></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># ggplot() +</span></span>
-<span><span class="co">#   geom_point(data = shrimp, aes(x = temperature, y = respiration),</span></span>
-<span><span class="co">#              position = position_jitter(width = 0.1, height = 0),</span></span>
-<span><span class="co">#              colour = "gray50") +</span></span>
-<span><span class="co">#   geom_errorbar(data = shrimp_summary, </span></span>
-<span><span class="co">#                 aes(x = temperature, ymin = mean - se, ymax = mean + se),</span></span>
-<span><span class="co">#                 width = 0.3) +</span></span>
-<span><span class="co">#   geom_errorbar(data = shrimp_summary, </span></span>
-<span><span class="co">#                 aes(x = temperature, ymin = mean, ymax = mean),</span></span>
-<span><span class="co">#                 width = 0.2) +</span></span>
-<span><span class="co">#   scale_y_continuous(name = "respiration (g)", </span></span>
-<span><span class="co">#                      limits = c(0, 30), </span></span>
-<span><span class="co">#                      expand = c(0, 0)) +</span></span>
-<span><span class="co">#   scale_x_discrete(name = "temperature", </span></span>
-<span><span class="co">#                    labels = c("Canariensis", "Coelebs")) +</span></span>
-<span><span class="co">#   annotate("segment", x = 1, xend = 2, </span></span>
-<span><span class="co">#            y = 28, yend = 28,</span></span>
-<span><span class="co">#            colour = "black") +</span></span>
-<span><span class="co">#   annotate("text", x = 1.5,  y = 29, </span></span>
-<span><span class="co">#            label = expression(italic(p)~"= 0.012")) +</span></span>
-<span><span class="co">#   theme_classic()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>, </span>
+<span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">respiration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>   </span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, </span>
+<span>              se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>              colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15.5</span><span class="op">)</span>,</span>
+<span>                      name <span class="op">=</span> <span class="st">"Temperature (C)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>,</span>
+<span>                     name <span class="op">=</span> <span class="st">"Respiration (units)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-shrimp" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="288"></p>
+<figcaption class="figure-caption">Figure&nbsp;12.3: The effect of altering water bath temperature on the average respiration rate of brine shrimps.</figcaption></figure>
+</div>
+</div>
 </div>
 
 
