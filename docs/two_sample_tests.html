@@ -304,7 +304,7 @@ div.csl-indent {
   <ul class="collapse">
 <li><a href="#independent-samples-and-paired-samples." id="toc-independent-samples-and-paired-samples." class="nav-link" data-scroll-target="#independent-samples-and-paired-samples."><span class="header-section-number">13.1.1</span> Independent samples and paired samples.</a></li>
   <li><a href="#t-tests" id="toc-t-tests" class="nav-link" data-scroll-target="#t-tests"><span class="header-section-number">13.1.2</span> <em>T</em>-tests</a></li>
-  <li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="header-section-number">13.1.3</span> General linear model assumptions</a></li>
+  <li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions"><span class="header-section-number">13.1.3</span> Model assumptions</a></li>
   <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">13.1.4</span> Reporting</a></li>
   </ul>
 </li>
@@ -386,9 +386,9 @@ Warning
 </section><section id="t-tests" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="t-tests">
 <span class="header-section-number">13.1.2</span> <em>T</em>-tests</h3>
 <p>A linear model with one explanatory variable with two groups is also known as a two-sample <em>t</em>-test when the samples are independent and as a paired-samples <em>t</em>-test when they are not. R has a <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function which allows you to fit a linear model with just two groups. We teach you to use and interpret <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> because it is more generalisable - you will be able to use it when you have three or more groups or additional explanatory variables. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> rather than <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for two-group situations - the <em>p</em>-values will be identical.</p>
-</section><section id="general-linear-model-assumptions" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="general-linear-model-assumptions">
-<span class="header-section-number">13.1.3</span> General linear model assumptions</h3>
-<p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
+</section><section id="model-assumptions" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="model-assumptions">
+<span class="header-section-number">13.1.3</span> Model assumptions</h3>
+<p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value.</p>
 <p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
 <ul>
 <li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
@@ -621,7 +621,7 @@ Warning
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subspecies</span>, y <span class="op">=</span> <span class="va">mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="288"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>R will order the groups alphabetically by default.</p>
@@ -685,7 +685,7 @@ Warning
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-two-sample-lm-model" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-two-sample-lm-model-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-two-sample-lm-model-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;13.1: In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the ‘slope’ which is what has to added to the intercept to get the second group mean. Note that y axis starts at 15 to create more space for the annotations.</figcaption></figure>
 </div>
 </div>
@@ -698,14 +698,14 @@ Warning
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="288"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="288"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
@@ -748,7 +748,7 @@ Warning
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-chaff" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-chaff-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-chaff-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;13.2: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.</figcaption></figure>
 </div>
 </div>
@@ -773,7 +773,7 @@ Warning
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">type</span>, y <span class="op">=</span> <span class="va">leaves</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="288"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>Summarising the data using the median and interquartile range is more aligned to the type of data and the type of analysis than using means and standard deviations:</p>
@@ -828,7 +828,7 @@ Warning
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-arabid" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-arabid-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-arabid-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;13.3: Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range.</figcaption></figure>
 </div>
 </div>
@@ -848,7 +848,7 @@ Warning
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">student</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="288"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>A paired test requires us to test whether the difference in marks between the two subjects is zero on average. One handy way to achieve this is to organise our groups into two columns. The <code>pivot_wider()</code> function will do this for us. We need to tell it what column gives the identifiers (i.e., matches the the pairs) - the student number in this case. We also need to say which variable contains what will become the column names and which contains the values.</p>
@@ -909,7 +909,7 @@ Warning
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="288"></p>
+<p><img src="two_sample_tests_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>We only have 10 values so the distribution is never going to look smooth. We can’t draw strong conclusions from this but we do at least have a peak at 0. Similarly a normality test is likely to be non-significant because of the sample size so a non-significant result is not strong evidence of the residuals following a normal distribution:</p>
@@ -940,7 +940,7 @@ Warning
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-marks" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-marks-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/fig-marks-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;13.4: Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range.</figcaption></figure>
 </div>
 </div>

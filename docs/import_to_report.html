@@ -458,7 +458,7 @@ Warning
 <p>We are going to create a figure like this:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <section id="ggplot2" class="level4" data-number="8.2.1.1"><h4 data-number="8.2.1.1" class="anchored" data-anchor-id="ggplot2">
@@ -500,7 +500,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, </span>
 <span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>So the data points don’t overlap, we can add some random jitter in the <em>x</em> direction (edit your existing code):</p>
@@ -510,7 +510,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>Note that <code>position = position_jitter(width = 0.1, height = 0)</code> is inside the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> parentheses, after the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> and a comma.</p>
@@ -523,7 +523,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>Now to add the errorbars. These go from one standard error below the mean to one standard error above the mean.</p>
@@ -537,7 +537,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>We have specified the <code>cell_summary</code> dataframe and the variables <code>treatment</code>, <code>mean</code> and <code>se</code> are in that.</p>
@@ -555,7 +555,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>Alter the axis labels and limits using <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> (edit your existing code):</p>
@@ -576,7 +576,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Treatment"</span>, </span>
 <span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>You only need to use <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> to use labels that are different from those in the dataset. Often this is to use proper terminology and captialisation.</p>
@@ -599,7 +599,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="import_to_report_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="288"></p>
+<p><img src="import_to_report_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>The <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function is used to save a <code>ggplot</code> object as an image file. It provides a convenient way to export your plots to various file formats, such as PNG, PDF, SVG, or JPEG.</p>

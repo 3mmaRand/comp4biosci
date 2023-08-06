@@ -12,7 +12,7 @@ status("drafting")
 
 A statistical model is a mathematical equation that helps us understand the relationships between variables. We think about how well our data fit a particular model to infer something about how the values arose or to make predictions about future values. 
 
-an equation that maps shows what has to be done to the explanatoruy values to get the response value. For example, if a plant grows by 2 cm a day week after it is two weeks old
+an equation that maps shows what has to be done to the explanatory values to get the response value. For example, if a plant grows by 2 cm a day week after it is two weeks old
 
 height = height at two weeks + 2 * number of days after two weeks 2
 
@@ -97,6 +97,21 @@ and after asummptions about the probability calulations
 implications of wrong choices: doesn't anwser the question
 p value is inaccurate
 conclusions are wrong
+
+
+### General linear model assumptions
+
+The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
+
+If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
+
+-   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous
+-   There should decimal places and few repeated values.
+
+To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution
+
+
+
 
 ## Linear models
 

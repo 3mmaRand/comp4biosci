@@ -4,7 +4,8 @@ library(patchwork)
 knitr::opts_chunk$set(
   collapse = TRUE,
   fig.retina = 3,
-  fig.width = 3)
+  fig.width = 6,
+  fig.height = 4)
 
 
 

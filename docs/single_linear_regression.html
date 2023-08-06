@@ -302,8 +302,7 @@ div.csl-indent {
 <li>
 <a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">12.1</span> Overview</a>
   <ul class="collapse">
-<li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">12.1.1</span> Assumptions</a></li>
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">12.1.2</span> Reporting</a></li>
+<li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">12.1.1</span> Reporting</a></li>
   </ul>
 </li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">12.2</span> 🎬 Your turn!</a></li>
@@ -352,18 +351,18 @@ Important
 <span class="header-section-number">12.1</span> Overview</h2>
 <p>Single linear regression is an appropriate way to analyse data when:</p>
 <ul>
-<li>choice of test depends on var types;</li>
+<li>you have two continuous variables</li>
+<li>there is a cause and effect relationship between the variables</li>
+<li>the explanatory variable has been chosen, set or manipulated and the other variable is the measured response</li>
+<li>the relationship between the variables is linear</li>
 </ul>
 <p>include principle: var explained by model is greater then residual var. are the parameters different from zero.</p>
-<p>We will consider linear regression only best fitting straight line:</p>
-<section id="assumptions" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="assumptions">
-<span class="header-section-number">12.1.1</span> Assumptions</h3>
-<p>Linear</p>
+<p>y ### Assumptions Linear</p>
 <p>Prediction: One variable causes the other</p>
 <p>Axes cannot be switched</p>
 <p>X is “sampled without error”; y randomly sampled for each x</p>
-</section><section id="reporting" class="level3" data-number="12.1.2"><h3 data-number="12.1.2" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">12.1.2</span> Reporting</h3>
+<section id="reporting" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">12.1.1</span> Reporting</h3>
 <p>Reporting the result: “significance of effect, direction of effect, magnitude of effect”</p>
 <p>In reporting the result of two-sample test we give:</p>
 <ol type="1">
@@ -469,7 +468,7 @@ Important
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-shrimp-rough" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-rough-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-rough-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;12.1: A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly</figcaption></figure>
 </div>
 </div>
@@ -516,7 +515,7 @@ Important
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-regression-lm-model" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-regression-lm-model-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-regression-lm-model-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;12.2: In a linear model, the first estimate is the intercept and the second estimate is the ‘slope’.</figcaption></figure>
 </div>
 </div>
@@ -529,14 +528,14 @@ Important
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="288"></p>
+<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="288"></p>
+<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
@@ -571,7 +570,7 @@ Important
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-shrimp" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;12.3: The effect of altering water bath temperature on the average respiration rate of brine shrimps.</figcaption></figure>
 </div>
 </div>

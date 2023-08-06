@@ -281,7 +281,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
 <li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link active" data-scroll-target="#what-is-a-statistical-model"><span class="header-section-number">11.1</span> What is a statistical model</a></li>
   <li><a href="#types-of-model" id="toc-types-of-model" class="nav-link" data-scroll-target="#types-of-model"><span class="header-section-number">11.2</span> Types of model</a></li>
-  <li><a href="#choice-of-model" id="toc-choice-of-model" class="nav-link" data-scroll-target="#choice-of-model"><span class="header-section-number">11.3</span> Choice of model</a></li>
+  <li>
+<a href="#choice-of-model" id="toc-choice-of-model" class="nav-link" data-scroll-target="#choice-of-model"><span class="header-section-number">11.3</span> Choice of model</a>
+  <ul class="collapse">
+<li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="header-section-number">11.3.1</span> General linear model assumptions</a></li>
+  </ul>
+</li>
   <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models"><span class="header-section-number">11.4</span> Linear models</a></li>
   <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="header-section-number">11.5</span> Model fitting</a></li>
   <li><a href="#general-linear-models-in-r" id="toc-general-linear-models-in-r" class="nav-link" data-scroll-target="#general-linear-models-in-r"><span class="header-section-number">11.6</span> General linear models in R</a></li>
@@ -328,14 +333,14 @@ Important
 <section id="what-is-a-statistical-model" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="what-is-a-statistical-model">
 <span class="header-section-number">11.1</span> What is a statistical model</h2>
 <p>A statistical model is a mathematical equation that helps us understand the relationships between variables. We think about how well our data fit a particular model to infer something about how the values arose or to make predictions about future values.</p>
-<p>an equation that maps shows what has to be done to the explanatoruy values to get the response value. For example, if a plant grows by 2 cm a day week after it is two weeks old</p>
+<p>an equation that maps shows what has to be done to the explanatory values to get the response value. For example, if a plant grows by 2 cm a day week after it is two weeks old</p>
 <p>height = height at two weeks + 2 * number of days after two weeks 2</p>
 <p>or its height increase by 12% each day</p>
 <p>height = height at 2 weeks * 1.12^ number of days</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-model" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-model-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-model-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;11.1: The effect of nutrient level on bacterial colony diamters without and with a linear model.</figcaption></figure>
 </div>
 </div>
@@ -349,13 +354,22 @@ Important
 <p>before: appropriate to the question, type of relationship. assumptions about the type of model</p>
 <p>and after asummptions about the probability calulations</p>
 <p>implications of wrong choices: doesn’t anwser the question p value is inaccurate conclusions are wrong</p>
-</section><section id="linear-models" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="linear-models">
+<section id="general-linear-model-assumptions" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="general-linear-model-assumptions">
+<span class="header-section-number">11.3.1</span> General linear model assumptions</h3>
+<p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
+<p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
+<ul>
+<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
+<li>There should decimal places and few repeated values.</li>
+</ul>
+<p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution</p>
+</section></section><section id="linear-models" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="linear-models">
 <span class="header-section-number">11.4</span> Linear models</h2>
 <p>We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See <a href="#fig-linear-bact">Figure&nbsp;<span>11.2</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-linear-bact" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-linear-bact-1.png" class="img-fluid figure-img" width="288"></p>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-linear-bact-1.png" class="img-fluid figure-img" width="576"></p>
 <figcaption class="figure-caption">Figure&nbsp;11.2: The effect of nutrient level on bacterial colony diamters without and with a linear model.</figcaption></figure>
 </div>
 </div>
@@ -435,14 +449,14 @@ summary(mod) </code></p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="288"></p>
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>The points should fall roughly on the line if the residuals are normally distributed. In the example above, the residuals appear normally distributed.</p>
 <p>The following are two examples in which the residuals are not normally distributed.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="288"></p>
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>If you see patterns like these you should find an alternative to a general linear model such as a non-parametric test or a generalised linear model. Sometimes, applying a transformation to the response variable will result in better meeting the assumptions.</p>
@@ -450,23 +464,23 @@ summary(mod) </code></p>
 <span class="header-section-number">11.7.2</span> The Residuals vs Fitted plot</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="288"></p>
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>The Residuals vs Fitted plot shows if residuals have homogeneous variance or non-linear patterns. Non-linear relationships between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line as they are here:</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="288"></p>
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <p>The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="288"></p>
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="288"></p>
+<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </section></section><section id="reporting" class="level2" data-number="11.8"><h2 data-number="11.8" class="anchored" data-anchor-id="reporting">

@@ -24,9 +24,9 @@ An important consideration in conducting tests is whether the values in one grou
 
 A linear model with one explanatory variable with two groups is also known as a two-sample *t*-test when the samples are independent and as a paired-samples *t*-test when they are not. R has a `t.test()` function which allows you to fit a linear model with just two groups. We teach you to use and interpret `lm()` because it is more generalisable - you will be able to use it when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the *p*-values will be identical.
 
-### General linear model assumptions
+### Model assumptions
 
-The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
+The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value.
 
 If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
 
@@ -34,7 +34,6 @@ If we have a continuous response and a categorical explanatory variable with two
 -   There should decimal places and few repeated values.
 
 To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution
-
 
 ### Reporting
 
