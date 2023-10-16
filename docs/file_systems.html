@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.2.269">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
 <title>Computational Analysis for Bioscientists - 3&nbsp; Understanding file systems</title>
 <style>
 code{white-space: pre-wrap;}
@@ -14,10 +17,11 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
 </style>
+
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -38,7 +42,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -54,221 +59,207 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
-}</script><script async="" src="https://hypothes.is/embed.js"></script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
 </head>
+
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what_they_forgot.html">What they forgot to teach you about computers</a></li><li class="breadcrumb-item"><a href="./file_systems.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
-  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-<li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome!</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">What they forgot to teach you about computers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">What they forgot to teach you about computers</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
+  <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./file_systems.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span></a>
+  <a href="./file_systems.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./organising_work.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span></a>
+  <a href="./organising_work.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">Getting started with data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
+  <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+  <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+  <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+  <a href="./import_to_report.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Statistical Analysis - Part 1</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">Statistical Analysis - Part 1</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+  <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></span></a>
+  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+  <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+  <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+  <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./two_way_anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+  <a href="./two_way_anova.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a>
   </div>
 </li>
       </ul>
-</li>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+  <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
   </div>
 </li>
     </ul>
-</div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+    </div>
+</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#files" id="toc-files" class="nav-link active" data-scroll-target="#files"><span class="header-section-number">3.1</span> Files</a></li>
-  <li><a href="#plain-text-files" id="toc-plain-text-files" class="nav-link" data-scroll-target="#plain-text-files"><span class="header-section-number">3.2</span> Plain text files</a></li>
-  <li><a href="#plain-text-files-with-markup" id="toc-plain-text-files-with-markup" class="nav-link" data-scroll-target="#plain-text-files-with-markup"><span class="header-section-number">3.3</span> Plain text files with markup</a></li>
-  <li><a href="#the-relationship-between-file-extensions-and-programs" id="toc-the-relationship-between-file-extensions-and-programs" class="nav-link" data-scroll-target="#the-relationship-between-file-extensions-and-programs"><span class="header-section-number">3.4</span> The relationship between file extensions and programs</a></li>
-  <li><a href="#file-systems" id="toc-file-systems" class="nav-link" data-scroll-target="#file-systems"><span class="header-section-number">3.5</span> File systems</a></li>
-  <li><a href="#using-a-file-manager" id="toc-using-a-file-manager" class="nav-link" data-scroll-target="#using-a-file-manager"><span class="header-section-number">3.6</span> Using a file manager</a></li>
-  <li><a href="#root-and-home-directories" id="toc-root-and-home-directories" class="nav-link" data-scroll-target="#root-and-home-directories"><span class="header-section-number">3.7</span> Root and home directories</a></li>
-  <li><a href="#working-directories" id="toc-working-directories" class="nav-link" data-scroll-target="#working-directories"><span class="header-section-number">3.8</span> Working directories</a></li>
-  <li>
-<a href="#file-paths" id="toc-file-paths" class="nav-link" data-scroll-target="#file-paths"><span class="header-section-number">3.9</span> File Paths</a>
+  <li><a href="#files" id="toc-files" class="nav-link active" data-scroll-target="#files"><span class="toc-section-number">3.1</span>  Files</a></li>
+  <li><a href="#plain-text-files" id="toc-plain-text-files" class="nav-link" data-scroll-target="#plain-text-files"><span class="toc-section-number">3.2</span>  Plain text files</a></li>
+  <li><a href="#plain-text-files-with-markup" id="toc-plain-text-files-with-markup" class="nav-link" data-scroll-target="#plain-text-files-with-markup"><span class="toc-section-number">3.3</span>  Plain text files with markup</a></li>
+  <li><a href="#the-relationship-between-file-extensions-and-programs" id="toc-the-relationship-between-file-extensions-and-programs" class="nav-link" data-scroll-target="#the-relationship-between-file-extensions-and-programs"><span class="toc-section-number">3.4</span>  The relationship between file extensions and programs</a></li>
+  <li><a href="#file-systems" id="toc-file-systems" class="nav-link" data-scroll-target="#file-systems"><span class="toc-section-number">3.5</span>  File systems</a></li>
+  <li><a href="#using-a-file-manager" id="toc-using-a-file-manager" class="nav-link" data-scroll-target="#using-a-file-manager"><span class="toc-section-number">3.6</span>  Using a file manager</a></li>
+  <li><a href="#root-and-home-directories" id="toc-root-and-home-directories" class="nav-link" data-scroll-target="#root-and-home-directories"><span class="toc-section-number">3.7</span>  Root and home directories</a></li>
+  <li><a href="#working-directories" id="toc-working-directories" class="nav-link" data-scroll-target="#working-directories"><span class="toc-section-number">3.8</span>  Working directories</a></li>
+  <li><a href="#file-paths" id="toc-file-paths" class="nav-link" data-scroll-target="#file-paths"><span class="toc-section-number">3.9</span>  File Paths</a>
   <ul class="collapse">
-<li><a href="#absolute-paths" id="toc-absolute-paths" class="nav-link" data-scroll-target="#absolute-paths"><span class="header-section-number">3.9.1</span> Absolute paths</a></li>
+  <li><a href="#absolute-paths" id="toc-absolute-paths" class="nav-link" data-scroll-target="#absolute-paths"><span class="toc-section-number">3.9.1</span>  Absolute paths</a></li>
+  </ul></li>
+  <li><a href="#relative-paths" id="toc-relative-paths" class="nav-link" data-scroll-target="#relative-paths"><span class="toc-section-number">3.10</span>  Relative paths</a></li>
+  <li><a href="#save-files-from-the-internet" id="toc-save-files-from-the-internet" class="nav-link" data-scroll-target="#save-files-from-the-internet"><span class="toc-section-number">3.11</span>  Save files from the internet</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="toc-section-number">3.12</span>  Summary</a></li>
   </ul>
-</li>
-  <li><a href="#relative-paths" id="toc-relative-paths" class="nav-link" data-scroll-target="#relative-paths"><span class="header-section-number">3.10</span> Relative paths</a></li>
-  <li><a href="#save-files-from-the-internet" id="toc-save-files-from-the-internet" class="nav-link" data-scroll-target="#save-files-from-the-internet"><span class="header-section-number">3.11</span> Save files from the internet</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.12</span> Summary</a></li>
-  </ul></nav>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">
-<span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span>
-</h1>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></h1>
 </div>
 
 
@@ -281,12 +272,14 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header>
+
+<div class="callout-warning callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 Warning
 </div>
 </div>
@@ -295,145 +288,158 @@ Warning
 </div>
 </div>
 <p>A file system is made up of files and folders organised in a hierarchical way. Understanding file types and being able to navigate your computer’s file system and purposefully organise and manipulate files are essential computational skills. We will first talk about different file types before covering their organisation in a file system. This will lead us on to the concepts of working directories and paths. It is hard to overstate how useful an understanding of working directories and paths are for comfortable computing. Without this understanding, you can write basically correct code, such as for importing data, which will not work because you don’t know how to tell the computer where the file is.</p>
-<section id="files" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="files">
-<span class="header-section-number">3.1</span> Files</h2>
+<section id="files" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="files"><span class="header-section-number">3.1</span> Files</h2>
 <p>A file is a unit of storage on a computer with a name that uniquely identifies it. Files can be of different types depending on the sort of information held in them. The file name very often consists of two parts, separated by a dot:</p>
 <ul>
 <li><p>the name - the base name of the file</p></li>
 <li><p>an extension that should indicate the format or content of the file.</p></li>
 </ul>
 <p>Some examples are report.docx, analysis.R, culture.csv and readme.txt. There is a relationship between the file extension and the file type</p>
-</section><section id="plain-text-files" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="plain-text-files">
-<span class="header-section-number">3.2</span> Plain text files</h2>
+</section>
+<section id="plain-text-files" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="plain-text-files"><span class="header-section-number">3.2</span> Plain text files</h2>
 <p>One of the simplest types of file is a “text file”, also known as ASCII files, which contains only text characters and no formatting, images or colours. Text files have many different extensions to indicate what the text content represents. A few of these are given in <a href="#tbl-text-file-extensions">Table&nbsp;<span>3.1</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-text-file-extensions" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;3.1: Some common text file extensions and the content the extension usually indicates.</caption>
-<thead><tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Extension</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Content usually inside</th>
-</tr></thead>
+
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;3.1:  Some common text file extensions and the content the extension usually indicates. </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Extension </th>
+   <th style="text-align:left;"> Content usually inside </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">.txt</td>
-<td style="text-align: left;">Could be any kind of text, including data</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">.tab</td>
-<td style="text-align: left;">Values, often data, separated by tabs</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">.csv</td>
-<td style="text-align: left;">Values, often data, separated by commas</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">.R</td>
-<td style="text-align: left;">R commands and comments</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">.py</td>
-<td style="text-align: left;">Python commands and comments</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">.fasta</td>
-<td style="text-align: left;">Nucleotide or amino acid sequences</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> .txt </td>
+   <td style="text-align:left;"> Could be any kind of text, including data </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .tab </td>
+   <td style="text-align:left;"> Values, often data, separated by tabs </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .csv </td>
+   <td style="text-align:left;"> Values, often data, separated by commas </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .R </td>
+   <td style="text-align:left;"> R commands and comments </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .py </td>
+   <td style="text-align:left;"> Python commands and comments </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .fasta </td>
+   <td style="text-align:left;"> Nucleotide or amino acid sequences </td>
+  </tr>
 </tbody>
 </table>
+
 </div>
-
-
 </div>
 </div>
 <p>Plain text files are extremely portable which means they can be opened on any computer by a very large number of programs. Simple text editors which exist on any system like Windows Notepad or Mac’s TextEdit will open text files where as they will not open program-specific files like, for example, .xlsx (Excel) or .docx (Word) files (<a href="#fig-xlsx-in-notepad">Figure&nbsp;<span>3.1</span></a>). It is usually easy for application designers to make an application manage plain text files. This means</p>
 <div id="fig-xlsx-in-notepad" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/xlsx-in-notepad.png" class="img-fluid figure-img" alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.1: Notepad will open an Excel file but the contents are a mess of strange characters</figcaption></figure>
+<figure class="figure">
+<p><img src="images/xlsx-in-notepad.png" class="img-fluid figure-img" alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.1: Notepad will open an Excel file but the contents are a mess of strange characters</figcaption><p></p>
+</figure>
 </div>
 <p>Data is commonly held in text files because of their portability.</p>
-</section><section id="plain-text-files-with-markup" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="plain-text-files-with-markup">
-<span class="header-section-number">3.3</span> Plain text files with markup</h2>
+</section>
+<section id="plain-text-files-with-markup" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="plain-text-files-with-markup"><span class="header-section-number">3.3</span> Plain text files with markup</h2>
 <p>Text files can also include “markup” which are text characters used to annotate text to control how it is displayed or processed. Such files retain their portability and are human readable. You will have used them often! (<a href="#tbl-mark-up-text-file-extensions">Table&nbsp;<span>3.2</span></a>)</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-mark-up-text-file-extensions" class="anchored">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;3.2: Some common markup file extensions and the content the extension usually indicates.</caption>
-<thead><tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Extension</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Used for</th>
-</tr></thead>
+
+<table class="table" style="margin-left: auto; margin-right: auto;"><caption>Table&nbsp;3.2:  Some common markup file extensions and the content the extension usually indicates. </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Extension </th>
+   <th style="text-align:left;"> Used for </th>
+  </tr>
+ </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">.html</td>
-<td style="text-align: left;">Hypertext Markup Language - for documents designed to be displayed in a web browser.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">.md</td>
-<td style="text-align: left;">markdown - a lightweight markup language designed to be human readable</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">.Rmd</td>
-<td style="text-align: left;">R markdown - like markdown but can include R code</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">.JSON</td>
-<td style="text-align: left;">JavaScript Object Notation - commonly used for transmitting data in web applications using attribute-value pairs.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">.tex</td>
-<td style="text-align: left;">TeX - a typesetting langauge especially where the writer needs precise spacing and/or unusual fonts and characters such as in maths, linguistics and music.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">.qmd</td>
-<td style="text-align: left;">Quarto markdown - next-generation version of R Markdown designed to work with *any* programming langauge.</td>
-</tr>
+  <tr>
+   <td style="text-align:left;"> .html </td>
+   <td style="text-align:left;"> Hypertext Markup Language - for documents designed to be displayed in a web browser. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .md </td>
+   <td style="text-align:left;"> markdown - a lightweight markup language designed to be human readable </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .Rmd </td>
+   <td style="text-align:left;"> R markdown - like markdown but can include R code </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .JSON </td>
+   <td style="text-align:left;"> JavaScript Object Notation - commonly used for transmitting data in web applications using attribute-value pairs. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .tex </td>
+   <td style="text-align:left;"> TeX - a typesetting langauge especially where the writer needs precise spacing and/or unusual fonts and characters such as in maths, linguistics and music. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> .qmd </td>
+   <td style="text-align:left;"> Quarto markdown - next-generation version of R Markdown designed to work with *any* programming langauge. </td>
+  </tr>
 </tbody>
 </table>
-</div>
-
 
 </div>
 </div>
-</section><section id="the-relationship-between-file-extensions-and-programs" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="the-relationship-between-file-extensions-and-programs">
-<span class="header-section-number">3.4</span> The relationship between file extensions and programs</h2>
+</div>
+</section>
+<section id="the-relationship-between-file-extensions-and-programs" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="the-relationship-between-file-extensions-and-programs"><span class="header-section-number">3.4</span> The relationship between file extensions and programs</h2>
 <p>Whilst a file extension is intended to indicate the content and format, it is important to remember a few things. The extension is just part of the name and it is certainly possible to called a file <code>myfile.csv</code> without its contents being formatted as comma-separated values. Programs vary in their behaviour to file extensions. Most text editors will attempt to open any file regardless of the extension and make it possible to save a file with any extension. In program like MS Word you cannot save a Word format file with any extension other than <code>.docx</code>, you can only save it in another format to change the extension. Some programs will not open fies with a the wrong extension even if the contents are in the correct format.</p>
-</section><section id="file-systems" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="file-systems">
-<span class="header-section-number">3.5</span> File systems</h2>
+</section>
+<section id="file-systems" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="file-systems"><span class="header-section-number">3.5</span> File systems</h2>
 <p>In a file system, the files are organised into directories. Directory is the old word for what many now call a folder but commands that act on folders in most programming languages and environments reflect this history</p>
 <p>For example, all of these mean “tell me my working directory”:</p>
 <ul>
-<li>
-<code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> <strong>get</strong> <strong>w</strong>orking <strong>d</strong>irectory in R</li>
-<li>
-<code>pwd</code> <strong>p</strong>rint <strong>w</strong>orking <strong>d</strong>irectory on Linux</li>
-<li>
-<code>os.getcwd()</code> <strong>get</strong> <strong>c</strong>urrent <strong>w</strong>orking <strong>d</strong>irectory in Python</li>
+<li><code>getwd()</code> <strong>get</strong> <strong>w</strong>orking <strong>d</strong>irectory in R</li>
+<li><code>pwd</code> <strong>p</strong>rint <strong>w</strong>orking <strong>d</strong>irectory on Linux</li>
+<li><code>os.getcwd()</code> <strong>get</strong> <strong>c</strong>urrent <strong>w</strong>orking <strong>d</strong>irectory in Python</li>
 </ul>
 <p>Consequently it is common to use the the word directory in scientific computing.</p>
 <p>Folders can contain sub-folders, which can contain their own sub-folders, and so on almost without limit.</p>
 <p>It is easiest to picture a file system, or part of it, as a tree that starts at a directory and branches out from there. This is called a hierarchical structure. <a href="#fig-file-system">Figure&nbsp;<span>3.2</span></a> shows an example of a hierarchical file structure that starts at a directory called <code>home</code>:</p>
 <div id="fig-file-system" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/file-system.png" class="img-fluid figure-img" alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.2: A file hierarchy containing 4 levels of folders and files</figcaption></figure>
+<figure class="figure">
+<p><img src="images/file-system.png" class="img-fluid figure-img" alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.2: A file hierarchy containing 4 levels of folders and files</figcaption><p></p>
+</figure>
 </div>
-</section><section id="using-a-file-manager" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="using-a-file-manager">
-<span class="header-section-number">3.6</span> Using a file manager</h2>
+</section>
+<section id="using-a-file-manager" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="using-a-file-manager"><span class="header-section-number">3.6</span> Using a file manager</h2>
 <p>File managers are the basic way that you interact with the file system on your computer. They allows you to move, copy, and delete files. You can also launch applications from them and and connect to other networks. The windows file explorer is called File Explorer and on Mac it is called Finder (<a href="#fig-explorer-icons">Figure&nbsp;<span>3.3</span></a>).</p>
 <div id="fig-explorer-icons" class="quarto-layout-panel">
-<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
 <div id="fig-windows-explorer" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/icon-file-explorer-windows.png" class="img-fluid figure-img" data-ref-parent="fig-explorer-icons" width="100"></p>
-<figcaption class="figure-caption">(a) File Explorer (Windows)</figcaption></figure>
+<figure class="figure">
+<p><img src="images/icon-file-explorer-windows.png" class="img-fluid figure-img" data-ref-parent="fig-explorer-icons" width="100"></p>
+<p></p><figcaption class="figure-caption">(a) File Explorer (Windows)</figcaption><p></p>
+</figure>
 </div>
 </div>
 <div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
 <div id="fig-mac-finder" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/icon-finder-mac.png" class="img-fluid figure-img" data-ref-parent="fig-explorer-icons" width="100"></p>
-<figcaption class="figure-caption">(b) Finder (Mac)</figcaption></figure>
+<figure class="figure">
+<p><img src="images/icon-finder-mac.png" class="img-fluid figure-img" data-ref-parent="fig-explorer-icons" width="100"></p>
+<p></p><figcaption class="figure-caption">(b) Finder (Mac)</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
@@ -446,46 +452,58 @@ Warning
 <li><p>choose Finder | Preferences | Advanced then check “Show all filename extensions” box <a href="#fig-show-extensions-windows">Figure&nbsp;<span>3.4 (a)</span></a></p></li>
 </ul>
 <div id="fig-show-extensions" class="quarto-layout-panel">
-<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
 <div id="fig-show-extensions-windows" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/show-extensions-windows.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions"></p>
-<figcaption class="figure-caption">(a) Windows</figcaption></figure>
+<figure class="figure">
+<p><img src="images/show-extensions-windows.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions"></p>
+<p></p><figcaption class="figure-caption">(a) Windows</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
 <div id="fig-show-extensions-mac" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/show-extensions-mac.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions"></p>
-<figcaption class="figure-caption">(b) Mac</figcaption></figure>
+<figure class="figure">
+<p><img src="images/show-extensions-mac.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions"></p>
+<p></p><figcaption class="figure-caption">(b) Mac</figcaption><p></p>
+</figure>
 </div>
 </div>
 </div>
 <p></p><figcaption class="figure-caption">Figure&nbsp;3.4: Showing file extensions in Windows and Mac</figcaption><p></p>
 </figure>
 </div>
-</section><section id="root-and-home-directories" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="root-and-home-directories">
-<span class="header-section-number">3.7</span> Root and home directories</h2>
+</section>
+<section id="root-and-home-directories" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="root-and-home-directories"><span class="header-section-number">3.7</span> Root and home directories</h2>
 <p>The top-level of directory on a computer system is known as the “root directory”. The root is represented as a <code>/</code> in Mac and Linux operating systems. In Windows the root directory is also known as a drive. In most cases, this will be the <code>C:\</code> drive.</p>
 <p>Even though the root directory is at the base of the file tree (or the top, depending on how you view it), it is not necessarily where our journey through the file system starts when we launch a new session on our computer. Instead our journey begins in the so called “home directory”. You home directory is not usually named <code>home</code> but with your username for that computer. Your personal files and directories can be found inside this folder. This is where your computer assumes you want to start when you open your file manager. On Windows and Mac your home directory is a directory <em>inside</em> the directory called <code>Users</code> immediately under the root and named with your username (<a href="#fig-file-system-root">Figure&nbsp;<span>3.5</span></a>).</p>
 <div id="fig-file-system-root" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="images/file-system-root.png" class="img-fluid figure-img" alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."></p>
-<figcaption class="figure-caption">Figure&nbsp;3.5: The hierarchy from the root. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder</figcaption></figure>
+<figure class="figure">
+<p><img src="images/file-system-root.png" class="img-fluid figure-img" alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3.5: The hierarchy from the root. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder</figcaption><p></p>
+</figure>
 </div>
 <p>There will be other folders immediately below the root directory (on the same level of the hierarchy as <code>Users</code>). These contain system-level files and folders that you do not usually needed to open, edit or move. For example, <code>Program Files</code> is where programs are installed.</p>
-</section><section id="working-directories" class="level2" data-number="3.8"><h2 data-number="3.8" class="anchored" data-anchor-id="working-directories">
-<span class="header-section-number">3.8</span> Working directories</h2>
+</section>
+<section id="working-directories" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="working-directories"><span class="header-section-number">3.8</span> Working directories</h2>
 <p>The working directory of a program is the default location a program is using. It is where the program will read and write files by default. You have only one working directory at a time. The terms ‘working directory’, ‘current working directory’ and ‘current directory’ all mean the same thing.</p>
-</section><section id="file-paths" class="level2" data-number="3.9"><h2 data-number="3.9" class="anchored" data-anchor-id="file-paths">
-<span class="header-section-number">3.9</span> File Paths</h2>
+</section>
+<section id="file-paths" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="file-paths"><span class="header-section-number">3.9</span> File Paths</h2>
 <p>A path gives the address - or location - of a filesystem object, such as a file or directory. Paths appear in the address bar of your browser or file manager. We need to know a file path whenever we want to read, write or refer to a file using code rather than interactively pointing and clicking to navigate. In a file path, each directory is represented as a separate component separated by a backslash<code>\</code> &nbsp;or a forward slash <code>/</code>. Most systems use forward slashes but Windows uses backslashes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to separate path components and that is how the path will appear in the address bar of Windows Explorer. However, in R you can use paths with forward slashes even on windows.</p>
 <p>A path can be <strong>absolute</strong> or <strong>relative</strong> depending on the starting point.</p>
-<section id="absolute-paths" class="level3" data-number="3.9.1"><h3 data-number="3.9.1" class="anchored" data-anchor-id="absolute-paths">
-<span class="header-section-number">3.9.1</span> Absolute paths</h3>
+<section id="absolute-paths" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="absolute-paths"><span class="header-section-number">3.9.1</span> Absolute paths</h3>
 <p>An Absolute path contains the complete list of directories needed to locate a file on your computer from the root. For example, the absolute path for the file called <code>doc3.txt</code> in the file system above would be <code>/Users/user1/docs/data/doc3.txt</code> on Mac and <code>C:\Users\user1\docs\data\doc3.txt</code> on Windows. In R, even on Windows, it can be given as <code>C:/Users/user1/docs/data/doc3.txt</code></p>
-</section></section><section id="relative-paths" class="level2" data-number="3.10"><h2 data-number="3.10" class="anchored" data-anchor-id="relative-paths">
-<span class="header-section-number">3.10</span> Relative paths</h2>
+</section>
+</section>
+<section id="relative-paths" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="relative-paths"><span class="header-section-number">3.10</span> Relative paths</h2>
 <p>A relative path gives the location of a filesystem object <em>relative</em> to the working directory. Whenever the file you want to reference is in the working directory you can use just its name but if it is in a different folder you need to give the relative path. Some examples:</p>
 <ul>
 <li><p>if your working directory was <code>docs</code>, the relative path for <code>doc3.txt</code> would be <code>data/doc3.txt</code>.</p></li>
@@ -499,12 +517,12 @@ Warning
 <li><p>Assuming your working directory is <code>docs</code>, what is the relative path for the document <code>doc2.txt</code>?</p></li>
 <li><p>Assuming your working directory is <code>data</code>, what is the relative path for the document <code>doc2.txt</code>?</p></li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 📖
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
@@ -521,14 +539,17 @@ Warning
 </div>
 </div>
 <p>Most of the time you should use relative paths because that makes your work portable. You only need to use absolute paths when you are referring to filesystem outside the one you are using.</p>
-</section><section id="save-files-from-the-internet" class="level2" data-number="3.11"><h2 data-number="3.11" class="anchored" data-anchor-id="save-files-from-the-internet">
-<span class="header-section-number">3.11</span> Save files from the internet</h2>
+</section>
+<section id="save-files-from-the-internet" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="save-files-from-the-internet"><span class="header-section-number">3.11</span> Save files from the internet</h2>
 <p>Files downloaded from the internet go to a folder called <code>Downloads</code> by default on many browsers. This is annoying when you often want to place a file in a particular folder. I recommend you change this behaviour.</p>
 <ul>
 <li><p>Chrome Go to <a href="chrome://settings/downloads" class="uri">chrome://settings/downloads</a> and turn on “Ask where to save each file before downloading”</p></li>
 <li><p>Safari Go into Preferences and under General you can change “Downloads” to “Ask for each download”</p></li>
-</ul></section><section id="summary" class="level2" data-number="3.12"><h2 data-number="3.12" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">3.12</span> Summary</h2>
+</ul>
+</section>
+<section id="summary" class="level2" data-number="3.12">
+<h2 data-number="3.12" class="anchored" data-anchor-id="summary"><span class="header-section-number">3.12</span> Summary</h2>
 <ol type="1">
 <li><p>A file system consists of files and folders organized hierarchically. It is crucial to comprehend different file types, navigate the computer’s file system, and effectively organize and manipulate files.</p></li>
 <li><p>Plain text files, also known as ASCII files, contain only text characters without formatting, images, or colors. They have various extensions, such as <code>.txt</code>, <code>.tab</code>, <code>.csv</code>, <code>.R</code>, <code>.py</code>, .fasta, and others.</p></li>
@@ -542,10 +563,16 @@ Warning
 </ol>
 
 
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
 <ol>
 <li id="fn1"><p>Windows uses backslashes because it did not have directories in 1981 when it’s predecessor, MS DOS, was released. At the time it used the <code>/</code> character for ‘switches’ (instead of the existing convention <code>-</code> ) so when it did start using directories it couldn’t use <code>/</code><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -687,23 +714,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -768,92 +781,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -892,12 +819,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+      var filterRegex = new RegExp(/https:\/\/3mmarand\.github\.io\/comp4biosci\//);
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -906,7 +833,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
 });
-</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
       <a href="./machine_and_os.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span>
       </a>          

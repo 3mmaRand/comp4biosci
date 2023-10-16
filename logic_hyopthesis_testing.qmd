@@ -78,7 +78,7 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
                      limits = c(1000, 6000)) + 
   annotate("text", size = 5,
            x = 1800, y = 0.00055,
-           label = "Distribution of the values") +
+           label = "Distribution\nof the values") +
   annotate("segment",
            x = 1800, y = 0.0005,
            xend = 2000, yend = dnorm(2000, mu, sd),
@@ -137,7 +137,7 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
 ```{r}
 #| echo: false
 #| label: fig-sample-dist-means-example
-#| fig-cap: "The sampling distribution of the means tells us the probability of getting our sample mean or a sample mean more extreme."
+#| fig-cap: "The probability of getting a sample mean of 3000 or less is the area under the sampling distribution of the mean to the left of 3000."
 
 n <- 12
 se <- sd/sqrt(n)
@@ -177,7 +177,7 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
 ```{r}
 #| echo: false
 #| label: fig-sample-dist-means-example2
-#| fig-cap: "The sampling distribution of the means tells us the probability of getting our sample mean or a sample mean more extreme."
+#| fig-cap: "The probability of getting a sample mean of 3000 or more extreme is the area under the sampling distribution of the mean to the left of 3000 plus that to the right of 3600. This is because 3600 is as extreme (as far away from the mean) as 3000."
 
 
 # function for shading the other side
