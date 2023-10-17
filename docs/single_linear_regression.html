@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.269">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Computational Analysis for Bioscientists - 12&nbsp; Single linear regression</title>
 <style>
 code{white-space: pre-wrap;}
@@ -104,7 +101,6 @@ div.csl-indent {
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -124,8 +120,7 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -143,37 +138,27 @@ div.csl-indent {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
-
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></h1>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">
+<span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span>
+</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/3mmaRand/comp4biosci" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -185,7 +170,7 @@ div.csl-indent {
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
   </div>
@@ -202,8 +187,8 @@ div.csl-indent {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./machine_and_os.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></a>
   </div>
@@ -219,7 +204,7 @@ div.csl-indent {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">Getting started with data</a>
@@ -227,8 +212,8 @@ div.csl-indent {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ideas_about_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a>
   </div>
@@ -249,7 +234,7 @@ div.csl-indent {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">Statistical Analysis - Part 1</a>
@@ -257,8 +242,8 @@ div.csl-indent {
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></a>
   </div>
@@ -294,7 +279,7 @@ div.csl-indent {
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summary</span></a>
@@ -311,35 +296,34 @@ div.csl-indent {
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+</div>
+</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="toc-section-number">12.1</span>  Overview</a>
+<li>
+<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="toc-section-number">12.1</span>  Overview</a>
   <ul class="collapse">
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="toc-section-number">12.1.1</span>  Reporting</a></li>
-  </ul></li>
+<li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="toc-section-number">12.1.1</span>  Reporting</a></li>
+  </ul>
+</li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="toc-section-number">12.2</span>  🎬 Your turn!</a></li>
-  <li><a href="#single-linear-regression" id="toc-single-linear-regression" class="nav-link" data-scroll-target="#single-linear-regression"><span class="toc-section-number">12.3</span>  Single linear regression</a>
+  <li>
+<a href="#single-linear-regression" id="toc-single-linear-regression" class="nav-link" data-scroll-target="#single-linear-regression"><span class="toc-section-number">12.3</span>  Single linear regression</a>
   <ul class="collapse">
-  <li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="toc-section-number">12.3.1</span>  Import and explore</a></li>
+<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="toc-section-number">12.3.1</span>  Import and explore</a></li>
   <li><a href="#apply-lm" id="toc-apply-lm" class="nav-link" data-scroll-target="#apply-lm"><span class="toc-section-number">12.3.2</span>  Apply <code>lm()</code></a></li>
   <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="toc-section-number">12.3.3</span>  Check assumptions</a></li>
   <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="toc-section-number">12.3.4</span>  Report</a></li>
-  </ul></li>
   </ul>
-</nav>
+</li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/3mmaRand/comp4biosci/edit/main/single_linear_regression.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title d-none d-lg-block">
+<span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span>
+</h1>
 </div>
 
 
@@ -352,9 +336,7 @@ div.csl-indent {
   </div>
   
 
-</header>
-
-<div class="callout-important callout callout-style-default callout-captioned">
+</header><div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -367,8 +349,8 @@ Important
 <p>You are reading a work in progress. This page is a dumping ground for ideas and not really readable.</p>
 </div>
 </div>
-<section id="overview" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">12.1</span> Overview</h2>
+<section id="overview" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">12.1</span> Overview</h2>
 <p>Single linear regression is an appropriate way to analyse data when:</p>
 <ul>
 <li>you have two continuous variables</li>
@@ -381,8 +363,8 @@ Important
 <p>Prediction: One variable causes the other</p>
 <p>Axes cannot be switched</p>
 <p>X is “sampled without error”; y randomly sampled for each x</p>
-<section id="reporting" class="level3" data-number="12.1.1">
-<h3 data-number="12.1.1" class="anchored" data-anchor-id="reporting"><span class="header-section-number">12.1.1</span> Reporting</h3>
+<section id="reporting" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">12.1.1</span> Reporting</h3>
 <p>Reporting the result: “significance of effect, direction of effect, magnitude of effect”</p>
 <p>In reporting the result of two-sample test we give:</p>
 <ol type="1">
@@ -392,90 +374,85 @@ Important
 </ol>
 <p>Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:</p>
 <p>We will explore all of these ideas with an example.</p>
-</section>
-</section>
-<section id="your-turn" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="your-turn"><span class="header-section-number">12.2</span> 🎬 Your turn!</h2>
+</section></section><section id="your-turn" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">12.2</span> 🎬 Your turn!</h2>
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a> then a new script.</p>
-</section>
-<section id="single-linear-regression" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="single-linear-regression"><span class="header-section-number">12.3</span> Single linear regression</h2>
+</section><section id="single-linear-regression" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="single-linear-regression">
+<span class="header-section-number">12.3</span> Single linear regression</h2>
 <p>Three replicates water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C) Ten Brine Shrimp (<em>Artemia salina</em>) were placed in each and their average respiration rate per water bath was measured (in arbitrary units). The data are in <a href="data-raw/shrimp.txt">shrimp.txt</a></p>
-<section id="import-and-explore" class="level3" data-number="12.3.1">
-<h3 data-number="12.3.1" class="anchored" data-anchor-id="import-and-explore"><span class="header-section-number">12.3.1</span> Import and explore</h3>
+<section id="import-and-explore" class="level3" data-number="12.3.1"><h3 data-number="12.3.1" class="anchored" data-anchor-id="import-and-explore">
+<span class="header-section-number">12.3.1</span> Import and explore</h3>
 <p>Import the data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shrimp <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"data-raw/shrimp.txt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shrimp</span> <span class="op">&lt;-</span> <span class="fu">read_table</span><span class="op">(</span><span class="st">"data-raw/shrimp.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; "><table class="table" style="margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> temperature </th>
+<thead><tr>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> temperature </th>
    <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> respiration </th>
-  </tr>
- </thead>
+  </tr></thead>
 <tbody>
-  <tr>
-   <td style="text-align:right;"> 6 </td>
+<tr>
+<td style="text-align:right;"> 6 </td>
    <td style="text-align:right;"> 11.94 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 6 </td>
+<tr>
+<td style="text-align:right;"> 6 </td>
    <td style="text-align:right;"> 9.54 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 6 </td>
+<tr>
+<td style="text-align:right;"> 6 </td>
    <td style="text-align:right;"> 10.22 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 8 </td>
+<tr>
+<td style="text-align:right;"> 8 </td>
    <td style="text-align:right;"> 11.01 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 8 </td>
+<tr>
+<td style="text-align:right;"> 8 </td>
    <td style="text-align:right;"> 12.94 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 8 </td>
+<tr>
+<td style="text-align:right;"> 8 </td>
    <td style="text-align:right;"> 11.93 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 10 </td>
+<tr>
+<td style="text-align:right;"> 10 </td>
    <td style="text-align:right;"> 12.30 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 10 </td>
+<tr>
+<td style="text-align:right;"> 10 </td>
    <td style="text-align:right;"> 15.95 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 10 </td>
+<tr>
+<td style="text-align:right;"> 10 </td>
    <td style="text-align:right;"> 14.47 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 12 </td>
+<tr>
+<td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 14.28 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 12 </td>
+<tr>
+<td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 17.56 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 12 </td>
+<tr>
+<td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 15.56 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 14 </td>
+<tr>
+<td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 16.88 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 14 </td>
+<tr>
+<td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 18.96 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 14 </td>
+<tr>
+<td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 17.78 </td>
   </tr>
 </tbody>
@@ -487,47 +464,46 @@ Important
 <p>In the first instance, it is sensible to create a rough plot of our data (See <a href="#fig-shrimp-rough">Figure&nbsp;<span>12.1</span></a>). Plotting data early helps us in multiple ways: - it helps identify whether there missing or extreme values - it allows us to see if the relationship is roughly linear - it tells us whether any relationship positive or negative</p>
 <p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> shrimp,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> respiration)) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>,</span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">respiration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-shrimp-rough" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="single_linear_regression_files/figure-html/fig-shrimp-rough-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-rough-1.png" class="img-fluid figure-img" width="576"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.1: A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The figure suggests that respiration rate increases with temperature and there are no particularly extreme values. We can also see that any relationship is roughly linear.</p>
-</section>
-<section id="apply-lm" class="level3" data-number="12.3.2">
-<h3 data-number="12.3.2" class="anchored" data-anchor-id="apply-lm"><span class="header-section-number">12.3.2</span> Apply <code>lm()</code></h3>
+</section><section id="apply-lm" class="level3" data-number="12.3.2"><h3 data-number="12.3.2" class="anchored" data-anchor-id="apply-lm">
+<span class="header-section-number">12.3.2</span> Apply <code>lm()</code>
+</h3>
 <p>We can create a single linear regression model like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> shrimp, respiration <span class="sc">~</span> temperature)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>, <span class="va">respiration</span> <span class="op">~</span> <span class="va">temperature</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And examine the model with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = respiration ~ temperature, data = shrimp)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals:</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## -1.7880 -0.8780 -0.1773  0.9393  1.8620 </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   4.8613     1.1703   4.154  0.00113 ** </span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## temperature   0.9227     0.1126   8.194 1.72e-06 ***</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1.234 on 13 degrees of freedom</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.8378, Adjusted R-squared:  0.8253 </span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 67.13 on 1 and 13 DF,  p-value: 1.719e-06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:</span></span>
+<span><span class="co">## lm(formula = respiration ~ temperature, data = shrimp)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Residuals:</span></span>
+<span><span class="co">##     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">## -1.7880 -0.8780 -0.1773  0.9393  1.8620 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)   4.8613     1.1703   4.154  0.00113 ** </span></span>
+<span><span class="co">## temperature   0.9227     0.1126   8.194 1.72e-06 ***</span></span>
+<span><span class="co">## ---</span></span>
+<span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Residual standard error: 1.234 on 13 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.8378, Adjusted R-squared:  0.8253 </span></span>
+<span><span class="co">## F-statistic: 67.13 on 1 and 13 DF,  p-value: 1.719e-06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 
@@ -544,68 +520,63 @@ Important
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-regression-lm-model" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="single_linear_regression_files/figure-html/fig-regression-lm-model-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-regression-lm-model-1.png" class="img-fluid figure-img" width="576"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.2: In a linear model, the first estimate is the intercept and the second estimate is the ‘slope’.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="check-assumptions" class="level3" data-number="12.3.3">
-<h3 data-number="12.3.3" class="anchored" data-anchor-id="check-assumptions"><span class="header-section-number">12.3.3</span> Check assumptions</h3>
+</section><section id="check-assumptions" class="level3" data-number="12.3.3"><h3 data-number="12.3.3" class="anchored" data-anchor-id="check-assumptions">
+<span class="header-section-number">12.3.3</span> Check assumptions</h3>
 <p>Check the assumptions: All t-tests assume the “residuals” are normally distributed and have homogeneity of variance.</p>
 <p>First use common sense: respiration is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed</p>
 <p>Second by plotting residuals:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="single_linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mod<span class="sc">$</span>residuals)) <span class="sc">+</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mod<span class="sc">$</span>residuals)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  Shapiro-Wilk normality test</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="do">## data:  mod$residuals</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## W = 0.95115, p-value = 0.5428</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Shapiro-Wilk normality test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  mod$residuals</span></span>
+<span><span class="co">## W = 0.95115, p-value = 0.5428</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Checking the assumptions: normally distributed residuals</p>
 <ul>
 <li>Variance is about the same for all values of x</li>
 <li>Looks roughly normal, symmetrical</li>
 <li>test with shapiro. is NS. note that not significant means not significantly different from a normal distribution. It does not mean definitely normally distributed</li>
-</ul>
-</section>
-<section id="report" class="level3" data-number="12.3.4">
-<h3 data-number="12.3.4" class="anchored" data-anchor-id="report"><span class="header-section-number">12.3.4</span> Report</h3>
+</ul></section><section id="report" class="level3" data-number="12.3.4"><h3 data-number="12.3.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">12.3.4</span> Report</h3>
 <p>The temperature explained a significant amount of the variation in respiration rate (ANOVA: <em>F</em> = 67; <em>d.f</em>. = 1, 13; <em>p</em> &lt; 0.001). The regression line is: Respiration rate = 4.86 + 0.92 * temperature. See <a href="#fig-shrimp">Figure&nbsp;<span>12.3</span></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> shrimp, </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> respiration)) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span>   </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">15.5</span>),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">name =</span> <span class="st">"Temperature (C)"</span>) <span class="sc">+</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>),</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">"Respiration (units)"</span>) <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>, </span>
+<span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">respiration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>   </span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, </span>
+<span>              se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>              colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">15.5</span><span class="op">)</span>,</span>
+<span>                      name <span class="op">=</span> <span class="st">"Temperature (C)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>,</span>
+<span>                     name <span class="op">=</span> <span class="st">"Respiration (units)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-shrimp" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="576"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;12.3: The effect of altering water bath temperature on the average respiration rate of brine shrimps.</figcaption><p></p>
 </figure>
 </div>
@@ -618,11 +589,7 @@ Important
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
 </div>
 </div>
-</section>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -883,9 +850,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./what_statistical_model.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></span>
       </a>          
@@ -897,7 +862,26 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Rand, E. (2023). Computational Analysis for Bioscientists (Version 0.1) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/er_13">
+      <i class="bi bi-twitter" role="img" aria-label="Twitter">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link active" href="https://github.com/3mmaRand/comp4biosci" aria-current="page">
+      <i class="bi bi-github" role="img" aria-label="comp4biosci GitHub">
+</i> 
+    </a>
+  </li>  
+</ul>
+</div>
+  </div>
+</footer>
 
 
 </body></html>

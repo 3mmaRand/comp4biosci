@@ -1,4 +1,5 @@
 # Confidence Intervals
+
 ```{r}
 #| results: "asis"
 #| echo: false
@@ -9,17 +10,15 @@ status("polishing")
 
 ## What is a confidence interval?
 
-When we calculate a mean from a sample, we are using it to estimate the mean of the population.  Confidence intervals are a range of values and are a way to quantify the uncertainty in our estimate.  When we report a mean with its 95% confidence interval we given the mean plus and minus some variation. We are saying that 95% of the time, that range will contain the population mean. 
+When we calculate a mean from a sample, we are using it to estimate the mean of the population. Confidence intervals are a range of values and are a way to quantify the uncertainty in our estimate. When we report a mean with its 95% confidence interval we given the mean plus and minus some variation. We are saying that 95% of the time, that range will contain the population mean.
 
-The confidence interval is calculated from the sample mean and the standard error of the mean.  The standard error of the mean is the standard deviation of the [sampling distribution of the mean](logic_hyopthesis_testing.html#sampling-distribution-of-the-mean).  
+The confidence interval is calculated from the sample mean and the standard error of the mean. The standard error of the mean is the standard deviation of the [sampling distribution of the mean](logic_hyopthesis_testing.html#sampling-distribution-of-the-mean).
 
 To understand confidence intervals we need to understand some properties of the normal distribution.
 
 ## The normal distribution
 
 A [distribution](ideas_about_data.html#distributions) describes the values the variable can take and the chance of them occurring. A distribution has a general type, given by the function and is further tuned by the parameters in the function. For the normal distribution these parameters are the mean and the standard deviation. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (@fig-normal-distributions).
-
-
 
 ```{r}
 #| echo: false
@@ -74,9 +73,7 @@ a + b + plot_layout(ncol = 2)
 
 ```
 
-Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae.  The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one stadrad deviation from the mean and 95% values lie between +/-1.96 standard deviations., Another way of saying this is that there is a 95% chance that a value will lie between +/-1.96 standard deviations from the mean.  This is illustrated in @fig-norm-dist-means-properties.
- 
-
+Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one stadrad deviation from the mean and 95% values lie between +/-1.96 standard deviations., Another way of saying this is that there is a 95% chance that a value will lie between +/-1.96 standard deviations from the mean. This is illustrated in @fig-norm-dist-means-properties.
 
 ```{r}
 #| echo: false
@@ -102,7 +99,7 @@ a <- ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit_1,
                 geom = "area",
-                fill = pal2[1]) +
+                fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
   annotate("text", x = 0, y = 0.2, 
            label = "68%",
@@ -120,7 +117,7 @@ b <- ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit_95,
                 geom = "area",
-                fill = pal2[1]) +
+                fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
   annotate("text", x = 0, y = 0.2, 
            label = "95%",
@@ -139,27 +136,174 @@ a + b + plot_layout(ncol = 1)
 ```
 
 
+R has some useful functions associated with distributions, including the normal distribution.
+
+### Distributions: the R functions
+
+For any distribution, R has four functions:
+
+-   the density function, which gives the height of the function at a given value.
+-   the distribution function, which gives the **probability** that a variable takes a particular value or less.
+-   the quantile function which is the inverse of the Distribution function, *i.e.*, it returns the value ('quantile') for a given probability.
+-   the random number generating function
+
+The functions are named with a letter `d`, `p`, `q` or `r` preceding the distribution name. For example:
+
+| Distribution | Density    | Distribution | Quantile   | Random number generating |
+|--------------|------------|--------------|------------|--------------------------|
+| Normal       | `dnorm()`  | `pnorm()`    | `qnorm()`  | `rnorm()`                |
+| Binomial     | `dbinom()` | `pbinom()`   | `qbinom()` | `rbinom()`               |
+| Poisson      | `dpois()`  | `ppois()`    | `qpois()`  | `rpois()`                |
+| t            | `dt()`     | `pt()`       | `qt()`     | `rt()`                   |
+
+: R functions that provide values for some example distributions
+
+Searching for the manual with `?normal` or any one of the functions (`?pnorm`) will bring up a single help page for all four associated functions.
+
+::: {#fig-manual-page}
+<iframe style="height:400px;width:750px;border:2px"  src="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html" title="Manual page">
+
+</iframe>
+
+The R Manual Page for the normal distribution which shows the four functions associated functions.
+:::
+
+The functions which are of most use to us are `pnorm()` and `qnorm()` and these are illustrated in @fig-pnorm.
+
+
+
+```{r}
+#| echo: false
+#| label: fig-pnorm
+#| fig-height: 8
+#| fig-cap: "The `pnorm()` function calculates the probability that a value is less than or equal to a given value."
+
+
+# functions for shading under a normal distribution curve
+
+# 1.96 sd
+dnorm_limit <- function(x) {
+  y <- dnorm(x)
+  y[x > 1.96] <- NA
+  return(y)
+}
+
+a <- ggplot(data = data.frame(x = c(-3, 3)),
+       aes(x)) +
+  stat_function(fun = dnorm_limit,
+                geom = "area",
+                fill = pal2[3]) +
+  stat_function(fun = dnorm, n = 101) +
+  annotate("text", x = 0, y = 0.45, 
+           label = "pnorm(x)",
+           size = 6) +
+  annotate("text", x = 1.96, y = 0.3, 
+           label = "You give x",
+           size = 5) +
+  annotate("text", x = -2.3, y = 0.3, 
+           label = "pnorm returns\nthe probability\n of getting ≤ x",
+           size = 5) +
+  annotate("segment", x = 1.96, y = 0.27, 
+           xend = 1.96, yend = 0.08, 
+           linewidth = 2,
+           colour = pal4[1],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  annotate("segment", x = -0.8, y = 0.05, 
+           xend = -2.3, yend = 0.2, 
+           linewidth = 2,
+           colour = pal4[2],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.5)) +
+  scale_x_continuous(breaks = c(1.96), 
+                     labels = c("𝑥"),
+                     name = "",
+                     expand = c(0, 0),
+                     limits = c(-3, 3)) +
+  theme_classic() +
+  theme(axis.line.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_text(size = 25))
+
+b <- ggplot(data = data.frame(x = c(-3, 3)),
+       aes(x)) +
+  stat_function(fun = dnorm_limit,
+                geom = "area",
+                fill = pal2[3]) +
+  stat_function(fun = dnorm, n = 101) +
+  annotate("text", x = 0, y = 0.45, 
+           label = "qnorm(P)",
+           size = 6) +
+  annotate("text", x = 1.96, y = 0.3, 
+           label = "qnorm returns x",
+           size = 5) +
+  annotate("text", x = -2.3, y = 0.3, 
+           label = "You give\nprobability",
+           size = 5) +
+  annotate("segment", xend = 1.96, yend = 0.27, 
+           x = 1.96, y = 0.08, 
+           linewidth = 2,
+           colour = pal4[2],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  annotate("segment", xend = -0.8, yend = 0.05, 
+           x = -2.3, y = 0.2, 
+           linewidth = 2,
+           colour = pal4[1],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.5)) +
+  scale_x_continuous(breaks = c(1.96), 
+                     labels = c("𝑥"),
+                     name = "",
+                     expand = c(0, 0),
+                     limits = c(-3, 3)) +
+  theme_classic() +
+  theme(axis.line.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_text(size = 25))
+
+a + b + plot_layout(ncol = 1)
+
+```
 ## Confidence intervals on large samples
 
 $$
 \bar{x} \pm 1.96 \times s.e.
 $$ {#eq-ci-large-sample}
 
+95% of confidence intervals calculated in this way will contain the true population mean.
 
-95% of confidence intervals calculated in this way will contain the true population mean.  
+Do you have to remember the value of 1.96? Not if you have R!
 
+```{r}
+qnorm(0.975)
+```
 
-Do you have to remember the value of 1.96?  Not if you have R!
+Notice that it is `qnorm(0.975)` and not `qnorm(0.95)` for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to the left of the value given. If we gave 0.95, we would get the value that put 0.05 in one tail. We want 0.025 in each tail, so we need to use 0.975 in `qnorm()`.
 
-### Whats is `qnorm()`?
+TO-DO pic
 
+### Example in R
 
-`qnorm` is the inverse of `dnorm` and calculates the value of x for a given probability.  For example, the probability of a value being less than 1.96 standard deviations from the mean is 0.975.  `qnorm` can be used to calculate this value.
-
-
+TO-DO
 
 ## Confidence intervals on small samples
+
+The calculation of confidence intervals on small samples is very similar but we use the *t*-distribution rather than the normal distribution. The formula is:
 
 $$
 \bar{x} \pm t_{[d.f.]} \times s.e.
 $$ {#eq-ci-small-sample}
+
+The *t*-distibution is a modified version of the normal distribution and we use it because the sampling distribution of the mean is not quite normal when the sample size is small. The *t*-distribution has an additional parameter called the *degrees of freedom* which is the sample size minus one ($n -1$). Like the normal distribution, the *t*-distribution has a mean of zero and is symmetrical. However,  The *t*-distribution has fatter tails than the normal distribution and this means that the probability of getting a value in the tails is higher than for the normal distribution. The degrees of freedom determine how much fatter the tails are. The smaller the sample size, the fatter the tails. As the sample size increases, the *t*-distribution becomes more and more like the normal distribution.
+
+### Example in R
+
+TO-DO
+
