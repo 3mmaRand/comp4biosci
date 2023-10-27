@@ -92,14 +92,13 @@ Folders can contain sub-folders, which can contain their own sub-folders, and so
 
 It is easiest to picture a file system, or part of it, as a tree that starts at a directory and branches out from there. This is called a hierarchical structure. @fig-file-system shows an example of a hierarchical file structure that starts at a directory called `home`:
 
-![A file hierarchy containing 4 levels of folders and files](images/file-system.png){#fig-file-system fig-alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"}
+![A file hierarchy containing 4 levels of folders and files. Figure adapted from [@randemma2022]. ](images/file-system.png){#fig-file-system fig-alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"}
 
 ## Using a file manager
 
 File managers are the basic way that you interact with the file system on your computer. They allows you to move, copy, and delete files. You can also launch applications from them and and connect to other networks. The windows file explorer is called File Explorer and on Mac it is called Finder (@fig-explorer-icons).
 
 ::: {#fig-explorer-icons layout-ncol="2"}
-
 ![File Explorer (Windows)](images/icon-file-explorer-windows.png){#fig-windows-explorer width="100"}
 
 ![Finder (Mac)](images/icon-finder-mac.png){#fig-mac-finder width="100"}
@@ -114,12 +113,9 @@ Windows Explorer and Mac Finder do not show the file extensions on file names by
 -   choose Finder \| Preferences \| Advanced then check "Show all filename extensions" box @fig-show-extensions-windows
 
 ::: {#fig-show-extensions layout-nrow="2"}
-
 ![Windows](images/show-extensions-windows.png){#fig-show-extensions-windows}
 
-
 ![Mac](images/show-extensions-mac.png){#fig-show-extensions-mac}
-
 
 Showing file extensions in Windows and Mac
 :::
@@ -130,7 +126,7 @@ The top-level of directory on a computer system is known as the "root directory"
 
 Even though the root directory is at the base of the file tree (or the top, depending on how you view it), it is not necessarily where our journey through the file system starts when we launch a new session on our computer. Instead our journey begins in the so called "home directory". You home directory is not usually named `home` but with your username for that computer. Your personal files and directories can be found inside this folder. This is where your computer assumes you want to start when you open your file manager. On Windows and Mac your home directory is a directory *inside* the directory called `Users` immediately under the root and named with your username (@fig-file-system-root).
 
-![The hierarchy from the root. The top level is `C:\` in Windows and `/` in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder](images/file-system-root.png){#fig-file-system-root fig-alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."}
+![The hierarchy from the root. The top level is `C:\` in Windows and `/` in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder. Figure adapted from [@randemma2022].](images/file-system-root.png){#fig-file-system-root fig-alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."}
 
 There will be other folders immediately below the root directory (on the same level of the hierarchy as `Users`). These contain system-level files and folders that you do not usually needed to open, edit or move. For example, `Program Files` is where programs are installed.
 
@@ -141,6 +137,8 @@ The working directory of a program is the default location a program is using. I
 ## File Paths
 
 A path gives the address - or location - of a filesystem object, such as a file or directory. Paths appear in the address bar of your browser or file manager. We need to know a file path whenever we want to read, write or refer to a file using code rather than interactively pointing and clicking to navigate. In a file path, each directory is represented as a separate component separated by a backslash`\`  or a forward slash `/`. Most systems use forward slashes but Windows uses backslashes[^file_systems-1] to separate path components and that is how the path will appear in the address bar of Windows Explorer. However, in R you can use paths with forward slashes even on windows.
+
+[^file_systems-1]: Windows uses backslashes because it did not have directories in 1981 when it's predecessor, MS DOS, was released. At the time it used the `/` character for 'switches' (instead of the existing convention `-` ) so when it did start using directories it couldn't use `/`
 
 A path can be **absolute** or **relative** depending on the starting point.
 
@@ -209,5 +207,3 @@ Files downloaded from the internet go to a folder called `Downloads` by default 
 8.  File paths provide the address or location of a file or directory in the file system. Paths can be absolute or relative. Absolute paths contain the complete list of directories from the root, while relative paths are based on the working directory.
 
 9.  Using relative paths is recommended for portability, as it allows files to be referenced relative to the working directory.
-
-[^file_systems-1]: Windows uses backslashes because it did not have directories in 1981 when it's predecessor, MS DOS, was released. At the time it used the `/` character for 'switches' (instead of the existing convention `-` ) so when it did start using directories it couldn't use `/`

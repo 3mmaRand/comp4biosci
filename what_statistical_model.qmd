@@ -1,4 +1,4 @@
-# What is a statistical model
+# What is a statistical model?
 
 ```{r}
 #| results: "asis"
@@ -8,46 +8,62 @@ source("_common.R")
 status("polishing")
 ```
 
-## What is a statistical model
+## What is a statistical model?
 
-A statistical model is a mathematical equation that helps us understand the relationships between variables. We think about how well our data fit a particular model to infer something about how the values arose or to make predictions about future values. 
+A statistical model is a mathematical equation that helps us understand the relationships between variables. We evaluate how well our data fit a particular model so we can infer something about how the values arose or make predictions about future values. 
 
-an equation that maps shows what has to be done to the explanatory values to get the response value. For example, if a plant grows by 2 cm a day week after it is two weeks old
+The equation states what has to be done to the explanatory values to get the response value. For example, a simple model of plant growth might be that a plant grows by 2 cm a day week after it is two weeks old. This model would be written as:
 
-height = height at two weeks + 2 * number of days after two weeks 2
+$$
+h_{(t)} = h_{(0) }+ 2t
+$$ {#eq-plantgrowth-linear}
+
+Where:
+
+-   $t$ is the time in days after the plant is two weeks old
+-   $h_{(t)}$ is the height of the plant at time $t$
+-   $h_{(0)}$ is the height of the plant at $t=0$, *i.e.*, at two weeks
 
 
+This model is a linear model because the relationship between the response variable, height, and the explanatory variable, time, is linear (@fig-model-1). The gradient of the line is fixed at 2 cm per day. 
 
-or its height increase by 12% each day
 
-height = height at 2 weeks * 1.12^ number of days
+Alternatively, the height might increase by 12% each day. This would be a simple exponential model written as:
+
+
+$$
+h_{(t)} = h_{(0)}1.2^t
+$$ {#eq-plantgrowth-linear}
+
+Where:
+
+-   $t$ is the time in days after the plant is two weeks old
+-   $h_{(t)}$ is the height of the plant at time $t$
+-   $h_{(0)}$ is the height of the plant at $t=0$, *i.e.*, at two weeks
+
+This model is not a straight line (@fig-model-2). The gradient of the line increase as time goes on.
 
 ```{r}
 #| echo: false
 #| label: fig-model
-#| fig-cap: "The effect of nutrient level on bacterial colony diamters without and with a linear model."
+#| layout-ncol: 2
+#| fig-cap: "Two possible models of plant growth."
+#| fig-subcap: 
+#|   - "Linear"
+#|   - "Expontential"
 b0 <- 3
 b1 <-  2
 df <- data.frame(days = 0:20)
 df <- df |> mutate(height = b0 + b1 * days)
-a <- ggplot(df, aes(x = days, y = height)) +
+ggplot(df, aes(x = days, y = height)) +
   geom_line(colour = pal3[1], linewidth = 1) +
-  scale_x_continuous(name = "",
+  scale_x_continuous(name = "Time (days after 2 weeks)",
                      expand = c(0, 0),
                      limits = c(0, 20)) +
   scale_y_continuous(name = "Height (cm)",
                      expand = c(0, 0),
                      limits = c(0, 45)) +
-  geom_segment(aes(x = 2,
-                   xend = 0,
-                   y = b0 + 10,
-                   yend = b0)) +
-  annotate("text",
-           x = 3, 
-           y = b0 + 12,
-           label = "Height at two weeks", 
-           size = 4) +
-  ggtitle("height = height at two weeks + 2 * number of days after two weeks 2") +
+  ggtitle(expression(h[(t)]~"="~h[(0)]~+~2*t)) +
   theme_classic()
 
 
@@ -55,65 +71,45 @@ b0 <- 3
 b1 <-  1.12
 df <- data.frame(days = 0:20)
 df <- df |> mutate(height = b0 * b1^days)
-b <- ggplot(df, aes(x = days, y = height)) +
+ggplot(df, aes(x = days, y = height)) +
   geom_line(colour = pal3[1], linewidth = 1) +
-  scale_x_continuous(name = "Number of days after two weeks",
+  scale_x_continuous(name = "Time (days after 2 weeks)",
                      expand = c(0, 0),
                      limits = c(0, 20)) +
   scale_y_continuous(name = "Height (cm)",
                      expand = c(0, 0),
                      limits = c(0, 45)) +
-  geom_segment(aes(x = 2,
-                   xend = 0,
-                   y = b0 + 10,
-                   yend = b0)) +
-  annotate("text",
-           x = 3, 
-           y = b0 + 12,
-           label = "Height at two weeks", 
-           size = 4) +
-  ggtitle("height = height at 2 weeks * 1.1^ number of days") +
+  ggtitle(expression(h[(t)]~"="~h[(0)]*1.12^t), size = 10) +
   theme_classic()
-
-a / b
 
 ```
 
+<!-- ## Types of model -->
+
+all linear models have the same form
+
+
+all exponential models have the same form
+
+but they have different parameters. the parameter values are chosen to fit that model as well as possible to the data
+
+when we do statistics we make assumptions about the type of the model
+
+then estimate the parameter values from the data
+
+statistical testing determines whether the parameters differ from zero and the fit of the data to the model. determining whether the parameters differ from zero relies on calculating the probabaility or getting the parameter value we got if its true value is zero. 
+
+this means as well as making assumptions about the type of relationship we also make assumptions about the distribution of the data. The assumption we make is that parameter is drawn from a normal distribution. This is a reasonable assumption, because many things are. However, if this assumption is  not met, then our probability will not be accurate.
+
+for this reason, we check the assumptions of our model and test before drawing conclusions. If the assumptions are not met we take some action to transform the data,  use a different model with fewer assumptions. Non-parametric tests make fewer assumptions about the distribution of the data. They are called non-parametric because they do not estimate parameters like an intercept and gradient.
+
+
+
+
+
+## Using a linear model in practice.
 
 Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.
-
-
-## Types of model
-
-linear, parametric non-parametric
-
-
-## Choice of model
-
-before: appropriate to the question, type of relationship. assumptions about the type of model 
-
-and after asummptions about the probability calulations
-
-implications of wrong choices: doesn't anwser the question
-p value is inaccurate
-conclusions are wrong
-
-
-### General linear model assumptions
-
-The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
-
-If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
-
--   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous
--   There should decimal places and few repeated values.
-
-To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution
-
-
-
-
-## Linear models
 
 We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See @fig-linear-bact.
 
@@ -132,16 +128,19 @@ b1 <- mod$coefficients[2] |> round(2)
 ```{r}
 #| echo: false
 #| label: fig-linear-bact
-#| fig-cap: "The effect of nutrient level on bacterial colony diamters without and with a linear model."
-
-a <- ggplot(df1, aes(x = Nutrient, y = Diameter)) +
+#| layout-ncol: 2
+#| fig-cap: "The effect of nutrient level on bacterial colony diamters without (1) and with (2) a linear model."
+#| fig-subcap: 
+#|   - "Data without a model."
+#|   - "Data with a line of best fit"
+ggplot(df1, aes(x = Nutrient, y = Diameter)) +
   geom_point() +
   scale_x_continuous(expand = c(0, 0),
                      limits = c(0, 3.2)) +
   scale_y_continuous(expand = c(0, 0),
                      limits = c(0, 12)) +
   theme_classic()
-b <- ggplot(df1, aes(x = Nutrient, y = Diameter)) +
+ggplot(df1, aes(x = Nutrient, y = Diameter)) +
   geom_point() +
   scale_x_continuous(expand = c(0, 0),
                      limits = c(0, 3.2)) +
@@ -151,9 +150,8 @@ b <- ggplot(df1, aes(x = Nutrient, y = Diameter)) +
               se = FALSE,
               colour = "black") +
   geom_text(label = glue::glue("Diameter = {b0} + {b1} * Nutrient"),
-            x = 2, y = 11) +
+            x = 1, y = 11) +
   theme_classic()
-a + b
 
 ```
 
@@ -171,6 +169,10 @@ Where:
 
 $\beta_{0}$ and $\beta_{1}$ are called the *coefficients* - or *parameters* - of the model.
 
+In this case
+$$
+Diameter = \beta_{0} + \beta_{1}Nutrient
+$$ {#eq-linear-model-bact}
 
 Linear models are amongst the most commonly used statistics. Regression, *t*-tests and ANOVA are all linear models collectively known as the *General Linear Model*.
 
@@ -190,19 +192,19 @@ Where:
 
 Since $\beta_{0}$ and $\beta_{1}$ are those that minimise the $SSE$, they are described as *least squares estimates*. You do not need to worry about this too much but it is a useful piece of statistical jargon to have heard of because it pops up often. The mean of a sample is also a least squares estimate - the sum of the squared differences between each value and the mean is smaller than the sum of the squared differences between each value and any other value.
 
-The role played by $SSE$ in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of $y$ and the predicted value is small but $SSE$ will also depend on the size of $y$ and the sample size. This means we express $SSE$ as a proportion of the total variation in $y$, $SST$:
+The role played by $SSE$ in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of $y$ and the predicted value is small but $SSE$ will also depend on the size of $y$ and the sample size. This means we express $SSE$ as a *proportion* of the total variation in $y$. The total variation in $y$ is denoted $SST$:
 
 $$
 \frac{SSE}{SST}
 $$ {#eq-residual-var}
 
-$\frac{SSE}{SST}$ is the *residual variation* - the proportion of variance left over after the model fitting. The proportion of variance explained by the model is called R-squared, $R^2$. It is:
+$\frac{SSE}{SST}$ is called the *residual variation*. It is the proportion of variance remaining after the model fitting. In contrast, the proportion of the total variance that is explained by the model is called R-squared, $R^2$. It is:
 
 $$
 R^2=1-\frac{SSE}{SST}
 $$ {#eq-r-squared}
 
-If there were no explanatory variables, the value we would predict for the response variable is its mean. Thus a good model should fit the response better than the mean. The output of `lm()` includes the $R^2$. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. @fig-lm-fit
+If there were no explanatory variables, the value we would predict for the response variable is its mean. In other words, if you did not know the nutrient level for a randomly chosen bacterial colony the best guess you could make for its eventual diameter is the mean diameter. Thus, a good model should fit the response better than the mean - better than a best guess. The output of `lm()` includes the $R^2$. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. @fig-lm-fit
 
 ![A linear model with different fits. A) the model is a poor fit - the explanatory variable is no better than the response mean for predicting the response. B) the model is good fit - the explanatory variable explains a high proportion of the variance in the response. C) the model is a perfect fit - the response can be predicted perfectly from the explanatory variable. Measured response values are in pink, the predictions are in green and the dashed blue line gives the mean of the response.](images/lm_fit.svg){#fig-lm-fit width="400"}
 
@@ -214,6 +216,29 @@ See @fig-lm-annotated for a graphical representation of linear modelling terms i
 ![A linear model annotated with the terms used in modelling. Measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$ (the slope) are indicated.](images/generic_lm.svg){#fig-lm-annotated width="400"}
 
 
+
+
+### General linear model assumptions
+
+The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
+
+If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
+
+-   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous
+-   There should decimal places and few repeated values.
+
+To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution
+
+
+## Choice of model
+
+before: appropriate to the question, type of relationship. assumptions about the type of model 
+
+and after assumption calculations the probability calculations
+
+implications of wrong choices: doesn't anwser the question
+p value is inaccurate
+conclusions are wrong
 
 
 ## General linear models in R

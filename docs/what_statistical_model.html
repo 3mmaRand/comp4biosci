@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.269">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Computational Analysis for Bioscientists - 11&nbsp; What is a statistical model</title>
+<title>Computational Analysis for Bioscientists - 11&nbsp; What is a statistical model?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,7 +126,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
       <h1 class="quarto-secondary-nav-title">
-<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span>
+<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span>
 </h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span></a>
+  <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -281,31 +281,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link active" data-scroll-target="#what-is-a-statistical-model"><span class="toc-section-number">11.1</span>  What is a statistical model</a></li>
-  <li><a href="#types-of-model" id="toc-types-of-model" class="nav-link" data-scroll-target="#types-of-model"><span class="toc-section-number">11.2</span>  Types of model</a></li>
+<li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link active" data-scroll-target="#what-is-a-statistical-model"><span class="toc-section-number">11.1</span>  What is a statistical model?</a></li>
+  <li><a href="#using-a-linear-model-in-practice." id="toc-using-a-linear-model-in-practice." class="nav-link" data-scroll-target="#using-a-linear-model-in-practice."><span class="toc-section-number">11.2</span>  Using a linear model in practice.</a></li>
   <li>
-<a href="#choice-of-model" id="toc-choice-of-model" class="nav-link" data-scroll-target="#choice-of-model"><span class="toc-section-number">11.3</span>  Choice of model</a>
+<a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="toc-section-number">11.3</span>  Model fitting</a>
   <ul class="collapse">
 <li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="toc-section-number">11.3.1</span>  General linear model assumptions</a></li>
   </ul>
 </li>
-  <li><a href="#linear-models" id="toc-linear-models" class="nav-link" data-scroll-target="#linear-models"><span class="toc-section-number">11.4</span>  Linear models</a></li>
-  <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="toc-section-number">11.5</span>  Model fitting</a></li>
-  <li><a href="#general-linear-models-in-r" id="toc-general-linear-models-in-r" class="nav-link" data-scroll-target="#general-linear-models-in-r"><span class="toc-section-number">11.6</span>  General linear models in R</a></li>
+  <li><a href="#choice-of-model" id="toc-choice-of-model" class="nav-link" data-scroll-target="#choice-of-model"><span class="toc-section-number">11.4</span>  Choice of model</a></li>
+  <li><a href="#general-linear-models-in-r" id="toc-general-linear-models-in-r" class="nav-link" data-scroll-target="#general-linear-models-in-r"><span class="toc-section-number">11.5</span>  General linear models in R</a></li>
   <li>
-<a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="toc-section-number">11.7</span>  Checking assumptions</a>
+<a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="toc-section-number">11.6</span>  Checking assumptions</a>
   <ul class="collapse">
-<li><a href="#the-q-q-plot" id="toc-the-q-q-plot" class="nav-link" data-scroll-target="#the-q-q-plot"><span class="toc-section-number">11.7.1</span>  The Q-Q plot</a></li>
-  <li><a href="#the-residuals-vs-fitted-plot" id="toc-the-residuals-vs-fitted-plot" class="nav-link" data-scroll-target="#the-residuals-vs-fitted-plot"><span class="toc-section-number">11.7.2</span>  The Residuals vs Fitted plot</a></li>
+<li><a href="#the-q-q-plot" id="toc-the-q-q-plot" class="nav-link" data-scroll-target="#the-q-q-plot"><span class="toc-section-number">11.6.1</span>  The Q-Q plot</a></li>
+  <li><a href="#the-residuals-vs-fitted-plot" id="toc-the-residuals-vs-fitted-plot" class="nav-link" data-scroll-target="#the-residuals-vs-fitted-plot"><span class="toc-section-number">11.6.2</span>  The Residuals vs Fitted plot</a></li>
   </ul>
 </li>
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="toc-section-number">11.8</span>  Reporting</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="toc-section-number">11.7</span>  Reporting</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/3mmaRand/comp4biosci/edit/main/what_statistical_model.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title d-none d-lg-block">
-<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model</span>
+<span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span>
 </h1>
 </div>
 
@@ -333,58 +332,98 @@ Warning
 </div>
 </div>
 <section id="what-is-a-statistical-model" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="what-is-a-statistical-model">
-<span class="header-section-number">11.1</span> What is a statistical model</h2>
-<p>A statistical model is a mathematical equation that helps us understand the relationships between variables. We think about how well our data fit a particular model to infer something about how the values arose or to make predictions about future values.</p>
-<p>an equation that maps shows what has to be done to the explanatory values to get the response value. For example, if a plant grows by 2 cm a day week after it is two weeks old</p>
-<p>height = height at two weeks + 2 * number of days after two weeks 2</p>
-<p>or its height increase by 12% each day</p>
-<p>height = height at 2 weeks * 1.12^ number of days</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-model" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-model-1.png" class="img-fluid figure-img" width="576"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;11.1: The effect of nutrient level on bacterial colony diamters without and with a linear model.</figcaption><p></p>
+<span class="header-section-number">11.1</span> What is a statistical model?</h2>
+<p>A statistical model is a mathematical equation that helps us understand the relationships between variables. We evaluate how well our data fit a particular model so we can infer something about how the values arose or make predictions about future values.</p>
+<p>The equation states what has to be done to the explanatory values to get the response value. For example, a simple model of plant growth might be that a plant grows by 2 cm a day week after it is two weeks old. This model would be written as:</p>
+<p><span id="eq-plantgrowth-linear"><span class="math display">\[
+h_{(t)} = h_{(0) }+ 2t
+\tag{11.1}\]</span></span></p>
+<p>Where:</p>
+<ul>
+<li>
+<span class="math inline">\(t\)</span> is the time in days after the plant is two weeks old</li>
+<li>
+<span class="math inline">\(h_{(t)}\)</span> is the height of the plant at time <span class="math inline">\(t\)</span>
+</li>
+<li>
+<span class="math inline">\(h_{(0)\)</span> is the height of the plant at <span class="math inline">\(t=0\)</span>, <em>i.e.</em>, at two weeks</li>
+</ul>
+<p>This model is a linear model because the relationship between the response variable, height, and the explanatory variable, time, is linear (<a href="#fig-model-1">Figure&nbsp;<span>11.1 (a)</span></a>). The gradient of the line is fixed at 2 cm per day.</p>
+<p>Alternatively, the height might increase by 12% each day. This would be a simple exponential model written as:</p>
+<p><span id="eq-plantgrowth-linear"><span class="math display">\[
+h_{(t)} = h_{(0)}1.2^t
+\tag{11.2}\]</span></span></p>
+<p>Where:</p>
+<ul>
+<li>
+<span class="math inline">\(t\)</span> is the time in days after the plant is two weeks old</li>
+<li>
+<span class="math inline">\(h_{(t)}\)</span> is the height of the plant at time <span class="math inline">\(t\)</span>
+</li>
+<li>
+<span class="math inline">\(h_{(0)\)</span> is the height of the plant at <span class="math inline">\(t=0\)</span>, <em>i.e.</em>, at two weeks</li>
+</ul>
+<p>This model is not a straight line (<a href="#fig-model-2">Figure&nbsp;<span>11.1 (b)</span></a>). The gradient of the line increase as time goes on.</p>
+<div id="fig-model" class="cell quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-model-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-model-1.png" class="img-fluid figure-img" data-ref-parent="fig-model" width="576"></p>
+<p></p><figcaption class="figure-caption">(a) Linear</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-model-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-model-2.png" class="img-fluid figure-img" data-ref-parent="fig-model" width="576"></p>
+<p></p><figcaption class="figure-caption">(b) Expontential</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;11.1: Two possible models of plant growth.</figcaption><p></p>
+</figure>
+</div>
+<!-- ## Types of model -->
+<p>all linear models have the same form</p>
+<p>all exponential models have the same form</p>
+<p>but they have different parameters. the parameter values are chosen to fit that model as well as possible to the data</p>
+<p>when we do statistics we make assumptions about the type of the model</p>
+<p>then estimate the parameter values from the data</p>
+<p>statistical testing determines whether the parameters differ from zero and the fit of the data to the model. determining whether the parameters differ from zero relies on calculating the probabaility or getting the parameter value we got if its true value is zero.</p>
+<p>this means as well as making assumptions about the type of relationship we also make assumptions about the distribution of the data. The assumption we make is that parameter is drawn from a normal distribution. This is a reasonable assumption, because many things are. However, if this assumption is not met, then our probability will not be accurate.</p>
+<p>for this reason, we check the assumptions of our model and test before drawing conclusions. If the assumptions are not met we take some action to transform the data, use a different model with fewer assumptions. Non-parametric tests make fewer assumptions about the distribution of the data. They are called non-parametric because they do not estimate parameters like an intercept and gradient.</p>
+</section><section id="using-a-linear-model-in-practice." class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="using-a-linear-model-in-practice.">
+<span class="header-section-number">11.2</span> Using a linear model in practice.</h2>
 <p>Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.</p>
-</section><section id="types-of-model" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="types-of-model">
-<span class="header-section-number">11.2</span> Types of model</h2>
-<p>linear, parametric non-parametric</p>
-</section><section id="choice-of-model" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="choice-of-model">
-<span class="header-section-number">11.3</span> Choice of model</h2>
-<p>before: appropriate to the question, type of relationship. assumptions about the type of model</p>
-<p>and after asummptions about the probability calulations</p>
-<p>implications of wrong choices: doesn’t anwser the question p value is inaccurate conclusions are wrong</p>
-<section id="general-linear-model-assumptions" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="general-linear-model-assumptions">
-<span class="header-section-number">11.3.1</span> General linear model assumptions</h3>
-<p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
-<p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
-<ul>
-<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
-<li>There should decimal places and few repeated values.</li>
-</ul>
-<p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution</p>
-</section></section><section id="linear-models" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="linear-models">
-<span class="header-section-number">11.4</span> Linear models</h2>
 <p>We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See <a href="#fig-linear-bact">Figure&nbsp;<span>11.2</span></a>.</p>
 <div class="cell">
 
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-linear-bact" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-linear-bact-1.png" class="img-fluid figure-img" width="576"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;11.2: The effect of nutrient level on bacterial colony diamters without and with a linear model.</figcaption><p></p>
+<div id="fig-linear-bact" class="cell quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-linear-bact-1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-linear-bact-1.png" class="img-fluid figure-img" data-ref-parent="fig-linear-bact" width="576"></p>
+<p></p><figcaption class="figure-caption">(a) Data without a model.</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-linear-bact-2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/fig-linear-bact-2.png" class="img-fluid figure-img" data-ref-parent="fig-linear-bact" width="576"></p>
+<p></p><figcaption class="figure-caption">(b) Data with a line of best fit</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;11.2: The effect of nutrient level on bacterial colony diamters without (1) and with (2) a linear model.</figcaption><p></p>
+</figure>
+</div>
 <p>The equation of this line is a statistical model that allows us to make predictions about colony diameter from nutrient levels. A line - or linear model - has the form:</p>
 <p><span id="eq-linear-model"><span class="math display">\[
 y = \beta_{0} + \beta_{1}x
-\tag{11.1}\]</span></span></p>
+\tag{11.3}\]</span></span></p>
 <p>Where:</p>
 <ul>
 <li>
@@ -395,13 +434,16 @@ y = \beta_{0} + \beta_{1}x
 <span class="math inline">\(\beta_{1}\)</span> is the amount added to <span class="math inline">\(y\)</span> for each unit increase in <span class="math inline">\(x\)</span> usually known as the slope</li>
 </ul>
 <p><span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> are called the <em>coefficients</em> - or <em>parameters</em> - of the model.</p>
+<p>In this case <span id="eq-linear-model-bact"><span class="math display">\[
+Diameter = \beta_{0} + \beta_{1}Nutrient
+\tag{11.4}\]</span></span></p>
 <p>Linear models are amongst the most commonly used statistics. Regression, <em>t</em>-tests and ANOVA are all linear models collectively known as the <em>General Linear Model</em>.</p>
-</section><section id="model-fitting" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="model-fitting">
-<span class="header-section-number">11.5</span> Model fitting</h2>
+</section><section id="model-fitting" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="model-fitting">
+<span class="header-section-number">11.3</span> Model fitting</h2>
 <p>The process of estimating the parameters <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> from data is known as <em>fitting a linear model</em>. The line gives the predicted values of <span class="math inline">\(y\)</span>. The actual measured value of <span class="math inline">\(y\)</span> will differ from the predicted value and this difference is called a <em>residual</em> or an <em>error</em>. The line is a best fit in the sense that <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> minimise the <em>sum of the squared residuals</em>, <span class="math inline">\(SSE\)</span>.</p>
 <p><span id="eq-sse"><span class="math display">\[
 SSE = \sum(y_{i}-\hat{y})^2
-\tag{11.2}\]</span></span></p>
+\tag{11.5}\]</span></span></p>
 <p>Where:</p>
 <ul>
 <li>
@@ -410,15 +452,15 @@ SSE = \sum(y_{i}-\hat{y})^2
 <span class="math inline">\(\hat{y}\)</span> is predicted value</li>
 </ul>
 <p>Since <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> are those that minimise the <span class="math inline">\(SSE\)</span>, they are described as <em>least squares estimates</em>. You do not need to worry about this too much but it is a useful piece of statistical jargon to have heard of because it pops up often. The mean of a sample is also a least squares estimate - the sum of the squared differences between each value and the mean is smaller than the sum of the squared differences between each value and any other value.</p>
-<p>The role played by <span class="math inline">\(SSE\)</span> in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of <span class="math inline">\(y\)</span> and the predicted value is small but <span class="math inline">\(SSE\)</span> will also depend on the size of <span class="math inline">\(y\)</span> and the sample size. This means we express <span class="math inline">\(SSE\)</span> as a proportion of the total variation in <span class="math inline">\(y\)</span>, <span class="math inline">\(SST\)</span>:</p>
+<p>The role played by <span class="math inline">\(SSE\)</span> in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of <span class="math inline">\(y\)</span> and the predicted value is small but <span class="math inline">\(SSE\)</span> will also depend on the size of <span class="math inline">\(y\)</span> and the sample size. This means we express <span class="math inline">\(SSE\)</span> as a <em>proportion</em> of the total variation in <span class="math inline">\(y\)</span>. The total variation in <span class="math inline">\(y\)</span> is denoted <span class="math inline">\(SST\)</span>:</p>
 <p><span id="eq-residual-var"><span class="math display">\[
 \frac{SSE}{SST}
-\tag{11.3}\]</span></span></p>
-<p><span class="math inline">\(\frac{SSE}{SST}\)</span> is the <em>residual variation</em> - the proportion of variance left over after the model fitting. The proportion of variance explained by the model is called R-squared, <span class="math inline">\(R^2\)</span>. It is:</p>
+\tag{11.6}\]</span></span></p>
+<p><span class="math inline">\(\frac{SSE}{SST}\)</span> is called the <em>residual variation</em>. It is the proportion of variance remaining after the model fitting. In contrast, the proportion of the total variance that is explained by the model is called R-squared, <span class="math inline">\(R^2\)</span>. It is:</p>
 <p><span id="eq-r-squared"><span class="math display">\[
 R^2=1-\frac{SSE}{SST}
-\tag{11.4}\]</span></span></p>
-<p>If there were no explanatory variables, the value we would predict for the response variable is its mean. Thus a good model should fit the response better than the mean. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> includes the <span class="math inline">\(R^2\)</span>. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. <a href="#fig-lm-fit">Figure&nbsp;<span>11.3</span></a></p>
+\tag{11.7}\]</span></span></p>
+<p>If there were no explanatory variables, the value we would predict for the response variable is its mean. In other words, if you did not know the nutrient level for a randomly chosen bacterial colony the best guess you could make for its eventual diameter is the mean diameter. Thus, a good model should fit the response better than the mean - better than a best guess. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> includes the <span class="math inline">\(R^2\)</span>. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. <a href="#fig-lm-fit">Figure&nbsp;<span>11.3</span></a></p>
 <div id="fig-lm-fit" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/lm_fit.svg" class="img-fluid figure-img" width="400"></p>
 <p></p><figcaption class="figure-caption">Figure&nbsp;11.3: A linear model with different fits. A) the model is a poor fit - the explanatory variable is no better than the response mean for predicting the response. B) the model is good fit - the explanatory variable explains a high proportion of the variance in the response. C) the model is a perfect fit - the response can be predicted perfectly from the explanatory variable. Measured response values are in pink, the predictions are in green and the dashed blue line gives the mean of the response.</figcaption><p></p>
@@ -431,8 +473,22 @@ R^2=1-\frac{SSE}{SST}
 <p></p><figcaption class="figure-caption">Figure&nbsp;11.4: A linear model annotated with the terms used in modelling. Measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> (the intercept) and <span class="math inline">\(\beta_{1}\)</span> (the slope) are indicated.</figcaption><p></p>
 </figure>
 </div>
-</section><section id="general-linear-models-in-r" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="general-linear-models-in-r">
-<span class="header-section-number">11.6</span> General linear models in R</h2>
+<section id="general-linear-model-assumptions" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="general-linear-model-assumptions">
+<span class="header-section-number">11.3.1</span> General linear model assumptions</h3>
+<p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
+<p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
+<ul>
+<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
+<li>There should decimal places and few repeated values.</li>
+</ul>
+<p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution</p>
+</section></section><section id="choice-of-model" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="choice-of-model">
+<span class="header-section-number">11.4</span> Choice of model</h2>
+<p>before: appropriate to the question, type of relationship. assumptions about the type of model</p>
+<p>and after assumption calculations the probability calculations</p>
+<p>implications of wrong choices: doesn’t anwser the question p value is inaccurate conclusions are wrong</p>
+</section><section id="general-linear-models-in-r" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="general-linear-models-in-r">
+<span class="header-section-number">11.5</span> General linear models in R</h2>
 <p>We use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function in R to analyse data with the general linear model. When you have one explanatory variable the command is:</p>
 <p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>) </code></p>
 <p>The <code>response ~ explanatory</code> part is known as the model <strong>formula</strong>.</p>
@@ -446,8 +502,8 @@ R^2=1-\frac{SSE}{SST}
 summary(mod) </code></p>
 <p>There are two sorts of statistical tests in the output of <code>summary(mod)</code>: tests of whether each coefficient is significantly different from zero; and an <em>F</em>-test of the model overall.</p>
 <p>The <em>F</em>-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant.</p>
-</section><section id="checking-assumptions" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="checking-assumptions">
-<span class="header-section-number">11.7</span> Checking assumptions</h2>
+</section><section id="checking-assumptions" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="checking-assumptions">
+<span class="header-section-number">11.6</span> Checking assumptions</h2>
 <p>TODO</p>
 <p>The assumptions relate to the type of relationship chosen and hypothesis testing about the parameters. We assumed the relationship between diameter and nutrients is linear. The general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
 <p>The assumptions of the model are checked using the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.</p>
@@ -455,8 +511,8 @@ summary(mod) </code></p>
 
 </div>
 <p>The two plots which are most useful are the “Q-Q” plot (plot 2) and the “Residuals vs Fitted” plot (plot 1). These are given as values to the <code>which</code> argument of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
-<section id="the-q-q-plot" class="level3" data-number="11.7.1"><h3 data-number="11.7.1" class="anchored" data-anchor-id="the-q-q-plot">
-<span class="header-section-number">11.7.1</span> The Q-Q plot</h3>
+<section id="the-q-q-plot" class="level3" data-number="11.6.1"><h3 data-number="11.6.1" class="anchored" data-anchor-id="the-q-q-plot">
+<span class="header-section-number">11.6.1</span> The Q-Q plot</h3>
 <p>The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -472,8 +528,8 @@ summary(mod) </code></p>
 </div>
 </div>
 <p>If you see patterns like these you should find an alternative to a general linear model such as a non-parametric test or a generalised linear model. Sometimes, applying a transformation to the response variable will result in better meeting the assumptions.</p>
-</section><section id="the-residuals-vs-fitted-plot" class="level3" data-number="11.7.2"><h3 data-number="11.7.2" class="anchored" data-anchor-id="the-residuals-vs-fitted-plot">
-<span class="header-section-number">11.7.2</span> The Residuals vs Fitted plot</h3>
+</section><section id="the-residuals-vs-fitted-plot" class="level3" data-number="11.6.2"><h3 data-number="11.6.2" class="anchored" data-anchor-id="the-residuals-vs-fitted-plot">
+<span class="header-section-number">11.6.2</span> The Residuals vs Fitted plot</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="what_statistical_model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="576"></p>
@@ -495,8 +551,8 @@ summary(mod) </code></p>
 <p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="576"></p>
 </div>
 </div>
-</section></section><section id="reporting" class="level2" data-number="11.8"><h2 data-number="11.8" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">11.8</span> Reporting</h2>
+</section></section><section id="reporting" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">11.7</span> Reporting</h2>
 <p>When reporting the results of statistical tests we need to make sure we tell the reader everything they need to know and give the evidence it to support it. What they need to know is given in statements describing what difference or effect is significant and the evidence is from the test statistic and <em>p</em>-value from the test. You can think the statistical test values as being the evidence for the statements in your results sections, just as citations are the evidence for the statements in your introduction.</p>
 <p>In reporting the result of a test we give:</p>
 <ol type="1">
