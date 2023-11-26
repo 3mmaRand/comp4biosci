@@ -325,6 +325,7 @@ div.csl-indent {
 <li><a href="#visualise-data" id="toc-visualise-data" class="nav-link" data-scroll-target="#visualise-data"><span class="header-section-number">8.2.1</span> Visualise data</a></li>
   </ul>
 </li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data"><span class="header-section-number">8.3</span> Tidy data</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/import_to_report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -361,11 +362,11 @@ First draft
 <p>In <a href="first_steps_rstudio.html">First Steps in RStudio</a> we typed data into R. This is not very practical when you have a lot of data! Instead, we much more commonly import data from a file. In this chapter we go through the workflow from importing, through summarising and plotting to saving a saving the figure.</p>
 <section id="importing-data-from-files" class="level2" data-number="8.1"><h2 data-number="8.1" class="anchored" data-anchor-id="importing-data-from-files">
 <span class="header-section-number">8.1</span> Importing data from files</h2>
-<p>. This requires you know two pieces of information.</p>
+<p>There are two things you need to know before you can import data from a file.</p>
 <ol type="1">
 <li>
 <p>What format the data are in</p>
-<p>The format of the data determines what function you will use to import it and the file extension often indicates format.</p>
+<p>The format of the data determines what <em>function</em> you will use to import it. Often the file extension indicates format.</p>
 <ul>
 <li>
 <code>.txt</code> a plain text file<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, where the columns are often separated by a space but might also be separated by a tab, a backslash or forward slash, or some other character</li>
@@ -375,10 +376,11 @@ First draft
 <code>.xlsx</code> an Excel file More detail on file types was covered in <a href="file_systems.html#files">Understanding file systems</a>
 </li>
 </ul>
+<p>However, you should always check the file to make sure it is in the format you expect because there is little to force a match between a file’s contents and the extension in its name. You can check by opening the file in a text editor (e.g., Notepad on Windows, TextEdit on Mac) or in RStudio (see below).</p>
 </li>
 <li>
 <p>Where the file is relative to your working directory</p>
-<p><code>R</code> can only read in a file if you say where it is, i.e., you give its <strong>relative path</strong>. More detail on relative file paths and working directories was covered in <a href="file_systems.html#working-directories">Understanding file systems</a></p>
+<p><code>R</code> can only read in a file if you say where it is, <em>i.e.</em>, you give its <strong>relative path</strong>. More detail on relative file paths and working directories was covered in <a href="file_systems.html#working-directories">Understanding file systems</a></p>
 </li>
 </ol>
 <p>🎬 Your turn! If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a> then a new script.</p>
@@ -391,7 +393,7 @@ First draft
 <span class="header-section-number">8.1.1</span> Importing data from <code>.txt</code> file</h3>
 <p>The data in <a href="data-raw/adipocytes.txt">adipocytes.txt</a> give the concentration of a hormone called adiponectin in some cells. There are two columns: the first gives the adiponectin concentration and the second, treatment, indicates whether the cells were treated with nicotinic acid or not. Save this file to the project folder.</p>
 <p>A <code>.txt</code> extension suggests this is plain text file with columns separated by spaces. However, before we attempt to read it in, when should take a look at it. We can do this from RStudio by clicking on the file in the Files pane. Any plain text file will open in the top left pane.</p>
-<div id="fig-text-data-file-open" class="quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio showing the data file open" width="600">
+<div id="fig-text-data-file-open" class="quarto-figure quarto-figure-center anchored" width="600" alt="screenshot of RStudio showing the data file open">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-text-data-file-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/text-data-file-open.png" class="img-fluid figure-img" alt="screenshot of RStudio showing the data file open" width="600">
 </div>
@@ -401,9 +403,9 @@ Figure&nbsp;8.1: The adipocytes.txt data file open. We can see the columns are s
 </div>
 <p>The files are separated by spaces as we suspected. We use the <code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code> command to read in plain text files of single columns, or where the columns are separated by spaces:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_table.html">read_table</a></span><span class="op">(</span><span class="st">"adipocytes.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_table.html">read_table</a></span><span class="op">(</span><span class="st">"adipocytes.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The data from the file has been read into a dataframe called <code>cells</code>. You will and you will be able to see it in the Environment window. Clicking on it in the Environment window will open a spreadsheet-like view of the dataframe.</p>
+<p>The data from the file has been read into a dataframe called <code>adipo</code>. You will and you will be able to see it in the Environment window. Clicking on it in the Environment window will open a spreadsheet-like view of the dataframe.</p>
 </section><section id="importing-a-from-a.csv-file" class="level3" data-number="8.1.2"><h3 data-number="8.1.2" class="anchored" data-anchor-id="importing-a-from-a.csv-file">
 <span class="header-section-number">8.1.2</span> Importing a from a<code>.csv</code> file</h3>
 <p>The data <a href="data-raw/seal.csv">seal.csv</a> give the myoglobin concentration of skeletal muscle for three species of seal. There are two columns: the first gives the myoglobin concentration and the second indicates species.</p>
@@ -424,7 +426,7 @@ Figure&nbsp;8.1: The adipocytes.txt data file open. We can see the columns are s
 </div>
 </section><section id="importing-data-from-a-file-not-in-your-working-directory" class="level3" data-number="8.1.4"><h3 data-number="8.1.4" class="anchored" data-anchor-id="importing-data-from-a-file-not-in-your-working-directory">
 <span class="header-section-number">8.1.4</span> Importing data from a file not in your working directory</h3>
-<p>When using an RStudio project, your working directory is in the project folder. Suppose our <a href="data-raw/adipocytes.txt">adipocytes.txt</a> were in a folder, <code>data-raw</code>, in our working directory.</p>
+<p>When using an RStudio project, your working directory is the project folder (the folder containing the <code>.Rproj</code> file. Suppose our file <a href="data-raw/adipocytes.txt">adipocytes.txt</a> is in a folder, <code>data-raw</code>, in our working directory.</p>
 <pre><code>-- myproject
    |__myproject.Rproj
    |__import.R
@@ -432,10 +434,11 @@ Figure&nbsp;8.1: The adipocytes.txt data file open. We can see the columns are s
       |__adipocytes.txt
       |__blood.xlsx
       |__seal.csv</code></pre>
-<p>We need to adjust the code to give the relative path to the datafile:</p>
+<p>We need to adjust the code to give the <em>relative path</em> to the datafile:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cells</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_table.html">read_table</a></span><span class="op">(</span><span class="st">"data-raw/adipocytes.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_table.html">read_table</a></span><span class="op">(</span><span class="st">"data-raw/adipocytes.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The <a href="https://3mmarand.github.io/comp4biosci/file_systems.html#relative-paths">relative path</a> is the path from the working directory to the file. In this case, the working directory is <code>myproject</code> and the relative path is <code>data-raw/adipocytes.txt</code>.</p>
 <p>🎬 Your turn! Create a folder called <code>data-raw</code> inside the project folder and move the data files to it. Now modify the data import code to import seal.csv from <code>data-raw</code>.</p>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data-raw/seal.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -448,12 +451,12 @@ Figure&nbsp;8.1: The adipocytes.txt data file open. We can see the columns are s
 <li><p>Group the data: If you want to summarize your data based on certain groups, you can use the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code></p></li>
 <li><p>Summarise: Once your data grouped (if necessary), you use <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> with functions like<code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> within it.</p></li>
 </ul>
-<p>We will demonstrate summarising using the <code>cells</code> dataframe. <code>adiponectin</code> is the response and is continuous and <code>treatment</code> is an explanatory with categorical with two levels (groups).</p>
+<p>We will demonstrate summarising using the <code>adipo</code> dataframe. <code>adiponectin</code> is the response and is continuous and <code>treatment</code> is an explanatory with categorical with two levels (groups).</p>
 <p>The most useful summary statistics for a continuous variable like <code>adiponectin</code> are the means, standard deviations, sample sizes and standard errors. We use the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> functions along with the functions that do the calculations.</p>
-<p>To create a data frame called <code>cell_summary</code> that contains the means, standard deviations, sample sizes and standard errors for the control and nicotinic acid treated samples:</p>
+<p>To create a data frame called <code>adipo_summary</code> that contains the means, standard deviations, sample sizes and standard errors for the control and nicotinic acid treated samples:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cell_summary</span> <span class="op">&lt;-</span> <span class="va">cells</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo_summary</span> <span class="op">&lt;-</span> <span class="va">adipo</span>  <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>            std <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">adiponectin</span><span class="op">)</span>,</span>
@@ -461,7 +464,7 @@ Figure&nbsp;8.1: The adipocytes.txt data file open. We can see the columns are s
 </div>
 <p>You can type:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cell_summary</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo_summary</span></span>
 <span><span class="co">## # A tibble: 2 × 5</span></span>
 <span><span class="co">##   treatment  mean   std     n    se</span></span>
 <span><span class="co">##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
@@ -489,13 +492,13 @@ Figure&nbsp;8.1: The adipocytes.txt data file open. We can see the columns are s
 <li>Geometric objects (geoms): the actual graphical elements used to visualize the data, such as points, lines, bars, etc.</li>
 </ol>
 <p>To create a basic plot, you start with the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function and provide the data and aesthetic mappings.</p>
-<pre><code>ggplot(data = cells, aes(x = treatment, y = adiponectin))
+<pre><code>ggplot(data = adipo, aes(x = treatment, y = adiponectin))
 </code></pre>
 <p>You can add geometric layers to the plot using specific functions such as <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>, etc. These functions define the type of plot you want to create:</p>
-<pre><code>ggplot(data = cells, aes(x = treatment, y = adiponectin)) +
+<pre><code>ggplot(data = adipo, aes(x = treatment, y = adiponectin)) +
   geom_point()
 </code></pre>
-<p>In the figure we are aiming for, we are plotting two dataframes: the <code>cells</code> dataframe which contains the data points themselves; and the <code>cell_summary</code> dataframe containing and the means and standard errors.</p>
+<p>In the figure we are aiming for, we are plotting two dataframes: the <code>adipo</code> dataframe which contains the data points themselves; and the <code>adipo_summary</code> dataframe containing and the means and standard errors.</p>
 <p>The dataframes and aesthetics for ggplot can be specified <em>within a <code>geom_xxxx</code></em> (rather than in the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>). This is very useful if the geom only applies to some of the data you want to plot.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -511,10 +514,10 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 </div>
 </div>
 <p>I will build the plot up in small steps you should edit your <em>existing</em> <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> command as we go.</p>
-<p>We will plot the data points first. Notice that we have given the data argument and the aesthetics <em>inside</em> the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>. The variables <code>treatment</code> and <code>adiponectin</code> are in the <code>cells</code> dataframe</p>
+<p>We will plot the data points first. Notice that we have given the data argument and the aesthetics <em>inside</em> the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>. The variables <code>treatment</code> and <code>adiponectin</code> are in the <code>adipo</code> dataframe</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, </span>
 <span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="import_to_report_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
@@ -523,7 +526,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <p>So the data points don’t overlap, we can add some random jitter in the <em>x</em> direction (edit your existing code):</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, </span>
 <span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -535,7 +538,7 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <p>Let’s make the points a light grey (edit your existing code):</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, </span>
 <span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -547,28 +550,28 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <p>Add a <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> for errorbars (edit your existing code):</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="import_to_report_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
-<p>We have specified the <code>cell_summary</code> dataframe and the variables <code>treatment</code>, <code>mean</code> and <code>se</code> are in that.</p>
+<p>We have specified the <code>adipo_summary</code> dataframe and the variables <code>treatment</code>, <code>mean</code> and <code>se</code> are in that.</p>
 <p>There are several ways you could add the mean. You could use <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> but I like to use <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> again with the <code>ymin</code> and <code>ymax</code> both set to the mean.</p>
 <p>Add a <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> for the mean (edit your existing code):</p>
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -578,13 +581,13 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <p>Alter the axis labels and limits using <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> (edit your existing code):</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"grey50"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
@@ -600,13 +603,13 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <p>Format the figure in a way that is more suitable for including in a report using <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code> (edit your existing code):</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"gray50"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
@@ -628,7 +631,13 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
        height,
        units,
        dpi)</code></pre>
-<p>You must give a file name for the output file but all the other options have defaults. - plot: The ggplot object you want to save. Defaults to the last created plot. - device: one of “png”, “eps”, “ps”, “tex”, “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” or “wmf” (windows only). Defaults to the format given by the file extension in filename - width, height units: Plot size in units (“in”, “cm”, “mm”, or “px”). Defaults to the size of the plot in the Plots window. - dpi: Plot resolution.</p>
+<p>You must give a file name for the output file but all the other options have defaults.</p>
+<ul>
+<li>plot: The ggplot object you want to save. Defaults to the last created plot.</li>
+<li>device: one of “png”, “eps”, “ps”, “tex”, “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” or “wmf” (windows only). Defaults to the format given by the file extension in filename</li>
+<li>width, height units: Plot size in units (“in”, “cm”, “mm”, or “px”). Defaults to the size of the plot in the Plots window.</li>
+<li>dpi: Plot resolution.</li>
+</ul>
 <p>We can save the figure we just created as a 3 inch x 3 inch png file as follows:</p>
 <div class="cell">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"adipocytes.png"</span>,</span>
@@ -641,13 +650,13 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <p>It is often a good idea to explicitly assign the ggplot object to a variable and use that in the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code></p>
 <div class="cell">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fig1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cells</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"gray50"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cell_summary</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
 <span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
@@ -665,7 +674,18 @@ Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot(
 <span>       units <span class="op">=</span> <span class="st">"in"</span>,</span>
 <span>       dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> Tidy data - Each variable should be in one column. - Each different observation of that variable should be in a different row. - There should be one table for each “kind” of data. - If you have multiple tables, they should include a column in the table that allows them to be linked.</p>
+</section></section></section><section id="tidy-data" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="tidy-data">
+<span class="header-section-number">8.3</span> Tidy data</h2>
+<p>Data that is in a format that is easy to work with is often referred to as “tidy data”. Tidy data is a concept that was introduced by Hadley Wickham in his paper Tidy Data <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span>. The paper is available online at <a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri">http://vita.had.co.nz/papers/tidy-data.pdf</a>.</p>
+<p>Tidy data:</p>
+<ul>
+<li>Each variable should be in one column.</li>
+<li>Each different observation of that variable should be in a different row.</li>
+<li>There should be one table for each “kind” of data.</li>
+<li>If you have multiple tables, they should include a column in the table that allows them to be linked.</li>
+</ul>
+<p>These concepts have been around for a long time and underlie formats enforced in several statistical packages such as SPSS, minitab and SAS.</p>
+<p>Recognising the structure of your data and organising it in tidy format is one of the most important step in data analysis.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -685,10 +705,10 @@ Wickham, Hadley, and Jennifer Bryan. 2023. <span>“Readxl: Read Excel Files.”
 Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
 </div>
 </div>
-</section></section></section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Plain text files can be opened in notepad or other similar editor and still be readable.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><strong>Don’t</strong>&nbsp;be tempted to import data this way. Unless you are careful, your data import will not be scripted or will not be scripted correctly.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There is also and option to import the dataset. <strong>Do not</strong>&nbsp;be tempted to import data this way! Unless you are careful and know what you are doing, your data import will not be scripted or will not be scripted correctly.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
