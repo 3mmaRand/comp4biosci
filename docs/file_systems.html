@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.395">
+<meta name="generator" content="quarto-1.4.543">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 3&nbsp; Understanding file systems</title>
 <style>
@@ -64,7 +64,7 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
   "keyboard-shortcut": [
     "f",
     "/",
@@ -79,6 +79,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -93,11 +94,11 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what_they_forgot.html">What they forgot to teach you about computers</a></li><li class="breadcrumb-item"><a href="./file_systems.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -105,7 +106,7 @@ div.csl-indent {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
@@ -270,7 +271,7 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
@@ -339,12 +340,12 @@ Just needs proof reading
 <span class="header-section-number">3.2</span> Plain text files</h2>
 <p>One of the simplest types of file is a “text file”, also known as ASCII files, which contains only text characters and no formatting, images or colours. Text files have many different extensions to indicate what the text content represents. A few of these are given in <a href="#tbl-text-file-extensions" class="quarto-xref">Table&nbsp;<span>3.1</span></a>.</p>
 <div class="cell">
-<div id="tbl-text-file-extensions" class="cell anchored">
-<figure class="quarto-float quarto-float-tbl figure"><figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-text-file-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="tbl-text-file-extensions" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-text-file-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.1: Some common text file extensions and the content the extension usually indicates.
 </figcaption><div aria-describedby="tbl-text-file-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table cell table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Extension</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Content usually inside</th>
@@ -382,11 +383,11 @@ Table&nbsp;3.1: Some common text file extensions and the content the extension u
 </div>
 </div>
 <p>Plain text files are extremely portable which means they can be opened on any computer by a very large number of programs. Simple text editors which exist on any system like Windows Notepad or Mac’s TextEdit will open text files where as they will not open program-specific files like, for example, .xlsx (Excel) or .docx (Word) files (<a href="#fig-xlsx-in-notepad" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>). It is usually easy for application designers to make an application manage plain text files. This means</p>
-<div id="fig-xlsx-in-notepad" class="quarto-figure quarto-figure-center anchored" alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable">
+<div id="fig-xlsx-in-notepad" class="quarto-figure quarto-figure-center quarto-float anchored" alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-xlsx-in-notepad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/xlsx-in-notepad.png" class="img-fluid figure-img" alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-xlsx-in-notepad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xlsx-in-notepad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.1: Notepad will open an Excel file but the contents are a mess of strange characters
 </figcaption></figure>
 </div>
@@ -395,12 +396,12 @@ Figure&nbsp;3.1: Notepad will open an Excel file but the contents are a mess of 
 <span class="header-section-number">3.3</span> Plain text files with markup</h2>
 <p>Text files can also include “markup” which are text characters used to annotate text to control how it is displayed or processed. Such files retain their portability and are human readable. You will have used them often! (<a href="#tbl-mark-up-text-file-extensions" class="quarto-xref">Table&nbsp;<span>3.2</span></a>)</p>
 <div class="cell">
-<div id="tbl-mark-up-text-file-extensions" class="cell anchored">
-<figure class="quarto-float quarto-float-tbl figure"><figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-mark-up-text-file-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="tbl-mark-up-text-file-extensions" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mark-up-text-file-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3.2: Some common markup file extensions and the content the extension usually indicates.
 </figcaption><div aria-describedby="tbl-mark-up-text-file-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table cell table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Extension</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Used for</th>
@@ -455,11 +456,11 @@ Table&nbsp;3.2: Some common markup file extensions and the content the extension
 <p>Consequently it is common to use the the word directory in scientific computing.</p>
 <p>Folders can contain sub-folders, which can contain their own sub-folders, and so on almost without limit.</p>
 <p>It is easiest to picture a file system, or part of it, as a tree that starts at a directory and branches out from there. This is called a hierarchical structure. <a href="#fig-file-system" class="quarto-xref">Figure&nbsp;<span>3.2</span></a> shows an example of a hierarchical file structure that starts at a directory called <code>home</code>:</p>
-<div id="fig-file-system" class="quarto-figure quarto-figure-center anchored" alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files">
+<div id="fig-file-system" class="quarto-figure quarto-figure-center quarto-float anchored" alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-file-system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/file-system.png" class="img-fluid figure-img" alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-file-system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-file-system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.2: A file hierarchy containing 4 levels of folders and files. Figure adapted from <span class="citation" data-cites="randemma2022">(<a href="references.html#ref-randemma2022" role="doc-biblioref">Rand, Emma et al. 2022</a>)</span>.
 </figcaption></figure>
 </div>
@@ -468,30 +469,30 @@ Figure&nbsp;3.2: A file hierarchy containing 4 levels of folders and files. Figu
 <p>File managers are the basic way that you interact with the file system on your computer. They allows you to move, copy, and delete files. You can also launch applications from them and and connect to other networks. The windows file explorer is called File Explorer and on Mac it is called Finder (<a href="#fig-explorer-icons" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>).</p>
 <div id="fig-explorer-icons" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-explorer-icons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-explorer-icons" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-windows-explorer" class="quarto-figure quarto-figure-center anchored" width="100">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-explorer-icons" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-windows-explorer" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-windows-explorer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/icon-file-explorer-windows.png" class="img-fluid figure-img" data-ref-parent="fig-explorer-icons" width="100">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-windows-explorer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-windows-explorer-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) File Explorer (Windows)
 </figcaption></figure>
 </div>
 </div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-explorer-icons" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-mac-finder" class="quarto-figure quarto-figure-center anchored" width="100">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-explorer-icons" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-mac-finder" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-mac-finder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/icon-finder-mac.png" class="img-fluid figure-img" data-ref-parent="fig-explorer-icons" width="100">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-mac-finder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-mac-finder-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Finder (Mac)
 </figcaption></figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-explorer-icons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-explorer-icons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.3: File manager programs in Windows and Mac
 </figcaption></figure>
 </div>
@@ -502,32 +503,32 @@ Figure&nbsp;3.3: File manager programs in Windows and Mac
 </ul>
 <div id="fig-show-extensions" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-show-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-show-extensions" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-show-extensions-windows" class="quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-show-extensions" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-show-extensions-windows" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-show-extensions-windows-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/show-extensions-windows.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-show-extensions-windows-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-show-extensions-windows-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Windows
 </figcaption></figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-show-extensions" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-show-extensions-mac" class="quarto-figure quarto-figure-center anchored">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-show-extensions" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-show-extensions-mac" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-show-extensions-mac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/show-extensions-mac.png" class="img-fluid figure-img" data-ref-parent="fig-show-extensions">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-show-extensions-mac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-show-extensions-mac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Mac
 </figcaption></figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-show-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.4: Showing file extensions in Windows and Mac
 </figcaption></figure>
 </div>
@@ -535,11 +536,11 @@ Figure&nbsp;3.4: Showing file extensions in Windows and Mac
 <span class="header-section-number">3.7</span> Root and home directories</h2>
 <p>The top-level of directory on a computer system is known as the “root directory”. The root is represented as a <code>/</code> in Mac and Linux operating systems. In Windows the root directory is also known as a drive. In most cases, this will be the <code>C:\</code> drive.</p>
 <p>Even though the root directory is at the base of the file tree (or the top, depending on how you view it), it is not necessarily where our journey through the file system starts when we launch a new session on our computer. Instead our journey begins in the so called “home directory”. You home directory is not usually named <code>home</code> but with your username for that computer. Your personal files and directories can be found inside this folder. This is where your computer assumes you want to start when you open your file manager. On Windows and Mac your home directory is a directory <em>inside</em> the directory called <code>Users</code> immediately under the root and named with your username (<a href="#fig-file-system-root" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>).</p>
-<div id="fig-file-system-root" class="quarto-figure quarto-figure-center anchored" alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder.">
+<div id="fig-file-system-root" class="quarto-figure quarto-figure-center quarto-float anchored" alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder.">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-file-system-root-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/file-system-root.png" class="img-fluid figure-img" alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder.">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-file-system-root-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-file-system-root-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.5: The hierarchy from the root. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder. Figure adapted from <span class="citation" data-cites="randemma2022">(<a href="references.html#ref-randemma2022" role="doc-biblioref">Rand, Emma et al. 2022</a>)</span>.
 </figcaption></figure>
 </div>
@@ -617,10 +618,10 @@ Figure&nbsp;3.5: The hierarchy from the root. The top level is <code>C:\</code> 
 Rand, Emma, Chong, James, Buenabad-Chavez, Jorge, Cansdale, Annabel, Forrester, Sarah, and Greeves, Evelyn. 2022. <span>“Cloud-SPAN/00genomics: Cloud-SPAN Genomics Course Overview,”</span> May. <a href="https://doi.org/10.5281/ZENODO.6564314">https://doi.org/10.5281/ZENODO.6564314</a>.
 </div>
 </div>
-</section><aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Windows uses backslashes because it did not have directories in 1981 when it’s predecessor, MS DOS, was released. At the time it used the <code>/</code> character for ‘switches’ (instead of the existing convention <code>-</code> ) so when it did start using directories it couldn’t use <code>/</code><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></aside></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -843,6 +844,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -892,38 +911,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -932,8 +941,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1152,29 +1168,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./machine_and_os.html" class="pagination-link">
+      <a href="./machine_and_os.html" class="pagination-link  aria-label=" and="" operating="" systems="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./organising_work.html" class="pagination-link">
+      <a href="./organising_work.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>Organising your work</span>">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1186,7 +1187,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file_systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
