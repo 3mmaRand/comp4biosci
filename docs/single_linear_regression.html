@@ -322,7 +322,7 @@ div.csl-indent {
 <a href="#single-linear-regression" id="toc-single-linear-regression" class="nav-link" data-scroll-target="#single-linear-regression"><span class="header-section-number">12.3</span> Single linear regression</a>
   <ul class="collapse">
 <li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">12.3.1</span> Import and explore</a></li>
-  <li><a href="#apply-lm" id="toc-apply-lm" class="nav-link" data-scroll-target="#apply-lm"><span class="header-section-number">12.3.2</span> Apply <code>lm()</code></a></li>
+  <li><a href="#do-a-regression-with-lm" id="toc-do-a-regression-with-lm" class="nav-link" data-scroll-target="#do-a-regression-with-lm"><span class="header-section-number">12.3.2</span> Do a regression with <code>lm()</code></a></li>
   <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">12.3.3</span> Check assumptions</a></li>
   <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">12.3.4</span> Report</a></li>
   </ul>
@@ -364,33 +364,29 @@ First draft
 <span class="header-section-number">12.1</span> Overview</h2>
 <p>Single linear regression is an appropriate way to analyse data when:</p>
 <ul>
-<li>you have two continuous variables</li>
-<li>there is a cause and effect relationship between the variables</li>
-<li>the explanatory variable has been chosen, set or manipulated and the other variable is the measured response</li>
-<li>the relationship between the variables is linear</li>
+<li>You have two continuous variables</li>
+<li>One of the variables is explanatory and the other is a response. That is, one variable, the <span class="math inline">\(x\)</span>, “causes” the <span class="math inline">\(y\)</span>.</li>
+<li>The explanatory variable has been chosen, set or manipulated and the other variable is the measured response. This is sometimes described as the <span class="math inline">\(x\)</span> being “sampled without error”</li>
+<li>The response variable, <span class="math inline">\(y\)</span>, is randomly sampled for each <span class="math inline">\(x\)</span> with a normal distribution and those normal distributions have the same variance.</li>
+<li>The relationship between the variables is linear</li>
 </ul>
-<p>include principle: var explained by model is greater then residual var. are the parameters different from zero.</p>
-<p>y ### Assumptions Linear</p>
-<p>Prediction: One variable causes the other</p>
-<p>Axes cannot be switched</p>
-<p>X is “sampled without error”; y randomly sampled for each x</p>
+<p>Applying a single linear regression to data means putting a line of best fit through it. The intercept and the slope of the true population relationship is estimated from the sample you have. We test whether those two parameters differ significantly from zero.</p>
 <section id="reporting" class="level3" data-number="12.1.1"><h3 data-number="12.1.1" class="anchored" data-anchor-id="reporting">
 <span class="header-section-number">12.1.1</span> Reporting</h3>
-<p>Reporting the result: “significance of effect, direction of effect, magnitude of effect”</p>
-<p>In reporting the result of two-sample test we give:</p>
+<p>Reporting <a href="https://3mmarand.github.io/comp4biosci/what_statistical_model.html#reporting">the significance of effect, direction of effect, magnitude of effect</a> for a single linear regression means making the following clear to the reader:</p>
 <ol type="1">
-<li><p>the significance of effect - whether there is there an effect</p></li>
-<li><p>the direction of effect - positive or negative slope</p></li>
-<li><p>the magnitude of effect - slope</p></li>
+<li><p>the significance of effect - whether the slope is significantly different from zero</p></li>
+<li><p>the direction of effect - whether the slope is positive or negative</p></li>
+<li><p>the magnitude of effect - the slope itself</p></li>
 </ol>
 <p>Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:</p>
 <p>We will explore all of these ideas with an example.</p>
 </section></section><section id="your-turn" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="your-turn">
 <span class="header-section-number">12.2</span> 🎬 Your turn!</h2>
-<p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a> then a new script.</p>
+<p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
 </section><section id="single-linear-regression" class="level2" data-number="12.3"><h2 data-number="12.3" class="anchored" data-anchor-id="single-linear-regression">
 <span class="header-section-number">12.3</span> Single linear regression</h2>
-<p>Three replicates water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C) Ten Brine Shrimp (<em>Artemia salina</em>) were placed in each and their average respiration rate per water bath was measured (in arbitrary units). The data are in <a href="data-raw/shrimp.txt">shrimp.txt</a></p>
+<p>Three replicates water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (<em>Artemia salina</em>) were placed in each and their average respiration rate per water bath was measured (in arbitrary units). The data are in <a href="data-raw/shrimp.txt">shrimp.txt</a>.</p>
 <section id="import-and-explore" class="level3" data-number="12.3.1"><h3 data-number="12.3.1" class="anchored" data-anchor-id="import-and-explore">
 <span class="header-section-number">12.3.1</span> Import and explore</h3>
 <p>Import the data:</p>
@@ -473,7 +469,12 @@ First draft
 </div>
 </div>
 <p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the respiration values are in one column with another column indicating the water bath temperature. There is only one water bath per row. This means they are well formatted for analysis and plotting.</p>
-<p>In the first instance, it is sensible to create a rough plot of our data (See <a href="#fig-shrimp-rough" class="quarto-xref">Figure&nbsp;<span>12.1</span></a>). Plotting data early helps us in multiple ways: - it helps identify whether there missing or extreme values - it allows us to see if the relationship is roughly linear - it tells us whether any relationship positive or negative</p>
+<p>In the first instance, it is sensible to create a rough plot of our data (See <a href="#fig-shrimp-rough" class="quarto-xref">Figure&nbsp;<span>12.1</span></a>). Plotting data early helps us in multiple ways:</p>
+<ul>
+<li>it helps identify whether there missing or extreme values</li>
+<li>it allows us to see if the relationship is roughly linear</li>
+<li>it tells us whether any relationship positive or negative</li>
+</ul>
 <p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>,</span>
@@ -485,14 +486,14 @@ First draft
 <img src="single_linear_regression_files/figure-html/fig-shrimp-rough-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-shrimp-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12.1: A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly
+Figure&nbsp;12.1: A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <p>The figure suggests that respiration rate increases with temperature and there are no particularly extreme values. We can also see that any relationship is roughly linear.</p>
-</section><section id="apply-lm" class="level3" data-number="12.3.2"><h3 data-number="12.3.2" class="anchored" data-anchor-id="apply-lm">
-<span class="header-section-number">12.3.2</span> Apply <code>lm()</code>
+</section><section id="do-a-regression-with-lm" class="level3" data-number="12.3.2"><h3 data-number="12.3.2" class="anchored" data-anchor-id="do-a-regression-with-lm">
+<span class="header-section-number">12.3.2</span> Do a regression with <code>lm()</code>
 </h3>
 <p>We can create a single linear regression model like this:</p>
 <div class="cell">
@@ -520,14 +521,16 @@ Figure&nbsp;12.1: A default scatter plot of the relationship between temperature
 <span><span class="co">## Multiple R-squared:  0.8378, Adjusted R-squared:  0.8253 </span></span>
 <span><span class="co">## F-statistic: 67.13 on 1 and 13 DF,  p-value: 1.719e-06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The Estimates in the Coefficients table give:</p>
+<p>What do all these results mean?</p>
+<p>The <code>Estimate</code> in the <code>Coefficients</code> table give:</p>
 <ul>
 <li><p>the <code>(Intercept)</code> known as <span class="math inline">\(\beta_0\)</span>, which is the value of the <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero.</p></li>
 <li><p>the slope labelled <code>temperature</code> known as <span class="math inline">\(\beta_1\)</span>, which is the amount of <em>y</em> you add for each unit of <em>x</em>. <code>temperature</code> is positive so respiration rate increases with temperature</p></li>
 </ul>
+<p><a href="#fig-regression-lm-model" class="quarto-xref">Figure&nbsp;<span>12.2</span></a> shows the model and its parameters.</p>
 <p>The <em>p</em>-values on each line are tests of whether that coefficient is different from zero. Thus it is:</p>
 <p><code>temperature  0.91850    0.09182  10.003 1.79e-07 ***</code></p>
-<p>that tells us the relationship is significant.</p>
+<p>that tells us the slope is significantly different from zero and thus there <em>is</em> a significant relationship between temperature and respiration rate.</p>
 <p>The <em>F</em> value and <em>p</em>-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a regression, this is exactly equivalent to the test of the slope against zero and the two <em>p</em>-values will be the same.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -543,22 +546,38 @@ Figure&nbsp;12.2: In a linear model, the first estimate is the intercept and the
 </div>
 </section><section id="check-assumptions" class="level3" data-number="12.3.3"><h3 data-number="12.3.3" class="anchored" data-anchor-id="check-assumptions">
 <span class="header-section-number">12.3.3</span> Check assumptions</h3>
-<p>Check the assumptions: All t-tests assume the “residuals” are normally distributed and have homogeneity of variance.</p>
-<p>First use common sense: respiration is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed</p>
-<p>Second by plotting residuals:</p>
+<p>Check the assumptions: All general linear models assume the “residuals” are normally distributed and have “homogeneity” of variance.</p>
+<p>Our first check of these assumptions is to use common sense: respiration is a continuous variable and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed</p>
+<p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-regression-plot1" class="quarto-xref">Figure&nbsp;<span>12.3</span></a>). This is a good way to check for homogeneity of variance.</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
+<div id="fig-regression-plot1" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-regression-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="single_linear_regression_files/figure-html/fig-regression-plot1-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-regression-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.3: A plot of the residuals against the fitted values shows no obvious pattern as the points are roughly evenly distributed around the line. This is a good sign for the assumption of homogeneity of variance.
+</figcaption></figure>
 </div>
 </div>
+</div>
+<p>We can also use a histogram to check for normality (See <a href="#fig-regression-plot2" class="quarto-xref">Figure&nbsp;<span>12.4</span></a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="single_linear_regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
+<div id="fig-regression-plot2" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-regression-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="single_linear_regression_files/figure-html/fig-regression-plot2-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-regression-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
+</figcaption></figure>
 </div>
 </div>
+</div>
+<p>Finally, we can use the Shapiro-Wilk test to test for normality.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
@@ -567,14 +586,11 @@ Figure&nbsp;12.2: In a linear model, the first estimate is the intercept and the
 <span><span class="co">## data:  mod$residuals</span></span>
 <span><span class="co">## W = 0.95115, p-value = 0.5428</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Checking the assumptions: normally distributed residuals</p>
-<ul>
-<li>Variance is about the same for all values of x</li>
-<li>Looks roughly normal, symmetrical</li>
-<li>test with shapiro. is NS. note that not significant means not significantly different from a normal distribution. It does not mean definitely normally distributed</li>
-</ul></section><section id="report" class="level3" data-number="12.3.4"><h3 data-number="12.3.4" class="anchored" data-anchor-id="report">
+<p>The p-value is greater than 0.05 so this test of the normality assumption is not significant. Note that “not significant” means not significantly different from a normal distribution. It does not mean definitely normally distributed.</p>
+<p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.</p>
+</section><section id="report" class="level3" data-number="12.3.4"><h3 data-number="12.3.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">12.3.4</span> Report</h3>
-<p>The temperature explained a significant amount of the variation in respiration rate (ANOVA: <em>F</em> = 67; <em>d.f</em>. = 1, 13; <em>p</em> &lt; 0.001). The regression line is: Respiration rate = 4.86 + 0.92 * temperature. See <a href="#fig-shrimp" class="quarto-xref">Figure&nbsp;<span>12.3</span></a>.</p>
+<p>The temperature explained a significant amount of the variation in respiration rate (ANOVA: <em>F</em> = 67; <em>d.f</em>. = 1, 13; <em>p</em> &lt; 0.001). The regression line is: Respiration rate = 4.86 + 0.92 * temperature. See <a href="#fig-shrimp" class="quarto-xref">Figure&nbsp;<span>12.5</span></a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>, </span>
 <span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">respiration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -595,7 +611,7 @@ Figure&nbsp;12.2: In a linear model, the first estimate is the intercept and the
 <img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-shrimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12.3: The effect of altering water bath temperature on the average respiration rate of brine shrimps.
+Figure&nbsp;12.5: The effect of altering water bath temperature on the average respiration rate of brine shrimps.
 </figcaption></figure>
 </div>
 </div>
@@ -605,6 +621,9 @@ Figure&nbsp;12.3: The effect of altering water bath temperature on the average r
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
 </div>
 </div>
 </section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

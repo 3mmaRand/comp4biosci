@@ -12,38 +12,25 @@ status("polishing")
 Single linear regression is an appropriate way to analyse data when:
 
 
--   you have two continuous variables
--   there is a cause and effect relationship between the variables
--   the explanatory variable has been chosen, set or manipulated and the other variable is the measured response
--   the relationship between the variables is linear
+-   You have two continuous variables
+-   One of the variables is explanatory and the other is a response. That is, one variable, the $x$, "causes" the $y$. 
+-   The explanatory variable has been chosen, set or manipulated and the other variable is the measured response. This is sometimes described as the $x$ being   “sampled without error”
+-   The response variable, $y$, is randomly sampled for each $x$ with a normal distribution and those normal distributions have the same variance.
+-   The relationship between the variables is linear
 
-include principle: var explained by model is greater then residual var. are the parameters different from zero. 
+Applying a single linear regression to data means putting a line of best fit through it. The intercept and the slope of the true population relationship is estimated from the sample you have. We test whether those two parameters differ significantly from zero. 
 
-y
-
-### Assumptions
-
-Linear
-
-Prediction: One variable causes the other
-
-Axes cannot be switched
-
-X is “sampled without error”; y randomly sampled for each x
 
 ### Reporting
 
-Reporting the result: “significance of effect, direction of effect, magnitude of effect”
+Reporting [the significance of effect, direction of effect, magnitude of effect](https://3mmarand.github.io/comp4biosci/what_statistical_model.html#reporting) for a single linear regression means making the following clear to the reader:
 
 
-In reporting the result of two-sample test we give:
+1. the significance of effect - whether the slope is significantly different from zero 
 
-1. the significance of effect - whether there is there an effect 
+2. the direction of effect - whether the slope is positive or negative
 
-2. the direction of effect - positive or negative slope
-
-3. the magnitude of effect - slope
-
+3. the magnitude of effect - the slope itself
 
 Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:
 
@@ -51,12 +38,13 @@ We will explore all of these ideas with an example.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects) then a new script.
+If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects), add a `data-raw` folder and open a new script. You will also need to load the **`tidyverse`** package [@tidyverse].
+
 
 ## Single linear regression
 
 
-Three replicates water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C) Ten Brine Shrimp (*Artemia salina*) were placed in each and their average respiration rate per water bath was measured (in arbitrary units). The data are in [shrimp.txt](data-raw/shrimp.txt)
+Three replicates water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were placed in each and their average respiration rate per water bath was measured (in arbitrary units). The data are in [shrimp.txt](data-raw/shrimp.txt).
 
 ### Import and explore
 
@@ -77,6 +65,7 @@ knitr::kable(shrimp) %>%
 These data are in tidy format [@Wickham2014-nl] - all the respiration values are in one column with another column indicating the water bath temperature. There is only one water bath per row. This means they are well formatted for analysis and plotting.
 
 In the first instance, it is sensible to create a rough plot of our data (See @fig-shrimp-rough). Plotting data early helps us in multiple ways:
+
 -   it helps identify whether there missing or extreme values
 -   it allows us to see if the relationship is roughly linear
 -   it tells us whether any relationship positive or negative 
@@ -85,7 +74,7 @@ Scatter plots (`geom_point()`) are a good choice for exploratory plotting with d
 
 ```{r}
 #| label: fig-shrimp-rough
-#| fig-cap: "A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly"
+#| fig-cap: "A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly."
 
 ggplot(data = shrimp,
        aes(x = temperature, y = respiration)) +
@@ -94,7 +83,7 @@ ggplot(data = shrimp,
 
 The figure suggests that respiration rate increases with temperature and there are no particularly extreme values. We can also see that any relationship is roughly linear. 
 
-### Apply `lm()`
+### Do a regression with `lm()`
 
 We can create a single linear regression model like this:
 
@@ -115,17 +104,21 @@ b1 <- mod$coefficients[2] |> round(2)
 ```
 
 
-The Estimates in the Coefficients table give:
+What do all these results mean?
+
+The `Estimate` in the `Coefficients` table give:
 
 -   the `(Intercept)` known as $\beta_0$,  which is the value of the *y* (the response) when the value of *x* (the explanatory) is zero. 
 
 -   the slope labelled `temperature` known as $\beta_1$, which is the amount of *y* you add for each unit of *x*. `temperature` is positive so respiration rate increases with temperature
 
+@fig-regression-lm-model shows the model and its parameters.
+
 The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
 
 `temperature  0.91850    0.09182  10.003 1.79e-07 ***`
 
-that tells us the relationship is significant.
+that tells us the slope is significantly different from zero and thus there *is* a significant  relationship between temperature and respiration rate.
 
 The *F* value and *p*-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a regression, this is exactly equivalent to the test of the slope against zero and the two *p*-values will be the same.
 
@@ -186,30 +179,36 @@ ggplot(data = shrimp,
 
 ### Check assumptions
 
-Check the assumptions: All t-tests assume the "residuals" are normally distributed and have homogeneity of variance.
+Check the assumptions: All general linear models assume the "residuals" are normally distributed and have "homogeneity" of variance.
 
-First use common sense: respiration is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed
+Our first check of these assumptions is to use common sense: respiration is a continuous variable and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed
 
-Second by plotting residuals:
+We then proceed by plotting residuals. The `plot()` function can be used to plot the residuals against the fitted values (See @fig-regression-plot1). This is a good way to check for homogeneity of variance. 
 
 ```{r}
+#| label: fig-regression-plot1
+#| fig-cap: "A plot of the residuals against the fitted values shows no obvious pattern as the points are roughly evenly distributed around the line. This is a good sign for the assumption of homogeneity of variance."
+
 plot(mod, which = 1)
 ```
 
+We can also use a histogram to check for normality (See @fig-regression-plot2).
+
 ```{r}
+#| label: fig-regression-plot2
+#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 5)
 ```
 
+Finally, we can use the Shapiro-Wilk test to test for normality.
 ```{r}
 shapiro.test(mod$residuals)
 ```
 
-Checking the assumptions: normally distributed residuals
+The p-value is greater than 0.05 so this test of the normality assumption is not significant. Note that "not significant" means not significantly different from a normal distribution. It does not mean definitely normally distributed.
 
--   Variance is about the same for all values of x
--   Looks roughly normal, symmetrical
--   test with shapiro. is NS. note that not significant means not significantly different from a normal distribution. It does not mean definitely normally distributed
+Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.
 
 ### Report
 
