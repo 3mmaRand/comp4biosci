@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.543">
+<meta name="generator" content="quarto-1.4.395">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 9&nbsp; The logic of hyothesis testing</title>
 <style>
@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
+  "limit": 20,
   "keyboard-shortcut": [
     "f",
     "/",
@@ -59,7 +59,6 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -68,42 +67,17 @@ ul.task-list li input[type="checkbox"] {
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
+</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./logic_hyopthesis_testing.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -111,7 +85,7 @@ window.Quarto = {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
@@ -276,7 +250,7 @@ window.Quarto = {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
@@ -316,22 +290,22 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-First draft
+Just needs proof reading
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
+<p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
 </div>
 </div>
 <section id="what-is-hypothesis-testing" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="what-is-hypothesis-testing">
 <span class="header-section-number">9.1</span> What is Hypothesis testing?</h2>
-<p>Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. We almost always have to use samples because we are very rarely able to measure every observation in a population. For example, if we are interested in knowing if maternal poverty influences birth weight we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance.</p>
+<p>Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. We almost always have to use samples because we are very rarely able to measure every observation in a population. For example, if we are interested in knowing if maternal poverty influences birth weight we would not be able to measure the birth weight of every baby in our population. Instead we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance.</p>
 </section><section id="samples-and-populations" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="samples-and-populations">
 <span class="header-section-number">9.2</span> Samples and populations</h2>
 </section><section id="logic-of-hypothesis-testing" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="logic-of-hypothesis-testing">
@@ -340,7 +314,7 @@ First draft
 <ol type="1">
 <li>Formulating a “Null Hypothesis” denoted <span class="math inline">\(H_0\)</span>. The null hypothesis is what we expect to happen if nothing interesting is happening. It states that there is no difference between groups or no relationship between variables. In contrast, the “Alternative Hypothesis” (<span class="math inline">\(H_1\)</span>) states that there is a significant difference between groups or a relationship between variables.</li>
 <li>Designing an experiment that generates data to test the null hypothesis.</li>
-<li>Determine the probability (the <em>p</em>-value) of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true.</li>
+<li>Finding the probability (the <em>p</em>-value) of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true.</li>
 <li>Deciding whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability:
 <ul>
 <li>If p ≤ 0.05 we reject <span class="math inline">\(H_0\)</span>
@@ -350,7 +324,7 @@ First draft
 </ul>
 </li>
 </ol>
-<p>If the null hypothesis is rejected it means we have evidence that <span class="math inline">\(H_0\)</span> is untrue and support for <span class="math inline">\(H_1\)</span>. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. Note that it does not mean that <span class="math inline">\(H_0\)</span> is true, just that it cannot be discounted. Since, there is a real state to <span class="math inline">\(H_0\)</span>, it is either true or not true and we make a decision to reject or not reject it, we can be wrong.</p>
+<p>If the null hypothesis is rejected it means we have evidence that <span class="math inline">\(H_0\)</span> is untrue and support for <span class="math inline">\(H_1\)</span>. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. Note that it does not mean that <span class="math inline">\(H_0\)</span> is true, just that it cannot be discounted. Since there is a real state to <span class="math inline">\(H_0\)</span>, that is, <span class="math inline">\(H_0\)</span> is either true or not true, and we make a decision to reject or not reject it, we can be wrong.</p>
 <section id="type-i-and-type-ii-errors" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="type-i-and-type-ii-errors">
 <span class="header-section-number">9.3.1</span> Type I and type II errors</h3>
 <p>Type I and type II errors describe the cases when we make the wrong decision about the null hypothesis. These errors are inherent in the approach rather than mistakes you can prevent.</p>
@@ -358,13 +332,13 @@ First draft
 <li>A type I error occurs when we reject a null hypothesis that is true. This can be thought of as a false positive. It is a real error in that we have a real difference or effect. Since we use a probability of 0.05 to reject the null hypothesis, we will make a type I error 5% of the time.</li>
 <li>A type II error occurs when we do not reject a null hypothesis that is false. This is a false negative. It is not a real error in the sense that we only conclude we do not have enough evidence to reject the null hypothesis.</li>
 <li>If we reject a null hypothesis that is false we have not made an error.</li>
-<li>if we do not reject a null hypothesis that is true we have not made an error.</li>
+<li>If we do not reject a null hypothesis that is true we have not made an error.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="images/type-1-2-errors.png" class="img-fluid figure-img" alt="tabular representation of type I and II error. If we reject a true H0 we have made a type I error; if we do not reject a true H0 we have not made an error. If we do not reject a false H0 we have not made an error; if we do reject a false H0 we have made a type II error"></p>
+<figure class="figure"><p><img src="images/type-1-2-errors.png" class="img-fluid figure-img"></p>
 <figcaption>Type I and Type II errors.</figcaption></figure>
 </div>
-<p>We can decrease our chance of making a type I error by reducing the the <em>p</em>-value required to reject the null hypothesis but this will increase our chance of making a type II error. We can decrease our chance of making a type II error by collecting enough data. The amount of data needed will depend on the the size of the effect relative to the random variation in the data.</p>
+<p>We can decrease our chance of making a type I error by reducing the the <em>p</em>-value required to reject the null hypothesis. However, this will increase our chance of making a type II error. We can decrease our chance of making a type II error by collecting enough data. The amount of data needed will depend on the the size of the effect relative to the random variation in the data.</p>
 </section></section><section id="sampling-distribution-of-the-mean" class="level2" data-number="9.4"><h2 data-number="9.4" class="anchored" data-anchor-id="sampling-distribution-of-the-mean">
 <span class="header-section-number">9.4</span> Sampling distribution of the mean</h2>
 <p>The sampling distribution of the mean is a fundamental concept in hypothesis testing and constructing confidence intervals. Parametric tests such as regression, two-sample tests and ANOVA (all applied with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>) are based on the sampling distribution of the mean. It is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples were taken.</p>
@@ -376,11 +350,11 @@ First draft
 <p>When we are determining the probability of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true, it is the sampling distribution of the mean that matters. We ask what is the probability of getting a sample mean like this.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sample-dist-means" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-sample-dist-means" class="quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sample-dist-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="logic_hyopthesis_testing_files/figure-html/fig-sample-dist-means-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-dist-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-sample-dist-means-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.1: The sampling distribution of the means is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples of size n were taken. The sampling distribution of the mean has a standard devation which is smaller than the population and is called the standard error.
 </figcaption></figure>
 </div>
@@ -395,11 +369,11 @@ Figure&nbsp;9.1: The sampling distribution of the means is a theoretical distrib
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-null-example" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-null-example" class="quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-null-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="logic_hyopthesis_testing_files/figure-html/fig-null-example-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-null-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-null-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.2: Distribution of the population of birth weights has a mean of 3300 g and a standard deviation of 900. The null hypothesis is that the mean birth weight of babies born to women in poverty is the same as the national average of 3300 g.
 </figcaption></figure>
 </div>
@@ -411,11 +385,11 @@ Figure&nbsp;9.2: Distribution of the population of birth weights has a mean of 3
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sample-dist-means-example" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-sample-dist-means-example" class="quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sample-dist-means-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="logic_hyopthesis_testing_files/figure-html/fig-sample-dist-means-example-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-dist-means-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-sample-dist-means-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.3: The probability of getting a sample mean of 3000 or less is the area under the sampling distribution of the mean to the left of 3000.
 </figcaption></figure>
 </div>
@@ -423,11 +397,11 @@ Figure&nbsp;9.3: The probability of getting a sample mean of 3000 or less is the
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-sample-dist-means-example2" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-sample-dist-means-example2" class="quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-sample-dist-means-example2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="logic_hyopthesis_testing_files/figure-html/fig-sample-dist-means-example2-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sample-dist-means-example2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-sample-dist-means-example2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.4: The probability of getting a sample mean of 3000 or more extreme is the area under the sampling distribution of the mean to the left of 3000 plus that to the right of 3600. This is because 3600 is as extreme (as far away from the mean) as 3000.
 </figcaption></figure>
 </div>
@@ -661,24 +635,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -728,28 +684,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
+        typesetMath(container);
         return container.innerHTML
       } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
+        typesetMath(note);
         return note.innerHTML;
       }
     } else {
@@ -758,15 +724,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      typesetMath(note);
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -985,14 +944,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./statistical_analysis_1.html" class="pagination-link  aria-label=" statistical="" analysis="" part="">
+      <a href="./statistical_analysis_1.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Statistical Analysis - Part 1</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./confidence_intervals.html" class="pagination-link" aria-label="<span class='chapter-number'>10</span>&nbsp; <span class='chapter-title'>Confidence Intervals</span>">
+      <a href="./confidence_intervals.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1004,7 +978,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/logic_hyopthesis_testing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -10,7 +10,7 @@ status("polishing")
 
 ## What is a confidence interval?
 
-When we calculate a mean from a sample, we are using it to estimate the mean of the population. Confidence intervals are a range of values and are a way to quantify the uncertainty in our estimate. When we report a mean with its 95% confidence interval we given the mean plus and minus some variation. We are saying that 95% of the time, that range will contain the population mean.
+When we calculate a mean from a sample, we are using it to estimate the mean of the population. Confidence intervals are a range of values and are a way to quantify the uncertainty in our estimate. When we report a mean with its 95% confidence interval we give the mean plus and minus some variation. We are saying that 95% of the time, that range will contain the population mean.
 
 The confidence interval is calculated from the sample mean and the standard error of the mean. The standard error of the mean is the standard deviation of the [sampling distribution of the mean](logic_hyopthesis_testing.html#sampling-distribution-of-the-mean).
 
@@ -18,7 +18,7 @@ To understand confidence intervals we need to understand some properties of the 
 
 ## The normal distribution
 
-A [distribution](ideas_about_data.html#distributions) describes the values the variable can take and the chance of them occurring. A distribution has a general type, given by the function and is further tuned by the parameters in the function. For the normal distribution these parameters are the mean and the standard deviation. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (@fig-normal-distributions).
+A [distribution](ideas_about_data.html#distributions) describes the *values* the variable can take and the *chance* of them occurring. A distribution has a general type, given by the function, and is further tuned by the *parameters* in the function. For the normal distribution these parameters are the mean and the standard deviation. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (@fig-normal-distributions).
 
 ```{r}
 #| echo: false
@@ -73,7 +73,7 @@ a + b + plot_layout(ncol = 2)
 
 ```
 
-Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one stadrad deviation from the mean and 95% values lie between +/-1.96 standard deviations., Another way of saying this is that there is a 95% chance that a value will lie between +/-1.96 standard deviations from the mean. This is illustrated in @fig-norm-dist-means-properties.
+Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one standard deviation from the mean and 95% values lie between +/-1.96 standard deviations.  Another way of saying this is that there is a 95% chance that a randomly selected value will lie between +/-1.96 standard deviations from the mean. This is illustrated in @fig-norm-dist-means-properties.
 
 ```{r}
 #| echo: false
@@ -147,7 +147,8 @@ For any distribution, R has four functions:
 -   the quantile function which is the inverse of the Distribution function, *i.e.*, it returns the value ('quantile') for a given probability.
 -   the random number generating function
 
-The functions are named with a letter `d`, `p`, `q` or `r` preceding the distribution name. For example:
+The functions are named with a letter `d`, `p`, `q` or `r` preceding the distribution name. @tbl-rdistrib shows these four functions for the normal, binomial, Poisson and t distributions.
+
 
 | Distribution | Density    | Distribution | Quantile   | Random number generating |
 |--------------|------------|--------------|------------|--------------------------|
@@ -156,7 +157,7 @@ The functions are named with a letter `d`, `p`, `q` or `r` preceding the distrib
 | Poisson      | `dpois()`  | `ppois()`    | `qpois()`  | `rpois()`                |
 | t            | `dt()`     | `pt()`       | `qt()`     | `rt()`                   |
 
-: R functions that provide values for some example distributions
+: R functions that provide values for some example distributions {#tbl-rdistrib}
 
 Searching for the manual with `?normal` or any one of the functions (`?pnorm`) will bring up a single help page for all four associated functions.
 
