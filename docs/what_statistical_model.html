@@ -358,8 +358,8 @@ h_{(t)} = h_{(0) }+ 2t
 <li>
 <span class="math inline">\(h_{(0)}\)</span> is the height of the plant at <span class="math inline">\(t=0\)</span>, <em>i.e.</em>, at two weeks</li>
 </ul>
-<p>This model is a linear model because the relationship between the response variable, height, and the explanatory variable, time, is linear (<a href="#fig-model-1" class="quarto-xref">Figure&nbsp;<span>11.1 (a)</span></a>). The gradient of the line is fixed at 2 cm per day.</p>
-<p>Alternatively, the height might increase by 12% each day. This would be a simple exponential model written as:</p>
+<p>This model is a linear model because the relationship between the response variable, height, and the explanatory variable, time, is linear (See <a href="#fig-model-1" class="quarto-xref">Figure&nbsp;<span>11.1 (a)</span></a>). In a linear model, the gradient of the line is the same no matter what the value of <span class="math inline">\(t\)</span>. In this case, it is fixed at 2 cm per day.</p>
+<p>One alternative is a simple exponential model. In an exponential model, the height might increase by 12% each day and the gradient of the line would increase over time. This model is written as:</p>
 <p><span id="eq-plantgrowth-linear"><span class="math display">\[
 h_{(t)} = h_{(0)}1.2^t
 \tag{11.2}\]</span></span></p>
@@ -373,7 +373,7 @@ h_{(t)} = h_{(0)}1.2^t
 <li>
 <span class="math inline">\(h_{(0)}\)</span> is the height of the plant at <span class="math inline">\(t=0\)</span>, <em>i.e.</em>, at two weeks</li>
 </ul>
-<p>This model is not a straight line (<a href="#fig-model-2" class="quarto-xref">Figure&nbsp;<span>11.1 (b)</span></a>). The gradient of the line increase as time goes on.</p>
+<p>This model is not a straight line (See <a href="#fig-model-2" class="quarto-xref">Figure&nbsp;<span>11.1 (b)</span></a>). The gradient of the line increase as time goes on.</p>
 <div id="fig-model" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -403,15 +403,10 @@ h_{(t)} = h_{(0)}1.2^t
 Figure&nbsp;11.1: Two possible models of plant growth.
 </figcaption></figure>
 </div>
-<!-- ## Types of model -->
-<p>all linear models have the same form</p>
-<p>all exponential models have the same form</p>
-<p>but they have different parameters. the parameter values are chosen to fit that model as well as possible to the data</p>
-<p>when we do statistics we make assumptions about the type of the model</p>
-<p>then estimate the parameter values from the data</p>
-<p>statistical testing determines whether the parameters differ from zero and the fit of the data to the model. determining whether the parameters differ from zero relies on calculating the probabaility or getting the parameter value we got if its true value is zero.</p>
-<p>this means as well as making assumptions about the type of relationship we also make assumptions about the distribution of the data. The assumption we make is that parameter is drawn from a normal distribution. This is a reasonable assumption, because many things are. However, if this assumption is not met, then our probability will not be accurate.</p>
-<p>for this reason, we check the assumptions of our model and test before drawing conclusions. If the assumptions are not met we take some action to transform the data, use a different model with fewer assumptions. Non-parametric tests make fewer assumptions about the distribution of the data. They are called non-parametric because they do not estimate parameters like an intercept and gradient.</p>
+<p>When we do statistics we using a statistical model. This means we are making about the relationship between the explanatory and response variables. For the model we choose, we estimate the parameters of the model from the data. For the linear model of plant growth the parameters are the intercept and gradient of the line.</p>
+<p>Statistical testing determines whether the parameters differ from zero and the fit of the data to the model. Determining whether a parameter differs from zero relies on calculating the probability of getting the estimate we calculate if its true value is zero.</p>
+<p>This means as well as making assumptions about the type of relationship we also make assumptions about the distribution of the data. The assumption we make is that parameter is drawn from a normal distribution. This is a reasonable assumption, because many things are. However, if this assumption is not met, then our probability will not be accurate.</p>
+<p>For this reason, we check the assumptions of our model and test before drawing conclusions. If the assumptions are not met we take some action to transform the data or use a different model with fewer assumptions. Non-parametric tests make fewer assumptions about the distribution of the data. They are called non-parametric because they do not estimate parameters like an intercept and gradient.</p>
 </section><section id="using-a-linear-model-in-practice." class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="using-a-linear-model-in-practice.">
 <span class="header-section-number">11.2</span> Using a linear model in practice.</h2>
 <p>Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.</p>
@@ -485,7 +480,7 @@ SSE = \sum(y_{i}-\hat{y})^2
 <p><span id="eq-r-squared"><span class="math display">\[
 R^2=1-\frac{SSE}{SST}
 \tag{11.7}\]</span></span></p>
-<p>If there were no explanatory variables, the value we would predict for the response variable is its mean. In other words, if you did not know the nutrient level for a randomly chosen bacterial colony the best guess you could make for its eventual diameter is the mean diameter. Thus, a good model should fit the response better than the mean - better than a best guess. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> includes the <span class="math inline">\(R^2\)</span>. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. <a href="#fig-lm-fit" class="quarto-xref">Figure&nbsp;<span>11.3</span></a></p>
+<p>If there were no explanatory variables, the value we would predict for the response variable is its mean. In other words, if you did not know the nutrient level for a randomly chosen bacterial colony the best guess you could make for its eventual diameter is the mean diameter. Thus, a good model should fit the response better than the mean - that is, a good model should fit the response better than a best guess. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> includes the <span class="math inline">\(R^2\)</span>. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. See <a href="#fig-lm-fit" class="quarto-xref">Figure&nbsp;<span>11.3</span></a></p>
 <div id="fig-lm-fit" class="quarto-figure quarto-figure-center anchored" width="400">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lm-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/lm_fit.svg" class="img-fluid figure-img" width="400">
@@ -522,23 +517,26 @@ Figure&nbsp;11.4: A linear model annotated with the terms used in modelling. Mea
 <span class="header-section-number">11.5</span> General linear models in R</h2>
 <p>We use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function in R to analyse data with the general linear model. When you have one explanatory variable the command is:</p>
 <p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>) </code></p>
-<p>The <code>response ~ explanatory</code> part is known as the model <strong>formula</strong>.</p>
+<p>The <code>response ~ explanatory</code> part is known as the model <strong>formula</strong>. These must be the names of two column in the dataframe.</p>
 <p>When you have two explanatory variable we add the second explanatory variable to the formula using a <code>+</code> or a <code>*</code>. The command is:</p>
 <p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory1</em> + <em>explanatory2</em>) </code></p>
 <p>or</p>
 <p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory1</em> * <em>explanatory2</em>) </code></p>
-<p>A model with <code>explanatory1 + explanatory2</code> considers the effects of the two variables independently. A model with <code>explanatory1 * explanatory2</code> considers the effects of the two variables <em>and</em> any interaction between them. You will learn more about independent effects and interactions in <a href="docs/two_way_anova.html">Two-way ANOVA</a></p>
-<p>We usually assign the output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> commands to an object and view it with <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>. The typical workflow would be:</p>
+<p>A model with <code>explanatory1 + explanatory2</code> considers the effects of the two variables independently. A model with <code>explanatory1 * explanatory2</code> considers the effects of the two variables <em>and</em> any interaction between them. You will learn more about independent effects and interactions in <a href="two_way_anova.html">Two-way ANOVA</a></p>
+<p>We usually assign the output of an <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> command to an object and view it with <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>. The typical workflow would be:</p>
 <p><code> mod &lt;- lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>)<br>
 summary(mod) </code></p>
-<p>There are two sorts of statistical tests in the output of <code>summary(mod)</code>: tests of whether each coefficient is significantly different from zero; and an <em>F</em>-test of the model overall.</p>
-<p>The <em>F</em>-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant.</p>
+<p>There are two sorts of statistical tests in the output of <code>summary(mod)</code>:</p>
+<ol type="1">
+<li>tests of whether each coefficient is significantly different from zero and,</li>
+<li>an <em>F</em>-test of the model fit overall</li>
+</ol>
+<p>The <em>F</em>-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant. i.e., whether it explains a significant amount of variation.</p>
 </section><section id="checking-assumptions" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="checking-assumptions">
 <span class="header-section-number">11.6</span> Checking assumptions</h2>
-<p>TODO</p>
-<p>The assumptions relate to the type of relationship chosen and hypothesis testing about the parameters. We assumed the relationship between diameter and nutrients is linear. The general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
-<p>The assumptions of the model are checked using the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function which produces diagnostic plots to explore the distribution of the residuals. They are not proof of the assumptions being met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.</p>
-<p>The two plots which are most useful are the “Q-Q” plot (plot 2) and the “Residuals vs Fitted” plot (plot 1). These are given as values to the <code>which</code> argument of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
+<p>The assumptions relate to the type of relationship chosen and the hypothesis testing about the parameters. For a general linear model we assume the relationship between diameter and nutrients is linear and we examine this by plotting our data before running any tests.</p>
+<p>The assumptions of the hypothesis testing in a general linear model are that residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value. We usually check these assumptions after fitting the linear model by using the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function. This produces diagnostic plots to explore the distribution of the residuals. These cannot prove the assumptions are met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.</p>
+<p>The two diagnostic plots which are most useful are the “Q-Q” plot (plot 2) and the “Residuals vs Fitted” plot (plot 1). These are given as values to the <code>which</code> argument of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
 <section id="the-q-q-plot" class="level3" data-number="11.6.1"><h3 data-number="11.6.1" class="anchored" data-anchor-id="the-q-q-plot">
 <span class="header-section-number">11.6.1</span> The Q-Q plot</h3>
 <p>The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.</p>
@@ -588,7 +586,7 @@ summary(mod) </code></p>
 <li><p>the direction of effect</p></li>
 <li><p>the magnitude of effect</p></li>
 </ol>
-<p>Figures should demonstrate the statement. Ideally they will include all the data and the ‘model’,i.e., means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. https://blog.bioturing.com/2018/05/10/how-to-craft-a-figure-legend-for-scientific-papers/ - refer to figure in text</p>
+<p>Figures should demonstrate the statement. Ideally they will include all the data and the ‘model’, i.e., the means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. I like this blog on <a href="https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific-papers-b26a77fa890">How to craft a figure legend for scientific papers</a></p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
