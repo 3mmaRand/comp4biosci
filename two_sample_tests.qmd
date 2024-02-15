@@ -14,26 +14,26 @@ In the last chapter learned how to about single linear regression, a technique u
 
 We use `lm()` or `wilcox.test()` to carry out a two-sample test depending on whether the assumptions of `lm()` are met. The general linear models applied with `lm()` are based on the normal distribution and known as parametric tests because they use the parameters of the normal distribution (the mean and standard deviation) to determine if an effect is significant. Null hypotheses are about a mean or difference between means. The assumptions need to be met for the *p*-values generated to be accurate.
 
-If the assumptions are not met, we can use alternatives known as non-parametric tests. Non-parametric tests are based on the ranks of values rather than the actual values themselves. Null hypotheses are about the mean rank rather than he mean. These tests have fewer assumptions and can be used in more situations but the downside is they tend to be less powerful. This means they are less able to detect a difference where one exists.
+If the assumptions are not met, we can use alternatives known as non-parametric tests. Non-parametric tests are based on the ranks of values rather than the actual values themselves. Null hypotheses are about the mean rank rather than the mean. These tests have fewer assumptions and can be used in more situations but the downside is they tend to be less powerful. This means they are less able to detect a difference where one exists.
 
 ### Independent samples and paired samples.
 
-An important consideration in conducting tests is whether the values in one groups are independent of the values in another group. Non-independence occurs when the two measures are linked. They could be the same individual, the same time time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. The key consideration is whether pairs of observations in different groups have something in common that make them more similar to each other than to other observations.
+An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. The key consideration is whether pairs of observations in different groups have something in common that make them more similar to each other than to other observations. We use a different testing approach for independent and non-independent samples.
 
 ### *T*-tests
 
-A linear model with one explanatory variable with two groups is also known as a two-sample *t*-test when the samples are independent and as a paired-samples *t*-test when they are not. R has a `t.test()` function which allows you to fit a linear model with just two groups. We teach you to use and interpret `lm()` because it is more generalisable - you will be able to use it when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the *p*-values will be identical.
+A linear model with one explanatory variable with two groups is also known as a **two-sample *t*-test** when the samples are independent and as a paired-samples *t*-test when they are not. R does have a `t.test()` function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the `lm()` function because it is more generalisable. You can use `lm()` when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the procedures are identical and the *p*-values will be the same.
 
 ### Model assumptions
 
-The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value.
+The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.
 
-If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
+If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and *then* check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
 
 -   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous
 -   There should decimal places and few repeated values.
 
-To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution
+To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution in the same way as we did for single linear regression. 
 
 ### Reporting
 
@@ -46,7 +46,7 @@ In reporting the result of two-sample test we give:
 
 2.  the direction of effect - which of the means/medians is greater
 
-3.  the magnitude of effect -
+3.  the magnitude of effect - how big is the difference between the means/medians
 
     -   parametric: the means and standard errors for each group or the mean difference for paired samples
     -   non-parametric: the medians for each group or the median difference for paired samples
@@ -61,7 +61,8 @@ We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects) then a new script.
+If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects), add a `data-raw` folder and open a new script. You will also need to load the **`tidyverse`** package [@tidyverse].
+
 
 ## Two independent samples example parametric
 
@@ -92,7 +93,7 @@ These data are in tidy format [@Wickham2014-nl] - all the mass values are in one
 
 In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
 
-Violin plots(`geom_violin()`), box plots (`geom_boxplot()`) or scatter plots (`geom_point()`) all make good choices for exploratory plotting and it does not matter which of these you choose.
+Violin plots (`geom_violin()`), box plots (`geom_boxplot()`) or scatter plots (`geom_point()`) all make good choices for exploratory plotting and it does not matter which of these you choose.
 
 ```{r}
 ggplot(data = chaff,
@@ -104,7 +105,7 @@ R will order the groups alphabetically by default.
 
 The figure suggests that the canariensis group is heavier than the coelebs group.
 
-Summarising the data for each subspecies group is the next sensible step. The most useful summary statistics are the means, standard deviations, sample sizes and standard errors. I recommend the the `group_by()` and `summarise()` approach:
+Summarising the data for each subspecies group is the next sensible step. The most useful summary statistics are the means, standard deviations, sample sizes and standard errors. I recommend the  `group_by()` and `summarise()` approach:
 
 ```{r}
 chaff_summary <- chaff |> 
@@ -139,7 +140,7 @@ The Estimates in the Coefficients table give:
 
 -   `(Intercept)` which is the mean of the canariensis group (@fig-two-sample-lm-model). Just as the intercept is the value of the *y* (the response) when the value of *x* (the explanatory) is zero in a simple linear regression, this is the value of `mass` when the `subspecies` is at its first level. The order of the levels is alphabetical by default.
 
--   `subspeciescoelebs` is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* you add for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (i.e., one unit). `subspeciescoelebs` is negative so the the coelebs group mean is lower than the canariensis group mean
+-   `subspeciescoelebs` is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to be added for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so the the coelebs group mean is lower than the canariensis group mean
 
 The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
 
@@ -197,30 +198,37 @@ ggplot() +
 
 ### Check assumptions
 
-Check the assumptions: All t-tests assume the "residuals" are normally distributed and have homogeneity of variance.
+### Check assumptions
 
-First use common sense: mass is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed
+Check the assumptions: All general linear models assume the "residuals" are normally distributed and have "homogeneity" of variance.
 
-Second by plotting residuals:
+Our first check of these assumptions is to use common sense: mass is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed
+
+We then proceed by plotting residuals. The `plot()` function can be used to plot the residuals against the fitted values (See @fig-lm-plot1). This is a good way to check for homogeneity of variance. 
 
 ```{r}
+#| label: fig-lm-plot1
+#| fig-cap: "A plot of the residuals against the fitted values shows  the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance."
+
 plot(mod, which = 1)
 ```
 
+We can also use a histogram to check for normality (See @fig-lm-plot2).
+
 ```{r}
+#| label: fig-lm-plot2
+#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 10)
 ```
 
+Finally, we can use the Shapiro-Wilk test to test for normality.
 ```{r}
 shapiro.test(mod$residuals)
 ```
 
-Checking the assumptions: normally distributed residuals
+The p-value is greater than 0.05 so this test of the normality assumption is not significant.
 
--   Variance is about the same for all values of x
--   Looks roughly normal, symmetrical
--   test with shapiro. is NS. note that not significant means not significantly different from a normal distribution. It does not mean definitely normally distributed
 
 ### Report
 
@@ -255,19 +263,23 @@ ggplot() +
 
 ## Two independent samples example non-parametric
 
-The two sample Wilcoxon, also known as the Mann-Whitney, is the non-parametric equivalent of the linear model with two independent samples. The general question you have about your data - are these two groups different - is the same, but one of more of the following is true:
+The two sample Wilcoxon, also known as the Mann-Whitney, is the non-parametric equivalent of the linear model with two independent samples. 
+
+The general question you have about your data - are these two groups different - is the same, but one of more of the following is true:
 
 -   the response variable is not continuous
 -   the residuals are not normally distributed
 -   the sample size is too small to tell if they are normally distributed.
 
-The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leaves on eight wildtype and eight mutant Arabidopsis plants. We want to know if the two types of plants have differing numbers of leaves. These are counts so are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.
+The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leaves on eight wildtype and eight mutant *Arabidopsis* plants. We want to know if the two types of plants have differing numbers of leaves. These are counts so are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.
 
 ### Import and explore
 
 ```{r}
 arabidopsis <- read_table("data-raw/arabidopsis.txt")
 ```
+
+These data are in tidy format [@Wickham2014-nl] - the numbers of leaves are in one column with another column indicating whether the observation comes from a wildtype or mutant *Arabidopsis*. This means they are well formatted for analysis and plotting.
 
 Create a quick plot of the data:
 
@@ -295,7 +307,7 @@ arabidopsis_summary
 
 ### Apply `wilcox.test()`
 
-The way we pass the dataframe and variables to `wilcox.test()` is just the same as for `lm()`. We give the data argument and a "formula" which says `leaves ~ type` meaning "explain leaves by type".
+We pass the dataframe and variables to `wilcox.test()` in the same way as we did for `lm()`. We give the data argument and a "formula" which says `leaves ~ type` meaning "explain leaves by type".
 
 ```{r}
 wilcox.test(data = arabidopsis, leaves ~ type)
