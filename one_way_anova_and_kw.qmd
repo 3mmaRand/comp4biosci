@@ -5,123 +5,571 @@
 #| echo: false
 
 source("_common.R")
-status("drafting")
+status("polishing")
 ```
 
-## 
+## Overview
 
-More than two samples: One-way ANOVA and Kruskal-Wallis
+In the last chapter, we learnt how to use and interpret the general
+linear model when the *x* variable was categorical with two groups. You
+will now extend that to situations when there are more than two groups.
+This is often known as the one-way ANOVA (**an**alysis **o**f
+**var**iance). We will also learn about the Kruskal-Wallis test
+[@kruskal1952] which can be used when the assumptions of the general
+linear model are not met.
 
-last chapter
+We use `lm()` to carry out a one-way ANOVA. General linear models
+applied with `lm()` are based on the normal distribution and known as
+parametric tests because they use the parameters of the normal
+distribution (the mean and standard deviation) to determine if an effect
+is significant. Null hypotheses are about a mean or difference between
+means. The assumptions need to be met for the *p*-values generated to be
+accurate.
 
--   Independent and non-independent samples
--   Two-sample-tests – paired and unpaired, parametric and non-parametric
+If the assumptions are not met, we can use the non-parametric equivalent
+known as the Kruskal-Wallis test. Like other non-parametric tests, the
+Kruskal-Wallis test :
 
-This chapter: Extend our ability to test for differences between two or more groups: one-way ANOVA and its non-parametric equivalent Kruskal-Wallis
+-   is based on the ranks of values rather than the actual values
+    themselves
+-   has a null hypothesis about the mean rank rather than the mean
+-   has fewer assumptions and can be used in more situations
+-   tends to be less powerful than a parametric test when the
+    assumptions are met
 
--   Why not do several two-sample tests?
--   ANOVA terminology and concepts
--   ANOVA assumptions
--   Running, interpreting and reporting an ANOVA
--   Post-hoc analysis (after a significant ANOVA)
--   When assumptions are not met: Kruskal-Wallis
--   Running, interpreting and reporting Kruskal-Wallis
--   Post-hoc analysis (after a significant Kruskal-Wallis)
+<!-- Why not do several two-sample tests? ANOVA terminology and concepts -->
 
+The process of using `lm()` to conduct a one-way ANOVA is very like the
+process for using `lm()` to conduct a two-sample *t*-test but with an
+important addition. When we get a signifcant effect of our explanatory
+variable, it only tells us that at least two of the means differ. To
+find out which means differ, we need a post-hoc test. A post-hoc ("after
+this") test is done after a significant ANOVA test. There are several
+possible post-hoc tests and we will be using Tukey's HSD (honestly
+significant difference) test [@tukey1949] implemented in the
+**`emmeans`** [@emmeans] package. Post-hoc tests make adjustments to the
+*p*-values to account for the fact that we are doing multiple
+comparisons. A Type I error happens when we reject a null hypothesis
+that is true and occurs with a probability of 0.05. Doing lots of
+comparisons makes it more likely we will get a significant result just
+by chance. The post-hoc test adjusts the *p*-values to account for this
+increased risk.
 
-Why ANOVA
-Type I error: Rejecting the null hypothesis when it is true. This will happen with a probability of 0.05 Doing lots of comparisons increases the type 1 error rate ANOVA tests for an effect of the explanatory variable without increasing type 1 error rate
+### Model assumptions
 
-Assumptions and alternative
+The assumptions for a general linear model where the explanatory
+variable has two or more groups, are the same as for two groups: the
+residuals are normally distributed and have homogeneity of variance.
 
-ANOVA assumes the “residuals” are normally distributed and have homogeneity of variance
-Kruskal-Wallis is the non-parametric equivalent when assumptions are not met
+If we have a continuous response and a categorical explanatory variable
+with three or more groups, we usually apply the general linear model
+with `lm()` and *then* check the assumptions, however, we can sometimes
+tell when a non-parametric test would be more appropriate before that:
 
+-   Use common sense - the response should be continuous (or nearly
+    continuous, see [Ideas about data: Theory and
+    practice](ideas_about_data.html#theory-and-practice)). Consider
+    whether you would expect the response to be continuous
+-   There should decimal places and few repeated values.
 
-Which growth medium is best for growing bacterial cultures?
+To examine the assumptions after fitting the linear model, we plot the
+residuals and test them against the normal distribution in the same way
+as we did for single linear regression.
 
-Explanatory variable is type of media: categorical with 3 groups
-Control
-Control + sugar
-Control + sugar + amino acids 
+### Reporting
 
-Response variable is colony diameters (mm)
+In reporting the result of one-way ANOVA or Kruskal-Wallis test, we
+include:
 
-One response, one categorical explanatory variable (“one-way ANOVA” or “one-factor ANOVA”)
-These data are in tidy format.
+1.  the significance of effect - whether there is there a difference
+    between the groups
 
-[culture.csv](data-raw/culture.csv)
+    -   parametric: whether there is there a difference between the
+        groups means
+    -   non-parametric: whether there is there a difference between the
+        group medians
 
-Plot your data roughly
+2.  the direction of effect - which of the means/medians is greater
 
-Summarise the data
+3.  the magnitude of effect - how big is the difference between the
+    means/medians
+
+    -   parametric: the means and standard errors for each group
+    -   non-parametric: the medians for each group
+
+Figures should reflect what you have said in the statements. Ideally
+they should show both the raw data and the statistical model:
+
+-   parametric: means and standard errors
+-   non-parametric: boxplots with medians and interquartile range
+
+We will explore all of these ideas with some examples.
+
+## 🎬 Your turn!
+
+If you want to code along you will need to start a new [RStudio
+project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+folder and open a new script. You will also need to load the
+**`tidyverse`** package [@tidyverse].
+
+## One-way ANOVA
+
+Researchers wanted the determine the best growth medium for growing
+bacterial cultures. They grew bacterial cultures on three different
+media formulations and measured the diameter of the colonies. The three
+formulations were:
+
+-   Control - a generic medium as formulated by the manufacturer
+-   sugar added - the generic medium with added sugar
+-   sugar and amino acids added - the generic medium with added sugar
+    and amino acids
+
+The data are in [culture.csv](data-raw/culture.csv).
+
+### Import and explore
+
+Import the data:
+
 ```{r}
-# culture_summary <- culture %>%
-#   group_by(medium) %>%
-#   summarise(mean = mean(diameter),
-#             std = sd(diameter),
-#             n = length(diameter),
-#             se = std/sqrt(n))
-```
-
-ANOVA assumes the “residuals” are normally distributed and have
-homogeneity of variance First use common sense: colony diameter is continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed
-
-
-Reporting the result: “significance, direction, magnitude”
-
-There is a significant effect of media on the diameter of bacterial colonies (ANOVA: F = 6.11; d.f. = 2, 27; p = 0.006).
-Or
-There is a significant difference in diameters between colonies grown on different media (ANOVA: F = 6.11; d.f. = 2, 27; P=0.006).
-
-What about direction and magnitude??
-
-Which means differ? Post-hoc test needed 
-```{r}
-library(lsmeans)
-library(multcompView)
+culture <- read_csv("data-raw/culture.csv")
 ```
 
 ```{r}
-# lsmeans(mod, ~ species) %>%
-#   pairs()
+#| echo: false
 
+knitr::kable(culture) |> 
+  kableExtra::kable_styling() |> 
+  kableExtra::scroll_box(height = "200px")
 ```
 
-There is a significant effect of media on the diameter of bacterial colonies (F =
-6.11; d.f. = 2, 27; p = 0.006) with colonies growing significantly better when both sugar
-and amino acids are
-added to the medium
-(see Figure 1).
+The Response variable is colony diameters in millimetres and we would
+expect it to be continuous. The Explanatory variable is type of media
+and is categorical with 3 groups. It is known “one-way ANOVA” or
+“one-factor ANOVA” because there is only one explanatory variable. It
+would still be one-way ANOVA if we had 4, 20 or 100 media.
 
+These data are in tidy format [@Wickham2014-nl] - all the diameter
+values are in one column with another column indicating the media. This
+means they are well formatted for analysis and plotting.
 
+In the first instance it is sensible to create a rough plot of our data.
+This is to give us an overview and help identify if there are any issues
+like missing or extreme values. It also gives us idea what we are
+expecting from the analysis which will make it easier for us to identify
+if we make some mistake in applying that analysis.
+
+Violin plots (`geom_violin()`, see @fig-culture-rough), box plots
+(`geom_boxplot()`) or scatter plots (`geom_point()`) all make good
+choices for exploratory plotting and it does not matter which of these
+you choose.
 
 ```{r}
-# ggplot() +
-#   geom_jitter(data = seal, 
-#               aes(x = species, y = myoglobin), 
-#               width = 0.25, colour = "grey") +
-#   geom_errorbar(data = seal_summary,
-#                 aes(x = species,
-#                     ymin = mean,
-#                     ymax = mean),
-#                 width = .3) +
-#   geom_errorbar(data = seal_summary,
-#                 aes(x = species,
-#                     ymin = mean - se,
-#                     ymax = mean + se),
-#                 width = .5) +
-#   geom_segment(aes(x = 1, y = 71, xend = 2, yend = 71),
-#                size = 1) +
-#   geom_segment(aes(x = 1, y = 71, xend = 1, yend = 69),
-#                size = 1) +
-#   geom_segment(aes(x = 2, y = 71, xend = 2, yend = 69),
-#                size = 1) +
-#   annotate("text", x = 1.5, y = 73,  label = "**", size = 6) +
-#   scale_x_discrete(name = "Species") +
-#   scale_y_continuous(name = expression("Myoglobin concentration g "*Kg^{-1}),
-#                      expand = c(0, 0),
-#                      limits = c(0, 75)) +
-#   theme_classic()
+#| label: fig-culture-rough
+#| fig-cap: "The diamters of bacterial colonies when gron in one of three media. A violin plot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
+#| 
+ggplot(data = culture,
+       aes(x = medium, y = diameter)) +
+  geom_violin()
 ```
 
+R will order the groups alphabetically by default.
+
+The figure suggests that adding sugar and amino acids to the medium
+increases the diameter of the colonies.
+
+Summarising the data for each medium is the next sensible step. The most
+useful summary statistics are the means, standard deviations, sample
+sizes and standard errors. I recommend the `group_by()` and
+`summarise()` approach:
+
+```{r}
+culture_summary <- culture %>%
+  group_by(medium) %>%
+  summarise(mean = mean(diameter),
+            std = sd(diameter),
+            n = length(diameter),
+            se = std/sqrt(n))
+```
+
+We have save the results to `culture_summary` so that we can use the
+means and standard errors in our plot later.
+
+```{r}
+culture_summary
+```
+
+### Apply `lm()`
+
+We can create a one-way ANOVA model like this:
+
+```{r}
+mod <- lm(data = culture, diameter ~ medium)
+```
+
+And examine the model with:
+
+```{r}
+summary(mod)
+```
+
+The Estimates in the Coefficients table give:
+
+-   `(Intercept)` which is the mean of the control group
+    (@fig-one-way-anova-lm-model). Just as the intercept is the value of
+    the *y* (the response) when the value of *x* (the explanatory) is
+    zero in a simple linear regression, this is the value of `diameter`
+    when the `medium` is at its first level. The order of the levels is
+    alphabetical by default.
+
+-   `mediumsugar added` is what needs to be added to the mean of the
+    control group to get the mean of the 'medium sugar added' group
+    (@fig-two-sample-lm-model). Just as the slope is amount of *y* that
+    needs to be added for each unit of *x* in a simple linear
+    regression, this is the amount of `diameter` that needs to be added
+    when the `medium` goes from its first level to its second level
+    (*i.e.*, one unit). The `mediumsugar added` estimate is positive so
+    the the 'medium sugar added' group mean is higher than the control
+    group mean
+
+-   `mediumsugar and amino acids added` is what needs to be added to the
+    mean of the control group to get the mean of the 'medium sugar and
+    amino acids added' group (@fig-two-sample-lm-model). Note that it is
+    the amount added to the *intercept* (the control in this case). The
+    `mediumsugar and amino acids added` estimate is positive so the the
+    'medium sugar and amino acids added' group mean is higher than the
+    control group mean
+
+If we had more groups, we would have more estimates and all would be
+compared to the control group mean.
+
+The *p*-values on each line are tests of whether that coefficient is
+different from zero.
+
+-   `(Intercept)                     10.0700     0.2930  34.370  < 2e-16 ***`
+    tells us that the control group mean is significantly different from
+    zero. This is not a very interesting, it just means there control
+    colonies have a diameter.
+-   `mediumsugar added                 0.1700     0.4143   0.410  0.68483`
+    tells us that the 'medium sugar added' group mean is not
+    significantly different from the control group mean.
+-   `mediumsugar and amino acids added   1.3310     0.4143   3.212  0.00339 **`
+    tells us that the 'medium sugar and amino acids added' group mean
+    *is* significantly different from the control group mean.
+
+Note: none of this output tells us whether the medium sugar and amino
+acids added' group mean *is* significantly different from the 'medium
+sugar added' group mean. We need to do a post-hoc test for that.
+
+The *F* value and *p*-value in the last line are a test of whether the
+model as a whole explains a significant amount of variation in the
+response variable.
+
+```{r}
+#| echo: false
+#| label: fig-one-way-anova-lm-model
+#| fig-cap: "In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the 'slope' which is what has to added to the intercept to get the second group mean. The third estimate is the 'slope' which is what has to added to the intercept to get the third group mean. Note that y axis starts at 15 to create more space for the annotations."
+ggplot() +
+  geom_errorbar(data = culture_summary, 
+                aes(x = medium, ymin = mean, ymax = mean), 
+                colour = pal3[1], linewidth = 1,
+                width = 1) +
+  scale_x_discrete(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0), 
+                     limits = c(9, 12),
+                     name = "Diameter (mm)") +
+  geom_segment(aes(x = 0.8,
+                   xend = -Inf,
+                   y = mod$coefficients[1] + 1,
+                   yend = mod$coefficients[1]),
+               colour = pal3[2]) +
+  annotate("text",
+           x = 0.9, 
+           y = mod$coefficients[1] + 1.15,
+           label = glue::glue("Intercept (β0) is mean\nof { culture_summary$medium[1] }: { mod$coefficients[1]|> round(2) }"), 
+           colour = pal3[2],
+           size = 3) +
+  geom_segment(aes(x = 1.5,
+                   xend = 1.5,
+                   y = mod$coefficients[1],
+                   yend = mod$coefficients[1] + mod$coefficients[2]),
+               colour = pal3[3],
+               arrow = arrow(length = unit(0.03, "npc"), 
+                             ends = "both")) +
+  geom_segment(aes(x = 1.5,
+                   xend = 1.7,
+                   yend = mod$coefficients[1] - 0.25,
+                   y = mod$coefficients[1] + 0.1),
+               colour = pal3[2]) +
+  annotate("text",
+           x = 2, 
+           y = mod$coefficients[1] - 0.35,
+           label = glue::glue("mediumsugar added (β1) is the difference\nbetween { culture_summary$medium[1] } mean and { culture_summary$medium[2] } mean: { mod$coefficients[2] |> round(2) }"), 
+           colour = pal3[2],
+           size = 3) +
+  geom_segment(aes(x = 3,
+                   xend = 3,
+                   y = mod$coefficients[1],
+                   yend = mod$coefficients[1] + mod$coefficients[3]),
+               colour = pal3[3],
+               arrow = arrow(length = unit(0.03, "npc"), 
+                             ends = "both")) +
+  geom_segment(aes(x = 3,
+                   xend = 2.1,
+                   yend = mod$coefficients[1] + mod$coefficients[3] - 0.5,
+                   y = mod$coefficients[1] + mod$coefficients[3] - 0.3),
+               colour = pal3[2]) +
+  annotate("text",
+           x = 2.1, 
+           y = mod$coefficients[1] + mod$coefficients[3] - 0.75,
+           label = glue::glue("mediumsugar and amino acids added (β2)\nis the difference between { culture_summary$medium[1] } mean\nand { culture_summary$medium[3] } mean: { mod$coefficients[3] |> round(2) }"), 
+           colour = pal3[2],
+           size = 3) +
+   geom_segment(aes(x = 1.5,
+                   xend = 3,
+                   yend = mod$coefficients[1],
+                   y = mod$coefficients[1]),
+               colour = pal3[1],
+              linetype = "dashed") + 
+theme_classic()
+
+```
+
+The ANOVA is significant but this only tells us that growth medium matters,
+meaning at least two of the means differ. To find out which means
+differ, we need a post-hoc test. A post-hoc ("after this") test is done
+after a significant ANOVA test. There are several possible post-hoc
+tests and we will be using Tukey's HSD (honestly significant difference)
+test [@tukey1949] implemented in the **`emmeans`** [@emmeans] package.
+
+We need to load the package:
+
+```{r}
+library(emmeans)
+```
+
+Then carry out the post-hoc test:
+
+```{r}
+emmeans(mod, ~ medium) |> pairs()
+
+```
+
+Each row is a comparison between the two means in the 'contrast' column.
+The 'estimate' column is the difference between those means and the
+'p.value' indicates whether that difference is significant.
+
+A plot can be used to visualise the result of the post-hoc which can be
+especially useful when there are very many comparisons.
+
+```{r}
+emmeans(mod, ~ medium) |> plot()
+```
+
+Where the purple bars overlap, there is no significant difference.
+
+We have found that colony diameters are significantly greater when sugar
+and amino acids are added but that adding sugar alone does not
+significantly increase colony diameter.
+
+### Check assumptions
+
+Check the assumptions: All general linear models assume the "residuals"
+are normally distributed and have "homogeneity" of variance.
+
+Our first check of these assumptions is to use common sense: diameter is
+a continuous and we would expect it to be normally distributed thus we
+would expect the residuals to be normally distributed thus we would
+expect the residuals to be normally distributed
+
+We then proceed by plotting residuals. The `plot()` function can be used
+to plot the residuals against the fitted values (See @fig-anova1-plot1).
+This is a good way to check for homogeneity of variance.
+
+```{r}
+#| label: fig-anova1-plot1
+#| fig-cap: "A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are more variable for the highest mean."
+
+plot(mod, which = 1)
+```
+
+Perhaps the variance is higher for the highest mean?
+
+We can also use a histogram to check for normality (See
+@fig-anova1-plot2).
+
+```{r}
+#| label: fig-anova1-plot2
+#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
+ggplot(mapping = aes(x = mod$residuals)) + 
+  geom_histogram(bins = 8)
+```
+
+Finally, we can use the Shapiro-Wilk test to test for normality.
+
+```{r}
+shapiro.test(mod$residuals)
+```
+
+The p-value is greater than 0.05 so this test of the normality
+assumption is not significant.
+
+Taken together, these results suggest that the assumptions of normality
+and homogeneity of variance are probably not violated.
+
+### Report
+
+There is a significant effect of media on the diameter of bacterial
+colonies (*F* = 6.11; *d.f.* = 2, 27; *p* = 0.006) with colonies growing
+significantly better when both sugar and amino acids are added to the
+medium. Post-hoc testing with Tukey's Honestly Significant Difference
+test [@tukey1949] revealed the colony diameters were significantly
+larger when grown with both sugar and amino acids
+($\bar{x} \pm s.e: 11.4 \pm 0.37 mm$) than with neither
+($10.2 \pm 0.26 mm$; *p* = 0.0092) or just sugar ($10.1 \pm 0.23 mm$;
+*p* = 0.0244). See @fig-culture.
+
+```{r}
+#| label: fig-culture
+#| fig-cap: "Diameters of bacterial colonies grown on three types of media: control, with sugar added and with both sugar and amino acids added. Errors bars are ± 1 s.e."
+
+ggplot() +
+  geom_point(data = culture, aes(x = medium, y = diameter),
+             position = position_jitter(width = 0.1, height = 0),
+             colour = "gray50") +
+  geom_errorbar(data = culture_summary, 
+                aes(x = medium, ymin = mean - se, ymax = mean + se),
+                width = 0.3) +
+  geom_errorbar(data = culture_summary, 
+                aes(x = medium, ymin = mean, ymax = mean),
+                width = 0.2) +
+  scale_y_continuous(name = "Diameter (mm)", 
+                     limits = c(0, 16.5), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(name = "Medium", 
+                   labels = c("Control", "Sugar added", "Sugar and amino acids added")) +
+  annotate("segment", x = 2, xend = 3, 
+           y = 14, yend = 14,
+           colour = "black") +
+  annotate("text", x = 2.5,  y = 14.5, 
+           label = expression(italic(p)~"= 0.0244")) +
+    annotate("segment", x = 1, xend = 3, 
+           y = 15.5, yend = 15.5,
+           colour = "black") +
+  annotate("text", x = 2,  y = 16, 
+           label = expression(italic(p)~"= 0.0092")) +
+  theme_classic()
+```
+
+# Kruskal-Wallis
+
+Our examination of the assumptions revealed a possible violation of the
+assumption of homogeneity of variance. We might reasonably apply a
+non-parametric test to this data.
+
+The Kruskal-Wallis [@kruskal1952] is non-parametric equivalent of a
+one-way ANOVA. The general question you have about your data - do these
+groups differ (or does the medium effect diameter) - is the same, but
+one of more of the following is true:
+
+-   the response variable is not continuous
+-   the residuals are not normally distributed
+-   the sample size is too small to tell if they are normally
+    distributed.
+-   the variance is not homogeneous
+
+Summarising the data using the median and interquartile range is more
+aligned to the type of analysis than using means and standard
+deviations:
+
+```{r}
+culture_summary <- culture |> 
+  group_by(medium) |> 
+  summarise(median = median(diameter),
+            interquartile  = IQR(diameter),
+            n = length(diameter))
+```
+
+View the results:
+
+```{r}
+culture_summary
+```
+
+### Apply `kruskal.test()`
+
+We pass the dataframe and variables to `kruskal.test()` in the same way
+as we did for `lm()`. We give the data argument and a "formula" which
+says `diameter ~ medium` meaning "explain diameter by medium".
+
+```{r}
+kruskal.test(data = culture, diameter ~ medium)
+
+```
+
+The result of the test is given on this line:
+`Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742`.
+`Chi-squared` is the test statistic. The *p*-value is less than 0.05
+meaning there is a significant effect of medium on diameter.
+
+Notice that the *p*-value is a little larger than for the ANOVA. This is
+because non-parametric tests are generally more conservative (less
+powerful) than their parametric equivalents.
+
+A significant Kruskal-Wallis tells us at least two of the groups differ
+but where do the differences lie? The Dunn test [@dunn1964] is a
+post-hoc multiple comparison test for a significant Kruskal-Wallis. It
+is available in the package **`FSA`** [@FSA]
+
+Load the package using:
+
+```{r}
+library(FSA)
+```
+
+Then run the post-hoc test with:
+
+```{r}
+dunnTest(data = culture, diameter ~ medium)
+```
+
+The `P.adj` column gives *p*-value for the comparison listed in the
+first column. `Z` is the test statistic. The *p*-values are a little
+larger for the `control - sugar and amino acids added` comparison and
+the `sugar added - sugar and amino acids added` comparison but they are
+still less than 0.05. This means our conclusions are the same as for the
+ANOVA.
+
+### Report
+
+There is a significant effect of media on the diameter of bacterial
+colonies (Kruskal-Wallis: *chi-squared* = 6.34, *df* = 2, *p*-value =
+0.042) with colonies growing significantly better when both sugar and
+amino acids are added to the medium. Post-hoc testing with the Dunn test
+[@dunn1964] revealed the colony diameters were significantly larger when
+grown with both sugar and amino acids ($median = 11.3 mm$) than with
+neither ($median = 10.2 mm$; *p* = 0.031) or just sugar
+($median = 10.2 mm$; *p* = 0.038). See @fig-culture-kw.
+
+```{r}
+#| label: fig-culture-kw
+#| fig-cap: "Diameters of bacterial colonies grown on three types of media: control, with sugar added and with both sugar and amino acids added. Heavy line indicate the median, boxes the interquartile range and whiskers the range."
+
+ggplot(data = culture, aes(x = medium, y = diameter)) +
+ geom_boxplot() +
+  scale_y_continuous(name = "Diameter (mm)", 
+                     limits = c(0, 16.5), 
+                     expand = c(0, 0)) +
+  scale_x_discrete(name = "Medium", 
+                   labels = c("Control", "Sugar added", "Sugar and amino acids added")) +
+  annotate("segment", x = 2, xend = 3, 
+           y = 14, yend = 14,
+           colour = "black") +
+  annotate("text", x = 2.5,  y = 14.5, 
+           label = expression(italic(p)~"= 0.038")) +
+    annotate("segment", x = 1, xend = 3, 
+           y = 15.5, yend = 15.5,
+           colour = "black") +
+  annotate("text", x = 2,  y = 16, 
+           label = expression(italic(p)~"= 0.031")) +
+  theme_classic()
+```

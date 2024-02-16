@@ -10,7 +10,7 @@ status("polishing")
 
 ## Overview
 
-In the last chapter learned how to about single linear regression, a technique used when the explanatory variable is continuous. We now turn our attention to cases where our explanatory variable is categorical and has two groups. For example, we might want to know if there is a difference in mass between two subspecies of chaffinch, or if marks in two subjects are the same.
+In the last chapter we learned about single linear regression, a technique used when the explanatory variable is continuous. We now turn our attention to cases where our explanatory variable is categorical and has two groups. For example, we might want to know if there is a difference in mass between two subspecies of chaffinch, or if marks in two subjects are the same.
 
 We use `lm()` or `wilcox.test()` to carry out a two-sample test depending on whether the assumptions of `lm()` are met. The general linear models applied with `lm()` are based on the normal distribution and known as parametric tests because they use the parameters of the normal distribution (the mean and standard deviation) to determine if an effect is significant. Null hypotheses are about a mean or difference between means. The assumptions need to be met for the *p*-values generated to be accurate.
 
@@ -22,7 +22,7 @@ An important consideration in conducting tests is whether the values in one grou
 
 ### *T*-tests
 
-A linear model with one explanatory variable with two groups is also known as a **two-sample *t*-test** when the samples are independent and as a paired-samples *t*-test when they are not. R does have a `t.test()` function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the `lm()` function because it is more generalisable. You can use `lm()` when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the procedures are identical and the *p*-values will be the same.
+A linear model with one explanatory variable with two groups is also known as a **two-sample *t*-test** when the samples are independent and as a **paired-samples *t*-test** when they are not. R does have a `t.test()` function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the `lm()` function because it is more generalisable. You can use `lm()` when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the procedures are identical and the *p*-values will be the same.
 
 ### Model assumptions
 
@@ -84,7 +84,7 @@ chaff <- read_table("data-raw/chaff.txt")
 ```{r}
 #| echo: false
 
-knitr::kable(chaff) %>%
+knitr::kable(chaff) |> 
   kableExtra::kable_styling() |> 
   kableExtra::scroll_box(height = "200px")
 ```
@@ -93,9 +93,12 @@ These data are in tidy format [@Wickham2014-nl] - all the mass values are in one
 
 In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
 
-Violin plots (`geom_violin()`), box plots (`geom_boxplot()`) or scatter plots (`geom_point()`) all make good choices for exploratory plotting and it does not matter which of these you choose.
+Violin plots (`geom_violin()`), box plots (`geom_boxplot()`, see @fig-chaff-rough) or scatter plots (`geom_point()`) all make good choices for exploratory plotting and it does not matter which of these you choose.
 
 ```{r}
+#| label: fig-chaff-rough
+#| fig-cap: "The mass of two subspecies of chaffinch. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
+#| 
 ggplot(data = chaff,
        aes(x = subspecies, y = mass)) +
   geom_boxplot()
@@ -171,7 +174,7 @@ ggplot() +
   annotate("text",
            x = 1.1, 
            y = mod$coefficients[1] + 4,
-           label = glue::glue("Intercept (β0) is mean of\n{ chaff_summary$subspecies[1] }: { mod$coefficients[1]}"), 
+           label = glue::glue("Intercept (β0) is mean of\n{ chaff_summary$subspecies[1] }: { mod$coefficients[1] |> round(2) }"), 
            colour = pal3[2],
            size = 4) +
   geom_segment(aes(x = 1.5,
@@ -189,14 +192,13 @@ ggplot() +
   annotate("text",
            x = 2, 
            y = mod$coefficients[1] + 5,
-           label = glue::glue("subspeciescoelebs (β1) is the\ndifference between mean of\n{ chaff_summary$subspecies[1] } and { chaff_summary$subspecies[2] }: { mod$coefficients[2] }"), 
+           label = glue::glue("subspeciescoelebs (β1) is the\ndifference between mean of\n{ chaff_summary$subspecies[1] } and { chaff_summary$subspecies[2] }: { mod$coefficients[2] |> round(2) }"), 
            colour = pal3[2],
            size = 4) +
   theme_classic()
 
 ```
 
-### Check assumptions
 
 ### Check assumptions
 
@@ -229,6 +231,7 @@ shapiro.test(mod$residuals)
 
 The p-value is greater than 0.05 so this test of the normality assumption is not significant.
 
+Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.
 
 ### Report
 
@@ -270,6 +273,7 @@ The general question you have about your data - are these two groups different -
 -   the response variable is not continuous
 -   the residuals are not normally distributed
 -   the sample size is too small to tell if they are normally distributed.
+-   the variance is not homogeneous
 
 The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leaves on eight wildtype and eight mutant *Arabidopsis* plants. We want to know if the two types of plants have differing numbers of leaves. These are counts so are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.
 
@@ -364,6 +368,15 @@ ggplot(data = marks, aes(x = subject, y = mark)) +
 
 ```
 
+Summarise the data  so that we can use the means in plots later. 
+
+```{r}
+marks_summary <- marks |> 
+  group_by(subject) |> 
+  summarise(mean = mean(mark))
+```
+
+
 A paired test requires us to test whether the difference in marks between the two subjects is zero on average. One handy way to achieve this is to organise our groups into two columns. The `pivot_wider()` function will do this for us. We need to tell it what column gives the identifiers (i.e., matches the the pairs) - the student number in this case. We also need to say which variable contains what will become the column names and which contains the values.
 
 Pivot the data so there is a column for each subject:
@@ -431,11 +444,14 @@ Individual students score significantly higher in Data Analysis than in Biology 
 
 ```{r}
 #| label: fig-marks
-#| fig-cap: "Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range."
+#| fig-cap: "Individual students score significantly higher in Data Analysis than in Biology. Open circles indicate an individual student's marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject."
 
 ggplot(data = marks, aes(x = subject, y = mark)) +
-  geom_point() +
+  geom_point(pch = 1, size = 3) + 
   geom_line(aes(group = student), linetype = 3) +
+  geom_point(data = marks_summary, 
+             aes(x = subject, y = mean), 
+             size = 3) +
   scale_x_discrete(name = "") +
   scale_y_continuous(name = "Mark",
                      expand = c(0, 0),
