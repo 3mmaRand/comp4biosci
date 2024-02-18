@@ -7,3 +7,393 @@
 source("_common.R")
 status("drafting")
 ```
+
+
+## Overview
+
+<!-- In the last couple chapters, we learnt how to use and interpret the general -->
+<!-- linear model when wethe *x* variable was categorical with two groups. You -->
+<!-- will now extend that to situations when there are more than two groups. -->
+<!-- This is often known as the two-way ANOVA (**an**alysis **o**f -->
+<!-- **var**iance). We will also learn about the Kruskal-Wallis test -->
+<!-- [@kruskal1952] which can be used when the assumptions of the general -->
+<!-- linear model are not met. -->
+
+<!-- We use `lm()` to carry out a one-way ANOVA. General linear models -->
+<!-- applied with `lm()` are based on the normal distribution and known as -->
+<!-- parametric tests because they use the parameters of the normal -->
+<!-- distribution (the mean and standard deviation) to determine if an effect -->
+<!-- is significant. Null hypotheses are about a mean or difference between -->
+<!-- means. The assumptions need to be met for the *p*-values generated to be -->
+<!-- accurate. -->
+
+<!-- If the assumptions are not met, we can use the non-parametric equivalent -->
+<!-- known as the Kruskal-Wallis test. Like other non-parametric tests, the -->
+<!-- Kruskal-Wallis test : -->
+
+<!-- -   is based on the ranks of values rather than the actual values -->
+<!--     themselves -->
+<!-- -   has a null hypothesis about the mean rank rather than the mean -->
+<!-- -   has fewer assumptions and can be used in more situations -->
+<!-- -   tends to be less powerful than a parametric test when the -->
+<!--     assumptions are met -->
+
+<!-- <!-- Why not do several two-sample tests? ANOVA terminology and concepts --> -->
+
+<!-- The process of using `lm()` to conduct a one-way ANOVA is very like the -->
+<!-- process for using `lm()` to conduct a two-sample *t*-test but with an -->
+<!-- important addition. When we get a signifcant effect of our explanatory -->
+<!-- variable, it only tells us that at least two of the means differ. To -->
+<!-- find out which means differ, we need a post-hoc test. A post-hoc ("after -->
+<!-- this") test is done after a significant ANOVA test. There are several -->
+<!-- possible post-hoc tests and we will be using Tukey's HSD (honestly -->
+<!-- significant difference) test [@tukey1949] implemented in the -->
+<!-- **`emmeans`** [@emmeans] package. Post-hoc tests make adjustments to the -->
+<!-- *p*-values to account for the fact that we are doing multiple -->
+<!-- comparisons. A Type I error happens when we reject a null hypothesis -->
+<!-- that is true and occurs with a probability of 0.05. Doing lots of -->
+<!-- comparisons makes it more likely we will get a significant result just -->
+<!-- by chance. The post-hoc test adjusts the *p*-values to account for this -->
+<!-- increased risk. -->
+
+<!-- ### Model assumptions -->
+
+<!-- The assumptions for a general linear model where the explanatory -->
+<!-- variable has two or more groups, are the same as for two groups: the -->
+<!-- residuals are normally distributed and have homogeneity of variance. -->
+
+<!-- If we have a continuous response and a categorical explanatory variable -->
+<!-- with three or more groups, we usually apply the general linear model -->
+<!-- with `lm()` and *then* check the assumptions, however, we can sometimes -->
+<!-- tell when a non-parametric test would be more appropriate before that: -->
+
+<!-- -   Use common sense - the response should be continuous (or nearly -->
+<!--     continuous, see [Ideas about data: Theory and -->
+<!--     practice](ideas_about_data.html#theory-and-practice)). Consider -->
+<!--     whether you would expect the response to be continuous -->
+<!-- -   There should decimal places and few repeated values. -->
+
+<!-- To examine the assumptions after fitting the linear model, we plot the -->
+<!-- residuals and test them against the normal distribution in the same way -->
+<!-- as we did for single linear regression. -->
+
+<!-- ### Reporting -->
+
+<!-- In reporting the result of one-way ANOVA or Kruskal-Wallis test, we -->
+<!-- include: -->
+
+<!-- 1.  the significance of effect - whether there is there a difference -->
+<!--     between the groups -->
+
+<!--     -   parametric: whether there is there a difference between the -->
+<!--         groups means -->
+<!--     -   non-parametric: whether there is there a difference between the -->
+<!--         group medians -->
+
+<!-- 2.  the direction of effect - which of the means/medians is greater -->
+
+<!-- 3.  the magnitude of effect - how big is the difference between the -->
+<!--     means/medians -->
+
+<!--     -   parametric: the means and standard errors for each group -->
+<!--     -   non-parametric: the medians for each group -->
+
+<!-- Figures should reflect what you have said in the statements. Ideally -->
+<!-- they should show both the raw data and the statistical model: -->
+
+<!-- -   parametric: means and standard errors -->
+<!-- -   non-parametric: boxplots with medians and interquartile range -->
+
+<!-- We will explore all of these ideas with some examples. -->
+
+## 🎬 Your turn!
+
+If you want to code along you will need to start a new [RStudio
+project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+folder and open a new script. You will also need to load the
+**`tidyverse`** package [@tidyverse].
+
+## Two-way ANOVA
+
+Researchers have collected live specimens of two species of periwinkle (See @fig-periwinkles) from sites in northern England in the Spring and Summer. They take a measure of the gut parasite load by examining a slide of gut contents. The data are in [periwinkle.txt](data-raw/periwinkle.txt). The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.
+
+![Periwinkles are marine gastropod molluscs (slugs and snails). A) *Littorina brevicula* (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) *Littorina littorea*. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769](images/Littorina.jpg){#fig-periwinkles fig-alt=""}
+
+### Import and explore
+
+Import the data:
+
+```{r}
+periwinkle <- read_delim("data-raw/periwinkle.txt", delim = "\t")
+```
+
+```{r}
+#| echo: false
+
+knitr::kable(periwinkle) |> 
+  kableExtra::kable_styling() |> 
+  kableExtra::scroll_box(height = "200px")
+```
+
+The Response variable is parasite load and it appears to be continuous. The Explanatory variables are species and season and each has two levels. It is known “two-way ANOVA” or “two-factor ANOVA” because there are two explanatory variables. 
+
+These data are in tidy format [@Wickham2014-nl] - all the parasite load
+values are in one column (`para`) with the other columns indicating the `species` and the `season`. This means they are well formatted for analysis and plotting.
+
+In the first instance it is sensible to create a rough plot of our data.
+This is to give us an overview and help identify if there are any issues
+like missing or extreme values. It also gives us idea what we are
+expecting from the analysis which will make it easier for us to identify
+if we make some mistake in applying that analysis.
+
+Violin plots (`geom_violin()`, see @fig-periwinkle-rough), box plots
+(`geom_boxplot()`) or scatter plots (`geom_point()`) all make good
+choices for exploratory plotting and it does not matter which of these
+you choose.
+
+```{r}
+#| label: fig-periwinkle-rough
+#| fig-cap: "The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean."
+
+ggplot(data = periwinkle, 
+       aes(x = season, y = para, fill = species)) +
+  geom_violin()
+```
+
+R will order the groups alphabetically by default.
+
+The figure suggests that parasite load is higher for both species in the summer and that effect looks bigger in *L.brevicula* - it has the lowest spring mean but the highest summer mean.
+
+Summarising the data for each species-season combination is the next sensible step. The most
+useful summary statistics are the means, standard deviations, sample
+sizes and standard errors. I recommend the `group_by()` and
+`summarise()` approach:
+
+```{r}
+peri_summary <- periwinkle |>  
+  group_by(season, species) |>  
+  summarise(mean = mean(para),
+            sd = sd(para),
+            n = length(para),
+            se = sd / sqrt(n))
+```
+
+We have save the results to `peri_summary` so that we can use the
+means and standard errors in our plot later.
+
+```{r}
+peri_summary
+```
+
+The summary confirms both species have a higher mean in the summer and that the difference between the species is reversed - *L.brevicula* minus *L.littorea* is `r peri_summary$mean[1]-peri_summary$mean[2]` in the spring but `r peri_summary$mean[3]-peri_summary$mean[4]` in summer.
+
+
+### Apply `lm()`
+
+We can create a two-way ANOVA model like this:
+
+```{r}
+mod <- lm(data = periwinkle, para ~ species * season)
+```
+
+And examine the model with:
+
+```{r}
+summary(mod)
+```
+
+The Estimates in the Coefficients table give:
+
+-   `(Intercept)` known as $\beta_0$. This the mean of the group with the first 
+     level of *both* explanatory variables, *i.e.*, the mean of *L.brevicula* 
+     group in Spring. Just as the intercept is the
+     value of *y* (the response) when the value of *x* (the explanatory) is zero
+     in a simple linear regression, this is the value of `para` when both
+     `season` and `species` are at their first levels. The order of the levels
+     is alphabetical by default.
+     
+-   `speciesLittorina littorea` known as $\beta_1$. This is what needs to be 
+     added to the *L.brevicula* 
+     Spring mean (the intercept) when the `species` goes from its first level 
+     to its second.   That is, it is the difference between the *L.brevicula*
+     and *L.littorea* means in Spring. The
+     `speciesLittorina littorea` estimate is positive so the the *L.littorea*
+     mean is higher than the *L.brevicula* mean in Spring. If we had more
+     species we would have more estimates beginning `species...` and all would 
+     be comparisons to the intercept.
+
+-   `seasonSummer` known as $\beta_2$. This is what needs to be added to the 
+     *L.brevicula* Spring mean 
+     (the intercept) when the `season` goes from its first level to its second. 
+     That is, it is the difference between the Spring and Summer means for 
+     *L.brevicula*. The `seasonSummer` estimate 
+     is positive so the the Summer mean is higher than the Spring mean. If we had
+     more seasons we would have more estimates beginning `season...` and all would 
+     be comparisons to the intercept.
+    
+
+-   `speciesLittorina littorea:seasonSummer` known as $\beta_3$. This is 
+     interaction effect. It is an additional effect. Going from *L.brevicula* to
+     *L.littorea* adds $\beta_1$ to the intercept. Going from Spring to Summer
+     adds $\beta_2$ to the intercept. Going from *L.brevicula* in Spring to 
+     *L.littorea* in Summer adds $\beta_1 + \beta_2 + \beta_3$ to the intercept.
+     If $\beta_3$ is zero then the effect of `species` is the same in both 
+     `season`s. If $\beta_3$ is not zero then the effect of `species` is different
+     in the two `season`s.
+
+
+The *p*-values on each line are tests of whether that coefficient is
+different from zero.
+
+The *F* value and *p*-value in the last line are a test of whether the
+model as a whole explains a significant amount of variation in the
+response variable. The model of season and species overall explains a 
+significant amount of the variation in parasite load (`p-value: 3.043e-06`). 
+To see which of the three effects are significant we can use the `anova()`
+function on our model.
+
+Determine which effects are significant:
+ 
+```{r}
+anova(mod)
+```
+
+The parasite load is significantly greater in Summer (*F* = 25.9; *d.f.* = 1, 96; *p* < 0.0001) but this effect differs between species (*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite load in *L.brevicula* than in *L.littorea*.
+
+
+We need a post-hoc test to see which comparisons are significant and can again use then **`emmeans`** [@emmeans] package.
+
+Load the package
+
+```{r}
+library(emmeans)
+```
+
+Carry out the post-hoc test
+
+```{r}
+emmeans(mod, ~ species * season) |> pairs()
+
+```
+
+Each row is a comparison between the two means in the 'contrast' column. The 'estimate' column is the difference between those means and the 'p.value' indicates whether that difference is significant.
+
+A plot can be used to visualise the result of the post hoc which can be especially useful when there are very many comparisons.
+
+Plot the results of the post-hoc test:
+
+```{r}
+emmeans(mod, ~ species * season) |> plot()
+```
+We have significant differences between:
+
+-   *L.brevicula* in the Spring and Summer `p <.0001`
+-   *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`
+-   *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`
+
+
+### Check assumptions
+
+Check the assumptions: All general linear models assume the "residuals"
+are normally distributed and have "homogeneity" of variance.
+
+Our first check of these assumptions is to use common sense: diameter is
+a continuous and we would expect it to be normally distributed thus we
+would expect the residuals to be normally distributed thus we would
+expect the residuals to be normally distributed
+
+We then proceed by plotting residuals. The `plot()` function can be used
+to plot the residuals against the fitted values (See @fig-anova2-plot1).
+This is a good way to check for homogeneity of variance.
+
+```{r}
+#| label: fig-anova2-plot1
+#| fig-cap: "A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean."
+
+plot(mod, which = 1)
+```
+
+
+We can also use a histogram to check for normality (See @fig-anova2-plot2).
+
+```{r}
+#| label: fig-anova2-plot2
+#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
+ggplot(mapping = aes(x = mod$residuals)) + 
+  geom_histogram(bins = 10)
+```
+
+Finally, we can use the Shapiro-Wilk test to test for normality.
+
+```{r}
+shapiro.test(mod$residuals)
+```
+
+The p-value is greater than 0.05 so this test of the normality
+assumption is not significant.
+
+Taken together, these results suggest that the assumptions of normality
+and homogeneity of variance are probably not violated.
+
+### Report
+
+We might report this result as:
+
+The parasite load is significantly greater in Summer (*F* = 25.9; *d.f.* = 1, 96; *p* < 0.0001) but this effect differs between species (*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite load in *L.brevicula* (from $\bar{x} \pm s.e$: 57.0 $\pm$ 1.77 units to 73.5 $\pm$ 2.24 units) than in *L.littorea* (from 64.2 $\pm$ 2.38 units to 69.9 $\pm$ 2.30 units) . See @fig-para.
+
+```{r}
+#| label: fig-para
+#| fig-cap: "Gut parasite load for two species of periwinkle Errors bars are ± 1 s.e."
+
+ggplot() +
+  geom_point(data = periwinkle, aes(x = season,
+                                    y = para,
+                                    shape = species),
+             position = position_jitterdodge(dodge.width = 1,
+                                             jitter.width = 0.4,
+                                             jitter.height = 0),
+             size = 3,
+             colour = "gray50") +
+  geom_errorbar(data = peri_summary, 
+                aes(x = season, ymin = mean - se, ymax = mean + se, group = species),
+                linewidth = 0.4, size = 1,
+                position = position_dodge(width = 1)) +
+  geom_errorbar(data = peri_summary, 
+                aes(x = season, ymin = mean, ymax = mean, group = species),
+                linewidth = 0.3, size = 1,
+                position = position_dodge(width = 1) ) +
+  scale_x_discrete(name = "Season") +
+  scale_y_continuous(name = "Number of parasites",
+                     expand = c(0, 0),
+                     limits = c(0, 130)) +
+  scale_shape_manual(values = c(19, 1),
+                     name = NULL,
+                     labels = c(bquote(italic("L.brevicula")),
+                                bquote(italic("L.littorea")))) +
+  # *L.brevicula* in the Spring and Summer `p <0.0001`
+  annotate("segment",
+           x = 0.75, xend = 1.75,
+           y = 115, yend = 115,
+           colour = "black") +
+  annotate("text",
+           x = 1.25,  y = 119,
+           label = "p < 0.0001") +
+  # # *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`
+  annotate("segment",
+           x = 0.75, xend = 2.25,
+           y = 125, yend = 125,
+           colour = "black") +
+  annotate("text", x = 1.5,  y = 129,
+           label = "p = 0.0004") +
+  # *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`
+  annotate("segment",
+           x = 1.25, xend = 1.75,
+           y = 105, yend = 105,
+           colour = "black") +
+  annotate("text", x = 1.5,  y = 109,
+           label = "p = 0.0172") +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.85, 0.15)) 
+```
+

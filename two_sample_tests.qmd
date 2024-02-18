@@ -141,9 +141,9 @@ summary(mod)
 
 The Estimates in the Coefficients table give:
 
--   `(Intercept)` which is the mean of the canariensis group (@fig-two-sample-lm-model). Just as the intercept is the value of the *y* (the response) when the value of *x* (the explanatory) is zero in a simple linear regression, this is the value of `mass` when the `subspecies` is at its first level. The order of the levels is alphabetical by default.
+-   `(Intercept)` known as $\beta_0$. The mean of the canariensis group (@fig-two-sample-lm-model). Just as the intercept is the value of the *y* (the response) when the value of *x* (the explanatory) is zero in a simple linear regression, this is the value of `mass` when the `subspecies` is at its first level. The order of the levels is alphabetical by default.
 
--   `subspeciescoelebs` is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to be added for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so the the coelebs group mean is lower than the canariensis group mean
+-   `subspeciescoelebs`, known as $\beta_0$, is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to be added for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so the the coelebs group mean is lower than the canariensis group mean
 
 The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
 
@@ -235,7 +235,7 @@ Taken together, these results suggest that the assumptions of normality and homo
 
 ### Report
 
-Canariensis chaffinches ($\bar{x} \pm s.e: 22.48 \pm 0.48$) are significantly heavier than Coelebs ($20.28 \pm 0.48$ ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-chaff.
+Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) are significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-chaff.
 
 ```{r}
 #| label: fig-chaff
@@ -323,7 +323,7 @@ The result of the test is given on this line: `W = 5, p-value = 0.005051`. `W` i
 
 ### Report
 
-There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, p = 0.005). See @fig-arabid.
+There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). See @fig-arabid.
 
 ```{r}
 #| label: fig-arabid
@@ -478,7 +478,7 @@ wilcox.test(data = marks, mark ~ subject, paired = TRUE)
 
 ### Report
 
-Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: *V* = 6.55; $n$ = 10; p = 0.036). See@fig-marks
+Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: *V* = 6.55; $n$ = 10; *p* = 0.036). See@fig-marks
 
 ## Summary
 

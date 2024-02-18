@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.543">
+<meta name="generator" content="quarto-1.4.395">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 15&nbsp; Two-way ANOVA</title>
 <style>
@@ -17,7 +17,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -44,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
+  "limit": 20,
   "keyboard-shortcut": [
     "f",
     "/",
@@ -59,7 +113,6 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -68,17 +121,18 @@ ul.task-list li input[type="checkbox"] {
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script>
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -86,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
@@ -251,10 +305,24 @@ ul.task-list li input[type="checkbox"] {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">15.1</span> Overview</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">15.2</span> 🎬 Your turn!</a></li>
+  <li>
+<a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova"><span class="header-section-number">15.3</span> Two-way ANOVA</a>
+  <ul class="collapse">
+<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">15.3.1</span> Import and explore</a></li>
+  <li><a href="#apply-lm" id="toc-apply-lm" class="nav-link" data-scroll-target="#apply-lm"><span class="header-section-number">15.3.2</span> Apply <code>lm()</code></a></li>
+  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">15.3.3</span> Check assumptions</a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">15.3.4</span> Report</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/two_way_anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav><div class="quarto-title">
@@ -287,10 +355,886 @@ Incomplete
 <p>You are reading a work in progress. This page is a dumping ground for ideas. Sections maybe missing, or contain a list of points to include.</p>
 </div>
 </div>
+<section id="overview" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">15.1</span> Overview</h2>
+<!-- In the last couple chapters, we learnt how to use and interpret the general -->
+<!-- linear model when wethe *x* variable was categorical with two groups. You -->
+<!-- will now extend that to situations when there are more than two groups. -->
+<!-- This is often known as the two-way ANOVA (**an**alysis **o**f -->
+<!-- **var**iance). We will also learn about the Kruskal-Wallis test -->
+<!-- [@kruskal1952] which can be used when the assumptions of the general -->
+<!-- linear model are not met. -->
+<!-- We use `lm()` to carry out a one-way ANOVA. General linear models -->
+<!-- applied with `lm()` are based on the normal distribution and known as -->
+<!-- parametric tests because they use the parameters of the normal -->
+<!-- distribution (the mean and standard deviation) to determine if an effect -->
+<!-- is significant. Null hypotheses are about a mean or difference between -->
+<!-- means. The assumptions need to be met for the *p*-values generated to be -->
+<!-- accurate. -->
+<!-- If the assumptions are not met, we can use the non-parametric equivalent -->
+<!-- known as the Kruskal-Wallis test. Like other non-parametric tests, the -->
+<!-- Kruskal-Wallis test : -->
+<!-- -   is based on the ranks of values rather than the actual values -->
+<!--     themselves -->
+<!-- -   has a null hypothesis about the mean rank rather than the mean -->
+<!-- -   has fewer assumptions and can be used in more situations -->
+<!-- -   tends to be less powerful than a parametric test when the -->
+<!--     assumptions are met -->
+<!-- <!-- Why not do several two-sample tests? ANOVA terminology and concepts -->
+<p>–&gt;</p>
+<!-- The process of using `lm()` to conduct a one-way ANOVA is very like the -->
+<!-- process for using `lm()` to conduct a two-sample *t*-test but with an -->
+<!-- important addition. When we get a signifcant effect of our explanatory -->
+<!-- variable, it only tells us that at least two of the means differ. To -->
+<!-- find out which means differ, we need a post-hoc test. A post-hoc ("after -->
+<!-- this") test is done after a significant ANOVA test. There are several -->
+<!-- possible post-hoc tests and we will be using Tukey's HSD (honestly -->
+<!-- significant difference) test [@tukey1949] implemented in the -->
+<!-- **`emmeans`** [@emmeans] package. Post-hoc tests make adjustments to the -->
+<!-- *p*-values to account for the fact that we are doing multiple -->
+<!-- comparisons. A Type I error happens when we reject a null hypothesis -->
+<!-- that is true and occurs with a probability of 0.05. Doing lots of -->
+<!-- comparisons makes it more likely we will get a significant result just -->
+<!-- by chance. The post-hoc test adjusts the *p*-values to account for this -->
+<!-- increased risk. -->
+<!-- ### Model assumptions -->
+<!-- The assumptions for a general linear model where the explanatory -->
+<!-- variable has two or more groups, are the same as for two groups: the -->
+<!-- residuals are normally distributed and have homogeneity of variance. -->
+<!-- If we have a continuous response and a categorical explanatory variable -->
+<!-- with three or more groups, we usually apply the general linear model -->
+<!-- with `lm()` and *then* check the assumptions, however, we can sometimes -->
+<!-- tell when a non-parametric test would be more appropriate before that: -->
+<!-- -   Use common sense - the response should be continuous (or nearly -->
+<!--     continuous, see [Ideas about data: Theory and -->
+<!--     practice](ideas_about_data.html#theory-and-practice)). Consider -->
+<!--     whether you would expect the response to be continuous -->
+<!-- -   There should decimal places and few repeated values. -->
+<!-- To examine the assumptions after fitting the linear model, we plot the -->
+<!-- residuals and test them against the normal distribution in the same way -->
+<!-- as we did for single linear regression. -->
+<!-- ### Reporting -->
+<!-- In reporting the result of one-way ANOVA or Kruskal-Wallis test, we -->
+<!-- include: -->
+<!-- 1.  the significance of effect - whether there is there a difference -->
+<!--     between the groups -->
+<!--     -   parametric: whether there is there a difference between the -->
+<!--         groups means -->
+<!--     -   non-parametric: whether there is there a difference between the -->
+<!--         group medians -->
+<!-- 2.  the direction of effect - which of the means/medians is greater -->
+<!-- 3.  the magnitude of effect - how big is the difference between the -->
+<!--     means/medians -->
+<!--     -   parametric: the means and standard errors for each group -->
+<!--     -   non-parametric: the medians for each group -->
+<!-- Figures should reflect what you have said in the statements. Ideally -->
+<!-- they should show both the raw data and the statistical model: -->
+<!-- -   parametric: means and standard errors -->
+<!-- -   non-parametric: boxplots with medians and interquartile range -->
+<!-- We will explore all of these ideas with some examples. -->
+</section><section id="your-turn" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">15.2</span> 🎬 Your turn!</h2>
+<p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
+</section><section id="two-way-anova" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="two-way-anova">
+<span class="header-section-number">15.3</span> Two-way ANOVA</h2>
+<p>Researchers have collected live specimens of two species of periwinkle (See <a href="#fig-periwinkles" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>) from sites in northern England in the Spring and Summer. They take a measure of the gut parasite load by examining a slide of gut contents. The data are in <a href="data-raw/periwinkle.txt">periwinkle.txt</a>. The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.</p>
+<div id="fig-periwinkles" class="quarto-figure quarto-figure-center anchored" alt="">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Littorina.jpg" class="img-fluid figure-img" alt="">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.1: Periwinkles are marine gastropod molluscs (slugs and snails). A) <em>Littorina brevicula</em> (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) <em>Littorina littorea</em>. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769
+</figcaption></figure>
+</div>
+<section id="import-and-explore" class="level3" data-number="15.3.1"><h3 data-number="15.3.1" class="anchored" data-anchor-id="import-and-explore">
+<span class="header-section-number">15.3.1</span> Import and explore</h3>
+<p>Import the data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">periwinkle</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data-raw/periwinkle.txt"</span>, delim <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">para</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">season</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">species</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">58.86</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">51.73</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">54.99</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">39.84</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">65.05</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">67.46</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">60.38</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">54.42</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">47.71</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">66.87</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">51.02</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">43.95</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62.40</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">55.67</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">58.45</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">43.52</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">69.29</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">71.22</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">64.60</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">58.53</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">51.15</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70.62</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">55.10</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">47.00</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">54.48</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">43.52</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">63.26</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">58.76</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">61.38</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">63.70</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">45.69</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">45.20</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77.23</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">57.12</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">49.32</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">72.92</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">47.95</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">78.70</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77.01</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">71.70</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">69.36</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">66.46</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">76.35</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">75.55</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">54.59</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">62.02</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">58.50</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">76.09</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">68.85</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">84.55</td>
+<td style="text-align: left;">Spring</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">61.60</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70.84</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">68.89</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">67.68</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">88.68</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">64.64</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">69.71</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70.65</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">56.85</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">80.06</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80.93</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">53.62</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">56.77</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">101.81</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">81.65</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">88.73</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">67.50</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">73.75</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">75.80</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">74.70</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">68.26</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">89.29</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">75.09</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">74.99</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">76.03</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina brevicula</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">66.67</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">61.31</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">51.00</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">67.43</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">78.12</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">79.26</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">69.03</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">76.14</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">86.81</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">97.56</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">64.64</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">68.64</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">65.95</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">49.50</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">62.22</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">57.34</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70.30</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">62.75</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">80.48</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">81.74</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">85.83</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77.51</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">61.12</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">59.83</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">66.52</td>
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Littorina littorea</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+<p>The Response variable is parasite load and it appears to be continuous. The Explanatory variables are species and season and each has two levels. It is known “two-way ANOVA” or “two-factor ANOVA” because there are two explanatory variables.</p>
+<p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the parasite load values are in one column (<code>para</code>) with the other columns indicating the <code>species</code> and the <code>season</code>. This means they are well formatted for analysis and plotting.</p>
+<p>In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
+<p>Violin plots (<code>geom_violin()</code>, see <a href="#fig-periwinkle-rough" class="quarto-xref">Figure&nbsp;<span>15.2</span></a>), box plots (<code>geom_boxplot()</code>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, </span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">para</span>, fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-periwinkle-rough" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="two_way_anova_files/figure-html/fig-periwinkle-rough-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>R will order the groups alphabetically by default.</p>
+<p>The figure suggests that parasite load is higher for both species in the summer and that effect looks bigger in <em>L.brevicula</em> - it has the lowest spring mean but the highest summer mean.</p>
+<p>Summarising the data for each species-season combination is the next sensible step. The most useful summary statistics are the means, standard deviations, sample sizes and standard errors. I recommend the <code>group_by()</code> and <code>summarise()</code> approach:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">peri_summary</span> <span class="op">&lt;-</span> <span class="va">periwinkle</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">season</span>, <span class="va">species</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">para</span><span class="op">)</span>,</span>
+<span>            sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">para</span><span class="op">)</span>,</span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">para</span><span class="op">)</span>,</span>
+<span>            se <span class="op">=</span> <span class="va">sd</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have save the results to <code>peri_summary</code> so that we can use the means and standard errors in our plot later.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">peri_summary</span></span>
+<span><span class="co">## # A tibble: 4 × 6</span></span>
+<span><span class="co">## # Groups:   season [2]</span></span>
+<span><span class="co">##   season species              mean    sd     n    se</span></span>
+<span><span class="co">##   &lt;chr&gt;  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">## 1 Spring Littorina brevicula  57.0  8.83    25  1.77</span></span>
+<span><span class="co">## 2 Spring Littorina littorea   64.2 11.9     25  2.38</span></span>
+<span><span class="co">## 3 Summer Littorina brevicula  73.5 11.2     25  2.24</span></span>
+<span><span class="co">## 4 Summer Littorina littorea   69.9 11.5     25  2.30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The summary confirms both species have a higher mean in the summer and that the difference between the species is reversed - <em>L.brevicula</em> minus <em>L.littorea</em> is -7.2588 in the spring but 3.6328 in summer.</p>
+</section><section id="apply-lm" class="level3" data-number="15.3.2"><h3 data-number="15.3.2" class="anchored" data-anchor-id="apply-lm">
+<span class="header-section-number">15.3.2</span> Apply <code>lm()</code>
+</h3>
+<p>We can create a two-way ANOVA model like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, <span class="va">para</span> <span class="op">~</span> <span class="va">species</span> <span class="op">*</span> <span class="va">season</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And examine the model with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:</span></span>
+<span><span class="co">## lm(formula = para ~ species * season, data = periwinkle)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Residuals:</span></span>
+<span><span class="co">##     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">## -20.711  -6.308  -1.120   8.085  28.269 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##                                        Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)                              56.972      2.185  26.073  &lt; 2e-16 ***</span></span>
+<span><span class="co">## speciesLittorina littorea                 7.259      3.090   2.349   0.0209 *  </span></span>
+<span><span class="co">## seasonSummer                             16.568      3.090   5.362 5.68e-07 ***</span></span>
+<span><span class="co">## speciesLittorina littorea:seasonSummer  -10.892      4.370  -2.492   0.0144 *  </span></span>
+<span><span class="co">## ---</span></span>
+<span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Residual standard error: 10.93 on 96 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.2547, Adjusted R-squared:  0.2314 </span></span>
+<span><span class="co">## F-statistic: 10.94 on 3 and 96 DF,  p-value: 3.043e-06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The Estimates in the Coefficients table give:</p>
+<ul>
+<li><p><code>(Intercept)</code> known as <span class="math inline">\(\beta_0\)</span>. This the mean of the group with the first level of <em>both</em> explanatory variables, <em>i.e.</em>, the mean of <em>L.brevicula</em> group in Spring. Just as the intercept is the value of <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero in a simple linear regression, this is the value of <code>para</code> when both <code>season</code> and <code>species</code> are at their first levels. The order of the levels is alphabetical by default.</p></li>
+<li><p><code>speciesLittorina littorea</code> known as <span class="math inline">\(\beta_1\)</span>. This is what needs to be added to the <em>L.brevicula</em> Spring mean (the intercept) when the <code>species</code> goes from its first level to its second. That is, it is the difference between the <em>L.brevicula</em> and <em>L.littorea</em> means in Spring. The <code>speciesLittorina littorea</code> estimate is positive so the the <em>L.littorea</em> mean is higher than the <em>L.brevicula</em> mean in Spring. If we had more species we would have more estimates beginning <code>species...</code> and all would be comparisons to the intercept.</p></li>
+<li><p><code>seasonSummer</code> known as <span class="math inline">\(\beta_2\)</span>. This is what needs to be added to the <em>L.brevicula</em> Spring mean (the intercept) when the <code>season</code> goes from its first level to its second. That is, it is the difference between the Spring and Summer means for <em>L.brevicula</em>. The <code>seasonSummer</code> estimate is positive so the the Summer mean is higher than the Spring mean. If we had more seasons we would have more estimates beginning <code>season...</code> and all would be comparisons to the intercept.</p></li>
+<li><p><code>speciesLittorina littorea:seasonSummer</code> known as <span class="math inline">\(\beta_3\)</span>. This is interaction effect. It is an additional effect. Going from <em>L.brevicula</em> to <em>L.littorea</em> adds <span class="math inline">\(\beta_1\)</span> to the intercept. Going from Spring to Summer adds <span class="math inline">\(\beta_2\)</span> to the intercept. Going from <em>L.brevicula</em> in Spring to <em>L.littorea</em> in Summer adds <span class="math inline">\(\beta_1 + \beta_2 + \beta_3\)</span> to the intercept. If <span class="math inline">\(\beta_3\)</span> is zero then the effect of <code>species</code> is the same in both <code>season</code>s. If <span class="math inline">\(\beta_3\)</span> is not zero then the effect of <code>species</code> is different in the two <code>season</code>s.</p></li>
+</ul>
+<p>The <em>p</em>-values on each line are tests of whether that coefficient is different from zero.</p>
+<p>The <em>F</em> value and <em>p</em>-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. The model of season and species overall explains a significant amount of the variation in parasite load (<code>p-value: 3.043e-06</code>). To see which of the three effects are significant we can use the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function on our model.</p>
+<p>Determine which effects are significant:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="co">## Analysis of Variance Table</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Response: para</span></span>
+<span><span class="co">##                Df  Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
+<span><span class="co">## species         1    82.2   82.17  0.6884   0.40876    </span></span>
+<span><span class="co">## season          1  3092.8 3092.81 25.9108 1.778e-06 ***</span></span>
+<span><span class="co">## species:season  1   741.4  741.42  6.2114   0.01441 *  </span></span>
+<span><span class="co">## Residuals      96 11458.9  119.36                      </span></span>
+<span><span class="co">## ---</span></span>
+<span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The parasite load is significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differs between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>.</p>
+<p>We need a post-hoc test to see which comparisons are significant and can again use then <strong><code>emmeans</code></strong> <span class="citation" data-cites="emmeans">(<a href="references.html#ref-emmeans" role="doc-biblioref">Lenth 2023</a>)</span> package.</p>
+<p>Load the package</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rvlenth/emmeans">emmeans</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Carry out the post-hoc test</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">species</span> <span class="op">*</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">##  contrast                                                estimate   SE df</span></span>
+<span><span class="co">##  Littorina brevicula Spring - Littorina littorea Spring     -7.26 3.09 96</span></span>
+<span><span class="co">##  Littorina brevicula Spring - Littorina brevicula Summer   -16.57 3.09 96</span></span>
+<span><span class="co">##  Littorina brevicula Spring - Littorina littorea Summer    -12.94 3.09 96</span></span>
+<span><span class="co">##  Littorina littorea Spring - Littorina brevicula Summer     -9.31 3.09 96</span></span>
+<span><span class="co">##  Littorina littorea Spring - Littorina littorea Summer      -5.68 3.09 96</span></span>
+<span><span class="co">##  Littorina brevicula Summer - Littorina littorea Summer      3.63 3.09 96</span></span>
+<span><span class="co">##  t.ratio p.value</span></span>
+<span><span class="co">##   -2.349  0.0943</span></span>
+<span><span class="co">##   -5.362  &lt;.0001</span></span>
+<span><span class="co">##   -4.186  0.0004</span></span>
+<span><span class="co">##   -3.013  0.0172</span></span>
+<span><span class="co">##   -1.837  0.2625</span></span>
+<span><span class="co">##    1.176  0.6436</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## P value adjustment: tukey method for comparing a family of 4 estimates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Each row is a comparison between the two means in the ‘contrast’ column. The ‘estimate’ column is the difference between those means and the ‘p.value’ indicates whether that difference is significant.</p>
+<p>A plot can be used to visualise the result of the post hoc which can be especially useful when there are very many comparisons.</p>
+<p>Plot the results of the post-hoc test:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">species</span> <span class="op">*</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="two_way_anova_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>We have significant differences between:</p>
+<ul>
+<li>
+<em>L.brevicula</em> in the Spring and Summer <code>p &lt;.0001</code>
+</li>
+<li>
+<em>L.brevicula</em> in the Spring and <em>L.littorea</em> in the Summer <code>p = 0.0004</code>
+</li>
+<li>
+<em>L.littorea</em> in the Spring <em>L.brevicula</em> in the Summer <code>p = 0.0172</code>
+</li>
+</ul></section><section id="check-assumptions" class="level3" data-number="15.3.3"><h3 data-number="15.3.3" class="anchored" data-anchor-id="check-assumptions">
+<span class="header-section-number">15.3.3</span> Check assumptions</h3>
+<p>Check the assumptions: All general linear models assume the “residuals” are normally distributed and have “homogeneity” of variance.</p>
+<p>Our first check of these assumptions is to use common sense: diameter is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed</p>
+<p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-anova2-plot1" class="quarto-xref">Figure&nbsp;<span>15.3</span></a>). This is a good way to check for homogeneity of variance.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-anova2-plot1" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="two_way_anova_files/figure-html/fig-anova2-plot1-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>We can also use a histogram to check for normality (See <a href="#fig-anova2-plot2" class="quarto-xref">Figure&nbsp;<span>15.4</span></a>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-anova2-plot2" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="two_way_anova_files/figure-html/fig-anova2-plot2-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Finally, we can use the Shapiro-Wilk test to test for normality.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Shapiro-Wilk normality test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  mod$residuals</span></span>
+<span><span class="co">## W = 0.98424, p-value = 0.2798</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The p-value is greater than 0.05 so this test of the normality assumption is not significant.</p>
+<p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are probably not violated.</p>
+</section><section id="report" class="level3" data-number="15.3.4"><h3 data-number="15.3.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">15.3.4</span> Report</h3>
+<p>We might report this result as:</p>
+<p>The parasite load is significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differs between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> (from <span class="math inline">\(\bar{x} \pm s.e\)</span>: 57.0 <span class="math inline">\(\pm\)</span> 1.77 units to 73.5 <span class="math inline">\(\pm\)</span> 2.24 units) than in <em>L.littorea</em> (from 64.2 <span class="math inline">\(\pm\)</span> 2.38 units to 69.9 <span class="math inline">\(\pm\)</span> 2.30 units) . See <a href="#fig-para" class="quarto-xref">Figure&nbsp;<span>15.5</span></a>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>,</span>
+<span>                                    y <span class="op">=</span> <span class="va">para</span>,</span>
+<span>                                    shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu">position_jitterdodge</span><span class="op">(</span>dodge.width <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                             jitter.width <span class="op">=</span> <span class="fl">0.4</span>,</span>
+<span>                                             jitter.height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"gray50"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_errorbar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">peri_summary</span>, </span>
+<span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span>, group <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>                linewidth <span class="op">=</span> <span class="fl">0.4</span>, size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_errorbar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">peri_summary</span>, </span>
+<span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span>, group <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
+<span>                linewidth <span class="op">=</span> <span class="fl">0.3</span>, size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                position <span class="op">=</span> <span class="fu">position_dodge</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Season"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of parasites"</span>,</span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">130</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_shape_manual</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">19</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>                     name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="st">"L.brevicula"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                <span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="st">"L.littorea"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># *L.brevicula* in the Spring and Summer `p &lt;0.0001`</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">0.75</span>, xend <span class="op">=</span> <span class="fl">1.75</span>,</span>
+<span>           y <span class="op">=</span> <span class="fl">115</span>, yend <span class="op">=</span> <span class="fl">115</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">1.25</span>,  y <span class="op">=</span> <span class="fl">119</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"p &lt; 0.0001"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># # *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">0.75</span>, xend <span class="op">=</span> <span class="fl">2.25</span>,</span>
+<span>           y <span class="op">=</span> <span class="fl">125</span>, yend <span class="op">=</span> <span class="fl">125</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">129</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"p = 0.0004"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>,</span>
+<span>           x <span class="op">=</span> <span class="fl">1.25</span>, xend <span class="op">=</span> <span class="fl">1.75</span>,</span>
+<span>           y <span class="op">=</span> <span class="fl">105</span>, yend <span class="op">=</span> <span class="fl">105</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">109</span>,</span>
+<span>           label <span class="op">=</span> <span class="st">"p = 0.0172"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">0.15</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-para" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="two_way_anova_files/figure-html/fig-para-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15.5: Gut parasite load for two species of periwinkle Errors bars are ± 1 s.e.
+</figcaption></figure>
+</div>
+</div>
+</div>
 
 
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-emmeans" class="csl-entry" role="listitem">
+Lenth, Russell V. 2023. <span>“Emmeans: Estimated Marginal Means, Aka Least-Squares Means.”</span> <a href="https://CRAN.R-project.org/package=emmeans">https://CRAN.R-project.org/package=emmeans</a>.
+</div>
+<div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
+Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -513,24 +1457,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -580,28 +1506,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
+        typesetMath(container);
         return container.innerHTML
       } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
+        typesetMath(note);
         return note.innerHTML;
       }
     } else {
@@ -610,15 +1546,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      typesetMath(note);
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -837,14 +1766,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./one_way_anova_and_kw.html" class="pagination-link  aria-label=" anova="" and="" kruskal-wallis="">
+      <a href="./one_way_anova_and_kw.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Summary</span>">
+      <a href="./summary.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -856,7 +1800,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/two_way_anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

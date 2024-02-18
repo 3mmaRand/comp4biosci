@@ -165,7 +165,7 @@ you choose.
 
 ```{r}
 #| label: fig-culture-rough
-#| fig-cap: "The diamters of bacterial colonies when gron in one of three media. A violin plot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
+#| fig-cap: "The diameters of bacterial colonies when grown in one of three media. A violin plot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
 #| 
 ggplot(data = culture,
        aes(x = medium, y = diameter)) +
@@ -214,14 +214,15 @@ summary(mod)
 
 The Estimates in the Coefficients table give:
 
--   `(Intercept)` which is the mean of the control group
+-   `(Intercept)` known as $\beta_0$. The mean of the control group
     (@fig-one-way-anova-lm-model). Just as the intercept is the value of
     the *y* (the response) when the value of *x* (the explanatory) is
     zero in a simple linear regression, this is the value of `diameter`
     when the `medium` is at its first level. The order of the levels is
     alphabetical by default.
 
--   `mediumsugar added` is what needs to be added to the mean of the
+-   `mediumsugar added` known as $\beta_1$. This is what needs to be 
+    added to the mean of the
     control group to get the mean of the 'medium sugar added' group
     (@fig-two-sample-lm-model). Just as the slope is amount of *y* that
     needs to be added for each unit of *x* in a simple linear
@@ -231,7 +232,8 @@ The Estimates in the Coefficients table give:
     the the 'medium sugar added' group mean is higher than the control
     group mean
 
--   `mediumsugar and amino acids added` is what needs to be added to the
+-   `mediumsugar and amino acids added` known as $\beta_2$ is what needs 
+    to be added to the
     mean of the control group to get the mean of the 'medium sugar and
     amino acids added' group (@fig-two-sample-lm-model). Note that it is
     the amount added to the *intercept* (the control in this case). The
@@ -247,7 +249,7 @@ different from zero.
 
 -   `(Intercept)                     10.0700     0.2930  34.370  < 2e-16 ***`
     tells us that the control group mean is significantly different from
-    zero. This is not a very interesting, it just means there control
+    zero. This is not a very interesting, it just means the control
     colonies have a diameter.
 -   `mediumsugar added                 0.1700     0.4143   0.410  0.68483`
     tells us that the 'medium sugar added' group mean is not
@@ -267,7 +269,7 @@ response variable.
 ```{r}
 #| echo: false
 #| label: fig-one-way-anova-lm-model
-#| fig-cap: "In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the 'slope' which is what has to added to the intercept to get the second group mean. The third estimate is the 'slope' which is what has to added to the intercept to get the third group mean. Note that y axis starts at 15 to create more space for the annotations."
+#| fig-cap: "In an one-way ANOVA model with three groups, the first estimate is the intercept which is the mean of the first group. The second estimate is the 'slope' which is what has to added to the intercept to get the second group mean. The third estimate is the 'slope' which is what has to added to the intercept to get the third group mean. Note that y axis starts at 15 to create more space for the annotations."
 ggplot() +
   geom_errorbar(data = culture_summary, 
                 aes(x = medium, ymin = mean, ymax = mean), 
@@ -424,8 +426,8 @@ significantly better when both sugar and amino acids are added to the
 medium. Post-hoc testing with Tukey's Honestly Significant Difference
 test [@tukey1949] revealed the colony diameters were significantly
 larger when grown with both sugar and amino acids
-($\bar{x} \pm s.e: 11.4 \pm 0.37 mm$) than with neither
-($10.2 \pm 0.26 mm$; *p* = 0.0092) or just sugar ($10.1 \pm 0.23 mm$;
+($\bar{x} \pm s.e$: 11.4 $\pm$ 0.37 mm) than with neither
+(10.2 $\pm$ 0.26 mm; *p* = 0.0092) or just sugar (10.1 $\pm$ 0.23 mm;
 *p* = 0.0244). See @fig-culture.
 
 ```{r}
