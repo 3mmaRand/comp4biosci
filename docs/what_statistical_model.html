@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.395">
+<meta name="generator" content="quarto-1.4.543">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 11&nbsp; What is a statistical model?</title>
 <style>
@@ -78,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
   "keyboard-shortcut": [
     "f",
     "/",
@@ -93,6 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -101,17 +102,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./what_statistical_model.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -119,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
@@ -284,30 +310,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link active" data-scroll-target="#what-is-a-statistical-model"><span class="header-section-number">11.1</span> What is a statistical model?</a></li>
-  <li><a href="#using-a-linear-model-in-practice." id="toc-using-a-linear-model-in-practice." class="nav-link" data-scroll-target="#using-a-linear-model-in-practice."><span class="header-section-number">11.2</span> Using a linear model in practice.</a></li>
+<li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">11.1</span> Overview</a></li>
+  <li><a href="#what-is-a-statistical-model" id="toc-what-is-a-statistical-model" class="nav-link" data-scroll-target="#what-is-a-statistical-model"><span class="header-section-number">11.2</span> What is a statistical model?</a></li>
+  <li><a href="#using-a-linear-model-in-practice." id="toc-using-a-linear-model-in-practice." class="nav-link" data-scroll-target="#using-a-linear-model-in-practice."><span class="header-section-number">11.3</span> Using a linear model in practice.</a></li>
   <li>
-<a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="header-section-number">11.3</span> Model fitting</a>
+<a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting"><span class="header-section-number">11.4</span> Model fitting</a>
   <ul class="collapse">
-<li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="header-section-number">11.3.1</span> General linear model assumptions</a></li>
+<li><a href="#general-linear-model-assumptions" id="toc-general-linear-model-assumptions" class="nav-link" data-scroll-target="#general-linear-model-assumptions"><span class="header-section-number">11.4.1</span> General linear model assumptions</a></li>
   </ul>
 </li>
-  <li><a href="#choice-of-model" id="toc-choice-of-model" class="nav-link" data-scroll-target="#choice-of-model"><span class="header-section-number">11.4</span> Choice of model</a></li>
-  <li><a href="#general-linear-models-in-r" id="toc-general-linear-models-in-r" class="nav-link" data-scroll-target="#general-linear-models-in-r"><span class="header-section-number">11.5</span> General linear models in R</a></li>
+  <li><a href="#choice-of-model" id="toc-choice-of-model" class="nav-link" data-scroll-target="#choice-of-model"><span class="header-section-number">11.5</span> Choice of model</a></li>
+  <li><a href="#general-linear-models-in-r" id="toc-general-linear-models-in-r" class="nav-link" data-scroll-target="#general-linear-models-in-r"><span class="header-section-number">11.6</span> General linear models in R</a></li>
   <li>
-<a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">11.6</span> Checking assumptions</a>
+<a href="#checking-assumptions" id="toc-checking-assumptions" class="nav-link" data-scroll-target="#checking-assumptions"><span class="header-section-number">11.7</span> Checking assumptions</a>
   <ul class="collapse">
-<li><a href="#the-q-q-plot" id="toc-the-q-q-plot" class="nav-link" data-scroll-target="#the-q-q-plot"><span class="header-section-number">11.6.1</span> The Q-Q plot</a></li>
-  <li><a href="#the-residuals-vs-fitted-plot" id="toc-the-residuals-vs-fitted-plot" class="nav-link" data-scroll-target="#the-residuals-vs-fitted-plot"><span class="header-section-number">11.6.2</span> The Residuals vs Fitted plot</a></li>
+<li><a href="#the-q-q-plot" id="toc-the-q-q-plot" class="nav-link" data-scroll-target="#the-q-q-plot"><span class="header-section-number">11.7.1</span> The Q-Q plot</a></li>
+  <li><a href="#the-residuals-vs-fitted-plot" id="toc-the-residuals-vs-fitted-plot" class="nav-link" data-scroll-target="#the-residuals-vs-fitted-plot"><span class="header-section-number">11.7.2</span> The Residuals vs Fitted plot</a></li>
   </ul>
 </li>
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">11.7</span> Reporting</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">11.8</span> Reporting</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.9</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/what_statistical_model.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -341,8 +369,11 @@ First draft
 <p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
-<section id="what-is-a-statistical-model" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="what-is-a-statistical-model">
-<span class="header-section-number">11.1</span> What is a statistical model?</h2>
+<section id="overview" class="level2" data-number="11.1"><h2 data-number="11.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">11.1</span> Overview</h2>
+<p>This section discusses statistical models which are equations representing relationships between variables. Statistical models help us test hypotheses and make predictions. The process involves estimating model “parameters” from data and assessing “model fit”. Linear models include regression, <em>t</em>-tests, and ANOVA, known collectively as the General Linear Model. The assumptions of the general linear model are that the “residuals” are normally distribution and variance is homogeneous. If the assumptions are violated we can use non-parametric tests.</p>
+</section><section id="what-is-a-statistical-model" class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="what-is-a-statistical-model">
+<span class="header-section-number">11.2</span> What is a statistical model?</h2>
 <p>A statistical model is a mathematical equation that helps us understand the relationships between variables. We evaluate how well our data fit a particular model so we can infer something about how the values arose or make predictions about future values.</p>
 <p>The equation states what has to be done to the explanatory values to get the response value. For example, a simple model of plant growth might be that a plant grows by 2 cm a day week after it is two weeks old. This model would be written as:</p>
 <p><span id="eq-plantgrowth-linear"><span class="math display">\[
@@ -376,30 +407,30 @@ h_{(t)} = h_{(0)}1.2^t
 <p>This model is not a straight line (See <a href="#fig-model-2" class="quarto-xref">Figure&nbsp;<span>11.1 (b)</span></a>). The gradient of the line increase as time goes on.</p>
 <div id="fig-model" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-model" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-model-1" class="quarto-figure quarto-figure-center anchored" width="576">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-model" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-model-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-model-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="what_statistical_model_files/figure-html/fig-model-1.png" class="img-fluid figure-img" data-ref-parent="fig-model" width="576">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-model-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-model-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Linear
 </figcaption></figure>
 </div>
 </div>
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-model" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-model-2" class="quarto-figure quarto-figure-center anchored" width="576">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-model" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-model-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-model-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="what_statistical_model_files/figure-html/fig-model-2.png" class="img-fluid figure-img" data-ref-parent="fig-model" width="576">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-model-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-model-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Expontential
 </figcaption></figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.1: Two possible models of plant growth.
 </figcaption></figure>
 </div>
@@ -407,36 +438,36 @@ Figure&nbsp;11.1: Two possible models of plant growth.
 <p>Statistical testing determines whether the parameters differ from zero and the fit of the data to the model. Determining whether a parameter differs from zero relies on calculating the probability of getting the estimate we calculate if its true value is zero.</p>
 <p>This means as well as making assumptions about the type of relationship we also make assumptions about the distribution of the data. The assumption we make is that parameter is drawn from a normal distribution. This is a reasonable assumption, because many things are. However, if this assumption is not met, then our probability will not be accurate.</p>
 <p>For this reason, we check the assumptions of our model and test before drawing conclusions. If the assumptions are not met we take some action to transform the data or use a different model with fewer assumptions. Non-parametric tests make fewer assumptions about the distribution of the data. They are called non-parametric because they do not estimate parameters like an intercept and gradient.</p>
-</section><section id="using-a-linear-model-in-practice." class="level2" data-number="11.2"><h2 data-number="11.2" class="anchored" data-anchor-id="using-a-linear-model-in-practice.">
-<span class="header-section-number">11.2</span> Using a linear model in practice.</h2>
+</section><section id="using-a-linear-model-in-practice." class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="using-a-linear-model-in-practice.">
+<span class="header-section-number">11.3</span> Using a linear model in practice.</h2>
 <p>Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.</p>
 <p>We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See <a href="#fig-linear-bact" class="quarto-xref">Figure&nbsp;<span>11.2</span></a>.</p>
 <div id="fig-linear-bact" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-linear-bact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-linear-bact" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-linear-bact-1" class="quarto-figure quarto-figure-center anchored" width="576">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-linear-bact" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-linear-bact-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-linear-bact-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="what_statistical_model_files/figure-html/fig-linear-bact-1.png" class="img-fluid figure-img" data-ref-parent="fig-linear-bact" width="576">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-linear-bact-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-linear-bact-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Data without a model.
 </figcaption></figure>
 </div>
 </div>
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-linear-bact" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-linear-bact-2" class="quarto-figure quarto-figure-center anchored" width="576">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-linear-bact" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-linear-bact-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-linear-bact-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="what_statistical_model_files/figure-html/fig-linear-bact-2.png" class="img-fluid figure-img" data-ref-parent="fig-linear-bact" width="576">
 </div>
-<figcaption class="figure quarto-subfloat-caption quarto-subfloat-fig" id="fig-linear-bact-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-linear-bact-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Data with a line of best fit
 </figcaption></figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-linear-bact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-linear-bact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.2: The effect of nutrient level on bacterial colony diamters without (1) and with (2) a linear model.
 </figcaption></figure>
 </div>
@@ -458,8 +489,8 @@ y = \beta_{0} + \beta_{1}x
 Diameter = \beta_{0} + \beta_{1}Nutrient
 \tag{11.4}\]</span></span></p>
 <p>Linear models are amongst the most commonly used statistics. Regression, <em>t</em>-tests and ANOVA are all linear models collectively known as the <em>General Linear Model</em>.</p>
-</section><section id="model-fitting" class="level2" data-number="11.3"><h2 data-number="11.3" class="anchored" data-anchor-id="model-fitting">
-<span class="header-section-number">11.3</span> Model fitting</h2>
+</section><section id="model-fitting" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="model-fitting">
+<span class="header-section-number">11.4</span> Model fitting</h2>
 <p>The process of estimating the parameters <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> from data is known as <em>fitting a linear model</em>. The line gives the predicted values of <span class="math inline">\(y\)</span>. The actual measured value of <span class="math inline">\(y\)</span> will differ from the predicted value and this difference is called a <em>residual</em> or an <em>error</em>. The line is a best fit in the sense that <span class="math inline">\(\beta_{0}\)</span> and <span class="math inline">\(\beta_{1}\)</span> minimise the <em>sum of the squared residuals</em>, <span class="math inline">\(SSE\)</span>.</p>
 <p><span id="eq-sse"><span class="math display">\[
 SSE = \sum(y_{i}-\hat{y})^2
@@ -481,26 +512,26 @@ SSE = \sum(y_{i}-\hat{y})^2
 R^2=1-\frac{SSE}{SST}
 \tag{11.7}\]</span></span></p>
 <p>If there were no explanatory variables, the value we would predict for the response variable is its mean. In other words, if you did not know the nutrient level for a randomly chosen bacterial colony the best guess you could make for its eventual diameter is the mean diameter. Thus, a good model should fit the response better than the mean - that is, a good model should fit the response better than a best guess. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> includes the <span class="math inline">\(R^2\)</span>. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. See <a href="#fig-lm-fit" class="quarto-xref">Figure&nbsp;<span>11.3</span></a></p>
-<div id="fig-lm-fit" class="quarto-figure quarto-figure-center anchored" width="400">
+<div id="fig-lm-fit" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lm-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/lm_fit.svg" class="img-fluid figure-img" width="400">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-lm-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lm-fit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.3: A linear model with different fits. A) the model is a poor fit - the explanatory variable is no better than the response mean for predicting the response. B) the model is good fit - the explanatory variable explains a high proportion of the variance in the response. C) the model is a perfect fit - the response can be predicted perfectly from the explanatory variable. Measured response values are in pink, the predictions are in green and the dashed blue line gives the mean of the response.
 </figcaption></figure>
 </div>
 <p>Since the distribution of the responses for a given <span class="math inline">\(x\)</span> is assumed to be normal and the variances of those distributions are assumed to be homogeneous, both are also true of the residuals. It is our examination of the residuals which allows us to evaluate whether the assumptions are met.</p>
 <p>See <a href="#fig-lm-annotated" class="quarto-xref">Figure&nbsp;<span>11.4</span></a> for a graphical representation of linear modelling terms introduced so far.</p>
-<div id="fig-lm-annotated" class="quarto-figure quarto-figure-center anchored" width="400">
+<div id="fig-lm-annotated" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-lm-annotated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/generic_lm.svg" class="img-fluid figure-img" width="400">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-lm-annotated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lm-annotated-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;11.4: A linear model annotated with the terms used in modelling. Measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, <span class="math inline">\(\beta_{0}\)</span> (the intercept) and <span class="math inline">\(\beta_{1}\)</span> (the slope) are indicated.
 </figcaption></figure>
 </div>
-<section id="general-linear-model-assumptions" class="level3" data-number="11.3.1"><h3 data-number="11.3.1" class="anchored" data-anchor-id="general-linear-model-assumptions">
-<span class="header-section-number">11.3.1</span> General linear model assumptions</h3>
+<section id="general-linear-model-assumptions" class="level3" data-number="11.4.1"><h3 data-number="11.4.1" class="anchored" data-anchor-id="general-linear-model-assumptions">
+<span class="header-section-number">11.4.1</span> General linear model assumptions</h3>
 <p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value</p>
 <p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
 <ul>
@@ -508,13 +539,13 @@ Figure&nbsp;11.4: A linear model annotated with the terms used in modelling. Mea
 <li>There should decimal places and few repeated values.</li>
 </ul>
 <p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution</p>
-</section></section><section id="choice-of-model" class="level2" data-number="11.4"><h2 data-number="11.4" class="anchored" data-anchor-id="choice-of-model">
-<span class="header-section-number">11.4</span> Choice of model</h2>
+</section></section><section id="choice-of-model" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="choice-of-model">
+<span class="header-section-number">11.5</span> Choice of model</h2>
 <p>before: appropriate to the question, type of relationship. assumptions about the type of model</p>
 <p>and after assumption calculations the probability calculations</p>
 <p>implications of wrong choices: doesn’t anwser the question p value is inaccurate conclusions are wrong</p>
-</section><section id="general-linear-models-in-r" class="level2" data-number="11.5"><h2 data-number="11.5" class="anchored" data-anchor-id="general-linear-models-in-r">
-<span class="header-section-number">11.5</span> General linear models in R</h2>
+</section><section id="general-linear-models-in-r" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="general-linear-models-in-r">
+<span class="header-section-number">11.6</span> General linear models in R</h2>
 <p>We use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function in R to analyse data with the general linear model. When you have one explanatory variable the command is:</p>
 <p><code> lm(data = <em>dataframe</em>, <em>response</em> ~ <em>explanatory</em>) </code></p>
 <p>The <code>response ~ explanatory</code> part is known as the model <strong>formula</strong>. These must be the names of two column in the dataframe.</p>
@@ -532,53 +563,71 @@ summary(mod) </code></p>
 <li>an <em>F</em>-test of the model fit overall</li>
 </ol>
 <p>The <em>F</em>-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant. i.e., whether it explains a significant amount of variation.</p>
-</section><section id="checking-assumptions" class="level2" data-number="11.6"><h2 data-number="11.6" class="anchored" data-anchor-id="checking-assumptions">
-<span class="header-section-number">11.6</span> Checking assumptions</h2>
+</section><section id="checking-assumptions" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="checking-assumptions">
+<span class="header-section-number">11.7</span> Checking assumptions</h2>
 <p>The assumptions relate to the type of relationship chosen and the hypothesis testing about the parameters. For a general linear model we assume the relationship between diameter and nutrients is linear and we examine this by plotting our data before running any tests.</p>
 <p>The assumptions of the hypothesis testing in a general linear model are that residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value. We usually check these assumptions after fitting the linear model by using the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function. This produces diagnostic plots to explore the distribution of the residuals. These cannot prove the assumptions are met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.</p>
 <p>The two diagnostic plots which are most useful are the “Q-Q” plot (plot 2) and the “Residuals vs Fitted” plot (plot 1). These are given as values to the <code>which</code> argument of <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code>.</p>
-<section id="the-q-q-plot" class="level3" data-number="11.6.1"><h3 data-number="11.6.1" class="anchored" data-anchor-id="the-q-q-plot">
-<span class="header-section-number">11.6.1</span> The Q-Q plot</h3>
+<section id="the-q-q-plot" class="level3" data-number="11.7.1"><h3 data-number="11.7.1" class="anchored" data-anchor-id="the-q-q-plot">
+<span class="header-section-number">11.7.1</span> The Q-Q plot</h3>
 <p>The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The points should fall roughly on the line if the residuals are normally distributed. In the example above, the residuals appear normally distributed.</p>
 <p>The following are two examples in which the residuals are not normally distributed.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>If you see patterns like these you should find an alternative to a general linear model such as a non-parametric test or a generalised linear model. Sometimes, applying a transformation to the response variable will result in better meeting the assumptions.</p>
-</section><section id="the-residuals-vs-fitted-plot" class="level3" data-number="11.6.2"><h3 data-number="11.6.2" class="anchored" data-anchor-id="the-residuals-vs-fitted-plot">
-<span class="header-section-number">11.6.2</span> The Residuals vs Fitted plot</h3>
+</section><section id="the-residuals-vs-fitted-plot" class="level3" data-number="11.7.2"><h3 data-number="11.7.2" class="anchored" data-anchor-id="the-residuals-vs-fitted-plot">
+<span class="header-section-number">11.7.2</span> The Residuals vs Fitted plot</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The Residuals vs Fitted plot shows if residuals have homogeneous variance or non-linear patterns. Non-linear relationships between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line as they are here:</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="what_statistical_model_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid figure-img" width="576"></p>
+</figure>
 </div>
 </div>
-</section></section><section id="reporting" class="level2" data-number="11.7"><h2 data-number="11.7" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">11.7</span> Reporting</h2>
+</div>
+</section></section><section id="reporting" class="level2" data-number="11.8"><h2 data-number="11.8" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">11.8</span> Reporting</h2>
 <p>When reporting the results of statistical tests we need to make sure we tell the reader everything they need to know and give the evidence it to support it. What they need to know is given in statements describing what difference or effect is significant and the evidence is from the test statistic and <em>p</em>-value from the test. You can think the statistical test values as being the evidence for the statements in your results sections, just as citations are the evidence for the statements in your introduction.</p>
 <p>In reporting the result of a test we give:</p>
 <ol type="1">
@@ -587,6 +636,18 @@ summary(mod) </code></p>
 <li><p>the magnitude of effect</p></li>
 </ol>
 <p>Figures should demonstrate the statement. Ideally they will include all the data and the ‘model’, i.e., the means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. I like this blog on <a href="https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific-papers-b26a77fa890">How to craft a figure legend for scientific papers</a></p>
+</section><section id="summary" class="level2" data-number="11.9"><h2 data-number="11.9" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">11.9</span> Summary</h2>
+<ol type="1">
+<li><p>A statistical model is an equation that describes the relationship between a response variable and one or more explanatory variables.</p></li>
+<li><p>A statistical model allows you to make predictions about the response variable based on the values of the explanatory variables.</p></li>
+<li><p>Many statistical tests are types of “General Linear Model” including linear regression, <em>t</em>-tests and ANOVA.</p></li>
+<li><p>Statistical testing means estimating the model “parameters” and testing whether they are significantly different from zero. The parameters, also known as coefficients, are the intercept and slope (s) in a General Linear Model. A <em>p</em>-value less than 0.05 for the slope means there is a significant relationship between the response and the explanatory variable.</p></li>
+<li><p>We also consider the fit of the model to the data using the <em>R</em>-squared value and the <em>F</em>-test. An <em>R</em>-squared value close to 1 indicates a good fit and <em>p</em>-value less than 0.05 for the <em>F</em>-test indicates the model explains a significant amount of variation.</p></li>
+<li><p>The assumptions of the General Linear Model must be met for the <em>p</em>-values to be accurate. These are: are that the relationship between the response and the explanatory variables is linear and that the residuals are normally distributed and have homogeneity of variance. We check these assumptions by plotting the data and the residuals.</p></li>
+<li><p>We use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function to fit a linear model in R. The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function gives us the <em>p</em>-values and <em>R</em>-squared value and the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function gives us diagnostic plots to check the assumptions.</p></li>
+<li><p>When reporting the results of statistical tests give the significance, direction and magnitude of the effect and use figures to demonstrate the statement.</p></li>
+</ol>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -812,6 +873,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -861,38 +940,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -901,8 +970,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1121,29 +1197,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./confidence_intervals.html" class="pagination-link">
+      <a href="./confidence_intervals.html" class="pagination-link  aria-label=" intervals="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./single_linear_regression.html" class="pagination-link">
+      <a href="./single_linear_regression.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Single linear regression</span>">
         <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1155,7 +1216,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/what_statistical_model.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

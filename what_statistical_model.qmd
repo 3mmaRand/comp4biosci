@@ -8,6 +8,11 @@ source("_common.R")
 status("polishing")
 ```
 
+## Overview
+
+This section discusses statistical models which are equations representing relationships between variables. Statistical models help us test hypotheses and make predictions. The process involves estimating model "parameters" from data and assessing "model fit". Linear models include regression, *t*-tests, and ANOVA, known collectively as the General Linear Model. The assumptions of the general linear model are that the "residuals" are normally distribution and variance is homogeneous. If the assumptions are violated we can use non-parametric tests.
+
+
 ## What is a statistical model?
 
 A statistical model is a mathematical equation that helps us understand the relationships between variables. We evaluate how well our data fit a particular model so we can infer something about how the values arose or make predictions about future values. 
@@ -358,6 +363,21 @@ In reporting the result of a test we give:
 
 Figures should demonstrate the statement. Ideally they will include all the data and the 'model', i.e., the means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. I like this blog on [How to craft a figure legend for scientific papers](https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific-papers-b26a77fa890)
 
+## Summary
 
+1. A statistical model is an equation that describes the relationship between a response variable and one or more explanatory variables.
 
+2. A statistical model allows you to make predictions about the response variable based on the values of the explanatory variables.
+
+3. Many statistical tests are types of "General Linear Model" including linear regression, *t*-tests and ANOVA.
+
+4. Statistical testing means estimating the model "parameters" and testing whether they are significantly different from zero. The parameters, also known as coefficients, are the intercept and slope (s) in a General Linear Model. A *p*-value less than 0.05 for the slope means there is a significant relationship between the response and the explanatory variable.
+
+5. We also consider the fit of the model to the data using the *R*-squared value and the *F*-test. An *R*-squared value close to 1 indicates a good fit and *p*-value less than 0.05 for the *F*-test indicates the model explains a significant amount of variation.
+
+6. The assumptions of the General Linear Model must be met for the *p*-values to be accurate. These are: are that the relationship between the response and the explanatory variables is linear and that the residuals are normally distributed and have homogeneity of variance. We check these assumptions by plotting the data and the residuals.
+
+7. We use the `lm()` function to fit a linear model in R. The `summary()` function gives us the *p*-values and *R*-squared value and the `plot()` function gives us diagnostic plots to check the assumptions.
+
+8. When reporting the results of statistical tests give the significance, direction and magnitude of the effect and use figures to demonstrate the statement.
 
