@@ -4,7 +4,7 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Overview
@@ -214,9 +214,10 @@ Taken together, these results suggest that the assumptions of normality and homo
 
 The temperature explained a significant amount of the variation in respiration rate (ANOVA: *F* = 67; *d.f*. = 1, 13; *p* < 0.001). The regression line is: Respiration rate = `r b0` + `r b1` * temperature. See @fig-shrimp.
 
+::: {#fig-shrimp}
+
 ```{r}
-#| label: fig-shrimp
-#| fig-cap: "The effect of altering water bath temperature on the average respiration rate of brine shrimps."
+#| code-fold: true
 
 ggplot(data = shrimp, 
                 aes(x = temperature, y = respiration)) +
@@ -232,3 +233,8 @@ ggplot(data = shrimp,
                      name = "Respiration (units)") +
   theme_classic()
 ```
+
+
+**Respiration rate of *Artemia salina* increases with temperature**. Three replicate water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were placed in each and their average respiration rate per water bath was measured. There was a significant effect of altering water bath temperature on the average respiration rate (ANOVA: *F* = 67; *d.f*. = 1, 13; *p* < 0.001). The regression line is: Respiration rate = `r b0` + `r b1` * temperature. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
+
+:::

@@ -421,17 +421,17 @@ First draft
 <p>If the assumptions are not met, we can use alternatives known as non-parametric tests. Non-parametric tests are based on the ranks of values rather than the actual values themselves. Null hypotheses are about the mean rank rather than the mean. These tests have fewer assumptions and can be used in more situations but the downside is they tend to be less powerful. This means they are less able to detect a difference where one exists.</p>
 <section id="independent-samples-and-paired-samples." class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="independent-samples-and-paired-samples.">
 <span class="header-section-number">13.1.1</span> Independent samples and paired samples.</h3>
-<p>An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. The key consideration is whether pairs of observations in different groups have something in common that make them more similar to each other than to other observations. We use a different testing approach for independent and non-independent samples.</p>
+<p>An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. If pairs of observations in different groups have something in common that make them more similar to each other than to other observations, then those observations are no independent. We use a different testing approach for independent and non-independent samples.</p>
 </section><section id="t-tests" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="t-tests">
 <span class="header-section-number">13.1.2</span> <em>T</em>-tests</h3>
-<p>A linear model with one explanatory variable with two groups is also known as a <strong>two-sample <em>t</em>-test</strong> when the samples are independent and as a <strong>paired-samples <em>t</em>-test</strong> when they are not. R does have a <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function because it is more generalisable. You can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> when you have three or more groups or additional explanatory variables. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> rather than <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for two-group situations - the procedures are identical and the <em>p</em>-values will be the same.</p>
+<p>A linear model with one explanatory variable with two groups is also known as a <strong>two-sample <em>t</em>-test</strong> when the samples are independent and as a <strong>paired-samples <em>t</em>-test</strong> when they are not. R does have a <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function because it is more generalisable. You can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> when you have three or more groups or additional explanatory variables. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is also in the same form as many other statistical functions in R. This means what you learn in performing <em>t</em>-tests with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> will help you learn other methods more easily. However, it is definitely not wrong to use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> rather than <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for two-group situations - the procedures are identical and the <em>p</em>-values will be the same.</p>
 </section><section id="model-assumptions" class="level3" data-number="13.1.3"><h3 data-number="13.1.3" class="anchored" data-anchor-id="model-assumptions">
 <span class="header-section-number">13.1.3</span> Model assumptions</h3>
 <p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.</p>
 <p>If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and <em>then</em> check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
 <ul>
-<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
-<li>There should decimal places and few repeated values.</li>
+<li><p>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous.</p></li>
+<li><p>We expect decimal places and few repeated values.</p></li>
 </ul>
 <p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution in the same way as we did for single linear regression.</p>
 </section><section id="reporting" class="level3" data-number="13.1.4"><h3 data-number="13.1.4" class="anchored" data-anchor-id="reporting">
@@ -465,11 +465,40 @@ First draft
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
 </section><section id="two-independent-samples-example-parametric" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="two-independent-samples-example-parametric">
 <span class="header-section-number">13.3</span> Two independent samples example parametric</h2>
-<p>A number of <a href="https://en.wikipedia.org/wiki/Common_chaffinch">subspecies of the common chaffinch</a> have been described, based principally on the differences in the pattern and colour of the adult male plumage. Two of groups of these subspecies are:</p>
+<p>A number of <a href="https://en.wikipedia.org/wiki/Common_chaffinch">subspecies of the common chaffinch</a> have been described, based principally on the differences in the pattern and colour of the adult male plumage <span class="citation" data-cites="suárez2009">(<a href="references.html#ref-su%C3%A1rez2009" role="doc-biblioref">Suárez et al. 2009</a>)</span>. Two of groups (See <a href="#fig-subspecies" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>) of these subspecies are :</p>
 <ul>
 <li>“coelebs group” that occurs in Europe and Asia</li>
 <li>“canariensis group” that occurs on the Canary Islands</li>
 </ul>
+<div id="fig-subspecies" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-subspecies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subspecies" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-coelebs" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-coelebs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/512px-Chaffinch_(Fringilla_coelebs).jpg" class="img-fluid figure-img" data-ref-parent="fig-subspecies">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-coelebs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) <em>F. c.&nbsp;coelebs</em>
+</figcaption></figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-subspecies" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-canariensis" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-canariensis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/512px-Fringilla_coelebs_palmae_-_Los_Tilos.jpg" class="img-fluid figure-img" data-ref-parent="fig-subspecies">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-canariensis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) <em>F. c.&nbsp;palmae</em>
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-subspecies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.1: Adult male <em>Fringilla coelebs</em> of the coelebs group on the left (Andreas Trepte, CC BY-SA 2.5 <a href="https://creativecommons.org/licenses/by-sa/2.5" class="uri">https://creativecommons.org/licenses/by-sa/2.5</a>, via Wikimedia Commons) and of the canariensis group on the right (H. Zell, CC BY-SA 3.0 <a href="https://creativecommons.org/licenses/by-sa/3.0" class="uri">https://creativecommons.org/licenses/by-sa/3.0</a>, via Wikimedia Commons).
+</figcaption></figure>
+</div>
 <p>The data in <a href="data-raw/chaff.txt">chaff.txt</a> give the masses of twenty individuals from each subspecies. We want to know if the subspecies differ in mass. These groups are independent - there is no link between values in one group and any value in the other group.</p>
 <section id="import-and-explore" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="import-and-explore">
 <span class="header-section-number">13.3.1</span> Import and explore</h3>
@@ -653,8 +682,8 @@ First draft
 </div>
 </div>
 <p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the mass values are in one column with another column indicating the subspecies. This means they are well formatted for analysis and plotting.</p>
-<p>In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
-<p>Violin plots (<code>geom_violin()</code>), box plots (<code>geom_boxplot()</code>, see <a href="#fig-chaff-rough" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
+<p>In the first instance, it is always sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
+<p>Violin plots (<code>geom_violin()</code>), box plots (<code>geom_boxplot()</code>, see <a href="#fig-chaff-rough" class="quarto-xref">Figure&nbsp;<span>13.2</span></a>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chaff</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subspecies</span>, y <span class="op">=</span> <span class="va">mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -665,7 +694,7 @@ First draft
 <img src="two_sample_tests_files/figure-html/fig-chaff-rough-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chaff-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.1: The mass of two subspecies of chaffinch. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis.
+Figure&nbsp;13.2: The mass of two subspecies of chaffinch. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis.
 </figcaption></figure>
 </div>
 </div>
@@ -721,8 +750,8 @@ Figure&nbsp;13.1: The mass of two subspecies of chaffinch. A boxplot is a useful
 </div>
 <p>The Estimates in the Coefficients table give:</p>
 <ul>
-<li><p><code>(Intercept)</code> known as <span class="math inline">\(\beta_0\)</span>. The mean of the canariensis group (<a href="#fig-two-sample-lm-model" class="quarto-xref">Figure&nbsp;<span>13.2</span></a>). Just as the intercept is the value of the <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero in a simple linear regression, this is the value of <code>mass</code> when the <code>subspecies</code> is at its first level. The order of the levels is alphabetical by default.</p></li>
-<li><p><code>subspeciescoelebs</code>, known as <span class="math inline">\(\beta_0\)</span>, is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (<a href="#fig-two-sample-lm-model" class="quarto-xref">Figure&nbsp;<span>13.2</span></a>). Just as the slope is amount of <em>y</em> that needs to be added for each unit of <em>x</em> in a simple linear regression, this is the amount of <code>mass</code> that needs to be added when the <code>subspecies</code> goes from its first level to its second level (<em>i.e.</em>, one unit). The <code>subspeciescoelebs</code> estimate is negative so the the coelebs group mean is lower than the canariensis group mean</p></li>
+<li><p><code>(Intercept)</code> known as <span class="math inline">\(\beta_0\)</span>. The mean of the canariensis group (<a href="#fig-two-sample-lm-model" class="quarto-xref">Figure&nbsp;<span>13.3</span></a>). Just as the intercept is the value of the <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero in a simple linear regression, this is the value of <code>mass</code> when the <code>subspecies</code> is at its first level. The order of the levels is alphabetical by default.</p></li>
+<li><p><code>subspeciescoelebs</code>, known as <span class="math inline">\(\beta_1\)</span>, is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (<a href="#fig-two-sample-lm-model" class="quarto-xref">Figure&nbsp;<span>13.3</span></a>). Just as the slope is amount of <em>y</em> that needs to be added for each unit of <em>x</em> in a simple linear regression, this is the amount of <code>mass</code> that needs to be added when the <code>subspecies</code> goes from its first level to its second level (<em>i.e.</em>, one unit). The <code>subspeciescoelebs</code> estimate is negative so the the coelebs group mean is lower than the canariensis group mean</p></li>
 </ul>
 <p>The <em>p</em>-values on each line are tests of whether that coefficient is different from zero. Thus it is:</p>
 <p><code>subspeciescoelebs  -1.7950     0.6781  -2.647   0.0118 *</code></p>
@@ -735,7 +764,7 @@ Figure&nbsp;13.1: The mass of two subspecies of chaffinch. A boxplot is a useful
 <img src="two_sample_tests_files/figure-html/fig-two-sample-lm-model-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-two-sample-lm-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.2: In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the ‘slope’ which is what has to added to the intercept to get the second group mean. Note that y axis starts at 15 to create more space for the annotations.
+Figure&nbsp;13.3: In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the ‘slope’ which is what has to added to the intercept to get the second group mean. Note that y axis starts at 15 to create more space for the annotations.
 </figcaption></figure>
 </div>
 </div>
@@ -743,8 +772,8 @@ Figure&nbsp;13.2: In a two-sample linear model, the first estimate is the interc
 </section><section id="check-assumptions" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="check-assumptions">
 <span class="header-section-number">13.3.3</span> Check assumptions</h3>
 <p>Check the assumptions: All general linear models assume the “residuals” are normally distributed and have “homogeneity” of variance.</p>
-<p>Our first check of these assumptions is to use common sense: mass is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed</p>
-<p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-lm-plot1" class="quarto-xref">Figure&nbsp;<span>13.3</span></a>). This is a good way to check for homogeneity of variance.</p>
+<p>Our first check of these assumptions is to use common sense: mass is a continuous variable and we would expect it to be normally distributed thus we would also expect the residuals to be normally distributed.</p>
+<p>We then plot the residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-lm-plot1" class="quarto-xref">Figure&nbsp;<span>13.4</span></a>). This is a good way to check for homogeneity of variance.</p>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -753,12 +782,12 @@ Figure&nbsp;13.2: In a two-sample linear model, the first estimate is the interc
 <img src="two_sample_tests_files/figure-html/fig-lm-plot1-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lm-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.3: A plot of the residuals against the fitted values shows the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance.
+Figure&nbsp;13.4: A plot of the residuals against the fitted values shows the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>We can also use a histogram to check for normality (See <a href="#fig-lm-plot2" class="quarto-xref">Figure&nbsp;<span>13.4</span></a>).</p>
+<p>We can also use a histogram to check for normality (See <a href="#fig-lm-plot2" class="quarto-xref">Figure&nbsp;<span>13.5</span></a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -768,7 +797,7 @@ Figure&nbsp;13.3: A plot of the residuals against the fitted values shows the po
 <img src="two_sample_tests_files/figure-html/fig-lm-plot2-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lm-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
+Figure&nbsp;13.5: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
 </figcaption></figure>
 </div>
 </div>
@@ -786,9 +815,8 @@ Figure&nbsp;13.4: A histogram of residuals is symetrical and seems consistent wi
 <p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.</p>
 </section><section id="report" class="level3" data-number="13.3.4"><h3 data-number="13.3.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">13.3.4</span> Report</h3>
-<p>Canariensis chaffinches (<span class="math inline">\(\bar{x} \pm s.e\)</span>: 22.48 <span class="math inline">\(\pm\)</span> 0.48) are significantly heavier than Coelebs (20.28 <span class="math inline">\(\pm\)</span> 0.48 ) (<em>t</em> = 2.65; <em>d.f.</em> = 38; <em>p</em> = 0.012). See <a href="#fig-chaff" class="quarto-xref">Figure&nbsp;<span>13.5</span></a>.</p>
-<div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<p>Canariensis chaffinches (<span class="math inline">\(\bar{x} \pm s.e\)</span>: 22.48 <span class="math inline">\(\pm\)</span> 0.48) were significantly heavier than Coelebs (20.28 <span class="math inline">\(\pm\)</span> 0.48 ) (<em>t</em> = 2.65; <em>d.f.</em> = 38; <em>p</em> = 0.012). See <a href="#fig-chaff" class="quarto-xref">Figure&nbsp;<span>13.6</span></a>.</p>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">chaff</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subspecies</span>, y <span class="op">=</span> <span class="va">mass</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"gray50"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -809,16 +837,20 @@ Figure&nbsp;13.4: A histogram of residuals is symetrical and seems consistent wi
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">29</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.012"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-chaff" class="quarto-figure quarto-figure-center quarto-float anchored">
+</details><div id="fig-chaff" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-chaff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="two_sample_tests_files/figure-html/fig-chaff-1.png" class="img-fluid figure-img" width="576">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chaff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.5: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.
+Figure&nbsp;13.6: <strong>Canariensis chaffinches are heavier than Coelebs chaffinches</strong>. The mean mass of 20 randomly sampled males from each subspecies was determined. Error bars are <span class="math inline">\(\pm\)</span> 1 standard error. Canariensis chaffinches were significantly heavier than Coelebs (<em>t</em> = 2.65; <em>d.f.</em> = 38; <em>p</em> = 0.012). Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
-</div>
-</div>
 </div>
 </section></section><section id="two-independent-samples-example-non-parametric" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="two-independent-samples-example-non-parametric">
 <span class="header-section-number">13.4</span> Two independent samples example non-parametric</h2>
@@ -830,7 +862,7 @@ Figure&nbsp;13.5: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.
 <li>the sample size is too small to tell if they are normally distributed.</li>
 <li>the variance is not homogeneous</li>
 </ul>
-<p>The data in <a href="data-raw/arabidopsis.txt">arabidopsis.txt</a> give the number of leaves on eight wildtype and eight mutant <em>Arabidopsis</em> plants. We want to know if the two types of plants have differing numbers of leaves. These are counts so are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.</p>
+<p>The data in <a href="data-raw/arabidopsis.txt">arabidopsis.txt</a> give the number of leaves on eight wildtype and eight mutant <em>Arabidopsis thaliana</em> plants. We want to know if the two types of plants have differing numbers of leaves. These are counts, so they are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.</p>
 <section id="import-and-explore-1" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="import-and-explore-1">
 <span class="header-section-number">13.4.1</span> Import and explore</h3>
 <div class="cell">
@@ -843,12 +875,17 @@ Figure&nbsp;13.5: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">type</span>, y <span class="op">=</span> <span class="va">leaves</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="576"></p>
-</figure>
+<div id="fig-arabid-rough" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-arabid-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="two_sample_tests_files/figure-html/fig-arabid-rough-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-arabid-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.7: The number of leaves on mutant and wildtype plants. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis.
+</figcaption></figure>
 </div>
 </div>
 </div>
+<p>Our rough plot shows that the mutant plants have fewer leaves than the wildtype plants.</p>
 <p>Summarising the data using the median and interquartile range is more aligned to the type of data and the type of analysis than using means and standard deviations:</p>
 <div class="cell">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arabidopsis_summary</span> <span class="op">&lt;-</span> <span class="va">arabidopsis</span> <span class="op">|&gt;</span> </span>
@@ -883,9 +920,10 @@ Figure&nbsp;13.5: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.
 <p>The result of the test is given on this line: <code>W = 5, p-value = 0.005051</code>. <code>W</code> is the test statistic. The <em>p</em>-value is less than 0.05 meaning there is a significant difference in the number of leaves on wildtype and mutant plants.</p>
 </section><section id="report-1" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="report-1">
 <span class="header-section-number">13.4.3</span> Report</h3>
-<p>There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: <em>W</em> = 5, <span class="math inline">\(n_1\)</span> = 8, <span class="math inline">\(n_2\)</span> = 8, <em>p</em> = 0.005). See <a href="#fig-arabid" class="quarto-xref">Figure&nbsp;<span>13.6</span></a>.</p>
-<div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, </span>
+<p>There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: <em>W</em> = 5, <span class="math inline">\(n_1\)</span> = 8, <span class="math inline">\(n_2\)</span> = 8, <em>p</em> = 0.005). See <a href="#fig-arabid" class="quarto-xref">Figure&nbsp;<span>13.8</span></a>.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
+<span><span class="co">#| cold-fold: true</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, </span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">type</span>, y <span class="op">=</span> <span class="va">leaves</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of leaves"</span>, </span>
@@ -899,16 +937,20 @@ Figure&nbsp;13.5: Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e.
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">11</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.005"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
 <div id="fig-arabid" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-arabid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="two_sample_tests_files/figure-html/fig-arabid-1.png" class="img-fluid figure-img" width="576">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-arabid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.6: Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range.
+Figure&nbsp;13.8: <strong>Mutant <em>Arabidopsis thaliana</em> have fewer leaves</strong>. There are significantly more leaves on wildtype than mutant plants (Wilcoxon rank sum test: <em>W</em> = 5, <span class="math inline">\(n_1\)</span> = 8, <span class="math inline">\(n_2\)</span> = 8, <em>p</em> = 0.005). The heavy lines indicate the median of leaves, boxes indicate the interquartile range and whiskers the range. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
-</div>
-</div>
 </div>
 </section></section><section id="two-paired-samples-example-parametric" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="two-paired-samples-example-parametric">
 <span class="header-section-number">13.5</span> Two paired samples example parametric</h2>
@@ -1012,7 +1054,7 @@ Figure&nbsp;13.6: Median (heavy lines) number of of leaves on Wildtype and mutan
 </div>
 </section><section id="report-2" class="level3" data-number="13.5.4"><h3 data-number="13.5.4" class="anchored" data-anchor-id="report-2">
 <span class="header-section-number">13.5.4</span> Report</h3>
-<p>Individual students score significantly higher in Data Analysis than in Biology (<em>t</em> = 2.47; <em>d.f.</em> = 9; <em>p</em> = 0.0355) with an average difference of 6.5%. See <a href="#fig-marks" class="quarto-xref">Figure&nbsp;<span>13.7</span></a></p>
+<p>Individual students score significantly higher in Data Analysis than in Biology (<em>t</em> = 2.47; <em>d.f.</em> = 9; <em>p</em> = 0.0355) with an average difference of 6.5%. See <a href="#fig-marks" class="quarto-xref">Figure&nbsp;<span>13.9</span></a></p>
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -1036,7 +1078,7 @@ Figure&nbsp;13.6: Median (heavy lines) number of of leaves on Wildtype and mutan
 <img src="two_sample_tests_files/figure-html/fig-marks-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.7: Individual students score significantly higher in Data Analysis than in Biology. Open circles indicate an individual student’s marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject.
+Figure&nbsp;13.9: Individual students score significantly higher in Data Analysis than in Biology. Open circles indicate an individual student’s marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject.
 </figcaption></figure>
 </div>
 </div>
@@ -1064,6 +1106,12 @@ Figure&nbsp;13.7: Individual students score significantly higher in Data Analysi
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-R-core" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-suárez2009" class="csl-entry" role="listitem">
+Suárez, Nicolás M., Eva Betancor, Tilman E. Klassert, Teresa Almeida, Mariano Hernández, and José J. Pestano. 2009. <span>“Phylogeography and Genetic Structure of the Canarian Common Chaffinch (Fringilla Coelebs) Inferred with mtDNA and Microsatellite Loci.”</span> <em>Molecular Phylogenetics and Evolution</em> 53 (2): 556–64. <a href="https://doi.org/10.1016/j.ympev.2009.07.018">https://doi.org/10.1016/j.ympev.2009.07.018</a>.
+</div>
 <div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
 </div>

@@ -373,17 +373,17 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-First draft
+Just needs proof reading
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
+<p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
 </div>
 </div>
 <section id="overview" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="overview">
@@ -617,8 +617,7 @@ Figure&nbsp;12.4: A histogram of residuals is symetrical and seems consistent wi
 </section><section id="report" class="level3" data-number="12.3.4"><h3 data-number="12.3.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">12.3.4</span> Report</h3>
 <p>The temperature explained a significant amount of the variation in respiration rate (ANOVA: <em>F</em> = 67; <em>d.f</em>. = 1, 13; <em>p</em> &lt; 0.001). The regression line is: Respiration rate = 4.86 + 0.92 * temperature. See <a href="#fig-shrimp" class="quarto-xref">Figure&nbsp;<span>12.5</span></a>.</p>
-<div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>, </span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">shrimp</span>, </span>
 <span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">temperature</span>, y <span class="op">=</span> <span class="va">respiration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>   </span>
 <span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, </span>
@@ -631,20 +630,27 @@ Figure&nbsp;12.4: A histogram of residuals is symetrical and seems consistent wi
 <span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>,</span>
 <span>                     name <span class="op">=</span> <span class="st">"Respiration (units)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-shrimp" class="quarto-figure quarto-figure-center quarto-float anchored">
+</details><div id="fig-shrimp" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-shrimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="single_linear_regression_files/figure-html/fig-shrimp-1.png" class="img-fluid figure-img" width="576">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="single_linear_regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-shrimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12.5: The effect of altering water bath temperature on the average respiration rate of brine shrimps.
+Figure&nbsp;12.5: <strong>Respiration rate of <em>Artemia salina</em> increases with temperature</strong>. Three replicate water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (<em>Artemia salina</em>) were placed in each and their average respiration rate per water bath was measured. There was a significant effect of altering water bath temperature on the average respiration rate (ANOVA: <em>F</em> = 67; <em>d.f</em>. = 1, 13; <em>p</em> &lt; 0.001). The regression line is: Respiration rate = 4.86 + 0.92 * temperature. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
-</div>
-</div>
 </div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-R-core" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
 <div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
 Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
 </div>

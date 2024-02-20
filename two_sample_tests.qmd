@@ -18,11 +18,11 @@ If the assumptions are not met, we can use alternatives known as non-parametric 
 
 ### Independent samples and paired samples.
 
-An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. The key consideration is whether pairs of observations in different groups have something in common that make them more similar to each other than to other observations. We use a different testing approach for independent and non-independent samples.
+An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. If pairs of observations in different groups have something in common that make them more similar to each other than to other observations, then those observations are no independent. We use a different testing approach for independent and non-independent samples.
 
 ### *T*-tests
 
-A linear model with one explanatory variable with two groups is also known as a **two-sample *t*-test** when the samples are independent and as a **paired-samples *t*-test** when they are not. R does have a `t.test()` function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the `lm()` function because it is more generalisable. You can use `lm()` when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R so being familiar with it will help you learn other methods and functions more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the procedures are identical and the *p*-values will be the same.
+A linear model with one explanatory variable with two groups is also known as a **two-sample *t*-test** when the samples are independent and as a **paired-samples *t*-test** when they are not. R does have a `t.test()` function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the `lm()` function because it is more generalisable. You can use `lm()` when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R. This means what you learn in performing *t*-tests with `lm()` will help you learn other methods  more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the procedures are identical and the *p*-values will be the same.
 
 ### Model assumptions
 
@@ -30,8 +30,9 @@ The assumptions of the general linear model are that the residuals are normally 
 
 If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and *then* check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
 
--   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous
--   There should decimal places and few repeated values.
+-   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous.
+
+-   We expect decimal places and few repeated values.
 
 To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution in the same way as we did for single linear regression. 
 
@@ -66,10 +67,21 @@ If you want to code along you will need to start a new [RStudio project](workflo
 
 ## Two independent samples example parametric
 
-A number of [subspecies of the common chaffinch](https://en.wikipedia.org/wiki/Common_chaffinch) have been described, based principally on the differences in the pattern and colour of the adult male plumage. Two of groups of these subspecies are:
+A number of [subspecies of the common chaffinch](https://en.wikipedia.org/wiki/Common_chaffinch) have been described, based principally on the differences in the pattern and colour of the adult male plumage [@suárez2009]. Two of groups (See @fig-subspecies) of these subspecies are :
 
 -   "coelebs group" that occurs in Europe and Asia
 -   "canariensis group" that occurs on the Canary Islands
+
+
+::: {#fig-subspecies layout-ncol="2"}
+![*F. c. coelebs*](images/512px-Chaffinch_(Fringilla_coelebs).jpg){#fig-coelebs}
+
+![*F. c. palmae*](images/512px-Fringilla_coelebs_palmae_-_Los_Tilos.jpg){#fig-canariensis}
+
+Adult male *Fringilla coelebs* of the coelebs group on the left (Andreas Trepte, CC BY-SA 2.5 <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons) and of the canariensis group on the right (H. Zell, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons).
+:::
+
+
 
 The data in [chaff.txt](data-raw/chaff.txt) give the masses of twenty individuals from each subspecies. We want to know if the subspecies differ in mass. These groups are independent - there is no link between values in one group and any value in the other group.
 
@@ -89,16 +101,17 @@ knitr::kable(chaff) |>
   kableExtra::scroll_box(height = "200px")
 ```
 
+
 These data are in tidy format [@Wickham2014-nl] - all the mass values are in one column with another column indicating the subspecies. This means they are well formatted for analysis and plotting.
 
-In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
+In the first instance, it is always sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
 
 Violin plots (`geom_violin()`), box plots (`geom_boxplot()`, see @fig-chaff-rough) or scatter plots (`geom_point()`) all make good choices for exploratory plotting and it does not matter which of these you choose.
 
 ```{r}
 #| label: fig-chaff-rough
 #| fig-cap: "The mass of two subspecies of chaffinch. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
-#| 
+
 ggplot(data = chaff,
        aes(x = subspecies, y = mass)) +
   geom_boxplot()
@@ -143,7 +156,7 @@ The Estimates in the Coefficients table give:
 
 -   `(Intercept)` known as $\beta_0$. The mean of the canariensis group (@fig-two-sample-lm-model). Just as the intercept is the value of the *y* (the response) when the value of *x* (the explanatory) is zero in a simple linear regression, this is the value of `mass` when the `subspecies` is at its first level. The order of the levels is alphabetical by default.
 
--   `subspeciescoelebs`, known as $\beta_0$, is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to be added for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so the the coelebs group mean is lower than the canariensis group mean
+-   `subspeciescoelebs`, known as $\beta_1$, is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to be added for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so the the coelebs group mean is lower than the canariensis group mean
 
 The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
 
@@ -204,18 +217,19 @@ ggplot() +
 
 Check the assumptions: All general linear models assume the "residuals" are normally distributed and have "homogeneity" of variance.
 
-Our first check of these assumptions is to use common sense: mass is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed
+Our first check of these assumptions is to use common sense: mass is a continuous variable and we would expect it to be normally distributed thus we would also expect the residuals to be normally distributed.
 
-We then proceed by plotting residuals. The `plot()` function can be used to plot the residuals against the fitted values (See @fig-lm-plot1). This is a good way to check for homogeneity of variance. 
+We then plot the residuals. The `plot()` function can be used to plot the residuals against the fitted values (See @fig-lm-plot1). This is a good way to check for homogeneity of variance. 
 
 ```{r}
 #| label: fig-lm-plot1
-#| fig-cap: "A plot of the residuals against the fitted values shows  the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance."
+#| fig-cap: "A plot of the residuals against the fitted values shows the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance."
 
 plot(mod, which = 1)
 ```
 
 We can also use a histogram to check for normality (See @fig-lm-plot2).
+
 
 ```{r}
 #| label: fig-lm-plot2
@@ -225,6 +239,7 @@ ggplot(mapping = aes(x = mod$residuals)) +
 ```
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
+
 ```{r}
 shapiro.test(mod$residuals)
 ```
@@ -235,11 +250,12 @@ Taken together, these results suggest that the assumptions of normality and homo
 
 ### Report
 
-Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) are significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-chaff.
+Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) were significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-chaff.
+
+::: {#fig-chaff}
 
 ```{r}
-#| label: fig-chaff
-#| fig-cap: "Mass of two subspecies of chaffinch. Errors bars are ± 1 s.e."
+#| code-fold: true
 
 ggplot() +
   geom_point(data = chaff, aes(x = subspecies, y = mass),
@@ -264,6 +280,11 @@ ggplot() +
   theme_classic()
 ```
 
+**Canariensis chaffinches are heavier than Coelebs chaffinches**. The mean mass of 20 randomly sampled males from each subspecies was determined. Error bars are $\pm$ 1 standard error. Canariensis chaffinches were significantly heavier than Coelebs (*t* = 2.65; *d.f.* = 38; *p* = 0.012). Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
+
+:::
+
+
 ## Two independent samples example non-parametric
 
 The two sample Wilcoxon, also known as the Mann-Whitney, is the non-parametric equivalent of the linear model with two independent samples. 
@@ -275,7 +296,7 @@ The general question you have about your data - are these two groups different -
 -   the sample size is too small to tell if they are normally distributed.
 -   the variance is not homogeneous
 
-The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leaves on eight wildtype and eight mutant *Arabidopsis* plants. We want to know if the two types of plants have differing numbers of leaves. These are counts so are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.
+The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leaves on eight wildtype and eight mutant *Arabidopsis thaliana* plants. We want to know if the two types of plants have differing numbers of leaves. These are counts, so they are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.
 
 ### Import and explore
 
@@ -288,10 +309,15 @@ These data are in tidy format [@Wickham2014-nl] - the numbers of leaves are in o
 Create a quick plot of the data:
 
 ```{r}
+#| label: fig-arabid-rough
+#| fig-cap: "The number of leaves on mutant and wildtype plants. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
+
 ggplot(data = arabidopsis, 
        aes(x = type, y = leaves)) +
   geom_boxplot()
 ```
+
+Our rough plot shows that the mutant plants have fewer leaves than the wildtype plants. 
 
 Summarising the data using the median and interquartile range is more aligned to the type of data and the type of analysis than using means and standard deviations:
 
@@ -325,10 +351,11 @@ The result of the test is given on this line: `W = 5, p-value = 0.005051`. `W` i
 
 There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). See @fig-arabid.
 
-```{r}
-#| label: fig-arabid
-#| fig-cap: "Median (heavy lines) number of of leaves on Wildtype and mutant plants. Boxes indicate the interquartile range and whiskers the range."
+::: {#fig-arabid}
 
+```{r}
+
+#| cold-fold: true
 ggplot(data = arabidopsis, 
        aes(x = type, y = leaves)) +
   geom_boxplot() +
@@ -344,6 +371,11 @@ ggplot(data = arabidopsis,
            label = expression(italic(p)~"= 0.005")) +
   theme_classic()
 ```
+
+**Mutant *Arabidopsis thaliana* have fewer leaves**. There are significantly more leaves on wildtype than mutant plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). The heavy lines indicate the median of leaves, boxes indicate the interquartile range and whiskers the range. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
+
+:::
+
 
 ## Two paired samples example parametric
 
