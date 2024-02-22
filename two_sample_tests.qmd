@@ -5,85 +5,154 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Overview
 
-In the last chapter we learned about single linear regression, a technique used when the explanatory variable is continuous. We now turn our attention to cases where our explanatory variable is categorical and has two groups. For example, we might want to know if there is a difference in mass between two subspecies of chaffinch, or if marks in two subjects are the same.
+In the last chapter we learned about single linear regression, a
+technique used when the explanatory variable is continuous. We now turn
+our attention to cases where our explanatory variable is categorical and
+has two groups. For example, we might want to know if there is a
+difference in mass between two subspecies of chaffinch, or if marks in
+two subjects are the same.
 
-We use `lm()` or `wilcox.test()` to carry out a two-sample test depending on whether the assumptions of `lm()` are met. The general linear models applied with `lm()` are based on the normal distribution and known as parametric tests because they use the parameters of the normal distribution (the mean and standard deviation) to determine if an effect is significant. Null hypotheses are about a mean or difference between means. The assumptions need to be met for the *p*-values generated to be accurate.
+We use `lm()` or `wilcox.test()` to carry out a two-sample test
+depending on whether the assumptions of `lm()` are met. The general
+linear models applied with `lm()` are based on the normal distribution
+and known as parametric tests because they use the parameters of the
+normal distribution (the mean and standard deviation) to determine if an
+effect is significant. Null hypotheses are about a mean or difference
+between means. The assumptions need to be met for the *p*-values
+generated to be accurate.
 
-If the assumptions are not met, we can use alternatives known as non-parametric tests. Non-parametric tests are based on the ranks of values rather than the actual values themselves. Null hypotheses are about the mean rank rather than the mean. These tests have fewer assumptions and can be used in more situations but the downside is they tend to be less powerful. This means they are less able to detect a difference where one exists.
+If the assumptions are not met, we can use alternatives known as
+non-parametric tests. Non-parametric tests are based on the ranks of
+values rather than the actual values themselves. Null hypotheses are
+about the mean rank rather than the mean. These tests have fewer
+assumptions and can be used in more situations but the downside is they
+tend to be less powerful. This means they are less able to detect a
+difference where one exists.
 
 ### Independent samples and paired samples.
 
-An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. If pairs of observations in different groups have something in common that make them more similar to each other than to other observations, then those observations are no independent. We use a different testing approach for independent and non-independent samples.
+An important consideration in conducting tests is whether the values in
+one group are independent of the values in another group.
+Non-independence occurs when the two measures are linked in some way.
+The link could be that they are from the same individual, the same time
+or the same location. For example, if we want to evaluate a treatment
+for high blood pressure we might measure blood pressure before and after
+the treatment on the same individuals. This would mean the before and
+after measures were not independent. If pairs of observations in
+different groups have something in common that make them more similar to
+each other than to other observations, then those observations are no
+independent. We use a different testing approach for independent and
+non-independent samples.
 
 ### *T*-tests
 
-A linear model with one explanatory variable with two groups is also known as a **two-sample *t*-test** when the samples are independent and as a **paired-samples *t*-test** when they are not. R does have a `t.test()` function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the `lm()` function because it is more generalisable. You can use `lm()` when you have three or more groups or additional explanatory variables. The output of `lm()` is also in the same form as many other statistical functions in R. This means what you learn in performing *t*-tests with `lm()` will help you learn other methods  more easily. However, it is definitely not wrong to use `t.test()` rather than `lm()` for two-group situations - the procedures are identical and the *p*-values will be the same.
+A linear model with one explanatory variable with two groups is also
+known as a **two-sample *t*-test** when the samples are independent and
+as a **paired-samples *t*-test** when they are not. R does have a
+`t.test()` function which allows you to fit a linear model with just two
+groups. However, here we teach you to use and interpret the `lm()`
+function because it is more generalisable. You can use `lm()` when you
+have three or more groups or additional explanatory variables. The
+output of `lm()` is also in the same form as many other statistical
+functions in R. This means what you learn in performing *t*-tests with
+`lm()` will help you learn other methods more easily. However, it is
+definitely not wrong to use `t.test()` rather than `lm()` for two-group
+situations - the procedures are identical and the *p*-values will be the
+same.
 
 ### Model assumptions
 
-The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.
+The assumptions of the general linear model are that the residuals are
+normally distributed and have homogeneity of variance. A residual is the
+difference between the predicted value and the observed value.
 
-If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and *then* check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
+If we have a continuous response and a categorical explanatory variable
+with two groups, we usually apply the general linear model with `lm()`
+and *then* check the assumptions, however, we can sometimes tell when a
+non-parametric test would be more appropriate before that:
 
--   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous.
+-   Use common sense - the response should be continuous (or nearly
+    continuous, see [Ideas about data: Theory and
+    practice](ideas_about_data.html#theory-and-practice)). Consider
+    whether you would expect the response to be continuous.
 
 -   We expect decimal places and few repeated values.
 
-To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution in the same way as we did for single linear regression. 
+To examine the assumptions after fitting the linear model, we plot the
+residuals and test them against the normal distribution in the same way
+as we did for single linear regression.
 
 ### Reporting
 
 In reporting the result of two-sample test we give:
 
-1.  the significance of effect - whether there is there a difference between the groups
+1.  the significance of effect - whether there is there a difference
+    between the groups
 
-    -   parametric: whether there is there a difference between the groups means
-    -   non-parametric: whether there is there a difference between the group medians
+    -   parametric: whether there is there a difference between the
+        groups means
+    -   non-parametric: whether there is there a difference between the
+        group medians
 
 2.  the direction of effect - which of the means/medians is greater
 
-3.  the magnitude of effect - how big is the difference between the means/medians
+3.  the magnitude of effect - how big is the difference between the
+    means/medians
 
-    -   parametric: the means and standard errors for each group or the mean difference for paired samples
-    -   non-parametric: the medians for each group or the median difference for paired samples
+    -   parametric: the means and standard errors for each group or the
+        mean difference for paired samples
+    -   non-parametric: the medians for each group or the median
+        difference for paired samples
 
-Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:
+Figures should reflect what you have said in the statements. Ideally
+they should show both the raw data and the statistical model:
 
--   parametric: means and standard errors 
+-   parametric: means and standard errors
 -   non-parametric: boxplots with medians and interquartile range
-
 
 We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects), add a `data-raw` folder and open a new script. You will also need to load the **`tidyverse`** package [@tidyverse].
+If you want to code along you will need to start a new [RStudio
+project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+folder and open a new script. You will also need to load the
+**`tidyverse`** package [@tidyverse].
 
+## Two independent samples, parametric
 
-## Two independent samples example parametric
-
-A number of [subspecies of the common chaffinch](https://en.wikipedia.org/wiki/Common_chaffinch) have been described, based principally on the differences in the pattern and colour of the adult male plumage [@suárez2009]. Two of groups (See @fig-subspecies) of these subspecies are :
+A number of [subspecies of the common
+chaffinch](https://en.wikipedia.org/wiki/Common_chaffinch) have been
+described, based principally on the differences in the pattern and
+colour of the adult male plumage [@suárez2009]. Two of groups (See
+@fig-subspecies) of these subspecies are :
 
 -   "coelebs group" that occurs in Europe and Asia
 -   "canariensis group" that occurs on the Canary Islands
 
-
 ::: {#fig-subspecies layout-ncol="2"}
-![*F. c. coelebs*](images/512px-Chaffinch_(Fringilla_coelebs).jpg){#fig-coelebs}
+![*F. c.
+coelebs*](images/512px-Chaffinch_(Fringilla_coelebs).jpg){#fig-coelebs}
 
-![*F. c. palmae*](images/512px-Fringilla_coelebs_palmae_-_Los_Tilos.jpg){#fig-canariensis}
+![*F. c.
+palmae*](images/512px-Fringilla_coelebs_palmae_-_Los_Tilos.jpg){#fig-canariensis}
 
-Adult male *Fringilla coelebs* of the coelebs group on the left (Andreas Trepte, CC BY-SA 2.5 <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons) and of the canariensis group on the right (H. Zell, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons).
+Adult male *Fringilla coelebs* of the coelebs group on the left (Andreas
+Trepte, CC BY-SA 2.5 <https://creativecommons.org/licenses/by-sa/2.5>,
+via Wikimedia Commons) and of the canariensis group on the right (H.
+Zell, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via
+Wikimedia Commons).
 :::
 
-
-
-The data in [chaff.txt](data-raw/chaff.txt) give the masses of twenty individuals from each subspecies. We want to know if the subspecies differ in mass. These groups are independent - there is no link between values in one group and any value in the other group.
+The data in [chaff.txt](data-raw/chaff.txt) give the masses of twenty
+individuals from each subspecies. We want to know if the subspecies
+differ in mass. These groups are independent - there is no link between
+values in one group and any value in the other group.
 
 ### Import and explore
 
@@ -101,12 +170,20 @@ knitr::kable(chaff) |>
   kableExtra::scroll_box(height = "200px")
 ```
 
+These data are in tidy format [@Wickham2014-nl] - all the mass values
+are in one column with another column indicating the subspecies. This
+means they are well formatted for analysis and plotting.
 
-These data are in tidy format [@Wickham2014-nl] - all the mass values are in one column with another column indicating the subspecies. This means they are well formatted for analysis and plotting.
+In the first instance, it is always sensible to create a rough plot of
+our data. This is to give us an overview and help identify if there are
+any issues like missing or extreme values. It also gives us idea what we
+are expecting from the analysis which will make it easier for us to
+identify if we make some mistake in applying that analysis.
 
-In the first instance, it is always sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.
-
-Violin plots (`geom_violin()`), box plots (`geom_boxplot()`, see @fig-chaff-rough) or scatter plots (`geom_point()`) all make good choices for exploratory plotting and it does not matter which of these you choose.
+Violin plots (`geom_violin()`), box plots (`geom_boxplot()`, see
+@fig-chaff-rough) or scatter plots (`geom_point()`) all make good
+choices for exploratory plotting and it does not matter which of these
+you choose.
 
 ```{r}
 #| label: fig-chaff-rough
@@ -119,9 +196,13 @@ ggplot(data = chaff,
 
 R will order the groups alphabetically by default.
 
-The figure suggests that the canariensis group is heavier than the coelebs group.
+The figure suggests that the canariensis group is heavier than the
+coelebs group.
 
-Summarising the data for each subspecies group is the next sensible step. The most useful summary statistics are the means, standard deviations, sample sizes and standard errors. I recommend the  `group_by()` and `summarise()` approach:
+Summarising the data for each subspecies group is the next sensible
+step. The most useful summary statistics are the means, standard
+deviations, sample sizes and standard errors. I recommend the
+`group_by()` and `summarise()` approach:
 
 ```{r}
 chaff_summary <- chaff |> 
@@ -132,7 +213,8 @@ chaff_summary <- chaff |>
             se = std/sqrt(n))
 ```
 
-We have save the results to `chaff_summary` so that we can use the means and standard errors in our plot later.
+We have save the results to `chaff_summary` so that we can use the means
+and standard errors in our plot later.
 
 ```{r}
 chaff_summary
@@ -154,17 +236,34 @@ summary(mod)
 
 The Estimates in the Coefficients table give:
 
--   `(Intercept)` known as $\beta_0$. The mean of the canariensis group (@fig-two-sample-lm-model). Just as the intercept is the value of the *y* (the response) when the value of *x* (the explanatory) is zero in a simple linear regression, this is the value of `mass` when the `subspecies` is at its first level. The order of the levels is alphabetical by default.
+-   `(Intercept)` known as $\beta_0$. The mean of the canariensis group
+    (@fig-two-sample-lm-model). Just as the intercept is the value of
+    the *y* (the response) when the value of *x* (the explanatory) is
+    zero in a simple linear regression, this is the value of `mass` when
+    the `subspecies` is at its first level. The order of the levels is
+    alphabetical by default.
 
--   `subspeciescoelebs`, known as $\beta_1$, is what needs to be added to the mean of the canariensis group to get the mean of the coelebs group (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to be added for each unit of *x* in a simple linear regression, this is the amount of `mass` that needs to be added when the `subspecies` goes from its first level to its second level (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so the the coelebs group mean is lower than the canariensis group mean
+-   `subspeciescoelebs`, known as $\beta_1$, is what needs to be added
+    to the mean of the canariensis group to get the mean of the coelebs
+    group (@fig-two-sample-lm-model). Just as the slope is amount of *y*
+    that needs to be added for each unit of *x* in a simple linear
+    regression, this is the amount of `mass` that needs to be added when
+    the `subspecies` goes from its first level to its second level
+    (*i.e.*, one unit). The `subspeciescoelebs` estimate is negative so
+    the the coelebs group mean is lower than the canariensis group mean
 
-The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
+The *p*-values on each line are tests of whether that coefficient is
+different from zero. Thus it is:
 
 `subspeciescoelebs  -1.7950     0.6781  -2.647   0.0118 *`
 
 that tells us the difference between the means is significant.
 
-The *F* value and *p*-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a two-sample test, just like a regression, this is exactly equivalent to the test of the slope against zero and the two *p*-values will be the same.
+The *F* value and *p*-value in the last line are a test of whether the
+model as a whole explains a significant amount of variation in the
+response variable. For a two-sample test, just like a regression, this
+is exactly equivalent to the test of the slope against zero and the two
+*p*-values will be the same.
 
 ```{r}
 #| echo: false
@@ -212,14 +311,18 @@ ggplot() +
 
 ```
 
-
 ### Check assumptions
 
-Check the assumptions: All general linear models assume the "residuals" are normally distributed and have "homogeneity" of variance.
+Check the assumptions: All general linear models assume the "residuals"
+are normally distributed and have "homogeneity" of variance.
 
-Our first check of these assumptions is to use common sense: mass is a continuous variable and we would expect it to be normally distributed thus we would also expect the residuals to be normally distributed.
+Our first check of these assumptions is to use common sense: mass is a
+continuous variable and we would expect it to be normally distributed
+thus we would also expect the residuals to be normally distributed.
 
-We then plot the residuals. The `plot()` function can be used to plot the residuals against the fitted values (See @fig-lm-plot1). This is a good way to check for homogeneity of variance. 
+We then plot the residuals. The `plot()` function can be used to plot
+the residuals against the fitted values (See @fig-lm-plot1). This is a
+good way to check for homogeneity of variance.
 
 ```{r}
 #| label: fig-lm-plot1
@@ -229,7 +332,6 @@ plot(mod, which = 1)
 ```
 
 We can also use a histogram to check for normality (See @fig-lm-plot2).
-
 
 ```{r}
 #| label: fig-lm-plot2
@@ -244,16 +346,19 @@ Finally, we can use the Shapiro-Wilk test to test for normality.
 shapiro.test(mod$residuals)
 ```
 
-The p-value is greater than 0.05 so this test of the normality assumption is not significant.
+The p-value is greater than 0.05 so this test of the normality
+assumption is not significant.
 
-Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.
+Taken together, these results suggest that the assumptions of normality
+and homogeneity of variance are not violated.
 
 ### Report
 
-Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) were significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65; *d.f.* = 38; *p* = 0.012). See @fig-chaff.
+Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) were
+significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65;
+*d.f.* = 38; *p* = 0.012). See @fig-chaff.
 
 ::: {#fig-chaff}
-
 ```{r}
 #| code-fold: true
 
@@ -280,23 +385,37 @@ ggplot() +
   theme_classic()
 ```
 
-**Canariensis chaffinches are heavier than Coelebs chaffinches**. The mean mass of 20 randomly sampled males from each subspecies was determined. Error bars are $\pm$ 1 standard error. Canariensis chaffinches were significantly heavier than Coelebs (*t* = 2.65; *d.f.* = 38; *p* = 0.012). Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
-
+**Canariensis chaffinches are heavier than Coelebs chaffinches**. The
+mean mass of 20 randomly sampled males from each subspecies was
+determined. Error bars are $\pm$ 1 standard error. Canariensis
+chaffinches were significantly heavier than Coelebs (*t* = 2.65; *d.f.*
+= 38; *p* = 0.012). Data analysis was conducted in R [@R-core] with
+tidyverse packages [@tidyverse].
 :::
 
+## Two independent samples, non-parametric
 
-## Two independent samples example non-parametric
+The non-parametric equivalent of the linear model with two independent
+samples is the "Wilcoxon rank sum test" [@wilcoxon1945]. It is commonly
+also known as the Mann-Whitney or Wilcoxon–Mann–Whitney.
 
-The two sample Wilcoxon, also known as the Mann-Whitney, is the non-parametric equivalent of the linear model with two independent samples. 
-
-The general question you have about your data - are these two groups different - is the same, but one of more of the following is true:
+The general question you have about your data - are these two groups
+different - is the same, but one of more of the following is true:
 
 -   the response variable is not continuous
 -   the residuals are not normally distributed
--   the sample size is too small to tell if they are normally distributed.
+-   the sample size is too small to tell if they are normally
+    distributed.
 -   the variance is not homogeneous
 
-The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leaves on eight wildtype and eight mutant *Arabidopsis thaliana* plants. We want to know if the two types of plants have differing numbers of leaves. These are counts, so they are not continuous and the sample sizes are quite small. A non-parametric test is a safer option.
+The test is a applied in R with the `wilcox.test()` function.
+
+
+The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number
+of leaves on eight wildtype and eight mutant *Arabidopsis thaliana*
+plants. We want to know if the two types of plants have differing
+numbers of leaves. These are counts, so they are not continuous and the
+sample sizes are quite small. A non-parametric test is a safer option.
 
 ### Import and explore
 
@@ -304,7 +423,10 @@ The data in [arabidopsis.txt](data-raw/arabidopsis.txt) give the number of leave
 arabidopsis <- read_table("data-raw/arabidopsis.txt")
 ```
 
-These data are in tidy format [@Wickham2014-nl] - the numbers of leaves are in one column with another column indicating whether the observation comes from a wildtype or mutant *Arabidopsis*. This means they are well formatted for analysis and plotting.
+These data are in tidy format [@Wickham2014-nl] - the numbers of leaves
+are in one column with another column indicating whether the observation
+comes from a wildtype or mutant *Arabidopsis*. This means they are well
+formatted for analysis and plotting.
 
 Create a quick plot of the data:
 
@@ -317,9 +439,12 @@ ggplot(data = arabidopsis,
   geom_boxplot()
 ```
 
-Our rough plot shows that the mutant plants have fewer leaves than the wildtype plants. 
+Our rough plot shows that the mutant plants have fewer leaves than the
+wildtype plants.
 
-Summarising the data using the median and interquartile range is more aligned to the type of data and the type of analysis than using means and standard deviations:
+Summarising the data using the median and interquartile range is more
+aligned to the type of data and the type of analysis than using means
+and standard deviations:
 
 ```{r}
 arabidopsis_summary <- arabidopsis |> 
@@ -337,25 +462,35 @@ arabidopsis_summary
 
 ### Apply `wilcox.test()`
 
-We pass the dataframe and variables to `wilcox.test()` in the same way as we did for `lm()`. We give the data argument and a "formula" which says `leaves ~ type` meaning "explain leaves by type".
+We pass the dataframe and variables to `wilcox.test()` in the same way
+as we did for `lm()`. We give the data argument and a "formula" which
+says `leaves ~ type` meaning "explain leaves by type".
 
 ```{r}
 wilcox.test(data = arabidopsis, leaves ~ type)
 ```
 
-The warning message "Warning: cannot compute exact p-value with ties" is not something to worry about too much. It is a warning rather than an indication that your results are incorrect. It means the *p* -value is based on an approximation rather than being exact because there are ties (some values are the same).
+The warning message "Warning: cannot compute exact p-value with ties" is
+not something to worry about too much. It is a warning rather than an
+indication that your results are incorrect. It means the *p* -value is
+based on an approximation rather than being exact because there are ties
+(some values are the same).
 
-The result of the test is given on this line: `W = 5, p-value = 0.005051`. `W` is the test statistic. The *p*-value is less than 0.05 meaning there is a significant difference in the number of leaves on wildtype and mutant plants.
+The result of the test is given on this line:
+`W = 5, p-value = 0.005051`. `W` is the test statistic. The *p*-value is
+less than 0.05 meaning there is a significant difference in the number
+of leaves on wildtype and mutant plants.
 
 ### Report
 
-There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). See @fig-arabid.
+There are significantly more leaves on wildtype (median = 8.5) than
+mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8,
+$n_2$ = 8, *p* = 0.005). See @fig-arabid.
 
 ::: {#fig-arabid}
-
 ```{r}
-
 #| cold-fold: true
+
 ggplot(data = arabidopsis, 
        aes(x = type, y = leaves)) +
   geom_boxplot() +
@@ -372,14 +507,22 @@ ggplot(data = arabidopsis,
   theme_classic()
 ```
 
-**Mutant *Arabidopsis thaliana* have fewer leaves**. There are significantly more leaves on wildtype than mutant plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). The heavy lines indicate the median of leaves, boxes indicate the interquartile range and whiskers the range. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
-
+**Mutant *Arabidopsis thaliana* have fewer leaves**. There are
+significantly more leaves on wildtype than mutant plants (Wilcoxon rank
+sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). The heavy lines
+indicate the median of leaves, boxes indicate the interquartile range
+and whiskers the range. Data analysis was conducted in R [@R-core] with
+tidyverse packages [@tidyverse].
 :::
 
+## Two paired-samples, parametric
 
-## Two paired samples example parametric
-
-The data in [marks.csv](data-raw/marks.csv) give the marks for ten students in two subjects: Data Analysis and Biology. These data are paired because we have two marks from one student so that a mark in one group has a closer relationship with one of the marks in the other group than with any of the the other. We want to know if students to equally well in both subjects.
+The data in [marks.csv](data-raw/marks.csv) give the marks for ten
+students in two subjects: Data Analysis and Biology. These data are
+paired because we have two marks from one student so that a mark in one
+group has a closer relationship with one of the marks in the other group
+than with any of the the other values. We want to know if students to equally
+well in both subjects.
 
 ### Import and explore
 
@@ -389,9 +532,16 @@ Import the data:
 marks <- read_csv("data-raw/marks.csv")
 ```
 
-Since these data are paired, it makes sense to highlight how the marks differ for each student. One way of doing that is to draw a line linking their marks in each subject. This is known as a spaghetti plot. We can use two geoms: `geom_point()` and `geom_line()`. We join a student's marks we need to set the `group` aesthetic to `student.`[^two_sample_tests-1]
+Since these data are paired, it makes sense to highlight how the marks
+differ for each student. One way of doing that is to draw a line linking
+their marks in each subject. This is known as a spaghetti plot. We can
+use two geoms: `geom_point()` and `geom_line()`. To join a student's
+marks we need to set the `group` aesthetic to 
+`student.`[^two_sample_tests-1]
 
-[^two_sample_tests-1]: You might like to try removing `aes(group = student)` to see what ggplot does when the lines are not grouped by student.
+[^two_sample_tests-1]: You might like to try removing
+    `aes(group = student)` to see what ggplot does when the lines are
+    *not* grouped by student.
 
 ```{r}
 ggplot(data = marks, aes(x = subject, y = mark)) +
@@ -400,7 +550,7 @@ ggplot(data = marks, aes(x = subject, y = mark)) +
 
 ```
 
-Summarise the data  so that we can use the means in plots later. 
+Summarise the data so that we can use the means in plots later:
 
 ```{r}
 marks_summary <- marks |> 
@@ -408,8 +558,13 @@ marks_summary <- marks |>
   summarise(mean = mean(mark))
 ```
 
-
-A paired test requires us to test whether the difference in marks between the two subjects is zero on average. One handy way to achieve this is to organise our groups into two columns. The `pivot_wider()` function will do this for us. We need to tell it what column gives the identifiers (i.e., matches the the pairs) - the student number in this case. We also need to say which variable contains what will become the column names and which contains the values.
+A paired test requires us to test whether the *difference* in marks
+between the two subjects is zero on average. One handy way to achieve
+this is to organise our groups into two columns. The `pivot_wider()`
+function will do this for us. We need to tell it what column gives the
+identifiers (*i.e.* what column matches the pairs). This is the student 
+number in this example. We also need to say which variable contains 
+the values that will become the column names and which contains the values.
 
 Pivot the data so there is a column for each subject:
 
@@ -421,7 +576,8 @@ marks_wide <- marks |>
               values_from = mark)
 ```
 
-We can summarise the difference between subject, `DataAnalysis - Biology` as follows:
+We can summarise the difference between subject,
+`DataAnalysis - Biology` as follows:
 
 ```{r}
 marks_wide |> 
@@ -430,41 +586,70 @@ marks_wide |>
             n_diff = length(DataAnalysis - Biology),
             se_diff = sd_diff/sqrt(n_diff))
 ```
-The mean difference is positive meaning students have higher marks on Data Analysis on average.
 
+The mean difference is positive meaning students have higher marks in
+Data Analysis on average.
 
 ### Apply `lm()`
 
-We can create a paired-sample model with the `lm()` function[^two_sample_tests-2] like this:
+We can create a paired-sample model with the `lm()`
+function[^two_sample_tests-2] like this:
 
+[^two_sample_tests-2]: This is not the only way to apply a paired test.
+    When there are only two groups and no other explanatory variables we
+    can use `t.test(data = marks, mark ~ subject, paired = TRUE)`. A
+    more general method which works when you have two or more
+    non-independent values (e.g., more than two subjects) or additional
+    explanatory variables, is to create a "linear mixed model" with
+    `lmer()`
 
 ```{r}
 mod <- lm(data = marks_wide, DataAnalysis - Biology ~ 1)
 ```
 
-The response here is the differences `DataAnalysis - Biology` and the `~ 1` indicates we only have one group so we are only interested in testing a single mean against a value of zero. Another way of saying this is we have an "intercept only model" meaning were are estimating only β0 - there is no β1.
-
+The response here is the differences `DataAnalysis - Biology` and the
+`~ 1` indicates we only have one group so we are only interested in
+testing a single mean against a value of zero. Another way of saying
+this is we have an "intercept only model" meaning were are estimating
+only $\beta_0$. There is no $\beta_1$.
 
 ```{r}
 summary(mod)
 ```
 
-The Estimates in the Coefficients table gives the  `(Intercept)` which is the mean of `DataAnalysis - Biology`. The average difference between subjects is 7.0 marks. The *p*-value of 0.0355 means 7.0 does differ signifcantly from zero.
+The Estimates in the Coefficients table gives the `(Intercept)` which is
+the mean of `DataAnalysis - Biology`. The average difference between
+subjects is 7.0 marks. The *p*-value of 0.0355 means 7.0 does differ
+significantly from zero. Individual students get significantly higher 
+marks in Data Analysis than in Biology.
 
 ### Check assumptions
 
-We might expect marks, and thus the difference between marks to be normally distributed. However, this is a small sample and choosing a non-parametric test instead would be sensible. We will continue with this example to demonstrate how to interpret and report on the result in this simple case.
+We might expect marks, and thus the difference between marks to be
+normally distributed. However, this is a very small sample and choosing a
+non-parametric test instead would be sensible. We will continue with
+this example to demonstrate how to interpret and report on the result of 
+a parametric paired-samples test (paired-samples *t*-test).
 
-We do not need to plot the residuals against the fitted values (`plot(mod, which = 1)`) for a paired test. The purpose of a residuals vs fitted plot is to check the variance is to check that variance is the same for all fitted values. For a paired test, we only have one fitted value, the mean difference. 
+
+We do not need to plot the residuals against the fitted values
+(`plot(mod, which = 1)`) for a paired test. The purpose of a residuals
+vs fitted plot is to check the variance is same for all fitted values. 
+For a paired test, we only have one fitted value, the mean difference.
 
 The normality of the residuals should be checked.
 
-
 ```{r}
 ggplot(mapping = aes(x = mod$residuals)) + 
-  geom_histogram(bins = 4)
+  geom_histogram(bins = 3)
 ```
-We only have 10 values so the distribution is never going to look smooth. We can't draw strong conclusions from this but we do at least have a peak at 0. Similarly a normality test is likely to be non-significant because of the sample size so a non-significant result is not strong evidence of the residuals following a normal distribution: 
+
+We only have 10 values so the distribution is never going to look
+smooth. We can't draw strong conclusions from this but we do at least
+have a peak at 0. Similarly a normality test is likely to be
+non-significant because of the small sample size which means the test 
+is not very powerful. This means a non-significant result
+is not strong evidence of the residuals following a normal distribution:
 
 ```{r}
 shapiro.test(mod$residuals)
@@ -472,11 +657,15 @@ shapiro.test(mod$residuals)
 
 ### Report
 
-Individual students score significantly higher in Data Analysis than in Biology (*t* = 2.47; *d.f.* = 9; *p* = 0.0355) with an average difference of 6.5%. See @fig-marks
+Individual students score significantly higher in Data Analysis than in
+Biology (*t* = 2.47; *d.f.* = 9; *p* = 0.0355) with an average
+difference of 6.5%. See @fig-marks
+
+::: {#fig-marks}
+
 
 ```{r}
-#| label: fig-marks
-#| fig-cap: "Individual students score significantly higher in Data Analysis than in Biology. Open circles indicate an individual student's marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject."
+#| code-fold: true
 
 ggplot(data = marks, aes(x = subject, y = mark)) +
   geom_point(pch = 1, size = 3) + 
@@ -497,12 +686,24 @@ ggplot(data = marks, aes(x = subject, y = mark)) +
 
 ```
 
-## Two paired samples example non-parametric
+**Students score higher in Data Analysis than in Biology**. Open circles indicate an individual student's marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject. Individual students score significantly higher in Data Analysis than in
+Biology (*t* = 2.47; *d.f.* = 9; *p* = 0.0355) with an average. difference of 6.5%. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
+
+:::
+
+
+## Two paired-samples, non-parametric
+
+We have the marks for just 10 students. This sample is too small for us to judge whether the marks are normally distributed. We will use a non-parametric test instead. The "Wilcoxon signed-rank" test is the non-parametric equivalent of the paired-samples *t*-test. This is often referred to as the paired-sample
+Wilcoxon test, or just the Wilcoxon test. 
+
+The test is also applied in R with the `wilcox.test()` function but we add the `paired = TRUE` argument. We can also use the tidy format of the data, i.e., the long format with marks in one column and another column indicating the subject.
+
 
 ### Apply `wilcox.test()`
 
-To apply a paired test with `wilcox.test()` we need to use the long format data (tidy) and add the `paired = TRUE` argument.
-
+To apply a paired test with `wilcox.test()` we need to use the long
+format data (tidy) and add the `paired = TRUE` argument.
 
 ```{r}
 wilcox.test(data = marks, mark ~ subject, paired = TRUE)
@@ -510,8 +711,8 @@ wilcox.test(data = marks, mark ~ subject, paired = TRUE)
 
 ### Report
 
-Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: *V* = 6.55; $n$ = 10; *p* = 0.036). See@fig-marks
+Individual students score significantly higher in Data Analysis than in
+Biology (Wilcoxon signed rank test: *V* = 6.55; $n$ = 10; *p* = 0.036).
+See\@fig-marks
 
 ## Summary
-
-[^two_sample_tests-2]: This is not the only way to apply a paired test. When there are only two groups and no other explanatory variables we can use `t.test(data = marks, mark ~ subject, paired = TRUE)`. A more general method which works when you have two or more non-independent values (e.g., more than two subjects) or additional explanatory variables, is to create a "linear mixed model" with `lmer()`
