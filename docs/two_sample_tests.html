@@ -421,7 +421,7 @@ Just needs proof reading
 <p>If the assumptions are not met, we can use alternatives known as non-parametric tests. Non-parametric tests are based on the ranks of values rather than the actual values themselves. Null hypotheses are about the mean rank rather than the mean. These tests have fewer assumptions and can be used in more situations but the downside is they tend to be less powerful. This means they are less able to detect a difference where one exists.</p>
 <section id="independent-samples-and-paired-samples." class="level3" data-number="13.1.1"><h3 data-number="13.1.1" class="anchored" data-anchor-id="independent-samples-and-paired-samples.">
 <span class="header-section-number">13.1.1</span> Independent samples and paired samples.</h3>
-<p>An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. If pairs of observations in different groups have something in common that make them more similar to each other than to other observations, then those observations are no independent. We use a different testing approach for independent and non-independent samples.</p>
+<p>An important consideration in conducting tests is whether the values in one group are independent of the values in another group. Non-independence occurs when the two measures are linked in some way. The link could be that they are from the same individual, the same time or the same location. For example, if we want to evaluate a treatment for high blood pressure we might measure blood pressure before and after the treatment on the same individuals. This would mean the before and after measures were not independent. If pairs of observations in different groups have something in common that make them more similar to each other than to other observations, then those observations are not independent. We use a different testing approach for independent and non-independent samples.</p>
 </section><section id="t-tests" class="level3" data-number="13.1.2"><h3 data-number="13.1.2" class="anchored" data-anchor-id="t-tests">
 <span class="header-section-number">13.1.2</span> <em>T</em>-tests</h3>
 <p>A linear model with one explanatory variable with two groups is also known as a <strong>two-sample <em>t</em>-test</strong> when the samples are independent and as a <strong>paired-samples <em>t</em>-test</strong> when they are not. R does have a <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function which allows you to fit a linear model with just two groups. However, here we teach you to use and interpret the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function because it is more generalisable. You can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> when you have three or more groups or additional explanatory variables. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is also in the same form as many other statistical functions in R. This means what you learn in performing <em>t</em>-tests with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> will help you learn other methods more easily. However, it is definitely not wrong to use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> rather than <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for two-group situations - the procedures are identical and the <em>p</em>-values will be the same.</p>
@@ -922,7 +922,7 @@ Figure&nbsp;13.7: The number of leaves on mutant and wildtype plants. A boxplot 
 </section><section id="report-1" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="report-1">
 <span class="header-section-number">13.4.3</span> Report</h3>
 <p>There are significantly more leaves on wildtype (median = 8.5) than mutant (median = 5) plants (Wilcoxon rank sum test: <em>W</em> = 5, <span class="math inline">\(n_1\)</span> = 8, <span class="math inline">\(n_2\)</span> = 8, <em>p</em> = 0.005). See <a href="#fig-arabid" class="quarto-xref">Figure&nbsp;<span>13.8</span></a>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, </span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">arabidopsis</span>, </span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">type</span>, y <span class="op">=</span> <span class="va">leaves</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Number of leaves"</span>, </span>
@@ -936,9 +936,9 @@ Figure&nbsp;13.7: The number of leaves on mutant and wildtype plants. A boxplot 
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">11</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.005"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-arabid" class="quarto-figure quarto-figure-center quarto-float anchored">
+</details><div id="fig-arabid" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-arabid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-cold-fold="true">
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="576"></p>
@@ -981,8 +981,7 @@ Figure&nbsp;13.8: <strong>Mutant <em>Arabidopsis thaliana</em> have fewer leaves
 <p>A paired test requires us to test whether the <em>difference</em> in marks between the two subjects is zero on average. One handy way to achieve this is to organise our groups into two columns. The <code>pivot_wider()</code> function will do this for us. We need to tell it what column gives the identifiers (<em>i.e.</em> what column matches the pairs). This is the student number in this example. We also need to say which variable contains the values that will become the column names and which contains the values.</p>
 <p>Pivot the data so there is a column for each subject:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span></span>
-<span><span class="va">marks_wide</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_wide</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">pivot_wider</span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">student</span>,</span>
 <span>              names_from <span class="op">=</span> <span class="va">subject</span>,</span>
 <span>              values_from <span class="op">=</span> <span class="va">mark</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1104,9 +1103,20 @@ Figure&nbsp;13.9: <strong>Students score higher in Data Analysis than in Biology
 </div>
 </section><section id="report-3" class="level3" data-number="13.6.2"><h3 data-number="13.6.2" class="anchored" data-anchor-id="report-3">
 <span class="header-section-number">13.6.2</span> Report</h3>
-<p>Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: <em>V</em> = 6.55; <span class="math inline">\(n\)</span> = 10; <em>p</em> = 0.036). See@fig-marks</p>
+<p>Individual students score significantly higher in Data Analysis than in Biology (Wilcoxon signed rank test: <em>V</em> = 6.55; <span class="math inline">\(n\)</span> = 10; <em>p</em> = 0.036). See <a href="#fig-marks" class="quarto-xref">Figure&nbsp;<span>13.9</span></a></p>
 </section></section><section id="summary" class="level2" data-number="13.7"><h2 data-number="13.7" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">13.7</span> Summary</h2>
+<ol type="1">
+<li><p>A linear model with one explanatory variable with two groups and one continuous response is “a two-sample test”.</p></li>
+<li><p>If pairs of observations in the groups have something in common that make them more similar to each other, than to other observations, then those observations are not independent</p></li>
+<li><p>A paired-samples test is used when the observations are not independent.</p></li>
+<li><p>A linear model with one explanatory variable with two groups and one continuous response is also known as a <strong>two-sample <em>t</em>-test</strong> when the samples are independent and as a <strong>paired-samples <em>t</em>-test</strong> when they are not</p></li>
+<li><p>We can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to do two-sample and paired sample tests. We can also use <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> for these but using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> helps us understand tests with more groups and/or more variables where we will have to use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>. The output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> is also more typical of the output of statistical functions in R.</p></li>
+<li><p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.</p></li>
+<li><p>We examine a histogram of the residuals and use the Shapiro-Wilk normality tests to check the normality assumption. We check the variance of the residuals is the same for all fitted values with a residuals vs fitted plot.</p></li>
+<li><p>If the assumptions are not met, we can use alternatives known as non-parametric tests. These are applied with <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> in R.</p></li>
+<li><p>When reporting the results of a test we give the significance, direction and size of the effect. Our figures and the values we give should reflect the type of test we have used. We use means and standard errors for parametric tests and medians and interquartile ranges for non-parametric tests. We also give the test statistic, the degrees of freedom (parametric) or sample size (non-parametric) and the p-value.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

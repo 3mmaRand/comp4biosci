@@ -45,7 +45,7 @@ for high blood pressure we might measure blood pressure before and after
 the treatment on the same individuals. This would mean the before and
 after measures were not independent. If pairs of observations in
 different groups have something in common that make them more similar to
-each other than to other observations, then those observations are no
+each other than to other observations, then those observations are not
 independent. We use a different testing approach for independent and
 non-independent samples.
 
@@ -488,8 +488,9 @@ mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8,
 $n_2$ = 8, *p* = 0.005). See @fig-arabid.
 
 ::: {#fig-arabid}
+
 ```{r}
-#| cold-fold: true
+#| code-fold: true
 
 ggplot(data = arabidopsis, 
        aes(x = type, y = leaves)) +
@@ -569,7 +570,6 @@ the values that will become the column names and which contains the values.
 Pivot the data so there is a column for each subject:
 
 ```{r}
-
 marks_wide <- marks |> 
   pivot_wider(id_cols = student,
               names_from = subject,
@@ -713,6 +713,47 @@ wilcox.test(data = marks, mark ~ subject, paired = TRUE)
 
 Individual students score significantly higher in Data Analysis than in
 Biology (Wilcoxon signed rank test: *V* = 6.55; $n$ = 10; *p* = 0.036).
-See\@fig-marks
+See @fig-marks
 
 ## Summary
+
+1. A linear model with one explanatory variable with two groups and 
+   one continuous response is "a two-sample test". 
+
+2. If pairs of observations in the groups have something in common
+   that make them more similar to each other, than to other observations, 
+   then those observations are not independent
+   
+3. A paired-samples test is used when the observations are not
+   independent. 
+
+4. A linear model with one explanatory variable with two groups and 
+   one continuous response is also known as a **two-sample *t*-test** 
+   when the samples are independent and as a **paired-samples *t*-test** 
+   when they are not
+
+5. We can use `lm()` to do two-sample and paired sample tests. We can
+   also use `t.test()` for these but using `lm()` helps us understand
+   tests with more groups and/or more variables where we will have to 
+   use `lm()`. The output of `lm()` is also more typical of the output of
+   statistical functions in R.
+
+6. The assumptions of the general linear model are that the residuals 
+   are normally distributed and have homogeneity of variance. A residual
+   is the difference between the predicted value and the observed value.
+   
+7. We examine a histogram of the residuals and use the Shapiro-Wilk 
+   normality tests to check the normality assumption. We  check the 
+   variance of the residuals is the same for all fitted values with 
+   a residuals vs fitted plot.
+
+8. If the assumptions are not met, we can use alternatives known as 
+   non-parametric tests. These are applied with `wilcox.test()` in R.
+   
+9. When reporting the results of a test we give the significance, 
+   direction and size of the effect. Our figures and the values we give
+   should reflect the type of test we have used. We use means and 
+   standard errors for parametric tests and medians and interquartile
+   ranges for non-parametric tests. We also give the test statistic, the
+   degrees of freedom (parametric) or sample size (non-parametric) and
+   the p-value.
