@@ -433,6 +433,7 @@ neither
 
 
 ::: {#fig-culture}
+
 ```{r}
 #| code-fold: true
 
@@ -450,7 +451,9 @@ ggplot() +
                      limits = c(0, 16.5), 
                      expand = c(0, 0)) +
   scale_x_discrete(name = "Medium", 
-                   labels = c("Control", "Sugar added", "Sugar and amino acids added")) +
+                   labels = c("Control", 
+                              "Sugar added", 
+                              "Sugar and amino acids added")) +
   annotate("segment", x = 2, xend = 3, 
            y = 14, yend = 14,
            colour = "black") +
@@ -562,9 +565,9 @@ colonies (Kruskal-Wallis: *chi-squared* = 6.34, *df* = 2, *p*-value =
 0.042) with colonies growing significantly better when both sugar and
 amino acids are added to the medium. Post-hoc testing with the Dunn test
 [@dunn1964] revealed the colony diameters were significantly larger when
-grown with both sugar and amino acids ($median = 11.3 mm$) than with
-neither ($median = 10.2 mm$; *p* = 0.031) or just sugar
-($median = 10.2 mm$; *p* = 0.038). See @fig-culture-kw.
+grown with both sugar and amino acids (median = 11.3 mm) than with
+neither (median = 10.2 mm; *p* = 0.031) or just sugar
+(median = 10.2 mm; *p* = 0.038). See @fig-culture-kw.
 
 
 ::: {#fig-culture-kw}
@@ -577,7 +580,9 @@ ggplot(data = culture, aes(x = medium, y = diameter)) +
                      limits = c(0, 16.5), 
                      expand = c(0, 0)) +
   scale_x_discrete(name = "Medium", 
-                   labels = c("Control", "Sugar added", "Sugar and amino acids added")) +
+                   labels = c("Control", 
+                              "Sugar added", 
+                              "Sugar and amino acids added")) +
   annotate("segment", x = 2, xend = 3, 
            y = 14, yend = 14,
            colour = "black") +
@@ -620,22 +625,22 @@ tidyverse packages [@tidyverse].
 
 3. We can use `lm()` to one-way ANOVA in R.
 
-4. When we get a significant effect of our explanatory variable, it only
-   tells us that at least two of the means differ. To find out which 
-   means differ, we need a **post-hoc** test. Here we use Tukey’s HSD 
-   applied with the `emmeans()` and `pairs()` functions from the 
-   **`emmeans`** package. Post-hoc tests make adjustments to the 
-   *p*-values to account for the fact that we are doing multiple tests.
-
-5. In the output of `lm()` the coefficients are listed in a table in the
+4. In the output of `lm()` the coefficients are listed in a table in the
    Estimates column. The *p*-value for each coefficient is in the test 
    of whether it differs from zero. At the bottom of the output there 
-   is a test of the model *overall*. Now we have more than two 
+   is an $F$ test of the model *overall*. Now we have more than two 
    parameters, this is different from the test on any one parameter. The
    R-squared value is the proportion of the variance in the response 
    variable that is explained by the model. It tells us is the 
    explanatory variable is useful in predicting the response variable
    overall.
+
+5. When the $F$ test is significant there is a significant effect of 
+   the explanatory variable on the response variable. To find out which 
+   means differ, we need a **post-hoc** test. Here we use Tukey’s HSD 
+   applied with the `emmeans()` and `pairs()` functions from the 
+   **`emmeans`** package. Post-hoc tests make adjustments to the 
+   *p*-values to account for the fact that we are doing multiple tests.
 
 6. The assumptions of the general linear model are that the residuals
    are normally distributed and have homogeneity of variance. A residual
