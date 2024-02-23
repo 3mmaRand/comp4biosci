@@ -648,6 +648,16 @@ Figure&nbsp;12.5: <strong>Respiration rate of <em>Artemia salina</em> increases 
 </div>
 </section></section><section id="summary" class="level2" data-number="12.4"><h2 data-number="12.4" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">12.4</span> Summary</h2>
+<ol type="1">
+<li><p>Single linear regression is an appropriate when you have one continuous explanatory variable and one continuous response and the relationship between the two is linear.</p></li>
+<li><p>Applying a single linear regression to data means putting a line of best fit through it. We estimate the <strong>coefficients</strong> (also called the <strong>parameters</strong>) of the model. These are the intercept, <span class="math inline">\(\beta_0\)</span>, and the slope, <span class="math inline">\(\beta_1\)</span>. We test whether the parameters differ significantly from zero</p></li>
+<li><p>We can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to a linear regression.</p></li>
+<li><p>In the output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> the coefficients are listed in a table in the Estimates column. The <em>p</em>-value for each coefficient is in the test of whether it differs from zero. At the bottom of the output there is a test of the model <em>overall</em>. In a single linear regression this is exactly the same as the test of the <span class="math inline">\(\beta_1\)</span> and the p-values are identical. The R-squared value is the proportion of the variance in the response variable that is explained by the model.</p></li>
+<li><p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.</p></li>
+<li><p>We examine a histogram of the residuals and use the Shapiro-Wilk normality test to check the normality assumption. We check the variance of the residuals is the same for all fitted values with a residuals vs fitted plot.</p></li>
+<li><p>If the assumptions are not met, we might need to transform the data or use a different type of model.</p></li>
+<li><p>When reporting the results of a regression we give the significance, direction and size of the effect. Often we give the equation of the best fitting line. A Figure should show the data and the line of best fit.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

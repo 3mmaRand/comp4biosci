@@ -722,38 +722,57 @@ See @fig-marks
 
 2. If pairs of observations in the groups have something in common
    that make them more similar to each other, than to other observations, 
-   then those observations are not independent
-   
-3. A paired-samples test is used when the observations are not
-   independent. 
+   then those observations are not independent. A **paired-samples test** 
+   is used when the observations are not independent. 
 
-4. A linear model with one explanatory variable with two groups and 
+3. A linear model with one explanatory variable with two groups and 
    one continuous response is also known as a **two-sample *t*-test** 
    when the samples are independent and as a **paired-samples *t*-test** 
    when they are not
 
-5. We can use `lm()` to do two-sample and paired sample tests. We can
+4. We can use `lm()` to do two-sample and paired sample tests. We can
    also use `t.test()` for these but using `lm()` helps us understand
    tests with more groups and/or more variables where we will have to 
-   use `lm()`. The output of `lm()` is also more typical of the output of
-   statistical functions in R.
+   use `lm()`. The output of `lm()` is also more typical of the output 
+   of statistical functions in R.
 
-6. The assumptions of the general linear model are that the residuals 
+5.  We estimate the **coefficients** (also called the **parameters**) of
+    the model. For a two-sample test these are the mean of the first 
+    group, $\beta_0$ (which might also be called the intercept) and the
+    difference between the means of the first and second groups,
+    $\beta_1$ (which might also be called the slope). For a 
+    paired-sample test there is just one parameter, the mean difference
+    between pairs of values, $\beta_0$ (which might also be called the 
+    intercept). We test whether the parameters differ significantly from
+    zero
+
+6.  We can use `lm()` to a linear regression.
+
+7.  In the output of `lm()` the coefficients are listed in a table in the
+    Estimates column. The *p*-value for each coefficient is in the test 
+    of whether it differs from zero. At the bottom of the output there 
+    is a test of the model *overall*. In this case, this
+    is exactly the same as the test of the $\beta_1$ and the p-values are 
+    identical. The R-squared value is the proportion of the variance
+    in the response variable that is explained by the model.
+
+8. The assumptions of the general linear model are that the residuals 
    are normally distributed and have homogeneity of variance. A residual
    is the difference between the predicted value and the observed value.
    
-7. We examine a histogram of the residuals and use the Shapiro-Wilk 
-   normality tests to check the normality assumption. We  check the 
+9. We examine a histogram of the residuals and use the Shapiro-Wilk 
+   normality test to check the normality assumption. We  check the 
    variance of the residuals is the same for all fitted values with 
    a residuals vs fitted plot.
 
-8. If the assumptions are not met, we can use alternatives known as 
-   non-parametric tests. These are applied with `wilcox.test()` in R.
+10. If the assumptions are not met, we can use alternatives known as 
+    non-parametric tests. These are applied with `wilcox.test()` in R.
    
-9. When reporting the results of a test we give the significance, 
-   direction and size of the effect. Our figures and the values we give
-   should reflect the type of test we have used. We use means and 
-   standard errors for parametric tests and medians and interquartile
-   ranges for non-parametric tests. We also give the test statistic, the
-   degrees of freedom (parametric) or sample size (non-parametric) and
-   the p-value.
+11. When reporting the results of a test we give the significance, 
+    direction and size of the effect. Our figures and the values we give
+    should reflect the type of test we have used. We use means and 
+    standard errors for parametric tests and medians and interquartile
+    ranges for non-parametric tests. We also give the test statistic, the
+    degrees of freedom (parametric) or sample size (non-parametric) and
+    the p-value. We annotate our figures with the p-value, making clear
+    which comparison it applies to.

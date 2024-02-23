@@ -1,4 +1,5 @@
 # Single linear regression
+
 ```{r}
 #| results: "asis"
 #| echo: false
@@ -11,40 +12,55 @@ status("complete")
 
 Single linear regression is an appropriate way to analyse data when:
 
-
 -   You have two continuous variables
--   One of the variables is explanatory and the other is a response. That is, one variable, the $x$, "causes" the $y$. 
--   The explanatory variable has been chosen, set or manipulated and the other variable is the measured response. This is sometimes described as the $x$ being   “sampled without error”
--   The response variable, $y$, is randomly sampled for each $x$ with a normal distribution and those normal distributions have the same variance.
+-   One of the variables is explanatory and the other is a response.
+    That is, one variable, the $x$, "causes" the $y$.
+-   The explanatory variable has been chosen, set or manipulated and the
+    other variable is the measured response. This is sometimes described
+    as the $x$ being “sampled without error”
+-   The response variable, $y$, is randomly sampled for each $x$ with a
+    normal distribution and those normal distributions have the same
+    variance.
 -   The relationship between the variables is linear
 
-Applying a single linear regression to data means putting a line of best fit through it. The intercept and the slope of the true population relationship is estimated from the sample you have. We test whether those two parameters differ significantly from zero. 
-
+Applying a single linear regression to data means putting a line of best
+fit through it. The intercept and the slope of the true population
+relationship is estimated from the sample you have. We test whether
+those two parameters differ significantly from zero.
 
 ### Reporting
 
-Reporting [the significance of effect, direction of effect, magnitude of effect](https://3mmarand.github.io/comp4biosci/what_statistical_model.html#reporting) for a single linear regression means making the following clear to the reader:
+Reporting [the significance of effect, direction of effect, magnitude of
+effect](https://3mmarand.github.io/comp4biosci/what_statistical_model.html#reporting)
+for a single linear regression means making the following clear to the
+reader:
 
+1.  the significance of effect - whether the slope is significantly
+    different from zero
 
-1. the significance of effect - whether the slope is significantly different from zero 
+2.  the direction of effect - whether the slope is positive or negative
 
-2. the direction of effect - whether the slope is positive or negative
+3.  the magnitude of effect - the slope itself
 
-3. the magnitude of effect - the slope itself
-
-Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:
+Figures should reflect what you have said in the statements. Ideally
+they should show both the raw data and the statistical model:
 
 We will explore all of these ideas with an example.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects), add a `data-raw` folder and open a new script. You will also need to load the **`tidyverse`** package [@tidyverse].
-
+If you want to code along you will need to start a new [RStudio
+project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+folder and open a new script. You will also need to load the
+**`tidyverse`** package [@tidyverse].
 
 ## Single linear regression
 
-
-Three replicates water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were placed in each and their average respiration rate per water bath was measured (in arbitrary units). The data are in [shrimp.txt](data-raw/shrimp.txt).
+Three replicates water baths were set up at each of five temperatures
+(10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were
+placed in each and their average respiration rate per water bath was
+measured (in arbitrary units). The data are in
+[shrimp.txt](data-raw/shrimp.txt).
 
 ### Import and explore
 
@@ -62,15 +78,20 @@ knitr::kable(shrimp) %>%
   kableExtra::scroll_box(height = "200px")
 ```
 
-These data are in tidy format [@Wickham2014-nl] - all the respiration values are in one column with another column indicating the water bath temperature. There is only one water bath per row. This means they are well formatted for analysis and plotting.
+These data are in tidy format [@Wickham2014-nl] - all the respiration
+values are in one column with another column indicating the water bath
+temperature. There is only one water bath per row. This means they are
+well formatted for analysis and plotting.
 
-In the first instance, it is sensible to create a rough plot of our data (See @fig-shrimp-rough). Plotting data early helps us in multiple ways:
+In the first instance, it is sensible to create a rough plot of our data
+(See @fig-shrimp-rough). Plotting data early helps us in multiple ways:
 
 -   it helps identify whether there missing or extreme values
 -   it allows us to see if the relationship is roughly linear
--   it tells us whether any relationship positive or negative 
+-   it tells us whether any relationship positive or negative
 
-Scatter plots (`geom_point()`) are a good choice for exploratory plotting with data like these.
+Scatter plots (`geom_point()`) are a good choice for exploratory
+plotting with data like these.
 
 ```{r}
 #| label: fig-shrimp-rough
@@ -81,7 +102,9 @@ ggplot(data = shrimp,
   geom_point()
 ```
 
-The figure suggests that respiration rate increases with temperature and there are no particularly extreme values. We can also see that any relationship is roughly linear. 
+The figure suggests that respiration rate increases with temperature and
+there are no particularly extreme values. We can also see that any
+relationship is roughly linear.
 
 ### Do a regression with `lm()`
 
@@ -96,6 +119,7 @@ And examine the model with:
 ```{r}
 summary(mod)
 ```
+
 ```{r}
 #| echo: false
 
@@ -103,24 +127,32 @@ b0 <- mod$coefficients[1] |> round(2)
 b1 <- mod$coefficients[2] |> round(2)
 ```
 
-
 What do all these results mean?
 
 The `Estimate` in the `Coefficients` table give:
 
--   the `(Intercept)` known as $\beta_0$,  which is the value of the *y* (the response) when the value of *x* (the explanatory) is zero. 
+-   the `(Intercept)` known as $\beta_0$, which is the value of the *y*
+    (the response) when the value of *x* (the explanatory) is zero.
 
--   the slope labelled `temperature` known as $\beta_1$, which is the amount of *y* you add for each unit of *x*. `temperature` is positive so respiration rate increases with temperature
+-   the slope labelled `temperature` known as $\beta_1$, which is the
+    amount of *y* you add for each unit of *x*. `temperature` is
+    positive so respiration rate increases with temperature
 
 @fig-regression-lm-model shows the model and its parameters.
 
-The *p*-values on each line are tests of whether that coefficient is different from zero. Thus it is:
+The *p*-values on each line are tests of whether that coefficient is
+different from zero. Thus it is:
 
 `temperature  0.91850    0.09182  10.003 1.79e-07 ***`
 
-that tells us the slope is significantly different from zero and thus there *is* a significant  relationship between temperature and respiration rate.
+that tells us the slope is significantly different from zero and thus
+there *is* a significant relationship between temperature and
+respiration rate.
 
-The *F* value and *p*-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable. For a regression, this is exactly equivalent to the test of the slope against zero and the two *p*-values will be the same.
+The *F* value and *p*-value in the last line are a test of whether the
+model as a whole explains a significant amount of variation in the
+response variable. For a regression, this is exactly equivalent to the
+test of the slope against zero and the two *p*-values will be the same.
 
 ```{r}
 #| echo: false
@@ -179,11 +211,18 @@ ggplot(data = shrimp,
 
 ### Check assumptions
 
-Check the assumptions: All general linear models assume the "residuals" are normally distributed and have "homogeneity" of variance.
+Check the assumptions: All general linear models assume the "residuals"
+are normally distributed and have "homogeneity" of variance.
 
-Our first check of these assumptions is to use common sense: respiration is a continuous variable and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed
+Our first check of these assumptions is to use common sense: respiration
+is a continuous variable and we would expect it to be normally
+distributed thus we would expect the residuals to be normally
+distributed
 
-We then proceed by plotting residuals. The `plot()` function can be used to plot the residuals against the fitted values (See @fig-regression-plot1). This is a good way to check for homogeneity of variance. 
+We then proceed by plotting residuals. The `plot()` function can be used
+to plot the residuals against the fitted values (See
+@fig-regression-plot1). This is a good way to check for homogeneity of
+variance.
 
 ```{r}
 #| label: fig-regression-plot1
@@ -192,7 +231,8 @@ We then proceed by plotting residuals. The `plot()` function can be used to plot
 plot(mod, which = 1)
 ```
 
-We can also use a histogram to check for normality (See @fig-regression-plot2).
+We can also use a histogram to check for normality (See
+@fig-regression-plot2).
 
 ```{r}
 #| label: fig-regression-plot2
@@ -202,20 +242,27 @@ ggplot(mapping = aes(x = mod$residuals)) +
 ```
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
+
 ```{r}
 shapiro.test(mod$residuals)
 ```
 
-The p-value is greater than 0.05 so this test of the normality assumption is not significant. Note that "not significant" means not significantly different from a normal distribution. It does not mean definitely normally distributed.
+The p-value is greater than 0.05 so this test of the normality
+assumption is not significant. Note that "not significant" means not
+significantly different from a normal distribution. It does not mean
+definitely normally distributed.
 
-Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.
+Taken together, these results suggest that the assumptions of normality
+and homogeneity of variance are not violated.
 
 ### Report
 
-The temperature explained a significant amount of the variation in respiration rate (ANOVA: *F* = 67; *d.f*. = 1, 13; *p* < 0.001). The regression line is: Respiration rate = `r b0` + `r b1` * temperature. See @fig-shrimp.
+The temperature explained a significant amount of the variation in
+respiration rate (ANOVA: *F* = 67; *d.f*. = 1, 13; *p* \< 0.001). The
+regression line is: Respiration rate = `r b0` + `r b1` \* temperature.
+See @fig-shrimp.
 
 ::: {#fig-shrimp}
-
 ```{r}
 #| code-fold: true
 
@@ -234,10 +281,53 @@ ggplot(data = shrimp,
   theme_classic()
 ```
 
-
-**Respiration rate of *Artemia salina* increases with temperature**. Three replicate water baths were set up at each of five temperatures (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were placed in each and their average respiration rate per water bath was measured. There was a significant effect of altering water bath temperature on the average respiration rate (ANOVA: *F* = 67; *d.f*. = 1, 13; *p* < 0.001). The regression line is: Respiration rate = `r b0` + `r b1` * temperature. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
-
+**Respiration rate of *Artemia salina* increases with temperature**.
+Three replicate water baths were set up at each of five temperatures
+(10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were
+placed in each and their average respiration rate per water bath was
+measured. There was a significant effect of altering water bath
+temperature on the average respiration rate (ANOVA: *F* = 67; *d.f*. =
+1, 13; *p* \< 0.001). The regression line is: Respiration rate =
+`r b0` + `r b1` \* temperature. Data analysis was conducted in R
+[@R-core] with tidyverse packages [@tidyverse].
 :::
 
-
 ## Summary
+
+1.  Single linear regression is an appropriate when you have one
+    continuous explanatory variable and one continuous response and the
+    relationship between the two is linear.
+
+2.  Applying a single linear regression to data means putting a line of
+    best fit through it. We estimate the **coefficients** (also called 
+    the **parameters**) of the model. These are the intercept, $\beta_0$,
+    and the slope, $\beta_1$. We test whether the parameters differ
+    significantly from zero
+
+3.  We can use `lm()` to a linear regression.
+
+4.  In the output of `lm()` the coefficients are listed in a table in the
+    Estimates column. The *p*-value for each coefficient is in the test 
+    of whether it differs from zero. At the bottom of the output there 
+    is a test of the model *overall*. In a single linear regression this
+    is exactly the same as the test of the $\beta_1$ and the p-values are 
+    identical. The R-squared value is the proportion of the variance
+    in the response variable that is explained by the model.
+
+5.  The assumptions of the general linear model are that the residuals
+    are normally distributed and have homogeneity of variance. A
+    residual is the difference between the predicted value and the
+    observed value.
+
+6.  We examine a histogram of the residuals and use the Shapiro-Wilk
+    normality test to check the normality assumption. We check the
+    variance of the residuals is the same for all fitted values with a
+    residuals vs fitted plot.
+
+7.  If the assumptions are not met, we might need to transform the data
+    or use a different type of model.
+
+8.  When reporting the results of a regression we give the significance,
+    direction and size of the effect. Often we give the equation of the
+    best fitting line. A Figure should show the data and the line of
+    best fit.

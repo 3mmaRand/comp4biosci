@@ -361,6 +361,7 @@ window.Quarto = {
   <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">15.0.2</span> Report</a></li>
   </ul>
 </li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/one_way_anova_and_kw.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -381,17 +382,17 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-First draft
+Just needs proof reading
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
+<p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
 </div>
 </div>
 <section id="overview" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="overview">
@@ -769,9 +770,8 @@ Figure&nbsp;14.4: A histogram of residuals is symetrical and seems consistent wi
 <p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are probably not violated.</p>
 </section><section id="report" class="level3" data-number="14.3.4"><h3 data-number="14.3.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">14.3.4</span> Report</h3>
-<p>There is a significant effect of media on the diameter of bacterial colonies (<em>F</em> = 6.11; <em>d.f.</em> = 2, 27; <em>p</em> = 0.006) with colonies growing significantly better when both sugar and amino acids are added to the medium. Post-hoc testing with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids (<span class="math inline">\(\bar{x} \pm s.e\)</span>: 11.4 <span class="math inline">\(\pm\)</span> 0.37 mm) than with neither (10.2 <span class="math inline">\(\pm\)</span> 0.26 mm; <em>p</em> = 0.0092) or just sugar (10.1 <span class="math inline">\(\pm\)</span> 0.23 mm; <em>p</em> = 0.0244). See <a href="#fig-culture" class="quarto-xref">Figure&nbsp;<span>14.5</span></a>.</p>
-<div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<p>There was a significant effect of media on the diameter of bacterial colonies (<em>F</em> = 6.11; <em>d.f.</em> = 2, 27; <em>p</em> = 0.006). Post-hoc testing with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids (<span class="math inline">\(\bar{x} \pm s.e\)</span>: 11.4 <span class="math inline">\(\pm\)</span> 0.37 mm) than with neither (10.2 <span class="math inline">\(\pm\)</span> 0.26 mm; <em>p</em> = 0.0092) or just sugar (10.1 <span class="math inline">\(\pm\)</span> 0.23 mm; <em>p</em> = 0.0244). See <a href="#fig-culture" class="quarto-xref">Figure&nbsp;<span>14.5</span></a>.</p>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, y <span class="op">=</span> <span class="va">diameter</span><span class="op">)</span>,</span>
 <span>             position <span class="op">=</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
 <span>             colour <span class="op">=</span> <span class="st">"gray50"</span><span class="op">)</span> <span class="op">+</span></span>
@@ -797,16 +797,20 @@ Figure&nbsp;14.4: A histogram of residuals is symetrical and seems consistent wi
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">2</span>,  y <span class="op">=</span> <span class="fl">16</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0092"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-culture" class="quarto-figure quarto-figure-center quarto-float anchored">
+</details><div id="fig-culture" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-culture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="one_way_anova_and_kw_files/figure-html/fig-culture-1.png" class="img-fluid figure-img" width="576">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="one_way_anova_and_kw_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-culture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14.5: Diameters of bacterial colonies grown on three types of media: control, with sugar added and with both sugar and amino acids added. Errors bars are ± 1 s.e.
+Figure&nbsp;14.5: <strong>Medium affects bacterial colony diameter</strong>. Ten replicate colonies were grown on three types of media: control, with sugar added and with both sugar and amino acids added. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. There was a significant effect of media on the diameter of bacterial colonies (<em>F</em> = 6.11; <em>d.f.</em> = 2, 27; <em>p</em> = 0.006). Post-hoc testing with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids than with neither or just sugar. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
-</div>
-</div>
 </div>
 </section></section><section id="kruskal-wallis" class="level1" data-number="15"><h1 data-number="15">
 <span class="header-section-number">15</span> Kruskal-Wallis</h1>
@@ -867,8 +871,7 @@ Figure&nbsp;14.5: Diameters of bacterial colonies grown on three types of media:
 </section><section id="report-1" class="level3" data-number="15.0.2"><h3 data-number="15.0.2" class="anchored" data-anchor-id="report-1">
 <span class="header-section-number">15.0.2</span> Report</h3>
 <p>There is a significant effect of media on the diameter of bacterial colonies (Kruskal-Wallis: <em>chi-squared</em> = 6.34, <em>df</em> = 2, <em>p</em>-value = 0.042) with colonies growing significantly better when both sugar and amino acids are added to the medium. Post-hoc testing with the Dunn test <span class="citation" data-cites="dunn1964">(<a href="references.html#ref-dunn1964" role="doc-biblioref">Dunn 1964</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids (<span class="math inline">\(median = 11.3 mm\)</span>) than with neither (<span class="math inline">\(median = 10.2 mm\)</span>; <em>p</em> = 0.031) or just sugar (<span class="math inline">\(median = 10.2 mm\)</span>; <em>p</em> = 0.038). See <a href="#fig-culture-kw" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>.</p>
-<div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, y <span class="op">=</span> <span class="va">diameter</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, y <span class="op">=</span> <span class="va">diameter</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span> <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Diameter (mm)"</span>, </span>
 <span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">16.5</span><span class="op">)</span>, </span>
@@ -886,17 +889,34 @@ Figure&nbsp;14.5: Diameters of bacterial colonies grown on three types of media:
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">2</span>,  y <span class="op">=</span> <span class="fl">16</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.031"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-culture-kw" class="quarto-figure quarto-figure-center quarto-float anchored">
+</details><div id="fig-culture-kw" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-culture-kw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="one_way_anova_and_kw_files/figure-html/fig-culture-kw-1.png" class="img-fluid figure-img" width="576">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="one_way_anova_and_kw_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-culture-kw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;15.1: Diameters of bacterial colonies grown on three types of media: control, with sugar added and with both sugar and amino acids added. Heavy line indicate the median, boxes the interquartile range and whiskers the range.
+Figure&nbsp;15.1: <strong>Medium affects bacterial colony diameter</strong>. Ten replicate colonies were grown on three types of media: control, with sugar added and with both sugar and amino acids added. The heavy lines indicate median diameter, boxes indicate the interquartile range and whiskers the range. There was a significant effect of media on the diameter of bacterial colonies (Kruskal-Wallis: <em>chi-squared</em> = 6.34, <em>df</em> = 2, <em>p</em>-value = 0.042). Post-hoc testing with the Dunn test <span class="citation" data-cites="dunn1964">(<a href="references.html#ref-dunn1964" role="doc-biblioref">Dunn 1964</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids than with neither or just sugar. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
 </div>
-</div>
-</div>
+</section></section><section id="summary" class="level1" data-number="16"><h1 data-number="16">
+<span class="header-section-number">16</span> Summary</h1>
+<ol type="1">
+<li><p>A linear model with one explanatory variable with two or more groups is also known as a <strong>one-way ANOVA</strong>.</p></li>
+<li><p>We estimate the <strong>coefficients</strong> (also called the <strong>parameters</strong>) of the model. For a one-way ANOVA with three groups these are the mean of the first group, <span class="math inline">\(\beta_0\)</span>, the difference between the means of the first and second groups, <span class="math inline">\(\beta_1\)</span>, and the difference between the means of the first and third groups, <span class="math inline">\(\beta_2\)</span>. We test whether the parameters differ significantly from zero</p></li>
+<li><p>We can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to one-way ANOVA in R.</p></li>
+<li><p>When we get a significant effect of our explanatory variable, it only tells us that at least two of the means differ. To find out which means differ, we need a <strong>post-hoc</strong> test. Here we use Tukey’s HSD applied with the <code><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans()</a></code> and <code><a href="https://rdrr.io/r/graphics/pairs.html">pairs()</a></code> functions from the <strong><code>emmeans</code></strong> package. Post-hoc tests make adjustments to the <em>p</em>-values to account for the fact that we are doing multiple tests.</p></li>
+<li><p>In the output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> the coefficients are listed in a table in the Estimates column. The <em>p</em>-value for each coefficient is in the test of whether it differs from zero. At the bottom of the output there is a test of the model <em>overall</em>. Now we have more than two parameters, this is different from the test on any one parameter. The R-squared value is the proportion of the variance in the response variable that is explained by the model. It tells us is the explanatory variable is useful in predicting the response variable overall.</p></li>
+<li><p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.</p></li>
+<li><p>We examine a histogram of the residuals and use the Shapiro-Wilk normality test to check the normality assumption. We check the variance of the residuals is the same for all fitted values with a residuals vs fitted plot.</p></li>
+<li><p>If the assumptions are not met, we can use the Kruskal-Wallis test applied with <code><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test()</a></code> in R and follow it with The Dunn test applied with <code><a href="https://fishr-core-team.github.io/FSA/reference/dunnTest.html">dunnTest()</a></code> in the package <strong><code>FSA</code></strong>.</p></li>
+<li><p>When reporting the results of a test we give the significance, direction and size of the effect. Our figures and the values we give should reflect the type of test we have used. We use means and standard errors for parametric tests and medians and interquartile ranges for non-parametric tests. We also give the test statistic, the degrees of freedom (parametric) or sample size (non-parametric) and the p-value. We annotate our figures with the p-value, making clear which comparison it applies to.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -912,6 +932,9 @@ Lenth, Russell V. 2023. <span>“Emmeans: Estimated Marginal Means, Aka Least-Sq
 <div id="ref-FSA" class="csl-entry" role="listitem">
 Ogle, Derek H., Jason C. Doll, A. Powell Wheeler, and Alexis Dinno. 2023. <span>“FSA: Simple Fisheries Stock Assessment Methods.”</span> <a href="https://CRAN.R-project.org/package=FSA">https://CRAN.R-project.org/package=FSA</a>.
 </div>
+<div id="ref-R-core" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
 <div id="ref-tukey1949" class="csl-entry" role="listitem">
 Tukey, John W. 1949. <span>“Comparing Individual Means in the Analysis of Variance.”</span> <em>Biometrics</em> 5 (2): 99–114. <a href="https://doi.org/10.2307/3001913">https://doi.org/10.2307/3001913</a>.
 </div>
@@ -922,7 +945,7 @@ Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical 
 Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
 </div>
 </div>
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");

@@ -5,7 +5,7 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## Overview
@@ -134,13 +134,14 @@ Import the data:
 culture <- read_csv("data-raw/culture.csv")
 ```
 
+
 ```{r}
 #| echo: false
-
 knitr::kable(culture) |> 
   kableExtra::kable_styling() |> 
   kableExtra::scroll_box(height = "200px")
 ```
+
 
 The Response variable is colony diameters in millimetres and we would
 expect it to be continuous. The Explanatory variable is type of media
@@ -420,19 +421,20 @@ and homogeneity of variance are probably not violated.
 
 ### Report
 
-There is a significant effect of media on the diameter of bacterial
-colonies (*F* = 6.11; *d.f.* = 2, 27; *p* = 0.006) with colonies growing
-significantly better when both sugar and amino acids are added to the
-medium. Post-hoc testing with Tukey's Honestly Significant Difference
-test [@tukey1949] revealed the colony diameters were significantly
-larger when grown with both sugar and amino acids
-($\bar{x} \pm s.e$: 11.4 $\pm$ 0.37 mm) than with neither
+There was a significant effect of media on the diameter of bacterial
+colonies (*F* = 6.11; *d.f.* = 2, 27; *p* = 0.006). Post-hoc testing 
+with Tukey's Honestly Significant Difference test [@tukey1949] revealed
+the colony diameters were significantly larger when grown with both 
+sugar and amino acids ($\bar{x} \pm s.e$: 11.4 $\pm$ 0.37 mm) than with
+neither
 (10.2 $\pm$ 0.26 mm; *p* = 0.0092) or just sugar (10.1 $\pm$ 0.23 mm;
 *p* = 0.0244). See @fig-culture.
 
+
+
+::: {#fig-culture}
 ```{r}
-#| label: fig-culture
-#| fig-cap: "Diameters of bacterial colonies grown on three types of media: control, with sugar added and with both sugar and amino acids added. Errors bars are ± 1 s.e."
+#| code-fold: true
 
 ggplot() +
   geom_point(data = culture, aes(x = medium, y = diameter),
@@ -461,6 +463,18 @@ ggplot() +
            label = expression(italic(p)~"= 0.0092")) +
   theme_classic()
 ```
+
+**Medium affects bacterial colony diameter**. Ten replicate colonies 
+were grown on three types of media: control, with sugar added and with
+both sugar and amino acids added. Error bars are means $\pm$ 1 standard 
+error. There was a significant effect of media on the diameter of 
+bacterial colonies (*F* = 6.11; *d.f.* = 2, 27; *p* = 0.006). Post-hoc 
+testing with Tukey's Honestly Significant Difference test [@tukey1949] 
+revealed the colony diameters were significantly larger when grown with 
+both sugar and amino acids than with neither or just sugar. Data 
+analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse].
+
+:::
 
 # Kruskal-Wallis
 
@@ -552,9 +566,10 @@ grown with both sugar and amino acids ($median = 11.3 mm$) than with
 neither ($median = 10.2 mm$; *p* = 0.031) or just sugar
 ($median = 10.2 mm$; *p* = 0.038). See @fig-culture-kw.
 
+
+::: {#fig-culture-kw}
 ```{r}
-#| label: fig-culture-kw
-#| fig-cap: "Diameters of bacterial colonies grown on three types of media: control, with sugar added and with both sugar and amino acids added. Heavy line indicate the median, boxes the interquartile range and whiskers the range."
+#| code-fold: true
 
 ggplot(data = culture, aes(x = medium, y = diameter)) +
  geom_boxplot() +
@@ -575,3 +590,72 @@ ggplot(data = culture, aes(x = medium, y = diameter)) +
            label = expression(italic(p)~"= 0.031")) +
   theme_classic()
 ```
+
+
+**Medium affects bacterial colony diameter**. Ten replicate colonies 
+were grown on three types of media: control, with sugar added and with
+both sugar and amino acids added. The heavy lines
+indicate median diameter, boxes indicate the interquartile range
+and whiskers the range. There was a significant effect of media on the 
+diameter of bacterial colonies (Kruskal-Wallis: *chi-squared* = 6.34, 
+*df* = 2, *p*-value = 0.042). Post-hoc testing with the Dunn test
+[@dunn1964] revealed the colony diameters were significantly larger when
+grown with both sugar and amino acids than with neither or just sugar. 
+Data analysis was conducted in R [@R-core] with 
+tidyverse packages [@tidyverse].
+
+:::
+
+# Summary
+
+1. A linear model with one explanatory variable with two or more groups 
+   is also known as a **one-way ANOVA**.
+   
+2. We estimate the **coefficients** (also called the **parameters**) of
+   the model. For a one-way ANOVA with three groups these are the mean
+   of the first group, $\beta_0$, the difference between the means of 
+   the first and second groups, $\beta_1$, and the difference between 
+   the means of the first and third groups, $\beta_2$. We test whether the 
+   parameters differ significantly from zero
+
+3. We can use `lm()` to one-way ANOVA in R.
+
+4. When we get a significant effect of our explanatory variable, it only
+   tells us that at least two of the means differ. To find out which 
+   means differ, we need a **post-hoc** test. Here we use Tukey’s HSD 
+   applied with the `emmeans()` and `pairs()` functions from the 
+   **`emmeans`** package. Post-hoc tests make adjustments to the 
+   *p*-values to account for the fact that we are doing multiple tests.
+
+5. In the output of `lm()` the coefficients are listed in a table in the
+   Estimates column. The *p*-value for each coefficient is in the test 
+   of whether it differs from zero. At the bottom of the output there 
+   is a test of the model *overall*. Now we have more than two 
+   parameters, this is different from the test on any one parameter. The
+   R-squared value is the proportion of the variance in the response 
+   variable that is explained by the model. It tells us is the 
+   explanatory variable is useful in predicting the response variable
+   overall.
+
+6. The assumptions of the general linear model are that the residuals
+   are normally distributed and have homogeneity of variance. A residual
+   is the difference between the predicted value and the observed value.
+
+7. We examine a histogram of the residuals and use the Shapiro-Wilk
+   normality test to check the normality assumption. We  check the
+   variance of the residuals is the same for all fitted values with
+   a residuals vs fitted plot.
+
+8. If the assumptions are not met, we can use the Kruskal-Wallis test
+   applied with `kruskal.test()` in R and follow it with The Dunn test 
+   applied with `dunnTest()` in the package **`FSA`**.
+
+9. When reporting the results of a test we give the significance,
+   direction and size of the effect. Our figures and the values we give
+   should reflect the type of test we have used. We use means and
+   standard errors for parametric tests and medians and interquartile
+   ranges for non-parametric tests. We also give the test statistic, the
+   degrees of freedom (parametric) or sample size (non-parametric) and
+   the p-value. We annotate our figures with the p-value, making clear
+   which comparison it applies to.
+   
