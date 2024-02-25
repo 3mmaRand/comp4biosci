@@ -5,106 +5,85 @@
 #| echo: false
 
 source("_common.R")
-status("drafting")
+status("complete")
 ```
 
 
 ## Overview
 
-<!-- In the last couple chapters, we learnt how to use and interpret the general -->
-<!-- linear model when wethe *x* variable was categorical with two groups. You -->
-<!-- will now extend that to situations when there are more than two groups. -->
-<!-- This is often known as the two-way ANOVA (**an**alysis **o**f -->
-<!-- **var**iance). We will also learn about the Kruskal-Wallis test -->
-<!-- [@kruskal1952] which can be used when the assumptions of the general -->
-<!-- linear model are not met. -->
+In the last chapter, we learnt how to use and interpret the general
+linear model when the *x* variable was categorical with two or  more groups. 
+This procedure is known as one-way ANOVA. We will now incorporate a *second*
+categorical variable. This is often known as the two-way or two-factor ANOVA 
+(**an**alysis **o**f **var**iance). It might also be described as a "factorial
+design".
 
-<!-- We use `lm()` to carry out a one-way ANOVA. General linear models -->
-<!-- applied with `lm()` are based on the normal distribution and known as -->
-<!-- parametric tests because they use the parameters of the normal -->
-<!-- distribution (the mean and standard deviation) to determine if an effect -->
-<!-- is significant. Null hypotheses are about a mean or difference between -->
-<!-- means. The assumptions need to be met for the *p*-values generated to be -->
-<!-- accurate. -->
+In the last chapter we conducted a one-way ANOVA to test whether there was an 
+of media on the diameter of bacterial colonies. Suppose we had run this 
+experiment on more than one bacterial species. We would then have two 
+explanatory variables: media and species. Perhaps we should do two one-way 
+ANOVAs, one for each explanatory variable? This would tell us whether each
+explanatory variable had an effect on the response variable. However, it would
+not tell us whether there was an **interaction** between the two variables. An
+interaction is when the effect of one variable depends on the level of another 
+and in some ways it is the most interesting result we could reveal. For example,
+we might find that the optimal media for one species was not the optimal media
+for the other species. A two-way ANOVA allows us to test for the effects of each
+explanatory variable *and* whether they interact. A two-way ANOVA has three null
+hypotheses:
 
-<!-- If the assumptions are not met, we can use the non-parametric equivalent -->
-<!-- known as the Kruskal-Wallis test. Like other non-parametric tests, the -->
-<!-- Kruskal-Wallis test : -->
+1. There is no effect of media on diameter, or there is no difference between 
+   the mean diameter of colonies grown on different media. 
+2. There is no effect of species on diameter, or there is no difference between 
+   bacteria in colony diameter. 
+3. The effect of media is the same for all species, or the effect of media does 
+   not depend on species.
 
-<!-- -   is based on the ranks of values rather than the actual values -->
-<!--     themselves -->
-<!-- -   has a null hypothesis about the mean rank rather than the mean -->
-<!-- -   has fewer assumptions and can be used in more situations -->
-<!-- -   tends to be less powerful than a parametric test when the -->
-<!--     assumptions are met -->
 
-<!-- <!-- Why not do several two-sample tests? ANOVA terminology and concepts --> -->
+As a General linear model, two-way ANOVA is a parametric test with assumptions 
+based on the normal distribution which need to be met for the *p*-values 
+generated to be accurate. We use `lm()` to fit the model, `anova()` to test
+the significance of the explanatory variables and `emmeans()` and pairs() for
+post-hoc testing.
 
-<!-- The process of using `lm()` to conduct a one-way ANOVA is very like the -->
-<!-- process for using `lm()` to conduct a two-sample *t*-test but with an -->
-<!-- important addition. When we get a signifcant effect of our explanatory -->
-<!-- variable, it only tells us that at least two of the means differ. To -->
-<!-- find out which means differ, we need a post-hoc test. A post-hoc ("after -->
-<!-- this") test is done after a significant ANOVA test. There are several -->
-<!-- possible post-hoc tests and we will be using Tukey's HSD (honestly -->
-<!-- significant difference) test [@tukey1949] implemented in the -->
-<!-- **`emmeans`** [@emmeans] package. Post-hoc tests make adjustments to the -->
-<!-- *p*-values to account for the fact that we are doing multiple -->
-<!-- comparisons. A Type I error happens when we reject a null hypothesis -->
-<!-- that is true and occurs with a probability of 0.05. Doing lots of -->
-<!-- comparisons makes it more likely we will get a significant result just -->
-<!-- by chance. The post-hoc test adjusts the *p*-values to account for this -->
-<!-- increased risk. -->
+### Model assumptions
 
-<!-- ### Model assumptions -->
+We examine the model assumptions in the same way as we did for single linear
+regression, two-sample tests and one-way ANOVA:  we apply the general linear 
+model with `lm()` and *then* check the assumptions using diagnostic plots and 
+the Shapiro-Wilk normality test. We also use common sense:
 
-<!-- The assumptions for a general linear model where the explanatory -->
-<!-- variable has two or more groups, are the same as for two groups: the -->
-<!-- residuals are normally distributed and have homogeneity of variance. -->
+-   the response should be continuous (or nearly continuous, see 
+    [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)) 
+    and we consider whether we would expect the response to be normally 
+    distributed.
+-   we expect decimal places and few repeated values.
 
-<!-- If we have a continuous response and a categorical explanatory variable -->
-<!-- with three or more groups, we usually apply the general linear model -->
-<!-- with `lm()` and *then* check the assumptions, however, we can sometimes -->
-<!-- tell when a non-parametric test would be more appropriate before that: -->
+### Reporting
 
-<!-- -   Use common sense - the response should be continuous (or nearly -->
-<!--     continuous, see [Ideas about data: Theory and -->
-<!--     practice](ideas_about_data.html#theory-and-practice)). Consider -->
-<!--     whether you would expect the response to be continuous -->
-<!-- -   There should decimal places and few repeated values. -->
+In reporting the result of two-way ANOVA, we
+include:
 
-<!-- To examine the assumptions after fitting the linear model, we plot the -->
-<!-- residuals and test them against the normal distribution in the same way -->
-<!-- as we did for single linear regression. -->
+1.  the significance of each of the explanatory variables and the interaction
+    between them. 
 
-<!-- ### Reporting -->
+    -   The *F*-statistic and *p*-value for each explanatory variable and the 
+        interaction term.
 
-<!-- In reporting the result of one-way ANOVA or Kruskal-Wallis test, we -->
-<!-- include: -->
+2.  the direction of effect - which of the means is greater
 
-<!-- 1.  the significance of effect - whether there is there a difference -->
-<!--     between the groups -->
+    -   Post-hoc test
+    
+3.  the magnitude of effect - how big is the difference between the
+    means
 
-<!--     -   parametric: whether there is there a difference between the -->
-<!--         groups means -->
-<!--     -   non-parametric: whether there is there a difference between the -->
-<!--         group medians -->
+    -   the means and standard errors for each group
 
-<!-- 2.  the direction of effect - which of the means/medians is greater -->
+Figures should reflect what you have said in the statements. Ideally
+they should show both the raw data and the statistical model: means and standard errors
 
-<!-- 3.  the magnitude of effect - how big is the difference between the -->
-<!--     means/medians -->
 
-<!--     -   parametric: the means and standard errors for each group -->
-<!--     -   non-parametric: the medians for each group -->
-
-<!-- Figures should reflect what you have said in the statements. Ideally -->
-<!-- they should show both the raw data and the statistical model: -->
-
-<!-- -   parametric: means and standard errors -->
-<!-- -   non-parametric: boxplots with medians and interquartile range -->
-
-<!-- We will explore all of these ideas with some examples. -->
+We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
@@ -115,7 +94,7 @@ folder and open a new script. You will also need to load the
 
 ## Two-way ANOVA
 
-Researchers have collected live specimens of two species of periwinkle (See @fig-periwinkles) from sites in northern England in the Spring and Summer. They take a measure of the gut parasite load by examining a slide of gut contents. The data are in [periwinkle.txt](data-raw/periwinkle.txt). The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.
+Researchers have collected live specimens of two species of periwinkle (See @fig-periwinkles) from sites in northern England in the Spring and Summer. They took a measure of the gut parasite load by examining a slide of gut contents. The data are in [periwinkle.txt](data-raw/periwinkle.txt). The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.
 
 ![Periwinkles are marine gastropod molluscs (slugs and snails). A) *Littorina brevicula* (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) *Littorina littorea*. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769](images/Littorina.jpg){#fig-periwinkles fig-alt=""}
 
@@ -339,11 +318,20 @@ and homogeneity of variance are probably not violated.
 
 We might report this result as:
 
-The parasite load is significantly greater in Summer (*F* = 25.9; *d.f.* = 1, 96; *p* < 0.0001) but this effect differs between species (*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite load in *L.brevicula* (from $\bar{x} \pm s.e$: 57.0 $\pm$ 1.77 units to 73.5 $\pm$ 2.24 units) than in *L.littorea* (from 64.2 $\pm$ 2.38 units to 69.9 $\pm$ 2.30 units) . See @fig-para.
+The parasite load was significantly greater in Summer (*F* = 25.9; *d.f.* = 1,
+96; *p* < 0.0001) but this effect differed between species (*F* = 6.2; 
+*d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite load in 
+*L.brevicula* (from $\bar{x} \pm s.e$: 57.0 $\pm$ 1.77 units to 73.5 $\pm$ 2.24 
+units) than in *L.littorea* (from 64.2 $\pm$ 2.38 units to 69.9 $\pm$ 2.30 
+units). See @fig-para.
+
+
+
+
+::: {#fig-para}
 
 ```{r}
-#| label: fig-para
-#| fig-cap: "Gut parasite load for two species of periwinkle Errors bars are ± 1 s.e."
+#| code-fold: true
 
 ggplot() +
   geom_point(data = periwinkle, aes(x = season,
@@ -365,7 +353,7 @@ ggplot() +
   scale_x_discrete(name = "Season") +
   scale_y_continuous(name = "Number of parasites",
                      expand = c(0, 0),
-                     limits = c(0, 130)) +
+                     limits = c(0, 140)) +
   scale_shape_manual(values = c(19, 1),
                      name = NULL,
                      labels = c(bquote(italic("L.brevicula")),
@@ -397,3 +385,15 @@ ggplot() +
         legend.position = c(0.85, 0.15)) 
 ```
 
+**Parasite load is greater in Summer especially for *L.brevicula*.** Live 
+specimens of two species of periwinkle, *L.brevicula* and *L.littorea* were
+collected from sites in northern England in the Spring and Summer and gut
+parasite load was determined. Error bars are means $\pm$ 1 standard error. 
+Parasite load was significantly greater in Summer (*F* = 25.9; *d.f.* = 1, 96; 
+*p* < 0.0001) but this effect differed between species (*F* = 6.2; 
+*d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite load in
+*L.brevicula* than in *L.littorea*. Data analysis was conducted in R [@R-core] 
+with tidyverse packages [@tidyverse]. Post-hoc analysis was carried out with 
+Tukey's Honestly Significant Difference test [@tukey1949]. 
+
+:::
