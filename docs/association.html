@@ -342,7 +342,13 @@ div.csl-indent {
   <li><a href="#spearmans-rank-correlation-coefficient" id="toc-spearmans-rank-correlation-coefficient" class="nav-link" data-scroll-target="#spearmans-rank-correlation-coefficient"><span class="header-section-number">16.3.5</span> Spearman’s rank correlation coefficient</a></li>
   </ul>
 </li>
-  <li><a href="#contingency-chi-squared-test" id="toc-contingency-chi-squared-test" class="nav-link" data-scroll-target="#contingency-chi-squared-test"><span class="header-section-number">16.4</span> Contingency Chi-squared test</a></li>
+  <li>
+<a href="#contingency-chi-squared-test" id="toc-contingency-chi-squared-test" class="nav-link" data-scroll-target="#contingency-chi-squared-test"><span class="header-section-number">16.4</span> Contingency Chi-squared test</a>
+  <ul class="collapse">
+<li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">16.4.1</span> Report</a></li>
+  </ul>
+</li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.5</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/association.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -397,7 +403,14 @@ Incomplete
 <li><p>we use <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> in R.</p></li>
 </ul></section><section id="contingency-chi-squared" class="level3" data-number="16.1.2"><h3 data-number="16.1.2" class="anchored" data-anchor-id="contingency-chi-squared">
 <span class="header-section-number">16.1.2</span> Contingency Chi-squared</h3>
-</section><section id="reporting" class="level3" data-number="16.1.3"><h3 data-number="16.1.3" class="anchored" data-anchor-id="reporting">
+<ul>
+<li><p>two categorical variables</p></li>
+<li><p>neither is an explanatory variable, i.e., there is not a causal relationship between the two variables</p></li>
+<li><p>we count the number of observations in each caetory of each variable</p></li>
+<li><p>you want to know if there is an association between the two variables</p></li>
+<li><p>another way of describing this is that we test whether the proportion of observations falling in to each category of one variable is the same for each category of the other variable.</p></li>
+<li><p>we use a chi-squared test to test whether the observed counts are significantly different from the expected counts if there was no association between the variables.</p></li>
+</ul></section><section id="reporting" class="level3" data-number="16.1.3"><h3 data-number="16.1.3" class="anchored" data-anchor-id="reporting">
 <span class="header-section-number">16.1.3</span> Reporting</h3>
 <ol type="1">
 <li><p>the significance of effect - whether the association is significant different from zero</p></li>
@@ -1229,8 +1242,116 @@ Figure&nbsp;16.3: <strong>Correlation between compactness and kernel width of wh
 </div>
 </section><section id="spearmans-rank-correlation-coefficient" class="level3" data-number="16.3.5"><h3 data-number="16.3.5" class="anchored" data-anchor-id="spearmans-rank-correlation-coefficient">
 <span class="header-section-number">16.3.5</span> Spearman’s rank correlation coefficient</h3>
+<p>TODO</p>
 </section></section><section id="contingency-chi-squared-test" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="contingency-chi-squared-test">
 <span class="header-section-number">16.4</span> Contingency Chi-squared test</h2>
+<p>Researchers were interested in whether different pig breeds had the same food preferences. They offered individuals of three breads, Welsh, Tamworth and Essex a choice of three foods: cabbage, sugar beet and swede and recorded the number of individuals that chose each food. The data are shown in <a href="#tbl-food-pref" class="quarto-xref">Table&nbsp;<span>16.1</span></a>.</p>
+<div class="cell">
+<div id="tbl-food-pref" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure"><figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-food-pref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;16.1: Food preferences of three pig breeds
+</figcaption><div aria-describedby="tbl-food-pref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="table cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">welsh</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">tamworth</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">essex</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cabbage</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sugarbeet</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">swede</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>We don’t know what proportion of food are expected to be preferred but do expect it to be same for each breed if there is no association between breed and food preference. The null hypothesis is that the proportion of foods taken by each breed is the same.</p>
+<p>For a contingency chi squared test, the inbuilt chi-squared test can be used but we need to to structure our data as a 3 x 3 table. The <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function is useful here and we can label the rows and columns to help us interpret the results.</p>
+<p>Put the data into a matrix:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create the data</span></span>
+<span><span class="va">food_pref</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">19</span>, <span class="fl">22</span>,</span>
+<span>                      <span class="fl">21</span>, <span class="fl">16</span>, <span class="fl">8</span>,</span>
+<span>                      <span class="fl">7</span>, <span class="fl">12</span>, <span class="fl">11</span><span class="op">)</span>,</span>
+<span>                    nrow <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>                    byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">food_pref</span></span>
+<span><span class="co">##      [,1] [,2] [,3]</span></span>
+<span><span class="co">## [1,]   11   19   22</span></span>
+<span><span class="co">## [2,]   21   16    8</span></span>
+<span><span class="co">## [3,]    7   12   11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>byrow</code> and <code>nrow</code> arguments allow us to lay out the data in the matrix as we need. To name the rows and columns we can use the <code><a href="https://rdrr.io/r/base/dimnames.html">dimnames()</a></code> function. We need to create a “list” object to hold the names of the rows and columns and then assign this to the matrix object. The names of rows are columns are called the “dimension names” in a matrix.</p>
+<p>Make a list for the two vectors of names:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
+<span></span>
+<span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>food <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cabbage"</span>,</span>
+<span>                      <span class="st">"sugarbeet"</span>,</span>
+<span>                      <span class="st">"swede"</span><span class="op">)</span>,</span>
+<span>             breed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"welsh"</span>,</span>
+<span>                       <span class="st">"tamworth"</span>,</span>
+<span>                       <span class="st">"essex"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The vectors can be of different lengths in a list which would be important if we had four breeds and only two foods, for example.</p>
+<p>Now assign the list to the dimension names in the matrix:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">vars</span></span>
+<span></span>
+<span><span class="va">food_pref</span></span>
+<span><span class="co">##            breed</span></span>
+<span><span class="co">## food        welsh tamworth essex</span></span>
+<span><span class="co">##   cabbage      11       19    22</span></span>
+<span><span class="co">##   sugarbeet    21       16     8</span></span>
+<span><span class="co">##   swede         7       12    11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data are now in a form that can be used in the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Pearson's Chi-squared test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  food_pref</span></span>
+<span><span class="co">## X-squared = 10.64, df = 4, p-value = 0.03092</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The test is significant since the <em>p</em>-value is less than 0.05. We have evidence of a preference for particular foods by different breeds. But in what way? We need to know the “direction of the effect” <em>i.e.,</em> Who likes what?</p>
+<p>The <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function has a <code>residuals</code> argument that can be used to calculate the residuals. These are the differences between the observed and expected values. The expected values are the values that would be expected if there was no association between the rows and columns. The residuals are standardised.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span><span class="op">$</span><span class="va">residuals</span></span>
+<span><span class="co">##            breed</span></span>
+<span><span class="co">## food             welsh    tamworth      essex</span></span>
+<span><span class="co">##   cabbage   -1.2433504 -0.05564283  1.2722209</span></span>
+<span><span class="co">##   sugarbeet  1.9317656 -0.16014783 -1.7125943</span></span>
+<span><span class="co">##   swede     -0.7289731  0.26939742  0.4225344</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Where the residuals are positive, the observed value is greater than the expected value and where they are negative, the observed value is less than the expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the Essex pigs slightly prefer swede but have less strong likes and dislikes.</p>
+<p>The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.</p>
+<section id="report-1" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="report-1">
+<span class="header-section-number">16.4.1</span> Report</h3>
+<p>Different pig breeds showed a significant preference for the different food types (<span class="math inline">\(\chi^2\)</span> = 10.64; <em>df</em> = 4; <em>p</em> = 0.031) with Essex much preferring cabbage and disliking sugarbeet, Welsh showing a strong preference for sugarbeet and a dislike of cabbage and Tamworth showing no clear preference.</p>
+</section></section><section id="summary" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">16.5</span> Summary</h2>
+<p>TODO</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

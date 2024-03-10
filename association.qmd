@@ -50,8 +50,24 @@ TODO Add a figure of the different correlation coefficients
 
 ### Contingency Chi-squared
 
+-   two categorical variables
+
+-   neither is an explanatory variable, i.e., there is not a causal relationship
+    between the two variables
+    
+-   we count the number of observations in each caetory of each variable
+
+-   you want to know if there is an association between the two variables 
 
 
+-   another way of describing this is that we test whether the proportion of 
+    observations falling in to each category of one variable is the same for 
+    each category of the other variable.
+    
+-   we use a chi-squared test to test whether the observed counts are significantly
+    different from the expected counts if there was no association between the 
+    variables.    
+    
 ### Reporting
 
 
@@ -273,5 +289,142 @@ tidyverse packages [@tidyverse].
 
 ### Spearman's rank correlation coefficient
 
+TODO
+
+
+
 ## Contingency Chi-squared test
 
+Researchers were interested in whether different pig breeds had the same 
+food preferences. They offered individuals of three breads, Welsh, Tamworth 
+and Essex a choice of three foods: cabbage, sugar beet and swede and recorded
+the number of individuals that chose each food. The data are shown in @tbl-food-pref.
+
+```{r}
+#| echo: false
+
+# create the data
+food_pref <- matrix(c(11, 19, 22,
+                      21, 16, 8,
+                      7, 12, 11),
+                    nrow = 3,
+                    byrow = TRUE)
+
+# make a list object to hold two vectors
+# in a list the vectors can be of different lengths
+vars <- list(food = c("cabbage",
+                      "sugarbeet",
+                      "swede"),
+             breed = c("welsh",
+                       "tamworth",
+                       "essex"))
+dimnames(food_pref) <- vars
+```
+
+```{r}
+#| echo: false
+#| label: tbl-food-pref
+
+knitr::kable(food_pref, 
+             caption = "Food preferences of three pig breeds") |> 
+  kableExtra::kable_styling()
+
+
+```
+
+
+
+We don’t know what proportion of food are expected to be preferred but do 
+expect it to be same for each breed if there is no association between breed
+and food preference. The null hypothesis is that the proportion of foods taken 
+by each breed is the same.
+
+For a contingency chi squared test, the inbuilt chi-squared test can be used 
+but we need to to structure our data as a 3 x 3 table. The `matrix()` function 
+is useful here and we can label the rows and columns to help us interpret the 
+results.
+
+Put the data into a matrix:
+
+```{r}
+# create the data
+food_pref <- matrix(c(11, 19, 22,
+                      21, 16, 8,
+                      7, 12, 11),
+                    nrow = 3,
+                    byrow = TRUE)
+food_pref
+```
+
+The `byrow` and `nrow` arguments allow us to lay out the data in the matrix as 
+we need.
+To name the rows and columns we can use the `dimnames()` function. We need
+to create a "list" object to hold the names of the rows and columns and then
+assign this to the matrix object. The names of rows are columns are called the 
+"dimension names" in a matrix.
+
+Make a list for the two vectors of names:
+```{r}
+# 
+
+vars <- list(food = c("cabbage",
+                      "sugarbeet",
+                      "swede"),
+             breed = c("welsh",
+                       "tamworth",
+                       "essex"))
+
+```
+
+The vectors can be of different lengths in a list which would be important if 
+we had four breeds and only two foods, for example.
+
+Now assign the list to the dimension names in the matrix:
+```{r}
+dimnames(food_pref) <- vars
+
+food_pref
+
+```
+
+The data are now in a form that can be used in the `chisq.test()` function:
+
+```{r}
+chisq.test(food_pref)
+
+```
+The test is significant since the *p*-value is less than 0.05. We have evidence 
+of a preference for particular foods by different breeds. But in what way? We need to know the “direction of the effect” *i.e.,* Who likes what?
+
+The `chisq.test()` function has a `residuals` argument that can be used to
+calculate the residuals. These are the differences between the observed and
+expected values. The expected values are the values that would be expected if
+there was no association between the rows and columns. The residuals are
+standardised.
+
+```{r}
+chisq.test(food_pref)$residuals
+
+```
+Where the residuals are positive, the observed value is greater than the
+expected value and where they are negative, the observed value is less than the
+expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly
+dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the 
+Essex pigs slightly prefer swede but have less strong likes and dislikes.
+
+
+The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.
+
+
+### Report
+
+Different pig breeds showed a significant preference for the different 
+food types ($\chi^2$ = 10.64; *df* = 4; *p* = 0.031) with Essex much preferring 
+cabbage and disliking sugarbeet, Welsh showing a strong preference for 
+sugarbeet and a dislike of cabbage and Tamworth showing no clear preference.
+
+
+
+## Summary
+
+TODO
