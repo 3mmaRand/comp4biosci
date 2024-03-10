@@ -12,7 +12,7 @@ status("drafting")
 
 no explanatory variables
 
-Correlation
+### Correlation
 
 -   two continuous variables
 
@@ -48,13 +48,12 @@ TODO Add a figure of the different correlation coefficients
     
 -   we use `cor.test()` in R.
 
+### Contingency Chi-squared
 
 
-Contingency Chi-squared
 
 ### Reporting
 
-Reporting 
 
 1.  the significance of effect - whether the association is significant
     different from zero
@@ -66,7 +65,10 @@ Reporting
 
 3.  the magnitude of effect
 
-Figures 
+We do not put a line of best fit on a scatter plot accompanying a correlation 
+because such a line implies a causal relationship. 
+
+
 
 We will explore all of these ideas with an examples.
 
@@ -200,14 +202,14 @@ shapiro.test(seeds$kernel_width)
 ```
 
 
-The p-value is greater than 0.05 so this test of the normality
-assumption is not significant. Note that "not significant" means not
+The *p*-values are greater than 0.05 so these tests of the normality
+assumption are not significant. Note that "not significant" means not
 significantly different from a normal distribution. It does not mean
 definitely normally distributed.
 
 It is not unreasonable to continue with the Pearson's correlation coefficient. 
-However, later we will also use the Spearman's rank correlation coefficient
-which has fewer assumptions. This a more conservative approach.
+However, later we will also use the Spearman's rank correlation coefficient, a non-parametric method which has fewer assumptions. Spearman's rank correlation 
+is a more conservative approach.
 
 
 ### Do a Pearson's correlation test with `cor.test()`
@@ -219,13 +221,13 @@ cor.test(data = seeds, ~ compactness + kernel_width)
 ```
 
 A variable is not being explained in this case so we do not need to include
-a response variable. Pearson’s in the default test so we do not need to specify
+a response variable. Pearson’s is the default test so we do not need to specify
 it.
 
 What do all these results mean?
 
 The last line gives the correlation coefficient, $r$, that has been estimated 
-from the data. Here, $r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate` 
+from the data. Here, $r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)` 
 which is a moderate positive correlation.
 
 The fifth line tells you what test has been done: 
@@ -239,5 +241,37 @@ The $p$-value is very much less than 0.05 so we can reject the null hypothesis
 and conclude there is a significant positive correlation between `compactness` 
 and `kernel_width`.
 
+### Report
 
+There was a significant positive correlation ($r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`) between compactness and kernel width (Pearson's: *t* = 7.374; *df* = 68; *p*-value < 0.0001). See @fig-correlation-pears.
+
+
+::: {#fig-correlation-pears}
+```{r}
+#| code-fold: true
+
+ggplot(data = seeds,
+       aes(x = compactness, y = kernel_width)) +
+  geom_point() +
+  scale_y_continuous(name = "Diameter (mm)") +
+    scale_x_continuous(name = "Compactness") +
+  annotate("text", x = 0.85,  y = 3.6, 
+           label = expression(italic(r)~"= 0.67; "~italic(p)~"< 0.001")) +
+  theme_classic()
+```
+
+
+**Correlation between compactness and kernel width of wheat seeds**. High
+quality images of the internal structure of wheat seeds were taken with a 
+soft X-ray technique and the compactness and kernel width of the seeds were
+determined. There was a significant positive correlation ($r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`) between compactness 
+and kernel width (Pearson's: *t* = 7.374; *df* = 68; *p*-value < 0.0001). Note:
+axes do not start at 0. Data analysis was conducted in R [@R-core] with
+tidyverse packages [@tidyverse].
+
+:::
+
+### Spearman's rank correlation coefficient
+
+## Contingency Chi-squared test
 

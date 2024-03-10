@@ -326,18 +326,23 @@ div.csl-indent {
 <li>
 <a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">16.1</span> Overview</a>
   <ul class="collapse">
-<li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">16.1.1</span> Reporting</a></li>
+<li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">16.1.1</span> Correlation</a></li>
+  <li><a href="#contingency-chi-squared" id="toc-contingency-chi-squared" class="nav-link" data-scroll-target="#contingency-chi-squared"><span class="header-section-number">16.1.2</span> Contingency Chi-squared</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">16.1.3</span> Reporting</a></li>
   </ul>
 </li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">16.2</span> 🎬 Your turn!</a></li>
   <li>
-<a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">16.3</span> Correlation</a>
+<a href="#correlation-1" id="toc-correlation-1" class="nav-link" data-scroll-target="#correlation-1"><span class="header-section-number">16.3</span> Correlation</a>
   <ul class="collapse">
 <li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">16.3.1</span> Import and explore</a></li>
   <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">16.3.2</span> Check assumptions</a></li>
   <li><a href="#do-a-pearsons-correlation-test-with-cor.test" id="toc-do-a-pearsons-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-pearsons-correlation-test-with-cor.test"><span class="header-section-number">16.3.3</span> Do a Pearson’s correlation test with <code>cor.test()</code></a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">16.3.4</span> Report</a></li>
+  <li><a href="#spearmans-rank-correlation-coefficient" id="toc-spearmans-rank-correlation-coefficient" class="nav-link" data-scroll-target="#spearmans-rank-correlation-coefficient"><span class="header-section-number">16.3.5</span> Spearman’s rank correlation coefficient</a></li>
   </ul>
 </li>
+  <li><a href="#contingency-chi-squared-test" id="toc-contingency-chi-squared-test" class="nav-link" data-scroll-target="#contingency-chi-squared-test"><span class="header-section-number">16.4</span> Contingency Chi-squared test</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/association.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -374,7 +379,8 @@ Incomplete
 <section id="overview" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="overview">
 <span class="header-section-number">16.1</span> Overview</h2>
 <p>no explanatory variables</p>
-<p>Correlation</p>
+<section id="correlation" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="correlation">
+<span class="header-section-number">16.1.1</span> Correlation</h3>
 <ul>
 <li><p>two continuous variables</p></li>
 <li><p>neither is an explanatory variable, i.e., there is not a causal relationship between the two variables</p></li>
@@ -389,11 +395,10 @@ Incomplete
 <li><p>Pearson’s correlation coefficient, is a parametric measure which assumes the variables are normally distributed and that any correlation is linear.</p></li>
 <li><p>Spearman’s rank correlation coefficient, is a non-parametric measure which does not assume the variables are normally distributed</p></li>
 <li><p>we use <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> in R.</p></li>
-</ul>
-<p>Contingency Chi-squared</p>
-<section id="reporting" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">16.1.1</span> Reporting</h3>
-<p>Reporting</p>
+</ul></section><section id="contingency-chi-squared" class="level3" data-number="16.1.2"><h3 data-number="16.1.2" class="anchored" data-anchor-id="contingency-chi-squared">
+<span class="header-section-number">16.1.2</span> Contingency Chi-squared</h3>
+</section><section id="reporting" class="level3" data-number="16.1.3"><h3 data-number="16.1.3" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">16.1.3</span> Reporting</h3>
 <ol type="1">
 <li><p>the significance of effect - whether the association is significant different from zero</p></li>
 <li>
@@ -405,12 +410,12 @@ Incomplete
 </li>
 <li><p>the magnitude of effect</p></li>
 </ol>
-<p>Figures</p>
+<p>We do not put a line of best fit on a scatter plot accompanying a correlation because such a line implies a causal relationship.</p>
 <p>We will explore all of these ideas with an examples.</p>
 </section></section><section id="your-turn" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="your-turn">
 <span class="header-section-number">16.2</span> 🎬 Your turn!</h2>
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
-</section><section id="correlation" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="correlation">
+</section><section id="correlation-1" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="correlation-1">
 <span class="header-section-number">16.3</span> Correlation</h2>
 <p>High quality images of the internal structure of wheat seeds were taken with a soft X-ray technique. Seven measurements determined from the images:</p>
 <ul>
@@ -1173,8 +1178,8 @@ Figure&nbsp;16.2: The distributions of the two variables are slightly skewed but
 <span><span class="co">## data:  seeds$kernel_width</span></span>
 <span><span class="co">## W = 0.98989, p-value = 0.8486</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The p-value is greater than 0.05 so this test of the normality assumption is not significant. Note that “not significant” means not significantly different from a normal distribution. It does not mean definitely normally distributed.</p>
-<p>It is not unreasonable to continue with the Pearson’s correlation coefficient. However, later we will also use the Spearman’s rank correlation coefficient which has fewer assumptions. This a more conservative approach.</p>
+<p>The <em>p</em>-values are greater than 0.05 so these tests of the normality assumption are not significant. Note that “not significant” means not significantly different from a normal distribution. It does not mean definitely normally distributed.</p>
+<p>It is not unreasonable to continue with the Pearson’s correlation coefficient. However, later we will also use the Spearman’s rank correlation coefficient, a non-parametric method which has fewer assumptions. Spearman’s rank correlation is a more conservative approach.</p>
 </section><section id="do-a-pearsons-correlation-test-with-cor.test" class="level3" data-number="16.3.3"><h3 data-number="16.3.3" class="anchored" data-anchor-id="do-a-pearsons-correlation-test-with-cor.test">
 <span class="header-section-number">16.3.3</span> Do a Pearson’s correlation test with <code>cor.test()</code>
 </h3>
@@ -1193,15 +1198,45 @@ Figure&nbsp;16.2: The distributions of the two variables are slightly skewed but
 <span><span class="co">##       cor </span></span>
 <span><span class="co">## 0.6665731</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s in the default test so we do not need to specify it.</p>
+<p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s is the default test so we do not need to specify it.</p>
 <p>What do all these results mean?</p>
-<p>The last line gives the correlation coefficient, <span class="math inline">\(r\)</span>, that has been estimated from the data. Here, <span class="math inline">\(r\)</span> = 0.6665731 which is a moderate positive correlation.</p>
+<p>The last line gives the correlation coefficient, <span class="math inline">\(r\)</span>, that has been estimated from the data. Here, <span class="math inline">\(r\)</span> = 0.67 which is a moderate positive correlation.</p>
 <p>The fifth line tells you what test has been done: <code>alternative hypothesis: true correlation is not equal to 0</code>. That is <span class="math inline">\(H_0\)</span> is that <span class="math inline">\(\rho = 0\)</span></p>
 <p>The forth line gives the test result: <code>t = 7.3738, df = 68, p-value = 2.998e-10</code></p>
 <p>The <span class="math inline">\(p\)</span>-value is very much less than 0.05 so we can reject the null hypothesis and conclude there is a significant positive correlation between <code>compactness</code> and <code>kernel_width</code>.</p>
+</section><section id="report" class="level3" data-number="16.3.4"><h3 data-number="16.3.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">16.3.4</span> Report</h3>
+<p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). See <a href="#fig-correlation-pears" class="quarto-xref">Figure&nbsp;<span>16.3</span></a>.</p>
+<div id="fig-correlation-pears" class="quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-correlation-pears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<details><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>,</span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span>, y <span class="op">=</span> <span class="va">kernel_width</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Diameter (mm)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Compactness"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">0.85</span>,  y <span class="op">=</span> <span class="fl">3.6</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.67; "</span><span class="op">~</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"&lt; 0.001"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<p><img src="association_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="576"></p>
+</div>
+</div>
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-correlation-pears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.3: <strong>Correlation between compactness and kernel width of wheat seeds</strong>. High quality images of the internal structure of wheat seeds were taken with a soft X-ray technique and the compactness and kernel width of the seeds were determined. There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). Note: axes do not start at 0. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+</figcaption></figure>
+</div>
+</section><section id="spearmans-rank-correlation-coefficient" class="level3" data-number="16.3.5"><h3 data-number="16.3.5" class="anchored" data-anchor-id="spearmans-rank-correlation-coefficient">
+<span class="header-section-number">16.3.5</span> Spearman’s rank correlation coefficient</h3>
+</section></section><section id="contingency-chi-squared-test" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="contingency-chi-squared-test">
+<span class="header-section-number">16.4</span> Contingency Chi-squared test</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-R-core" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
 <div id="ref-tidyverse" class="csl-entry" role="listitem">
 Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
 </div>
@@ -1209,7 +1244,7 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 Wickham, Hadley, and Jennifer Bryan. 2023. <span>“Readxl: Read Excel Files.”</span> <a href="https://CRAN.R-project.org/package=readxl">https://CRAN.R-project.org/package=readxl</a>.
 </div>
 </div>
-</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
