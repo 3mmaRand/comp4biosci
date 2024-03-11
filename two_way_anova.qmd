@@ -401,4 +401,55 @@ Tukey's Honestly Significant Difference test [@tukey1949].
 
 ## Summary
 
-TODO
+1. A linear model with two explanatory variable with two or more groups 
+   each is also known as a **two-way ANOVA**.
+   
+2. We estimate the **coefficients** (also called the **parameters**) of
+   the model. For a two-way ANOVA with two groups in each explanatory
+   variable these are 
+   -   the mean of the group with the first level of 
+       both explanatory variables $\beta_0$, 
+   -   what needs to be added to $\beta_0$ when one of the explanatory
+       variables goes from its first level to its second, $\beta_1$
+   -   what needs to be added to $\beta_0$ when the other of the 
+       explanatory variables goes from its first level to its second, 
+       $\beta_2$ 
+   -   $\beta_3$, the interaction effect: what additionally needs to 
+       be added to $\beta_0$ + $\beta_1$ + $\beta_2$ when both of the 
+       explanatory variables go from their first level to their second
+
+3. We can use `lm()` to two-way ANOVA in R.
+
+4. In the output of `lm()` the coefficients are listed in a table in the
+   Estimates column. The *p*-value for each coefficient is in the test 
+   of whether it differs from zero. At the bottom of the output there 
+   is an $F$ test of the model *overall*. The R-squared value is the 
+   proportion of the variance in the response variable that is 
+   explained by the model. 
+   
+5. To see which of the three effects are significant we can use the 
+   `anova()` function on our model.
+
+6. To find out which means differ, we need a **post-hoc** test. Here 
+   we use Tukey’s HSD applied with the `emmeans()` and `pairs()` 
+   functions from the **`emmeans`** package. Post-hoc tests make 
+   adjustments to the *p*-values to account for the fact that we are 
+   doing multiple tests.
+
+7. The assumptions of the general linear model are that the residuals
+   are normally distributed and have homogeneity of variance. A residual
+   is the difference between the predicted value and the observed value.
+
+8. We examine a histogram of the residuals and use the Shapiro-Wilk
+   normality test to check the normality assumption. We  check the
+   variance of the residuals is the same for all fitted values with
+   a residuals vs fitted plot.
+
+9. When reporting the results of a test we give the significance,
+   direction and size of the effect. We use means and
+   standard errors for parametric tests like two-way ANOVA.  We also 
+   give the test statistic, the degrees of freedom (parametric) or 
+   sample size (non-parametric) and the p-value. We annotate our 
+   figures with the p-value, making clear which comparison it applies 
+   to.
+   

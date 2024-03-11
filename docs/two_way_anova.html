@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.395">
+<meta name="generator" content="quarto-1.4.543">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Computational Analysis for Bioscientists - 15&nbsp; Two-way ANOVA</title>
 <style>
@@ -98,7 +98,7 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
   "keyboard-shortcut": [
     "f",
     "/",
@@ -113,6 +113,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -122,17 +123,42 @@ div.csl-indent {
     document.body.classList.add('hypothesis-enabled');
   });
 </script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -140,7 +166,7 @@ div.csl-indent {
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Computational Analysis for Bioscientists</a> 
         <div class="sidebar-tools-main">
@@ -317,7 +343,7 @@ div.csl-indent {
 </li>
     </ul>
 </div>
-</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
@@ -421,11 +447,11 @@ Just needs proof reading
 </section><section id="two-way-anova" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="two-way-anova">
 <span class="header-section-number">15.3</span> Two-way ANOVA</h2>
 <p>Researchers have collected live specimens of two species of periwinkle (See <a href="#fig-periwinkles" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>) from sites in northern England in the Spring and Summer. They took a measure of the gut parasite load by examining a slide of gut contents. The data are in <a href="data-raw/periwinkle.txt">periwinkle.txt</a>. The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.</p>
-<div id="fig-periwinkles" class="quarto-figure quarto-figure-center anchored" alt="">
+<div id="fig-periwinkles" class="quarto-figure quarto-figure-center quarto-float anchored" alt="">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/Littorina.jpg" class="img-fluid figure-img" alt="">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15.1: Periwinkles are marine gastropod molluscs (slugs and snails). A) <em>Littorina brevicula</em> (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) <em>Littorina littorea</em>. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769
 </figcaption></figure>
 </div>
@@ -960,11 +986,11 @@ Figure&nbsp;15.1: Periwinkles are marine gastropod molluscs (slugs and snails). 
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">para</span>, fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-periwinkle-rough" class="quarto-figure quarto-figure-center anchored" width="576">
+<div id="fig-periwinkle-rough" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="two_way_anova_files/figure-html/fig-periwinkle-rough-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean.
 </figcaption></figure>
 </div>
@@ -1080,7 +1106,10 @@ Figure&nbsp;15.2: The parasite load for two species of Littorina indicated by th
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">species</span> <span class="op">*</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="two_way_anova_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
+<div>
+<figure class="figure"><p><img src="two_way_anova_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>We have significant differences between:</p>
@@ -1102,11 +1131,11 @@ Figure&nbsp;15.2: The parasite load for two species of Littorina indicated by th
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-anova2-plot1" class="quarto-figure quarto-figure-center anchored" width="576">
+<div id="fig-anova2-plot1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="two_way_anova_files/figure-html/fig-anova2-plot1-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean.
 </figcaption></figure>
 </div>
@@ -1117,11 +1146,11 @@ Figure&nbsp;15.3: A plot of the residuals against the fitted values shows whethe
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-anova2-plot2" class="quarto-figure quarto-figure-center anchored" width="576">
+<div id="fig-anova2-plot2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="two_way_anova_files/figure-html/fig-anova2-plot2-1.png" class="img-fluid figure-img" width="576">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
 </figcaption></figure>
 </div>
@@ -1142,10 +1171,7 @@ Figure&nbsp;15.4: A histogram of residuals is symetrical and seems consistent wi
 <span class="header-section-number">15.3.4</span> Report</h3>
 <p>We might report this result as:</p>
 <p>The parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> (from <span class="math inline">\(\bar{x} \pm s.e\)</span>: 57.0 <span class="math inline">\(\pm\)</span> 1.77 units to 73.5 <span class="math inline">\(\pm\)</span> 2.24 units) than in <em>L.littorea</em> (from 64.2 <span class="math inline">\(\pm\)</span> 2.38 units to 69.9 <span class="math inline">\(\pm\)</span> 2.30 units). See <a href="#fig-para" class="quarto-xref">Figure&nbsp;<span>15.5</span></a>.</p>
-<div id="fig-para" class="quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<details><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>,</span>
 <span>                                    y <span class="op">=</span> <span class="va">para</span>,</span>
 <span>                                    shape <span class="op">=</span> <span class="va">species</span><span class="op">)</span>,</span>
@@ -1195,18 +1221,45 @@ Figure&nbsp;15.4: A histogram of residuals is symetrical and seems consistent wi
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.85</span>, <span class="fl">0.15</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
-<p><img src="two_way_anova_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></p>
+</details><div id="fig-para" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="two_way_anova_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
 </div>
 </div>
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;15.5: <strong>Parasite load is greater in Summer especially for <em>L.brevicula</em>.</strong> Live specimens of two species of periwinkle, <em>L.brevicula</em> and <em>L.littorea</em> were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. Parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2023</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>.
 </figcaption></figure>
 </div>
 </section></section><section id="summary" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">15.4</span> Summary</h2>
-<p>TODO</p>
+<ol type="1">
+<li><p>A linear model with two explanatory variable with two or more groups each is also known as a <strong>two-way ANOVA</strong>.</p></li>
+<li>
+<p>We estimate the <strong>coefficients</strong> (also called the <strong>parameters</strong>) of the model. For a two-way ANOVA with two groups in each explanatory variable these are</p>
+<ul>
+<li>the mean of the group with the first level of both explanatory variables <span class="math inline">\(\beta_0\)</span>,</li>
+<li>what needs to be added to <span class="math inline">\(\beta_0\)</span> when one of the explanatory variables goes from its first level to its second, <span class="math inline">\(\beta_1\)</span>
+</li>
+<li>what needs to be added to <span class="math inline">\(\beta_0\)</span> when the other of the explanatory variables goes from its first level to its second, <span class="math inline">\(\beta_2\)</span>
+</li>
+<li>
+<span class="math inline">\(\beta_3\)</span>, the interaction effect: what additionally needs to be added to <span class="math inline">\(\beta_0\)</span> + <span class="math inline">\(\beta_1\)</span> + <span class="math inline">\(\beta_2\)</span> when both of the explanatory variables go from their first level to their second</li>
+</ul>
+</li>
+<li><p>We can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to two-way ANOVA in R.</p></li>
+<li><p>In the output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> the coefficients are listed in a table in the Estimates column. The <em>p</em>-value for each coefficient is in the test of whether it differs from zero. At the bottom of the output there is an <span class="math inline">\(F\)</span> test of the model <em>overall</em>. The R-squared value is the proportion of the variance in the response variable that is explained by the model.</p></li>
+<li><p>To see which of the three effects are significant we can use the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function on our model.</p></li>
+<li><p>To find out which means differ, we need a <strong>post-hoc</strong> test. Here we use Tukey’s HSD applied with the <code><a href="https://rdrr.io/pkg/emmeans/man/emmeans.html">emmeans()</a></code> and <code><a href="https://rdrr.io/r/graphics/pairs.html">pairs()</a></code> functions from the <strong><code>emmeans</code></strong> package. Post-hoc tests make adjustments to the <em>p</em>-values to account for the fact that we are doing multiple tests.</p></li>
+<li><p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.</p></li>
+<li><p>We examine a histogram of the residuals and use the Shapiro-Wilk normality test to check the normality assumption. We check the variance of the residuals is the same for all fitted values with a residuals vs fitted plot.</p></li>
+<li><p>When reporting the results of a test we give the significance, direction and size of the effect. We use means and standard errors for parametric tests like two-way ANOVA. We also give the test statistic, the degrees of freedom (parametric) or sample size (non-parametric) and the p-value. We annotate our figures with the p-value, making clear which comparison it applies to.</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1449,6 +1502,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1498,38 +1569,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1538,8 +1599,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1758,29 +1826,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./one_way_anova_and_kw.html" class="pagination-link">
+      <a href="./one_way_anova_and_kw.html" class="pagination-link  aria-label=" anova="" and="" kruskal-wallis="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./association.html" class="pagination-link">
+      <a href="./association.html" class="pagination-link" aria-label="<span class='chapter-number'>16</span>&nbsp; <span class='chapter-title'>Association: Correlation and Contingency</span>">
         <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1792,7 +1845,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/two_way_anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
