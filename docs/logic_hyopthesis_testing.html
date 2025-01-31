@@ -343,7 +343,7 @@ Just needs proof reading
 </div>
 <section id="what-is-hypothesis-testing" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="what-is-hypothesis-testing">
 <span class="header-section-number">9.1</span> What is Hypothesis testing?</h2>
-<p>Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. We almost always have to use samples because we are very rarely able to measure every observation in a population. For example, if we are interested in knowing if maternal poverty influences birth weight we would not be able to measure the birth weight of every baby in our population. Instead we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance.</p>
+<p>Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. Since it’s usually impossible to measure every individual in a population, we rely on samples. For example, suppose we are interested in whether birth weight differs for babies born to mothers in poverty. We would not be able to measure the birth weight and maternal status of every baby in the population. Instead we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance. A statistical test helps determine if any difference is real or just down to random variation in the sample.</p>
 </section><section id="samples-and-populations" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="samples-and-populations">
 <span class="header-section-number">9.2</span> Samples and populations</h2>
 </section><section id="logic-of-hypothesis-testing" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="logic-of-hypothesis-testing">
@@ -355,14 +355,15 @@ Just needs proof reading
 <li>Finding the probability (the <em>p</em>-value) of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true.</li>
 <li>Deciding whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability:
 <ul>
-<li>If p ≤ 0.05 we reject <span class="math inline">\(H_0\)</span>
+<li>If $p $ 0.05 we reject <span class="math inline">\(H_0\)</span>
 </li>
-<li>If p &gt; 0.05 do not reject <span class="math inline">\(H_0\)</span>
+<li>If $p &gt; $ 0.05 do not reject <span class="math inline">\(H_0\)</span>
 </li>
 </ul>
 </li>
 </ol>
-<p>If the null hypothesis is rejected it means we have evidence that <span class="math inline">\(H_0\)</span> is untrue and support for <span class="math inline">\(H_1\)</span>. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. Note that it does not mean that <span class="math inline">\(H_0\)</span> is true, just that it cannot be discounted. Since there is a real state to <span class="math inline">\(H_0\)</span>, that is, <span class="math inline">\(H_0\)</span> is either true or not true, and we make a decision to reject or not reject it, we can be wrong.</p>
+<p>If the null hypothesis is rejected it means we have evidence that <span class="math inline">\(H_0\)</span> is untrue and support for <span class="math inline">\(H_1\)</span>. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. It is important to recognise that not rejecting the null hypothesis does not mean <span class="math inline">\(H_0\)</span> is definitely true. It just means just that <span class="math inline">\(H_0\)</span> cannot be discounted.</p>
+<p>There is a real state to <span class="math inline">\(H_0\)</span>, that is, <span class="math inline">\(H_0\)</span> is either true or it is not true. The statistical test has us decide whether to reject or not reject <span class="math inline">\(H_0\)</span> based on the <em>p</em>-value. This we can be wrong.</p>
 <section id="type-i-and-type-ii-errors" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="type-i-and-type-ii-errors">
 <span class="header-section-number">9.3.1</span> Type I and type II errors</h3>
 <p>Type I and type II errors describe the cases when we make the wrong decision about the null hypothesis. These errors are inherent in the approach rather than mistakes you can prevent.</p>
@@ -385,7 +386,7 @@ Just needs proof reading
 <li><p>The mean of the sampling distribution of the mean is equal to the population mean</p></li>
 <li><p>The standard deviation of the sampling distribution of the mean is known the standard error of the mean and is always smaller than the standard deviation of the values. There is a fixed relationship between the standard deviation of a sample or population and the standard error of the mean: <span class="math inline">\(s.e. = \frac{s.d.}{\sqrt{n}}\)</span></p></li>
 </ul>
-<p>When we are determining the probability of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true, it is the sampling distribution of the mean that matters. We ask what is the probability of getting a sample mean like this.</p>
+<p>When we are determining the probability of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true, it is the sampling distribution of the mean that matters. We ask: What is the probability of getting a sample mean like this?</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sample-dist-means" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -403,7 +404,7 @@ Figure&nbsp;9.1: The sampling distribution of the means is a theoretical distrib
 <p>Let’s work through this logic using an example.</p>
 <p>Question: National average birth weight is 3300 grams with an s.d. = 900 grams. Does maternal poverty influence birth weight?</p>
 <ol type="1">
-<li>Set up the null hypothesis There is no effect of maternal poverty on birth weight so the mean of a sample of babies born into poverty is equal to the national average (<a href="#fig-null-example" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>). This is written as <span class="math inline">\(H_0: \bar{x} = 3300\)</span>. The alternative hypothesis is that the sample mean is not equal to the national average. This is written as <span class="math inline">\(H_1: \bar{x} \neq 3300\)</span>.</li>
+<li>Set up the null hypothesis. The null hypothesis is what we expect to happen if nothing interesting is happening. In this case, that there is no effect of maternal poverty on birth weight, <em>i.e.</em>, the mean of a sample of babies born into poverty is equal to the national average (<a href="#fig-null-example" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>). This is written as <span class="math inline">\(H_0: \bar{x} = 3300\)</span>. The alternative hypothesis is that the sample mean is not equal to the national average. This is written as <span class="math inline">\(H_1: \bar{x} \neq 3300\)</span>.</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
@@ -418,8 +419,15 @@ Figure&nbsp;9.2: Distribution of the population of birth weights has a mean of 3
 </div>
 </div>
 <ol start="2" type="1">
-<li><p>We take a sample of <span class="math inline">\(n = 12\)</span> women who live in poverty and determine the mean birth weight of their babies. We calculate <span class="math inline">\(\bar{x} = 3000 g\)</span>. This is lower than the national average but might we get a sample like that even if the null hypothesis is true?</p></li>
-<li><p>Determine the probability (the <em>p</em>-value) of getting our experimental data, or more extreme data, if <span class="math inline">\(H_0\)</span> is true. (<a href="#fig-sample-dist-means-example" class="quarto-xref">Figure&nbsp;<span>9.3</span></a>)</p></li>
+<li>Design an experiment that generates data to test the null hypothesis[^logic-hyopthesis-testing-1]. We take a sample of <span class="math inline">\(n = 12\)</span> women who live in poverty and determine the mean birth weight of their babies. We calculate <span class="math inline">\(\bar{x} = 3000 g\)</span>. This is lower than the national average but might we get a sample like that even if the null hypothesis is true?</li>
+</ol>
+<p>[^logic-hyopthesis-testing-1]In fact this is an observational study rather than a real experimental study. This means we can potential conclude birth weight differs in the two groups but we cannot say maternal poverty causes that difference.</p>
+<ol start="3" type="1">
+<li>Determine the probability (the <em>p</em>-value) of getting our experimental data, or more extreme data, if <span class="math inline">\(H_0\)</span> is true.
+<ol class="example" type="1">
+<li>
+</li></ol>
+</li>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
@@ -446,7 +454,7 @@ Figure&nbsp;9.4: The probability of getting a sample mean of 3000 or more extrem
 </div>
 </div>
 <ol start="4" type="1">
-<li>Deciding whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability. If the shaded area is less than 0.05 we reject the null hypothesis and conclude maternal poverty does influence birth weight. If the shaded area is more than 0.05 we do not reject the null hypothesis.</li>
+<li>Decide whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability. If the shaded area is less than 0.05 we reject the null hypothesis and conclude there is a difference in the birth weights between the two groups. If the shaded area is more than 0.05 we do not reject the null hypothesis.</li>
 </ol>
 
 

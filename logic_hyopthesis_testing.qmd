@@ -10,51 +10,107 @@ status("complete")
 
 ## What is Hypothesis testing?
 
-Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. We almost always have to use samples because we are very rarely able to measure every observation in a population. For example, if we are interested in knowing if maternal poverty influences birth weight we would not be able to measure the birth weight of every baby in our population. Instead we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance.
-
+Hypothesis testing is a statistical technique which allows us to make
+inferences about the characteristics of a populations based on a sample.
+Since it's usually impossible to measure every individual in a 
+population, we rely on samples. For example, suppose we are interested 
+in whether birth weight differs for babies born to mothers in poverty. 
+We would not be able to measure the birth weight and maternal status of
+every baby in the population. Instead we would take
+a sample of babies born to mothers in poverty and determine if their
+weight, on average, was different to the national average. A statistical
+procedure is needed because even if maternal poverty has no effect, our
+sample average will differ from the national average just by chance. A
+statistical test helps determine if any difference is real or just down
+to random variation in the sample.
 
 ## Samples and populations
-
 
 ## Logic of hypothesis testing
 
 The logic behind hypothesis testing follows these general steps:
 
-1.  Formulating a "Null Hypothesis" denoted $H_0$. The null hypothesis is what we expect to happen if nothing interesting is happening. It states that there is no difference between groups or no relationship between variables. In contrast, the "Alternative Hypothesis" ($H_1$) states that there is a significant difference between groups or a relationship between variables.
-2.  Designing an experiment that generates data to test the null hypothesis. 
-3.  Finding the probability (the *p*-value) of getting our experimental data, or data more extreme, if $H_0$ is true.
-4.  Deciding whether to reject or not reject the $H_0$ based on that probability:
-    -   If p ≤ 0.05 we reject $H_0$
-    -   If p \> 0.05 do not reject $H_0$
+1.  Formulating a "Null Hypothesis" denoted $H_0$. The null hypothesis
+    is what we expect to happen if nothing interesting is happening. It
+    states that there is no difference between groups or no relationship
+    between variables. In contrast, the "Alternative Hypothesis" ($H_1$)
+    states that there is a significant difference between groups or a
+    relationship between variables.
+2.  Designing an experiment that generates data to test the null
+    hypothesis.
+3.  Finding the probability (the *p*-value) of getting our experimental
+    data, or data more extreme, if $H_0$ is true.
+4.  Deciding whether to reject or not reject the $H_0$ based on that
+    probability:
+    -   If $p \le $ 0.05 we reject $H_0$
+    -   If $p > $ 0.05 do not reject $H_0$
 
-If the null hypothesis is rejected it means we have evidence that $H_0$ is untrue and support for $H_1$. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. Note that it does not mean that $H_0$ is true, just that it cannot be discounted. Since there is a real state to $H_0$, that is, $H_0$ is either true or not true, and we make a decision to reject or not reject it, we can be wrong.
+If the null hypothesis is rejected it means we have evidence that $H_0$
+is untrue and support for $H_1$. If the null hypothesis is not rejected,
+it means there is insufficient evidence to support the alternative
+hypothesis. 
+It is important to recognise that not rejecting the null hypothesis
+does not mean $H_0$ is definitely true. It just means just that $H_0$
+cannot be discounted. 
+
+There is a real state to $H_0$, that is, $H_0$ is either true or it is 
+not true. The statistical test has us decide whether to reject or
+not reject $H_0$ based on the *p*-value. This we can be wrong.
 
 ### Type I and type II errors
 
-Type I and type II errors describe the cases when we make the wrong decision about the null hypothesis. These errors are inherent in the approach rather than mistakes you can prevent.
+Type I and type II errors describe the cases when we make the wrong
+decision about the null hypothesis. These errors are inherent in the
+approach rather than mistakes you can prevent.
 
--   A type I error occurs when we reject a null hypothesis that is true. This can be thought of as a false positive. It is a real error in that we have a real difference or effect. Since we use a probability of 0.05 to reject the null hypothesis, we will make a type I error 5% of the time.
--   A type II error occurs when we do not reject a null hypothesis that is false. This is a false negative. It is not a real error in the sense that we only conclude we do not have enough evidence to reject the null hypothesis.
--   If we reject a null hypothesis that is false we have not made an error.
--   If we do not reject a null hypothesis that is true we have not made an error.
+-   A type I error occurs when we reject a null hypothesis that is true.
+    This can be thought of as a false positive. It is a real error in
+    that we have a real difference or effect. Since we use a probability
+    of 0.05 to reject the null hypothesis, we will make a type I error
+    5% of the time.
+-   A type II error occurs when we do not reject a null hypothesis that
+    is false. This is a false negative. It is not a real error in the
+    sense that we only conclude we do not have enough evidence to reject
+    the null hypothesis.
+-   If we reject a null hypothesis that is false we have not made an
+    error.
+-   If we do not reject a null hypothesis that is true we have not made
+    an error.
 
-![Type I and Type II errors.](images/type-1-2-errors.png){fig-alt="tabular representation of type I and II error. If we reject a true H0 we have made a type I error; if we do not reject a true H0 we have not made an error. If we do not reject a false H0 we have not made an error; if we do reject a false H0 we have made a type II error"}
+![Type I and Type II
+errors.](images/type-1-2-errors.png){fig-alt="tabular representation of type I and II error. If we reject a true H0 we have made a type I error; if we do not reject a true H0 we have not made an error. If we do not reject a false H0 we have not made an error; if we do reject a false H0 we have made a type II error"}
 
-We can decrease our chance of making a type I error by reducing the the *p*-value required to reject the null hypothesis. However, this will increase our chance of making a type II error. We can decrease our chance of making a type II error by collecting enough data. The amount of data needed will depend on the the size of the effect relative to the random variation in the data.
+We can decrease our chance of making a type I error by reducing the the
+*p*-value required to reject the null hypothesis. However, this will
+increase our chance of making a type II error. We can decrease our
+chance of making a type II error by collecting enough data. The amount
+of data needed will depend on the the size of the effect relative to the
+random variation in the data.
 
 ## Sampling distribution of the mean
 
-The sampling distribution of the mean is a fundamental concept in hypothesis testing and constructing confidence intervals. Parametric tests such as regression, two-sample tests and ANOVA (all applied with `lm()`) are based on the sampling distribution of the mean. It is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples were taken.
-
+The sampling distribution of the mean is a fundamental concept in
+hypothesis testing and constructing confidence intervals. Parametric
+tests such as regression, two-sample tests and ANOVA (all applied with
+`lm()`) are based on the sampling distribution of the mean. It is a
+theoretical distribution that describes the distribution of the sample
+means if an infinite number of samples were taken.
 
 The key characteristics of the sampling distribution of the mean are:
 
--   The mean of the sampling distribution of the mean is equal to the population mean
+-   The mean of the sampling distribution of the mean is equal to the
+    population mean
 
--   The standard deviation of the sampling distribution of the mean is known the standard error of the mean and is always smaller than the standard deviation of the values. There is a fixed relationship between the standard deviation of a sample or population and the standard error of the mean: $s.e. = \frac{s.d.}{\sqrt{n}}$
+-   The standard deviation of the sampling distribution of the mean is
+    known the standard error of the mean and is always smaller than the
+    standard deviation of the values. There is a fixed relationship
+    between the standard deviation of a sample or population and the
+    standard error of the mean: $s.e. = \frac{s.d.}{\sqrt{n}}$
 
-When we are determining the probability of getting our experimental data, or data more extreme, if $H_0$ is true, it is the sampling distribution of the mean that matters. We ask what is the probability of getting a sample mean like this.
-
+When we are determining the probability of getting our experimental
+data, or data more extreme, if $H_0$ is true, it is the sampling
+distribution of the mean that matters. We ask: What is the probability of
+getting a sample mean like this?
 
 ```{r}
 #| echo: false
@@ -100,17 +156,21 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
   theme(axis.line.y = element_blank())
 ```
 
-
-
 ### Example
+
 Let's work through this logic using an example.
 
-Question: National average birth weight is 3300 grams with an s.d. = 900 grams. Does maternal poverty influence birth weight?
+Question: National average birth weight is 3300 grams with an s.d. = 900
+grams. Does maternal poverty influence birth weight?
 
-
-
-1.  Set up the null hypothesis There is no effect of maternal poverty on birth weight so the mean of a sample of babies born into poverty is equal to the national average (@fig-null-example). This is written as $H_0: \bar{x} = 3300$. The alternative hypothesis is that the sample mean is not equal to the national average. This is written as $H_1: \bar{x} \neq 3300$.
-
+1.  Set up the null hypothesis. The null hypothesis is what we 
+    expect to happen if nothing interesting is happening. In this case,
+    that there is no effect of maternal poverty on
+    birth weight, *i.e.*, the mean of a sample of babies born into 
+    poverty is equal to the national average (@fig-null-example). This 
+    is written as $H_0: \bar{x} = 3300$. The alternative hypothesis 
+    is that the sample mean is not equal to the national average. This 
+    is written as $H_1: \bar{x} \neq 3300$.
 
 ```{r}
 #| echo: false
@@ -134,9 +194,23 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
   theme_classic() +
   theme(axis.line.y = element_blank())
 ```
-2.  We take a sample of $n = 12$ women who live in poverty and determine the mean birth weight of their babies. We calculate $\bar{x} = 3000 g$. This is lower than the national average but might we get a sample like that even if the null hypothesis is true?
 
-3.  Determine the probability (the *p*-value) of getting our experimental data, or more extreme data, if $H_0$ is true. (@fig-sample-dist-means-example)
+2.  Design an experiment that generates data to test the null 
+    hypothesis[^logic-hyopthesis-testing-1]. We take a sample 
+    of $n = 12$ women who live in poverty and determine the mean birth 
+    weight of their babies. We calculate $\bar{x} = 3000 g$. This is 
+    lower than the national average but might we get a sample like that
+    even if the null hypothesis is true?
+
+[^logic-hyopthesis-testing-1]In fact this is an observational study
+rather than a real experimental study. This means we can potential
+conclude birth weight differs in the two groups but we cannot say
+maternal poverty causes that difference.
+
+
+3.  Determine the probability (the *p*-value) of getting our
+    experimental data, or more extreme data, if $H_0$ is true.
+    (@fig-sample-dist-means-example)
 
 ```{r}
 #| echo: false
@@ -218,9 +292,8 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
   theme(axis.line.y = element_blank())
 ```
 
-
-4.  Deciding whether to reject or not reject the $H_0$ based on that probability. If the shaded area is less than 0.05 we reject the null hypothesis and conclude maternal poverty does influence birth weight. If the shaded area is more than 0.05 we do not reject the null hypothesis. 
-
-
-
-
+4.  Decide whether to reject or not reject the $H_0$ based on that
+    probability. If the shaded area is less than 0.05 we reject the null
+    hypothesis and conclude there is a difference in the birth weights 
+    between the two groups. If the shaded area is more than 0.05 we do 
+    not reject the null hypothesis.
