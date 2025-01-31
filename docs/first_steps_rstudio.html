@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.543">
+<meta name="generator" content="quarto-1.6.39">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Computational Analysis for Bioscientists - 6&nbsp; First Steps in RStudio</title>
+<title>6&nbsp; First Steps in RStudio – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -67,12 +67,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-23cb75b8abeab2f8ee81319b9c29001b.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -108,13 +108,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data</a></li><li class="breadcrumb-item"><a href="./first_steps_rstudio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -152,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./what_they_forgot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">What they forgot to teach you about computers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started with data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./statistical_analysis_1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Statistical Analysis - Part 1</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -430,7 +430,7 @@ First draft
 <section id="changing-the-appearance" class="level3" data-number="6.4.1"><h3 data-number="6.4.1" class="anchored" data-anchor-id="changing-the-appearance">
 <span class="header-section-number">6.4.1</span> Changing the appearance</h3>
 <p>When you first open RStudio it will display three panes and have a white background <a href="#fig-rstudio-first-open" class="quarto-xref">Figure&nbsp;<span>6.1</span></a></p>
-<div id="fig-rstudio-first-open" class="quarto-figure quarto-figure-center quarto-float anchored" alt="screenshot of RStudio's default appearance">
+<div id="fig-rstudio-first-open" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio's default appearance">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rstudio-first-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/rstudio-first-open.png" class="img-fluid figure-img" alt="screenshot of RStudio's default appearance" width="800">
 </div>
@@ -452,7 +452,7 @@ Figure&nbsp;6.1: When you first open RStudio it will be white with three panes
 </ul>
 <p>You learned this rule in your language very early, long before you were conscious of it, just by being exposed to it frequently. In this book I try to tell you the syntax rules, but you will learn most from looking at, and copying code. Because of this, it is well worth tinkering with the appearance of RStudio to see what Editor theme makes code elements most obvious to you.</p>
 <p>There is a tool bar at the top of RStudio. Choose the <code>Tools</code> option and then <code>Global options</code>. This will open a window where many options can be changed <a href="#fig-tools-global-options-appearance" class="quarto-xref">Figure&nbsp;<span>6.2</span></a>.</p>
-<div id="fig-tools-global-options-appearance" class="quarto-figure quarto-figure-center quarto-float anchored" alt="screenshot of RStudio's Global Options window showing the Appearance options">
+<div id="fig-tools-global-options-appearance" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio's Global Options window showing the Appearance options">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tools-global-options-appearance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/tools-global-options-appearance.png" class="img-fluid figure-img" alt="screenshot of RStudio's Global Options window showing the Appearance options" width="800">
 </div>
@@ -517,7 +517,7 @@ Figure&nbsp;6.2: Tools | Global Options opens a window. One of the options is Ap
 <p>We get the output of <code>7</code> just as we expect. Suppose we make a mistake when typing, for example, accidentally pressing the u button instead of the y button:</p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span>
-<span><span class="co">## Error in eval(expr, envir, enclos): object 'u' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Error: object 'u' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We get an error. We will probably see this error quite often - it means we have tried to use a variable that is not in our Environment. So when you get that error, have a quick look up at your environment<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>We made a typo and will want to try again. We usefully have access to all the commands that previously entered when we use the ↑ Up Arrow. This is known as command recall. Pressing the ↑ Up Arrow once recalls the last command; pressing it twice recalls the command before the last one and so on.</p>
@@ -543,7 +543,7 @@ Figure&nbsp;6.2: Tools | Global Options opens a window. One of the options is Ap
 <p>Add the incorrect command attempting to sum the two variables:</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span>
-<span><span class="co">## Error in eval(expr, envir, enclos): object 'u' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Error: object 'u' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To correct this, we do not add another line to the script but instead edit the existing command:</p>
 <div class="cell">
@@ -580,7 +580,7 @@ Figure&nbsp;6.2: Tools | Global Options opens a window. One of the options is Ap
 </ul></section><section id="changing-some-defaults-to-make-life-easier" class="level3" data-number="6.4.6"><h3 data-number="6.4.6" class="anchored" data-anchor-id="changing-some-defaults-to-make-life-easier">
 <span class="header-section-number">6.4.6</span> Changing some defaults to make life easier</h3>
 <p>I recommend changing some of the default settings to make your life a little easier. Go back into the Global Options window with Tools | Global Options. The top tab is General <a href="#fig-tools-global-options-general" class="quarto-xref">Figure&nbsp;<span>6.3</span></a>.</p>
-<div id="fig-tools-global-options-general" class="quarto-figure quarto-figure-center quarto-float anchored" alt="screenshot of RStudio's Global Options window showing the General options">
+<div id="fig-tools-global-options-general" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio's Global Options window showing the General options">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/tools-global-options-general.png" class="img-fluid figure-img" alt="screenshot of RStudio's Global Options window showing the General options" width="800">
 </div>
@@ -595,7 +595,7 @@ Figure&nbsp;6.3: Tools | Global Options opens a window. One of the options is Ge
 <p>This figure (see <a href="#fig-rstudio-anatomy" class="quarto-xref">Figure&nbsp;<span>6.4</span></a><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>) summarises shows what each of the four RStudio panes and what they are used for to summarise much of what we have covered so far.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-rstudio-anatomy" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-rstudio-anatomy" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rstudio-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" class="img-fluid figure-img">
 </div>
@@ -769,7 +769,7 @@ Figure&nbsp;6.4: A screenshot of RStudio’s four panes annotated with what each
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">people</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">names</span>, <span class="va">ages</span>, <span class="va">chocolate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You will see <code>people</code> listed in the Global environment under Data. To open a spreadsheet-like view of the dataframe click its name in the Global Environment <a href="#fig-view-dataframe" class="quarto-xref">Figure&nbsp;<span>6.5</span></a></p>
-<div id="fig-view-dataframe" class="quarto-figure quarto-figure-center quarto-float anchored" alt="screenshot of the dataframe Viewer showing the people dataframe">
+<div id="fig-view-dataframe" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of the dataframe Viewer showing the people dataframe">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/view-dataframe.png" class="img-fluid figure-img" alt="screenshot of the dataframe Viewer showing the people dataframe" width="800">
 </div>
@@ -969,18 +969,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1012,7 +1001,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
@@ -1020,10 +1029,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
           // target, if specified
           link.setAttribute("target", "_blank");
           if (link.getAttribute("rel") === null) {
@@ -1065,7 +1079,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1113,7 +1131,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1339,12 +1356,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./ideas_about_data.html" class="pagination-link  aria-label=" about="" data="">
+      <a href="./ideas_about_data.html" class="pagination-link" aria-label="Ideas about data">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./workflow_rstudio.html" class="pagination-link" aria-label="<span class='chapter-number'>7</span>&nbsp; <span class='chapter-title'>Workflow in RStudio</span>">
+      <a href="./workflow_rstudio.html" class="pagination-link" aria-label="Workflow in RStudio">
         <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
