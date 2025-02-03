@@ -8,21 +8,39 @@ source("_common.R")
 status("complete")
 ```
 
-A file system is made up of files and folders organised in a hierarchical way. Understanding file types and being able to navigate your computer's file system and purposefully organise and manipulate files are essential computational skills. We will first talk about different file types before covering their organisation in a file system. This will lead us on to the concepts of working directories and paths. It is hard to overstate how useful an understanding of working directories and paths are for comfortable computing. Without this understanding, you can write basically correct code, such as for importing data, which will not work because you don't know how to tell the computer where the file is.
+A file system is made up of files and folders organised in a
+hierarchical way. Understanding file types and being able to navigate
+your computer's file system and purposefully organise and manipulate
+files are essential computational skills. We will first talk about
+different file types before covering their organisation in a file
+system. This will lead us on to the concepts of working directories and
+paths. It is hard to overstate how useful an understanding of working
+directories and paths are for comfortable computing. Without this
+understanding, you can write basically correct code, such as for
+importing data, which will not work because you don't know how to tell
+the computer where the file is.
 
 ## Files
 
-A file is a unit of storage on a computer with a name that uniquely identifies it. Files can be of different types depending on the sort of information held in them. The file name very often consists of two parts, separated by a dot:
+A file is a unit of storage on a computer with a name that uniquely
+identifies it. Files can be of different types depending on the sort of
+information held in them. The file name very often consists of two
+parts, separated by a dot:
 
 -   the name - the base name of the file
 
 -   an extension that should indicate the format or content of the file.
 
-Some examples are report.docx, analysis.R, culture.csv and readme.txt. There is a relationship between the file extension and the file type
+Some examples are report.docx, analysis.R, culture.csv and readme.txt.
+There is a relationship between the file extension and the file type
 
 ## Plain text files
 
-One of the simplest types of file is a "text file", also known as ASCII files, which contains only text characters and no formatting, images or colours. Text files have many different extensions to indicate what the text content represents. A few of these are given in @tbl-text-file-extensions.
+One of the simplest types of file is a "text file", also known as ASCII
+files, which contains only text characters and no formatting, images or
+colours. Text files have many different extensions to indicate what the
+text content represents. A few of these are given in
+@tbl-text-file-extensions.
 
 ```{r}
 #| label: tbl-text-file-extensions
@@ -43,15 +61,26 @@ knitr::kable(ext,
 
 ```
 
-Plain text files are extremely portable which means they can be opened on any computer by a very large number of programs. Simple text editors which exist on any system like Windows Notepad or Mac's TextEdit will open text files where as they will not open program-specific files like, for example, .xlsx (Excel) or .docx (Word) files (@fig-xlsx-in-notepad). It is usually easy for application designers to make an application manage plain text files. This means
+Plain text files are extremely portable which means they can be opened
+on any computer by a very large number of programs. Simple text editors
+which exist on any system like Windows Notepad or Mac's TextEdit will
+open text files where as they will not open program-specific files like,
+for example, .xlsx (Excel) or .docx (Word) files (@fig-xlsx-in-notepad).
+It is usually easy for application designers to make an application
+manage plain text files. This means
 
-![Notepad will open an Excel file but the contents are a mess of strange characters](images/xlsx-in-notepad.png){#fig-xlsx-in-notepad fig-alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable"}
+![Notepad will open an Excel file but the contents are a mess of strange
+characters](images/xlsx-in-notepad.png){#fig-xlsx-in-notepad
+fig-alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable"}
 
 Data is commonly held in text files because of their portability.
 
 ## Plain text files with markup
 
-Text files can also include "markup" which are text characters used to annotate text to control how it is displayed or processed. Such files retain their portability and are human readable. You will have used them often! (@tbl-mark-up-text-file-extensions)
+Text files can also include "markup" which are text characters used to
+annotate text to control how it is displayed or processed. Such files
+retain their portability and are human readable. You will have used them
+often! (@tbl-mark-up-text-file-extensions)
 
 ```{r}
 #| label: tbl-mark-up-text-file-extensions
@@ -74,43 +103,77 @@ knitr::kable(ext,
 
 ## The relationship between file extensions and programs
 
-Whilst a file extension is intended to indicate the content and format, it is important to remember a few things. The extension is just part of the name and it is certainly possible to called a file `myfile.csv` without its contents being formatted as comma-separated values. Programs vary in their behaviour to file extensions. Most text editors will attempt to open any file regardless of the extension and make it possible to save a file with any extension. In program like MS Word you cannot save a Word format file with any extension other than `.docx`, you can only save it in another format to change the extension. Some programs will not open fies with a the wrong extension even if the contents are in the correct format.
+Whilst a file extension is intended to indicate the content and format,
+it is important to remember a few things. The extension is just part of
+the name and it is certainly possible to called a file `myfile.csv`
+without its contents being formatted as comma-separated values. Programs
+vary in their behaviour to file extensions. Most text editors will
+attempt to open any file regardless of the extension and make it
+possible to save a file with any extension. In program like MS Word you
+cannot save a Word format file with any extension other than `.docx`,
+you can only save it in another format to change the extension. Some
+programs will not open fies with a the wrong extension even if the
+contents are in the correct format.
 
 ## File systems
 
-In a file system, the files are organised into directories. Directory is the old word for what many now call a folder but commands that act on folders in most programming languages and environments reflect this history
+In a file system, the files are organised into directories. Directory is
+the old word for what many now call a folder but commands that act on
+folders in most programming languages and environments reflect this
+history
 
 For example, all of these mean "tell me my working directory":
 
 -   `getwd()` **get** **w**orking **d**irectory in R
 -   `pwd` **p**rint **w**orking **d**irectory on Linux
--   `os.getcwd()` **get** **c**urrent **w**orking **d**irectory in Python
+-   `os.getcwd()` **get** **c**urrent **w**orking **d**irectory in
+    Python
 
-Consequently it is common to use the the word directory in scientific computing.
+Consequently it is common to use the the word directory in scientific
+computing.
 
-Folders can contain sub-folders, which can contain their own sub-folders, and so on almost without limit.
+Folders can contain sub-folders, which can contain their own
+sub-folders, and so on almost without limit.
 
-It is easiest to picture a file system, or part of it, as a tree that starts at a directory and branches out from there. This is called a hierarchical structure. @fig-file-system shows an example of a hierarchical file structure that starts at a directory called `home`:
+It is easiest to picture a file system, or part of it, as a tree that
+starts at a directory and branches out from there. This is called a
+hierarchical structure. @fig-file-system shows an example of a
+hierarchical file structure that starts at a directory called `home`:
 
-![A file hierarchy containing 4 levels of folders and files. Figure adapted from [@randemma2022]. ](images/file-system.png){#fig-file-system fig-alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"}
+![A file hierarchy containing 4 levels of folders and files. Figure
+adapted from
+[@randemma2022].](images/file-system.png){#fig-file-system
+fig-alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"}
 
 ## Using a file manager
 
-File managers are the basic way that you interact with the file system on your computer. They allows you to move, copy, and delete files. You can also launch applications from them and and connect to other networks. The windows file explorer is called File Explorer and on Mac it is called Finder (@fig-explorer-icons).
+File managers are the basic way that you interact with the file system
+on your computer. They allows you to move, copy, and delete files. You
+can also launch applications from them and and connect to other
+networks. The windows file explorer is called File Explorer and on Mac
+it is called Finder (@fig-explorer-icons).
 
 ::: {#fig-explorer-icons layout-ncol="2"}
-![File Explorer (Windows)](images/icon-file-explorer-windows.png){#fig-windows-explorer width="100"}
+![File Explorer Icon
+(Windows)](images/icon-file-explorer-windows.png){#fig-windows-explorer
+width="100"}
 
-![Finder (Mac)](images/icon-finder-mac.png){#fig-mac-finder width="100"}
+![Finder Icon
+(Mac)](images/icon-finder-mac.png){#fig-mac-finder
+width="100"}
 
 File manager programs in Windows and Mac
 :::
 
-Windows Explorer and Mac Finder do not show the file extensions on file names by default but I find it helpful to be able to see them. You can show the file extensions like this:
+Windows Explorer and Mac Finder do not show the file extensions on file
+names by default but I find it helpful to be able to see them. You can
+show the file extensions like this:
 
--   under View, in the Show/hide group, select the "File name extensions" check box @fig-show-extensions-windows
+-   under View, in the Show/hide group, select the "File name
+    extensions" check box @fig-show-extensions-windows
 
--   choose Finder \| Preferences \| Advanced then check "Show all filename extensions" box @fig-show-extensions-windows
+-   choose Finder \| Preferences \| Advanced then check "Show all
+    filename extensions" box @fig-show-extensions-windows
 
 ::: {#fig-show-extensions layout-nrow="2"}
 ![Windows](images/show-extensions-windows.png){#fig-show-extensions-windows}
@@ -122,49 +185,104 @@ Showing file extensions in Windows and Mac
 
 ## Root and home directories
 
-The top-level of directory on a computer system is known as the "root directory". The root is represented as a `/` in Mac and Linux operating systems. In Windows the root directory is also known as a drive. In most cases, this will be the `C:\` drive.
+The top-level of directory on a computer system is known as the "root
+directory". The root is represented as a `/` in Mac and Linux operating
+systems. In Windows the root directory is also known as a drive. In most
+cases, this will be the `C:\` drive.
 
-Even though the root directory is at the base of the file tree (or the top, depending on how you view it), it is not necessarily where our journey through the file system starts when we launch a new session on our computer. Instead our journey begins in the so called "home directory". You home directory is not usually named `home` but with your username for that computer. Your personal files and directories can be found inside this folder. This is where your computer assumes you want to start when you open your file manager. On Windows and Mac your home directory is a directory *inside* the directory called `Users` immediately under the root and named with your username (@fig-file-system-root).
+Even though the root directory is at the base of the file tree (or the
+top, depending on how you view it), it is not necessarily where our
+journey through the file system starts when we launch a new session on
+our computer. Instead our journey begins in the so called "home
+directory". You home directory is not usually named `home` but with your
+username for that computer. Your personal files and directories can be
+found inside this folder. This is where your computer assumes you want
+to start when you open your file manager. On Windows and Mac your home
+directory is a directory *inside* the directory called `Users`
+immediately under the root and named with your username
+(@fig-file-system-root).
 
-![The hierarchy from the root. The top level is `C:\` in Windows and `/` in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder. Figure adapted from [@randemma2022].](images/file-system-root.png){#fig-file-system-root fig-alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."}
+![The hierarchy from the root. The top level is `C:\` in Windows and `/`
+in Mac. Below that is the Users directory which has a folder for each
+user. Your home directory is named with your username inside the Users
+folder. Figure adapted from
+[@randemma2022].](images/file-system-root.png){#fig-file-system-root
+fig-alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."}
 
-There will be other folders immediately below the root directory (on the same level of the hierarchy as `Users`). These contain system-level files and folders that you do not usually needed to open, edit or move. For example, `Program Files` is where programs are installed.
+There will be other folders immediately below the root directory (on the
+same level of the hierarchy as `Users`). These contain system-level
+files and folders that you do not usually needed to open, edit or move.
+For example, `Program Files` is where programs are installed.
 
 ## Working directories
 
-The working directory of a program is the default location a program is using. It is where the program will read and write files by default. You have only one working directory at a time. The terms 'working directory', 'current working directory' and 'current directory' all mean the same thing.
+The working directory of a program is the default location a program is
+using. It is where the program will read and write files by default. You
+have only one working directory at a time. The terms 'working
+directory', 'current working directory' and 'current directory' all mean
+the same thing.
 
 ## File Paths
 
-A path gives the address - or location - of a filesystem object, such as a file or directory. Paths appear in the address bar of your browser or file manager. We need to know a file path whenever we want to read, write or refer to a file using code rather than interactively pointing and clicking to navigate. In a file path, each directory is represented as a separate component separated by a backslash`\`  or a forward slash `/`. Most systems use forward slashes but Windows uses backslashes[^file_systems-1] to separate path components and that is how the path will appear in the address bar of Windows Explorer. However, in R you can use paths with forward slashes even on windows.
+A path gives the address - or location - of a filesystem object, such as
+a file or directory. Paths appear in the address bar of your browser or
+file manager. We need to know a file path whenever we want to read,
+write or refer to a file using code rather than interactively pointing
+and clicking to navigate. In a file path, each directory is represented
+as a separate component separated by a backslash`\`  or a forward slash
+`/`. Most systems use forward slashes but Windows uses
+backslashes[^file_systems-1] to separate path components and that is how
+the path will appear in the address bar of Windows Explorer. However, in
+R you can use paths with forward slashes even on windows.
 
-[^file_systems-1]: Windows uses backslashes because it did not have directories in 1981 when it's predecessor, MS DOS, was released. At the time it used the `/` character for 'switches' (instead of the existing convention `-` ) so when it did start using directories it couldn't use `/`
+[^file_systems-1]: Windows uses backslashes because it did not have
+    directories in 1981 when it's predecessor, MS DOS, was released. At
+    the time it used the `/` character for 'switches' (instead of the
+    existing convention `-` ) so when it did start using directories it
+    couldn't use `/`
 
-A path can be **absolute** or **relative** depending on the starting point.
+A path can be **absolute** or **relative** depending on the starting
+point.
 
 ### Absolute paths
 
-An Absolute path contains the complete list of directories needed to locate a file on your computer from the root. For example, the absolute path for the file called `doc3.txt` in the file system above would be `/Users/user1/docs/data/doc3.txt` on Mac and `C:\Users\user1\docs\data\doc3.txt` on Windows. In R, even on Windows, it can be given as `C:/Users/user1/docs/data/doc3.txt`
+An Absolute path contains the complete list of directories needed to
+locate a file on your computer from the root. For example, the absolute
+path for the file called `doc3.txt` in the file system above would be
+`/Users/user1/docs/data/doc3.txt` on Mac and
+`C:\Users\user1\docs\data\doc3.txt` on Windows. In R, even on Windows,
+it can be given as `C:/Users/user1/docs/data/doc3.txt`
 
 ## Relative paths
 
-A relative path gives the location of a filesystem object *relative* to the working directory. Whenever the file you want to reference is in the working directory you can use just its name but if it is in a different folder you need to give the relative path. Some examples:
+A relative path gives the location of a filesystem object *relative* to
+the working directory. Whenever the file you want to reference is in the
+working directory you can use just its name but if it is in a different
+folder you need to give the relative path. Some examples:
 
--   if your working directory was `docs`, the relative path for `doc3.txt` would be `data/doc3.txt`.
+-   if your working directory was `docs`, the relative path for
+    `doc3.txt` would be `data/doc3.txt`.
 
--   if your working directory was `docs` the relative path for `abe.exe` files would be `../programs/abe.exe`.
+-   if your working directory was `docs` the relative path for `abe.exe`
+    files would be `../programs/abe.exe`.
 
-`../` allows you to look in the directory above the working directory and `../..` allows you to look in the directory two levels above the working directory and so on.
+`../` allows you to look in the directory above the working directory
+and `../..` allows you to look in the directory two levels above the
+working directory and so on.
 
 🎬 Your turn! Use the file system above to answer these questions.
 
--   What is the absolute path for the document`doc4.txt` on a Mac computer?
+-   What is the absolute path for the document`doc4.txt` on a Mac
+    computer?
 
--   What is the absolute path for the document `doc4.txt` on a Windows computer?
+-   What is the absolute path for the document `doc4.txt` on a Windows
+    computer?
 
--   Assuming your working directory is `docs`, what is the relative path for the document `doc2.txt`?
+-   Assuming your working directory is `docs`, what is the relative path
+    for the document `doc2.txt`?
 
--   Assuming your working directory is `data`, what is the relative path for the document `doc2.txt`?
+-   Assuming your working directory is `data`, what is the relative path
+    for the document `doc2.txt`?
 
 ::: {.callout-tip collapse="true"}
 ## 📖
@@ -178,32 +296,57 @@ A relative path gives the location of a filesystem object *relative* to the work
 -   `../doc2.txt`?
 :::
 
-Most of the time you should use relative paths because that makes your work portable. You only need to use absolute paths when you are referring to filesystem outside the one you are using.
+Most of the time you should use relative paths because that makes your
+work portable. You only need to use absolute paths when you are
+referring to filesystem outside the one you are using.
 
 ## Save files from the internet
 
-Files downloaded from the internet go to a folder called `Downloads` by default on many browsers. This is annoying when you often want to place a file in a particular folder. I recommend you change this behaviour.
+Files downloaded from the internet go to a folder called `Downloads` by
+default on many browsers. This is annoying when you often want to place
+a file in a particular folder. I recommend you change this behaviour.
 
--   Chrome Go to <chrome://settings/downloads> and turn on "Ask where to save each file before downloading"
+-   Chrome Go to <chrome://settings/downloads> and turn on "Ask where to
+    save each file before downloading"
 
--   Safari Go into Preferences and under General you can change "Downloads" to "Ask for each download"
+-   Safari Go into Preferences and under General you can change
+    "Downloads" to "Ask for each download"
 
 ## Summary
 
-1.  A file system consists of files and folders organized hierarchically. It is crucial to comprehend different file types, navigate the computer's file system, and effectively organize and manipulate files.
+1.  A file system consists of files and folders organized
+    hierarchically. It is crucial to comprehend different file types,
+    navigate the computer's file system, and effectively organize and
+    manipulate files.
 
-2.  Plain text files, also known as ASCII files, contain only text characters without formatting, images, or colors. They have various extensions, such as `.txt`, `.tab`, `.csv`, `.R`, `.py`, .fasta, and others.
+2.  Plain text files, also known as ASCII files, contain only text
+    characters without formatting, images, or colors. They have various
+    extensions, such as `.txt`, `.tab`, `.csv`, `.R`, `.py`, .fasta, and
+    others.
 
-3.  While file extensions are intended to indicate content and format, it's important to remember that programs may behave differently with file extensions. Most text editors will attempt to open any file regardless of the extension, but some programs may only open files with the correct extension.
+3.  While file extensions are intended to indicate content and format,
+    it's important to remember that programs may behave differently with
+    file extensions. Most text editors will attempt to open any file
+    regardless of the extension, but some programs may only open files
+    with the correct extension.
 
 4.  A directory is a folder
 
-5.  In a file system, files are organized into directories. Directories can contain sub-directories, creating a hierarchical structure. The top-level directory is known as the root directory.
+5.  In a file system, files are organized into directories. Directories
+    can contain sub-directories, creating a hierarchical structure. The
+    top-level directory is known as the root directory.
 
-6.  File managers, such as File Explorer in Windows and Finder in Mac, are used to interact with the file system.
+6.  File managers, such as File Explorer in Windows and Finder in Mac,
+    are used to interact with the file system.
 
-7.  The working directory of a program is the default location where files are read from or written to. It is important to understand working directories when referencing files in code.
+7.  The working directory of a program is the default location where
+    files are read from or written to. It is important to understand
+    working directories when referencing files in code.
 
-8.  File paths provide the address or location of a file or directory in the file system. Paths can be absolute or relative. Absolute paths contain the complete list of directories from the root, while relative paths are based on the working directory.
+8.  File paths provide the address or location of a file or directory in
+    the file system. Paths can be absolute or relative. Absolute paths
+    contain the complete list of directories from the root, while
+    relative paths are based on the working directory.
 
-9.  Using relative paths is recommended for portability, as it allows files to be referenced relative to the working directory.
+9.  Using relative paths is recommended for portability, as it allows
+    files to be referenced relative to the working directory.

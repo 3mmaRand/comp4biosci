@@ -10,15 +10,32 @@ status("polishing")
 
 ## What is a confidence interval?
 
-When we calculate a mean from a sample, we are using it to estimate the mean of the population. Confidence intervals are a range of values and are a way to quantify the uncertainty in our estimate. When we report a mean with its 95% confidence interval we give the mean plus and minus some variation. We are saying that 95% of the time, that range will contain the population mean.
+When we calculate a mean from a sample, we are using it to estimate the
+mean of the population. Confidence intervals are a range of values and
+are a way to quantify the uncertainty in our estimate. When we report a
+mean with its 95% confidence interval we give the mean plus and minus
+some variation. We are saying that 95% of the time, that range will
+contain the population mean.
 
-The confidence interval is calculated from the sample mean and the standard error of the mean. The standard error of the mean is the standard deviation of the [sampling distribution of the mean](logic_hyopthesis_testing.html#sampling-distribution-of-the-mean).
+The confidence interval is calculated from the sample mean and the
+standard error of the mean. The standard error of the mean is the
+standard deviation of the [sampling distribution of the
+mean](logic_hyopthesis_testing.html#sampling-distribution-of-the-mean).
 
-To understand confidence intervals we need to understand some properties of the normal distribution.
+To understand confidence intervals we need to understand some properties
+of the normal distribution.
 
 ## The normal distribution
 
-A [distribution](ideas_about_data.html#distributions) describes the *values* the variable can take and the *chance* of them occurring. A distribution has a general type, given by the function, and is further tuned by the *parameters* in the function. For the normal distribution these parameters are the mean and the standard deviation. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (@fig-normal-distributions).
+A [distribution](ideas_about_data.html#distributions) describes the
+*values* the variable can take and the *chance* of them occurring. A
+distribution has a general type, given by the function, and is further
+tuned by the *parameters* in the function. For the normal distribution
+these parameters are the mean and the standard deviation. Every variable
+that follows the normal distribution has the same bell shaped curve and
+the distributions differ only in their means and/or standard deviations.
+The mean determines where the centre of the distribution is, the
+standard deviation determines the spread (@fig-normal-distributions).
 
 ```{r}
 #| echo: false
@@ -73,7 +90,16 @@ a + b + plot_layout(ncol = 2)
 
 ```
 
-Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one standard deviation from the mean and 95% values lie between +/-1.96 standard deviations.  Another way of saying this is that there is a 95% chance that a randomly selected value will lie between +/-1.96 standard deviations from the mean. This is illustrated in @fig-norm-dist-means-properties.
+Whilst normal distributions vary in the location on the horizontal axis
+and their width, they all share some properties and it is these shared
+properties that allow the calculation of confidence intervals with some
+standard formulae. The properties are that a fix percentage of values
+lie between a given number of standard deviations. For example, 68.2%
+values lie between plus and minus one standard deviation from the mean
+and 95% values lie between $\pm$ 1.96 standard deviations. Another way
+of saying this is that there is a 95% chance that a randomly selected
+value will lie between $\pm$ 1.96 standard deviations from the mean.
+This is illustrated in @fig-norm-dist-means-properties.
 
 ```{r}
 #| echo: false
@@ -135,43 +161,51 @@ a + b + plot_layout(ncol = 1)
 
 ```
 
-
-R has some useful functions associated with distributions, including the normal distribution.
+R has some useful functions associated with distributions, including the
+normal distribution.
 
 ### Distributions: the R functions
 
 For any distribution, R has four functions:
 
--   the density function, which gives the height of the function at a given value.
--   the distribution function, which gives the **probability** that a variable takes a particular value or less.
--   the quantile function which is the inverse of the Distribution function, *i.e.*, it returns the value ('quantile') for a given probability.
+-   the density function, which gives the height of the function at a
+    given value.
+-   the distribution function, which gives the **probability** that a
+    variable takes a particular value or less.
+-   the quantile function which is the inverse of the Distribution
+    function, *i.e.*, it returns the value ('quantile') for a given
+    probability.
 -   the random number generating function
 
-The functions are named with a letter `d`, `p`, `q` or `r` preceding the distribution name. @tbl-rdistrib shows these four functions for the normal, binomial, Poisson and t distributions.
-
+The functions are named with a letter `d`, `p`, `q` or `r` preceding the
+distribution name. @tbl-rdistrib shows these four functions for the
+normal, binomial, Poisson and t distributions.
 
 | Distribution | Density    | Distribution | Quantile   | Random number generating |
-|--------------|------------|--------------|------------|--------------------------|
+|---------------|---------------|---------------|---------------|---------------|
 | Normal       | `dnorm()`  | `pnorm()`    | `qnorm()`  | `rnorm()`                |
 | Binomial     | `dbinom()` | `pbinom()`   | `qbinom()` | `rbinom()`               |
 | Poisson      | `dpois()`  | `ppois()`    | `qpois()`  | `rpois()`                |
 | t            | `dt()`     | `pt()`       | `qt()`     | `rt()`                   |
 
-: R functions that provide values for some example distributions {#tbl-rdistrib}
+: R functions that provide values for some example distributions
+{#tbl-rdistrib}
 
-Searching for the manual with `?normal` or any one of the functions (`?pnorm`) will bring up a single help page for all four associated functions.
+Searching for the manual with `?normal` or any one of the functions
+(`?pnorm`) will bring up a single help page for all four associated
+functions.
 
 ::: {#fig-manual-page}
-<iframe style="height:400px;width:750px;border:2px"  src="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html" title="Manual page">
+<iframe style="height:400px;width:750px;border:2px" src="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html" title="Manual page">
 
 </iframe>
 
-The R Manual Page for the normal distribution which shows the four functions associated functions.
+The R Manual Page for the normal distribution which shows the four
+functions associated functions.
 :::
 
-The functions which are of most use to us are `pnorm()` and `qnorm()` and these are illustrated in @fig-pnorm.
-
-
+The functions which are of most use to us are `pnorm()` and `qnorm()`
+and these are illustrated in @fig-pnorm.
 
 ```{r}
 #| echo: false
@@ -272,13 +306,15 @@ b <- ggplot(data = data.frame(x = c(-3, 3)),
 a + b + plot_layout(ncol = 1)
 
 ```
+
 ## Confidence intervals on large samples
 
 $$
 \bar{x} \pm 1.96 \times s.e.
 $$ {#eq-ci-large-sample}
 
-95% of confidence intervals calculated in this way will contain the true population mean.
+95% of confidence intervals calculated in this way will contain the true
+population mean.
 
 Do you have to remember the value of 1.96? Not if you have R!
 
@@ -286,29 +322,148 @@ Do you have to remember the value of 1.96? Not if you have R!
 qnorm(0.975)
 ```
 
-Notice that it is `qnorm(0.975)` and not `qnorm(0.95)` for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to the left of the value given. If we gave 0.95, we would get the value that put 0.05 in one tail. We want 0.025 in each tail, so we need to use 0.975 in `qnorm()`.
+Notice that it is `qnorm(0.975)` and not `qnorm(0.95)` for a 95%
+confidence interval. This is because the functions are defined as giving
+the area under to the curve to the left of the value given. If we gave
+0.95, we would get the value that put 0.05 in one tail. We want 0.025 in
+each tail, so we need to use 0.975 in `qnorm()`.
 
 TO-DO pic
 
-### Example in R
-
-TO-DO
-
 ## Confidence intervals on small samples
 
-The calculation of confidence intervals on small samples is very similar but we use the *t*-distribution rather than the normal distribution. The formula is:
+The calculation of confidence intervals on small samples is very similar
+but we use the *t*-distribution rather than the normal distribution. The
+formula is:
 
 $$
 \bar{x} \pm t_{[d.f.]} \times s.e.
 $$ {#eq-ci-small-sample}
 
-The *t*-distibution is a modified version of the normal distribution and we use it because the sampling distribution of the mean is not quite normal when the sample size is small. The *t*-distribution has an additional parameter called the *degrees of freedom* which is the sample size minus one ($n -1$). Like the normal distribution, the *t*-distribution has a mean of zero and is symmetrical. However,  The *t*-distribution has fatter tails than the normal distribution and this means that the probability of getting a value in the tails is higher than for the normal distribution. The degrees of freedom determine how much fatter the tails are. The smaller the sample size, the fatter the tails. As the sample size increases, the *t*-distribution becomes more and more like the normal distribution.
+The *t*-distibution is a modified version of the normal distribution and
+we use it because the sampling distribution of the mean is not quite
+normal when the sample size is small. The *t*-distribution has an
+additional parameter called the *degrees of freedom* which is the sample
+size minus one ($n -1$). Like the normal distribution, the
+*t*-distribution has a mean of zero and is symmetrical. However, The
+*t*-distribution has fatter tails than the normal distribution and this
+means that the probability of getting a value in the tails is higher
+than for the normal distribution. The degrees of freedom determine how
+much fatter the tails are. The smaller the sample size, the fatter the
+tails. As the sample size increases, the *t*-distribution becomes more
+and more like the normal distribution.
 
-### Example in R
+## 🎬 Your turn!
 
-TO-DO
+If you want to code along you will need to start a new [RStudio
+project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+folder and open a new script. You will also need to load the
+**`tidyverse`** package [@tidyverse].
 
+## Large samples
+
+A team of biomedical researchers is studying the concentration of
+Creatine Kinase (CK) in the blood of patients with muscle disorders.
+They collect a large random sample (n = 100) of blood samples from
+patients and measure the CK concentration in UL^-1^ (units per litre).
+
+The goal is to estimate the average CK concentration in this patient
+population and calculate a 95% confidence interval for the mean
+concentration.
+
+### Import
+
+```{r}
+creatinekinase <- read_csv("data-raw/ck_concen.csv")
+```
+
+### Calculate sample statistics
+
+Calculate the mean, standard deviation, sample size and standard error
+and assign as variables:
+
+```{r}
+# mean
+m <- mean(creatinekinase$ck_conc)
+
+# standard deviation
+sd <- sd(creatinekinase$ck_conc)
+
+# sample size (needed for the se)
+n <- length(creatinekinase$ck_conc)
+
+# standard error
+se <- sd / sqrt(n)
+```
+
+### Calcuate *C.I.*
+
+To calculate the 95% confidence interval we need to look up the quantile
+(multiplier) using `qnorm()`:
+
+```{r}
+q <- qnorm(0.975)
+```
+
+Now we can use it in our confidence interval calculation:
+
+```{r}
+lcl <- m - q * se
+ucl <- m + q * se
+```
+
+I used the names `lcl` and `ucl` to stand for "lower confidence limit"
+and "upper confidence limit" respectively.
+
+![](images/do_in_R.png) Print the values:
+
+```{r}
+lcl
+ucl
+```
+
+This means we are 95% confident the population mean lies between
+`r round(lcl,2)` UL^-1^ and `r round(ucl,2)` UL^-1^. The amount we have
+added/subtracted from the mean (`q * se`) is `r round(q * se, 2)` thus
+we sometimes see this written as `r round(m, 2)` $\pm$
+`r round(q * se, 2)` mm.
+
+### Report
+
+The mean creatine kinase concentration in patients with muscle disorders
+is `r round(m, 2)` UL^-1^, 95% C.I. \[`r round(lcl,2)`,
+`r round(ucl,2)`\]
+
+## Small samples
 
 ## Summary
 
-TODO
+## Summary of Confidence Intervals
+
+1.  A confidence interval gives a range of plausible values for a 
+    population mean from a sample and is calculated from a sample
+    mean and standard error. 
+
+2.  They are possible because all normal distributions have the same
+    properties. 
+
+3.  95% Confidence Intervals for Large Samples:
+
+    -   Formula:\
+        $$
+        \bar{x} \pm 1.96 \times s.e.
+        $$
+    -   95% of confidence intervals computed this way will contain the
+        true population mean.
+
+4.  95% Confidence Intervals for Small Samples:
+
+    -   Uses the *t*-distribution instead of the normal distribution.\
+    -   Formula:\
+        $$
+        \bar{x} \pm t_{[d.f.]} \times s.e.
+        $$
+    -   The *t*-distribution has fatter tails and varies based on
+        degrees of freedom (*n-1*), approaching the normal distribution
+        as *n* increases.
+

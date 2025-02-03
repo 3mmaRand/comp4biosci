@@ -51,7 +51,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -335,19 +355,21 @@ window.Quarto = {
 <li><a href="#distributions-the-r-functions" id="toc-distributions-the-r-functions" class="nav-link" data-scroll-target="#distributions-the-r-functions"><span class="header-section-number">10.2.1</span> Distributions: the R functions</a></li>
   </ul>
 </li>
+  <li><a href="#confidence-intervals-on-large-samples" id="toc-confidence-intervals-on-large-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-large-samples"><span class="header-section-number">10.3</span> Confidence intervals on large samples</a></li>
+  <li><a href="#confidence-intervals-on-small-samples" id="toc-confidence-intervals-on-small-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-small-samples"><span class="header-section-number">10.4</span> Confidence intervals on small samples</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">10.5</span> 🎬 Your turn!</a></li>
   <li>
-<a href="#confidence-intervals-on-large-samples" id="toc-confidence-intervals-on-large-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-large-samples"><span class="header-section-number">10.3</span> Confidence intervals on large samples</a>
+<a href="#large-samples" id="toc-large-samples" class="nav-link" data-scroll-target="#large-samples"><span class="header-section-number">10.6</span> Large samples</a>
   <ul class="collapse">
-<li><a href="#example-in-r" id="toc-example-in-r" class="nav-link" data-scroll-target="#example-in-r"><span class="header-section-number">10.3.1</span> Example in R</a></li>
+<li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import"><span class="header-section-number">10.6.1</span> Import</a></li>
+  <li><a href="#calculate-sample-statistics" id="toc-calculate-sample-statistics" class="nav-link" data-scroll-target="#calculate-sample-statistics"><span class="header-section-number">10.6.2</span> Calculate sample statistics</a></li>
+  <li><a href="#calcuate-c.i." id="toc-calcuate-c.i." class="nav-link" data-scroll-target="#calcuate-c.i."><span class="header-section-number">10.6.3</span> Calcuate <em>C.I.</em></a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">10.6.4</span> Report</a></li>
   </ul>
 </li>
-  <li>
-<a href="#confidence-intervals-on-small-samples" id="toc-confidence-intervals-on-small-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-small-samples"><span class="header-section-number">10.4</span> Confidence intervals on small samples</a>
-  <ul class="collapse">
-<li><a href="#example-in-r-1" id="toc-example-in-r-1" class="nav-link" data-scroll-target="#example-in-r-1"><span class="header-section-number">10.4.1</span> Example in R</a></li>
-  </ul>
-</li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.5</span> Summary</a></li>
+  <li><a href="#small-samples" id="toc-small-samples" class="nav-link" data-scroll-target="#small-samples"><span class="header-section-number">10.7</span> Small samples</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.8</span> Summary</a></li>
+  <li><a href="#summary-of-confidence-intervals" id="toc-summary-of-confidence-intervals" class="nav-link" data-scroll-target="#summary-of-confidence-intervals"><span class="header-section-number">10.9</span> Summary of Confidence Intervals</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/confidence_intervals.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
@@ -401,7 +423,7 @@ Figure&nbsp;10.1: The mean determines where the centre of the distribution is, t
 </div>
 </div>
 </div>
-<p>Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one standard deviation from the mean and 95% values lie between +/-1.96 standard deviations. Another way of saying this is that there is a 95% chance that a randomly selected value will lie between +/-1.96 standard deviations from the mean. This is illustrated in <a href="#fig-norm-dist-means-properties" class="quarto-xref">Figure&nbsp;<span>10.2</span></a>.</p>
+<p>Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one standard deviation from the mean and 95% values lie between <span class="math inline">\(\pm\)</span> 1.96 standard deviations. Another way of saying this is that there is a 95% chance that a randomly selected value will lie between <span class="math inline">\(\pm\)</span> 1.96 standard deviations from the mean. This is illustrated in <a href="#fig-norm-dist-means-properties" class="quarto-xref">Figure&nbsp;<span>10.2</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-norm-dist-means-properties" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -431,11 +453,11 @@ Table&nbsp;10.1: R functions that provide values for some example distributions
 </figcaption><div aria-describedby="tbl-rdistrib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 15%">
-<col style="width: 17%">
-<col style="width: 15%">
-<col style="width: 33%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
 </colgroup>
 <thead><tr class="header">
 <th>Distribution</th>
@@ -514,24 +536,104 @@ Figure&nbsp;10.4: The <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm(
 </div>
 <p>Notice that it is <code>qnorm(0.975)</code> and not <code>qnorm(0.95)</code> for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to the left of the value given. If we gave 0.95, we would get the value that put 0.05 in one tail. We want 0.025 in each tail, so we need to use 0.975 in <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
 <p>TO-DO pic</p>
-<section id="example-in-r" class="level3" data-number="10.3.1"><h3 data-number="10.3.1" class="anchored" data-anchor-id="example-in-r">
-<span class="header-section-number">10.3.1</span> Example in R</h3>
-<p>TO-DO</p>
-</section></section><section id="confidence-intervals-on-small-samples" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="confidence-intervals-on-small-samples">
+</section><section id="confidence-intervals-on-small-samples" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="confidence-intervals-on-small-samples">
 <span class="header-section-number">10.4</span> Confidence intervals on small samples</h2>
 <p>The calculation of confidence intervals on small samples is very similar but we use the <em>t</em>-distribution rather than the normal distribution. The formula is:</p>
 <p><span id="eq-ci-small-sample"><span class="math display">\[
 \bar{x} \pm t_{[d.f.]} \times s.e.
 \tag{10.2}\]</span></span></p>
 <p>The <em>t</em>-distibution is a modified version of the normal distribution and we use it because the sampling distribution of the mean is not quite normal when the sample size is small. The <em>t</em>-distribution has an additional parameter called the <em>degrees of freedom</em> which is the sample size minus one (<span class="math inline">\(n -1\)</span>). Like the normal distribution, the <em>t</em>-distribution has a mean of zero and is symmetrical. However, The <em>t</em>-distribution has fatter tails than the normal distribution and this means that the probability of getting a value in the tails is higher than for the normal distribution. The degrees of freedom determine how much fatter the tails are. The smaller the sample size, the fatter the tails. As the sample size increases, the <em>t</em>-distribution becomes more and more like the normal distribution.</p>
-<section id="example-in-r-1" class="level3" data-number="10.4.1"><h3 data-number="10.4.1" class="anchored" data-anchor-id="example-in-r-1">
-<span class="header-section-number">10.4.1</span> Example in R</h3>
-<p>TO-DO</p>
-</section></section><section id="summary" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">10.5</span> Summary</h2>
-<p>TODO</p>
+</section><section id="your-turn" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">10.5</span> 🎬 Your turn!</h2>
+<p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
+</section><section id="large-samples" class="level2" data-number="10.6"><h2 data-number="10.6" class="anchored" data-anchor-id="large-samples">
+<span class="header-section-number">10.6</span> Large samples</h2>
+<p>A team of biomedical researchers is studying the concentration of Creatine Kinase (CK) in the blood of patients with muscle disorders. They collect a large random sample (n = 100) of blood samples from patients and measure the CK concentration in UL<sup>-1</sup> (units per litre).</p>
+<p>The goal is to estimate the average CK concentration in this patient population and calculate a 95% confidence interval for the mean concentration.</p>
+<section id="import" class="level3" data-number="10.6.1"><h3 data-number="10.6.1" class="anchored" data-anchor-id="import">
+<span class="header-section-number">10.6.1</span> Import</h3>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">creatinekinase</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/ck_concen.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="calculate-sample-statistics" class="level3" data-number="10.6.2"><h3 data-number="10.6.2" class="anchored" data-anchor-id="calculate-sample-statistics">
+<span class="header-section-number">10.6.2</span> Calculate sample statistics</h3>
+<p>Calculate the mean, standard deviation, sample size and standard error and assign as variables:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># mean</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">creatinekinase</span><span class="op">$</span><span class="va">ck_conc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># standard deviation</span></span>
+<span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">creatinekinase</span><span class="op">$</span><span class="va">ck_conc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># sample size (needed for the se)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">creatinekinase</span><span class="op">$</span><span class="va">ck_conc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># standard error</span></span>
+<span><span class="va">se</span> <span class="op">&lt;-</span> <span class="va">sd</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="calcuate-c.i." class="level3" data-number="10.6.3"><h3 data-number="10.6.3" class="anchored" data-anchor-id="calcuate-c.i.">
+<span class="header-section-number">10.6.3</span> Calcuate <em>C.I.</em>
+</h3>
+<p>To calculate the 95% confidence interval we need to look up the quantile (multiplier) using <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can use it in our confidence interval calculation:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lcl</span> <span class="op">&lt;-</span> <span class="va">m</span> <span class="op">-</span> <span class="va">q</span> <span class="op">*</span> <span class="va">se</span></span>
+<span><span class="va">ucl</span> <span class="op">&lt;-</span> <span class="va">m</span> <span class="op">+</span> <span class="va">q</span> <span class="op">*</span> <span class="va">se</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I used the names <code>lcl</code> and <code>ucl</code> to stand for “lower confidence limit” and “upper confidence limit” respectively.</p>
+<p><img src="images/do_in_R.png" class="img-fluid"> Print the values:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lcl</span></span>
+<span><span class="co">## [1] 284.3891</span></span>
+<span><span class="va">ucl</span></span>
+<span><span class="co">## [1] 319.9483</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This means we are 95% confident the population mean lies between 284.39 UL<sup>-1</sup> and 319.95 UL<sup>-1</sup>. The amount we have added/subtracted from the mean (<code>q * se</code>) is 17.78 thus we sometimes see this written as 302.17 <span class="math inline">\(\pm\)</span> 17.78 mm.</p>
+</section><section id="report" class="level3" data-number="10.6.4"><h3 data-number="10.6.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">10.6.4</span> Report</h3>
+<p>The mean creatine kinase concentration in patients with muscle disorders is 302.17 UL<sup>-1</sup>, 95% C.I. [284.39, 319.95]</p>
+</section></section><section id="small-samples" class="level2" data-number="10.7"><h2 data-number="10.7" class="anchored" data-anchor-id="small-samples">
+<span class="header-section-number">10.7</span> Small samples</h2>
+</section><section id="summary" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">10.8</span> Summary</h2>
+</section><section id="summary-of-confidence-intervals" class="level2" data-number="10.9"><h2 data-number="10.9" class="anchored" data-anchor-id="summary-of-confidence-intervals">
+<span class="header-section-number">10.9</span> Summary of Confidence Intervals</h2>
+<ol type="1">
+<li><p>A confidence interval gives a range of plausible values for a population mean from a sample and is calculated from a sample mean and standard error.</p></li>
+<li><p>They are possible because all normal distributions have the same properties.</p></li>
+<li>
+<p>95% Confidence Intervals for Large Samples:</p>
+<ul>
+<li>Formula:<br><span class="math display">\[
+\bar{x} \pm 1.96 \times s.e.
+\]</span>
+</li>
+<li>95% of confidence intervals computed this way will contain the true population mean.</li>
+</ul>
+</li>
+<li>
+<p>95% Confidence Intervals for Small Samples:</p>
+<ul>
+<li>Uses the <em>t</em>-distribution instead of the normal distribution.<br>
+</li>
+<li>Formula:<br><span class="math display">\[
+\bar{x} \pm t_{[d.f.]} \times s.e.
+\]</span>
+</li>
+<li>The <em>t</em>-distribution has fatter tails and varies based on degrees of freedom (<em>n-1</em>), approaching the normal distribution as <em>n</em> increases.</li>
+</ul>
+</li>
+</ol>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span></span>Tidyverse<span></span>”</span> 4: 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
