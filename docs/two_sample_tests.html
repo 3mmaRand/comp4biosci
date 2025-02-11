@@ -965,14 +965,14 @@ Figure&nbsp;13.8: <strong>Mutant <em>Arabidopsis thaliana</em> have fewer leaves
 </div>
 </section></section><section id="two-paired-samples-parametric" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="two-paired-samples-parametric">
 <span class="header-section-number">13.5</span> Two paired-samples, parametric</h2>
-<p>The data in <a href="data-raw/marks.csv">marks.csv</a> give the marks for ten students in two subjects: Data Analysis and Biology. These data are paired because we have two marks from one student so that a mark in one group has a closer relationship with one of the marks in the other group than with any of the the other values. We want to know if students to equally well in both subjects.</p>
+<p>The data in <a href="data-raw/marks.csv">marks.csv</a> give the marks for ten students in two subjects: Data Analysis and Biology. These data are paired because we have two marks from one student so that a mark in one group has a closer relationship with one of the marks in the other group than with any of the other values. We want to know if students do equally well in both subjects.</p>
 <section id="import-and-explore-2" class="level3" data-number="13.5.1"><h3 data-number="13.5.1" class="anchored" data-anchor-id="import-and-explore-2">
 <span class="header-section-number">13.5.1</span> Import and explore</h3>
 <p>Import the data:</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/marks.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Since these data are paired, it makes sense to highlight how the marks differ for each student. One way of doing that is to draw a line linking their marks in each subject. This is known as a spaghetti plot. We can use two geoms: <code>geom_point()</code> and <code>geom_line()</code>. To join a student’s marks we need to set the <code>group</code> aesthetic to <code>student.</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Since these data are paired, it makes sense to highlight how the marks differ for each student. One way of doing that is to draw a line linking their marks in each subject. This is known as a spaghetti plot. We can use two geoms: <code>geom_point()</code> and <code>geom_line()</code>. To join a student’s marks, we need to set the <code>group</code> aesthetic to <code>student</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -986,99 +986,97 @@ Figure&nbsp;13.8: <strong>Mutant <em>Arabidopsis thaliana</em> have fewer leaves
 </div>
 <p>Summarise the data so that we can use the means in plots later:</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_summary</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">subject</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_summary</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">subject</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">mark</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A paired test requires us to test whether the <em>difference</em> in marks between the two subjects is zero on average. One handy way to achieve this is to organise our groups into two columns. The <code>pivot_wider()</code> function will do this for us. We need to tell it what column gives the identifiers (<em>i.e.</em> what column matches the pairs). This is the student number in this example. We also need to say which variable contains the values that will become the column names and which contains the values.</p>
-<p>Pivot the data so there is a column for each subject:</p>
-<div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_wide</span> <span class="op">&lt;-</span> <span class="va">marks</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">pivot_wider</span><span class="op">(</span>id_cols <span class="op">=</span> <span class="va">student</span>,</span>
-<span>              names_from <span class="op">=</span> <span class="va">subject</span>,</span>
-<span>              values_from <span class="op">=</span> <span class="va">mark</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can summarise the difference between subject, <code>DataAnalysis - Biology</code> as follows:</p>
-<div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">marks_wide</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>mean_diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span><span class="op">)</span>,</span>
-<span>            sd_diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span><span class="op">)</span>,</span>
-<span>            n_diff <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span><span class="op">)</span>,</span>
-<span>            se_diff <span class="op">=</span> <span class="va">sd_diff</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n_diff</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">## # A tibble: 1 × 4</span></span>
-<span><span class="co">##   mean_diff sd_diff n_diff se_diff</span></span>
-<span><span class="co">##       &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">## 1         7    8.96     10    2.83</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The mean difference is positive meaning students have higher marks in Data Analysis on average.</p>
+<p>A paired test requires us to into account the variation between students.</p>
 </section><section id="apply-lm-1" class="level3" data-number="13.5.2"><h3 data-number="13.5.2" class="anchored" data-anchor-id="apply-lm-1">
 <span class="header-section-number">13.5.2</span> Apply <code>lm()</code>
 </h3>
 <p>We can create a paired-sample model with the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks_wide</span>, <span class="va">DataAnalysis</span> <span class="op">-</span> <span class="va">Biology</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">mark</span> <span class="op">~</span> <span class="va">subject</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">student</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">marks</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The response here is the differences <code>DataAnalysis - Biology</code> and the <code>~ 1</code> indicates we only have one group so we are only interested in testing a single mean against a value of zero. Another way of saying this is we have an “intercept only model” meaning were are estimating only <span class="math inline">\(\beta_0\)</span>. There is no <span class="math inline">\(\beta_1\)</span>.</p>
+<ul>
+<li>
+<code>mark</code> is the dependent variable (response).</li>
+<li>
+<code>subject</code> is the independent variable (explanatory factor).</li>
+<li>
+<code>factor(student)</code> accounts for the pairing by treating student as another explanatory variable. We have used factor because the values in students are the numbers 1 to 10 and we want <code>student</code> to be treated as a category not a number</li>
+</ul>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Call:</span></span>
-<span><span class="co">## lm(formula = DataAnalysis - Biology ~ 1, data = marks_wide)</span></span>
+<span><span class="co">## lm(formula = mark ~ subject + factor(student), data = marks)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
 <span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
-<span><span class="co">## -13.00  -7.75   1.50   5.75  11.00 </span></span>
+<span><span class="co">##   -6.5   -3.5    0.0    3.5    6.5 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
-<span><span class="co">## (Intercept)    7.000      2.832   2.471   0.0355 *</span></span>
+<span><span class="co">##                     Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)           89.500      4.697  19.055 1.39e-08 ***</span></span>
+<span><span class="co">## subjectDataAnalysis    7.000      2.832   2.471 0.035486 *  </span></span>
+<span><span class="co">## factor(student)2     -39.500      6.333  -6.237 0.000152 ***</span></span>
+<span><span class="co">## factor(student)3     -26.500      6.333  -4.184 0.002361 ** </span></span>
+<span><span class="co">## factor(student)4     -25.500      6.333  -4.026 0.002990 ** </span></span>
+<span><span class="co">## factor(student)5     -16.000      6.333  -2.526 0.032431 *  </span></span>
+<span><span class="co">## factor(student)6     -54.000      6.333  -8.526 1.33e-05 ***</span></span>
+<span><span class="co">## factor(student)7      -9.000      6.333  -1.421 0.189010    </span></span>
+<span><span class="co">## factor(student)8     -27.000      6.333  -4.263 0.002101 ** </span></span>
+<span><span class="co">## factor(student)9     -44.000      6.333  -6.947 6.70e-05 ***</span></span>
+<span><span class="co">## factor(student)10     -1.500      6.333  -0.237 0.818082    </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 8.957 on 9 degrees of freedom</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 6.333 on 9 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.9441, Adjusted R-squared:  0.8821 </span></span>
+<span><span class="co">## F-statistic: 15.21 on 10 and 9 DF,  p-value: 0.0001814</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The Estimates in the Coefficients table gives the <code>(Intercept)</code> which is the mean of <code>DataAnalysis - Biology</code>. The average difference between subjects is 7.0 marks. The <em>p</em>-value of 0.0355 means 7.0 does differ significantly from zero. Individual students get significantly higher marks in Data Analysis than in Biology.</p>
+<p>The coefficient for <code>(Intercept)</code> gives the mean Biology mark and that for <code>subjectDataAnalysis</code> is amount that the Data Analysis mark are above Biology marks in general. The <em>p</em>-value tests whether this difference is significantly different from zero. The rest of the output considers how students differ. You can ignore this here.</p>
 </section><section id="check-assumptions-1" class="level3" data-number="13.5.3"><h3 data-number="13.5.3" class="anchored" data-anchor-id="check-assumptions-1">
 <span class="header-section-number">13.5.3</span> Check assumptions</h3>
-<p>We might expect marks, and thus the difference between marks to be normally distributed. However, this is a very small sample and choosing a non-parametric test instead would be sensible. We will continue with this example to demonstrate how to interpret and report on the result of a parametric paired-samples test (paired-samples <em>t</em>-test).</p>
-<p>We do not need to plot the residuals against the fitted values (<code>plot(mod, which = 1)</code>) for a paired test. The purpose of a residuals vs fitted plot is to check the variance is same for all fitted values. For a paired test, we only have one fitted value, the mean difference.</p>
-<p>The normality of the residuals should be checked.</p>
+<p>We might expect marks to be normally distributed. However, this is a very small sample, and choosing a non-parametric test instead would be reasonable. However, we will continue with this example to demonstrate how to interpret and report on the result of a parametric paired-samples test (paired-samples <em>t</em>-test).</p>
+<p>A plot the residuals against the fitted values (<code>plot(mod, which = 1)</code>) is not useful for a paired test. The normality of the residuals should be checked.</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We only have 10 values so the distribution is never going to look smooth. We can’t draw strong conclusions from this but we do at least have a peak at 0. Similarly a normality test is likely to be non-significant because of the small sample size which means the test is not very powerful. This means a non-significant result is not strong evidence of the residuals following a normal distribution:</p>
+<p>We only have 10 values, so the distribution is never going to look smooth. We can’t draw strong conclusions from this, but we do at least have a peak at 0. Similarly, a normality test is likely to be non-significant because of the small sample size, meaning the test is not very powerful. This means a non-significant result is not strong evidence of the residuals following a normal distribution:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.90358, p-value = 0.2398</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.92894, p-value = 0.1473</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="report-2" class="level3" data-number="13.5.4"><h3 data-number="13.5.4" class="anchored" data-anchor-id="report-2">
 <span class="header-section-number">13.5.4</span> Report</h3>
 <p>Individual students score significantly higher in Data Analysis than in Biology (<em>t</em> = 2.47; <em>d.f.</em> = 9; <em>p</em> = 0.0355) with an average difference of 6.5%. See <a href="#fig-marks" class="quarto-xref">Figure&nbsp;<span>13.9</span></a></p>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> </span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mark</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>pch <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>group <span class="op">=</span> <span class="va">student</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks_summary</span>, </span>
-<span>             <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>, </span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">marks_summary</span>,</span>
+<span>             <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">subject</span>, y <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
 <span>             size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">""</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Mark"</span>,</span>
 <span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
 <span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">110</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>           y <span class="op">=</span> <span class="fl">105</span>, yend <span class="op">=</span> <span class="fl">105</span>,</span>
 <span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">108</span>, </span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">108</span>,</span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0355"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div id="fig-marks" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1086,14 +1084,14 @@ Figure&nbsp;13.8: <strong>Mutant <em>Arabidopsis thaliana</em> have fewer leaves
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><img src="two_sample_tests_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13.9: <strong>Students score higher in Data Analysis than in Biology</strong>. Open circles indicate an individual student’s marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject. Individual students score significantly higher in Data Analysis than in Biology (<em>t</em> = 2.47; <em>d.f.</em> = 9; <em>p</em> = 0.0355) with an average. difference of 6.5%. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2024</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+Figure&nbsp;13.9: <strong>Students score higher in Data Analysis than in Biology</strong>. Open circles indicate an individual student’s marks in each subject with dashed lines joining their marks in each subject. The filled circles indicate the mean mark for each subject. Individual students score significantly higher in Data Analysis than in Biology (<em>t</em> = 2.47; <em>d.f.</em> = 9; <em>p</em> = 0.0355) with an average difference of 6.5%. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2024</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
 </div>
 </section></section><section id="two-paired-samples-non-parametric" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="two-paired-samples-non-parametric">
@@ -1105,7 +1103,7 @@ Figure&nbsp;13.9: <strong>Students score higher in Data Analysis than in Biology
 </h3>
 <p>To apply a paired test with <code><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test()</a></code> we need to use the long format data (tidy) and add the <code>paired = TRUE</code> argument.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#wilcox.test(data = marks, mark ~ subject, paired = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#wilcox.test(data = marks, mark ~ subject, paired = TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="report-3" class="level3" data-number="13.6.2"><h3 data-number="13.6.2" class="anchored" data-anchor-id="report-3">
 <span class="header-section-number">13.6.2</span> Report</h3>
@@ -1147,7 +1145,7 @@ Wilcoxon, Frank. 1945. <span>“Individual Comparisons by Ranking Methods.”</s
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>You might like to try removing <code>aes(group = student)</code> to see what ggplot does when the lines are <em>not</em> grouped by student.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>This is not the only way to apply a paired test. When there are only two groups and no other explanatory variables we can use <code>t.test(data = marks, mark ~ subject, paired = TRUE)</code>. A more general method which works when you have two or more non-independent values (e.g., more than two subjects) or additional explanatory variables, is to create a “linear mixed model” with <code>lmer()</code><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is not the only way to apply a paired test. When there are only two groups and no other explanatory variables, we can use <code>t.test(data = marks, mark ~ subject, paired = TRUE)</code>. A more general method that works when you have two or more non-independent values (e.g., more than two subjects) or additional explanatory variables is to create a “linear mixed model” with <code>lmer()</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
