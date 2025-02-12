@@ -10,14 +10,27 @@ status("complete")
 
 ## Overview
 
-This section discusses statistical models which are equations representing relationships between variables. Statistical models help us test hypotheses and make predictions. The process involves estimating model "parameters" from data and assessing "model fit". Linear models include regression, *t*-tests, and ANOVA, known collectively as the General Linear Model. The assumptions of the general linear model are that the "residuals" are normally distribution and variance is homogeneous. If the assumptions are violated we can use non-parametric tests.
-
+This section discusses statistical models which are equations
+representing relationships between variables. Statistical models help us
+test hypotheses and make predictions. The process involves estimating
+model "parameters" from data and assessing "model fit". Linear models
+include regression, *t*-tests, and ANOVA, known collectively as the
+General Linear Model. The assumptions of the general linear model are
+that the "residuals" are normally distribution and variance is
+homogeneous. If the assumptions are violated we can use non-parametric
+tests.
 
 ## What is a statistical model?
 
-A statistical model is a mathematical equation that helps us understand the relationships between variables. We evaluate how well our data fit a particular model so we can infer something about how the values arose or make predictions about future values. 
+A statistical model is a mathematical equation that helps us understand
+the relationships between variables. We evaluate how well our data fit a
+particular model so we can infer something about how the values arose or
+make predictions about future values.
 
-The equation states what has to be done to the explanatory values to get the response value. For example, a simple model of plant growth might be that a plant grows by 2 cm a day week after it is two weeks old. This model would be written as:
+The equation states what has to be done to the explanatory values to get
+the response value. For example, a simple model of plant growth might be
+that a plant grows by 2 cm a day week after it is two weeks old. This
+model would be written as:
 
 $$
 h_{(t)} = h_{(0) }+ 2t
@@ -29,16 +42,19 @@ Where:
 -   $h_{(t)}$ is the height of the plant at time $t$
 -   $h_{(0)}$ is the height of the plant at $t=0$, *i.e.*, at two weeks
 
+This model is a linear model because the relationship between the
+response variable, height, and the explanatory variable, time, is linear
+(See @fig-model-1). In a linear model, the gradient of the line is the
+same no matter what the value of $t$. In this case, it is fixed at 2 cm
+per day.
 
-This model is a linear model because the relationship between the response variable, height, and the explanatory variable, time, is linear (See @fig-model-1). In a linear model, the gradient of the line is the same no matter what the value of $t$. In this case, it is fixed at 2 cm per day. 
-
-
-One alternative is a simple exponential model. In an exponential model, the height might increase by 12% each day and the gradient of the line would increase over time. This model is written as:
-
+One alternative is a simple exponential model. In an exponential model,
+the height might increase by 12% each day and the gradient of the line
+would increase over time. This model is written as:
 
 $$
 h_{(t)} = h_{(0)}1.2^t
-$$ {#eq-plantgrowth-linear}
+$$
 
 Where:
 
@@ -46,7 +62,8 @@ Where:
 -   $h_{(t)}$ is the height of the plant at time $t$
 -   $h_{(0)}$ is the height of the plant at $t=0$, *i.e.*, at two weeks
 
-This model is not a straight line (See @fig-model-2). The gradient of the line increase as time goes on.
+This model is not a straight line (See @fig-model-2). The gradient of
+the line increase as time goes on.
 
 ```{r}
 #| echo: false
@@ -89,20 +106,60 @@ ggplot(df, aes(x = days, y = height)) +
 
 ```
 
-When we do statistics we using a statistical model. This means we are making about the relationship between the explanatory and response variables. For the model we choose, we estimate the parameters of the model from the data. For the linear model of plant growth the parameters are the intercept and gradient of the line.
+## Statistical Models and Hypothesis Testing
 
-Statistical testing determines whether the parameters differ from zero and the fit of the data to the model. Determining whether a parameter differs from zero relies on calculating the probability of getting the estimate we calculate if its true value is zero. 
+When we conduct statistical analysis, we are using a statistical
+model —a mathematical framework that describes the relationship between
+explanatory and response variables. Every model makes assumptions about
+this relationship, and we estimate the parameters of the model from the
+data. For example, in a simple linear model of plant growth, the key
+parameters are the intercept and the slope.
 
-This means as well as making assumptions about the type of relationship we also make assumptions about the distribution of the data. The assumption we make is that parameter is drawn from a normal distribution. This is a reasonable assumption, because many things are. However, if this assumption is not met, then our probability will not be accurate.
+Statistical hypothesis testing is directly tied to these models. When we
+test a hypothesis, we are often assessing whether a particular model
+parameter is significantly different from zero. This is equivalent to
+testing whether an explanatory variable has an effect on the response
+variable.
 
-For this reason, we check the assumptions of our model and test before drawing conclusions. If the assumptions are not met we take some action to transform the data or use a different model with fewer assumptions. Non-parametric tests make fewer assumptions about the distribution of the data. They are called non-parametric because they do not estimate parameters like an intercept and gradient.
+In the context of hypothesis testing, the null hypothesis ($H_0$)
+typically states that a given parameter is equal to zero, meaning there
+is no effect or no relationship. The alternative hypothesis ($H_1$)
+suggests that the parameter is different from zero, indicating an
+effect.
+
+To evaluate this, we calculate the probability of obtaining our
+estimated parameter value, or a more extreme value, *if the true
+parameter were actually zero* (*i.e.*, if $H_0$ were true). This
+probability is the *p*-value.
+
+### Assumptions and Model Fit
+
+Because hypothesis tests depend on probability calculations, they also
+depend on certain assumptions about the data. A key assumption is
+that the estimated parameter follows a normal distribution, which
+allows us to use standard probability models to determine significance.
+This assumption is reasonable in many cases, but if it is violated, the
+*p*-values may be misleading.
+
+For this reason, checking model assumptions is crucial. If the
+assumptions are not met, we might need to transform the data, choose
+a different model, or use **non-parametric tests**, which make fewer
+assumptions about data distribution. Non-parametric methods do not
+estimate parameters like an intercept and slope, which makes them useful
+when standard parametric assumptions are questionable.
 
 
 ## Using a linear model in practice.
 
-Imagine we are studying a population of bacteria and want understand how nutrient availability influences its growth. We could grow the bacteria with different levels of nutrients and measure the diameter of bacterial colonies on agar plates in a controlled environment so that everything except the nutrient availability was identical. We could then plot the diameters against the nutrient levels.
+Imagine we are studying a population of bacteria and want understand how
+nutrient availability influences its growth. We could grow the bacteria
+with different levels of nutrients and measure the diameter of bacterial
+colonies on agar plates in a controlled environment so that everything
+except the nutrient availability was identical. We could then plot the
+diameters against the nutrient levels.
 
-We might expect the relationship between nutrient level and growth to be linear and add a line of best fit. See @fig-linear-bact.
+We might expect the relationship between nutrient level and growth to be
+linear and add a line of best fit. See @fig-linear-bact.
 
 ```{r}
 #| echo: false
@@ -146,7 +203,9 @@ ggplot(df1, aes(x = Nutrient, y = Diameter)) +
 
 ```
 
-The equation of this line is a statistical model that allows us to make predictions about colony diameter from nutrient levels. A line - or linear model - has the form:
+The equation of this line is a statistical model that allows us to make
+predictions about colony diameter from nutrient levels. A line - or
+linear model - has the form:
 
 $$
 y = \beta_{0} + \beta_{1}x
@@ -155,22 +214,30 @@ $$ {#eq-linear-model}
 Where:
 
 -   $y$ is the response variable and $x$ is the explanatory variable.
--   $\beta_{0}$ is the value of $y$ when $x = 0$ usually known as the intercept
--   $\beta_{1}$ is the amount added to $y$ for each unit increase in $x$ usually known as the slope
+-   $\beta_{0}$ is the value of $y$ when $x = 0$ usually known as the
+    intercept
+-   $\beta_{1}$ is the amount added to $y$ for each unit increase in $x$
+    usually known as the slope
 
-$\beta_{0}$ and $\beta_{1}$ are called the *coefficients* - or *parameters* - of the model.
+$\beta_{0}$ and $\beta_{1}$ are called the *coefficients* - or
+*parameters* - of the model.
 
-In this case
-$$
+In this case $$
 Diameter = \beta_{0} + \beta_{1}Nutrient
 $$ {#eq-linear-model-bact}
 
-Linear models are amongst the most commonly used statistics. Regression, *t*-tests and ANOVA are all linear models collectively known as the *General Linear Model*.
-
+Linear models are amongst the most commonly used statistics. Regression,
+*t*-tests and ANOVA are all linear models collectively known as the
+*General Linear Model*.
 
 ## Model fitting
 
-The process of estimating the parameters $\beta_{0}$ and $\beta_{1}$ from data is known as *fitting a linear model*. The line gives the predicted values of $y$. The actual measured value of $y$ will differ from the predicted value and this difference is called a *residual* or an *error*. The line is a best fit in the sense that $\beta_{0}$ and $\beta_{1}$ minimise the *sum of the squared residuals*, $SSE$.
+The process of estimating the parameters $\beta_{0}$ and $\beta_{1}$
+from data is known as *fitting a linear model*. The line gives the
+predicted values of $y$. The actual measured value of $y$ will differ
+from the predicted value and this difference is called a *residual* or
+an *error*. The line is a best fit in the sense that $\beta_{0}$ and
+$\beta_{1}$ minimise the *sum of the squared residuals*, $SSE$.
 
 $$
 SSE = \sum(y_{i}-\hat{y})^2
@@ -178,105 +245,168 @@ $$ {#eq-sse}
 
 Where:
 
--   $y_{i}$ represents each of the measured $y$ values from the 1st to the *i*th
+-   $y_{i}$ represents each of the measured $y$ values from the 1st to
+    the *i*th
 -   $\hat{y}$ is predicted value
 
-Since $\beta_{0}$ and $\beta_{1}$ are those that minimise the $SSE$, they are described as *least squares estimates*. You do not need to worry about this too much but it is a useful piece of statistical jargon to have heard of because it pops up often. The mean of a sample is also a least squares estimate - the sum of the squared differences between each value and the mean is smaller than the sum of the squared differences between each value and any other value.
+Since $\beta_{0}$ and $\beta_{1}$ are those that minimise the $SSE$,
+they are described as *least squares estimates*. You do not need to
+worry about this too much but it is a useful piece of statistical jargon
+to have heard of because it pops up often. The mean of a sample is also
+a least squares estimate - the sum of the squared differences between
+each value and the mean is smaller than the sum of the squared
+differences between each value and any other value.
 
-The role played by $SSE$ in estimating our parameters means that it is also used in determining how well our model fits our data. Our model can be considered useful if the difference between the actual measured value of $y$ and the predicted value is small but $SSE$ will also depend on the size of $y$ and the sample size. This means we express $SSE$ as a *proportion* of the total variation in $y$. The total variation in $y$ is denoted $SST$:
+The role played by $SSE$ in estimating our parameters means that it is
+also used in determining how well our model fits our data. Our model can
+be considered useful if the difference between the actual measured value
+of $y$ and the predicted value is small but $SSE$ will also depend on
+the size of $y$ and the sample size. This means we express $SSE$ as a
+*proportion* of the total variation in $y$. The total variation in $y$
+is denoted $SST$:
 
 $$
 \frac{SSE}{SST}
 $$ {#eq-residual-var}
 
-$\frac{SSE}{SST}$ is called the *residual variation*. It is the proportion of variance remaining after the model fitting. In contrast, the proportion of the total variance that is explained by the model is called R-squared, $R^2$. It is:
+$\frac{SSE}{SST}$ is called the *residual variation*. It is the
+proportion of variance remaining after the model fitting. In contrast,
+the proportion of the total variance that is explained by the model is
+called R-squared, $R^2$. It is:
 
 $$
 R^2=1-\frac{SSE}{SST}
 $$ {#eq-r-squared}
 
-If there were no explanatory variables, the value we would predict for the response variable is its mean. In other words, if you did not know the nutrient level for a randomly chosen bacterial colony the best guess you could make for its eventual diameter is the mean diameter. Thus, a good model should fit the response better than the mean - that is, a good model should fit the response better than a best guess. The output of `lm()` includes the $R^2$. It represents the proportional improvement in the predictions from the regression model relative to the mean model. It ranges from zero, the model is no better than the mean, to 1, the predictions are perfect. See @fig-lm-fit
+If there were no explanatory variables, the value we would predict for
+the response variable is its mean. In other words, if you did not know
+the nutrient level for a randomly chosen bacterial colony the best guess
+you could make for its eventual diameter is the mean diameter. Thus, a
+good model should fit the response better than the mean - that is, a
+good model should fit the response better than a best guess. The output
+of `lm()` includes the $R^2$. It represents the proportional improvement
+in the predictions from the regression model relative to the mean model.
+It ranges from zero, the model is no better than the mean, to 1, the
+predictions are perfect. See @fig-lm-fit
 
-![A linear model with different fits. A) the model is a poor fit - the explanatory variable is no better than the response mean for predicting the response. B) the model is good fit - the explanatory variable explains a high proportion of the variance in the response. C) the model is a perfect fit - the response can be predicted perfectly from the explanatory variable. Measured response values are in pink, the predictions are in green and the dashed blue line gives the mean of the response.](images/lm_fit.svg){#fig-lm-fit width="400"}
+![A linear model with different fits. A) the model is a poor fit - the
+explanatory variable is no better than the response mean for predicting
+the response. B) the model is good fit - the explanatory variable
+explains a high proportion of the variance in the response. C) the model
+is a perfect fit - the response can be predicted perfectly from the
+explanatory variable. Measured response values are in pink, the
+predictions are in green and the dashed blue line gives the mean of the
+response.](images/lm_fit.svg){#fig-lm-fit
+width="400"}
 
-Since the distribution of the responses for a given $x$ is assumed to be normal and the variances of those distributions are assumed to be homogeneous, both are also true of the residuals. It is our examination of the residuals which allows us to evaluate whether the assumptions are met.
+Since the distribution of the responses for a given $x$ is assumed to be
+normal and the variances of those distributions are assumed to be
+homogeneous, both are also true of the residuals. It is our examination
+of the residuals which allows us to evaluate whether the assumptions are
+met.
 
-See @fig-lm-annotated for a graphical representation of linear modelling terms introduced so far.
+See @fig-lm-annotated for a graphical representation of linear modelling
+terms introduced so far.
 
-
-![A linear model annotated with the terms used in modelling. Measured response values are in pink, the predictions are in green, and the differences between these, known as the residuals, are in blue. The estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$ (the slope) are indicated.](images/generic_lm.svg){#fig-lm-annotated width="400"}
-
-
-
+![A linear model annotated with the terms used in modelling. Measured
+response values are in pink, the predictions are in green, and the
+differences between these, known as the residuals, are in blue. The
+estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$
+(the slope) are
+indicated.](images/generic_lm.svg){#fig-lm-annotated
+width="400"}
 
 ### General linear model assumptions
 
-The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value
+The assumptions of the general linear model are that the residuals are
+normally distributed and have homogeneity of variance. A residual is the
+difference between the predicted and observed value
 
-If we have a continuous response and a categorical explanatory variable with two groups, we usually apply the general linear model with `lm()` and then check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:
+If we have a continuous response and a categorical explanatory variable
+with two groups, we usually apply the general linear model with `lm()`
+and then check the assumptions, however, we can sometimes tell when a
+non-parametric test would be more appropriate before that:
 
--   Use common sense - the response should be continuous (or nearly continuous, see [Ideas about data: Theory and practice](ideas_about_data.html#theory-and-practice)). Consider whether you would expect the response to be continuous
+-   Use common sense - the response should be continuous (or nearly
+    continuous, see [Ideas about data: Theory and
+    practice](ideas_about_data.html#theory-and-practice)). Consider
+    whether you would expect the response to be continuous
 -   There should decimal places and few repeated values.
 
-To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution
-
+To examine the assumptions after fitting the linear model, we plot the
+residuals and test them against the normal distribution
 
 ## Choice of model
 
-before: appropriate to the question, type of relationship. assumptions about the type of model 
+before: appropriate to the question, type of relationship. assumptions
+about the type of model
 
 and after assumption calculations the probability calculations
 
-implications of wrong choices: doesn't anwser the question
-p value is inaccurate
-conclusions are wrong
-
+implications of wrong choices: doesn't anwser the question p value is
+inaccurate conclusions are wrong
 
 ## General linear models in R
 
+We use the `lm()` function in R to analyse data with the general linear
+model. When you have one explanatory variable the command is:
 
-We use the `lm()` function in R to analyse data with the general linear model. When you have one explanatory variable the command is:
+<code> lm(data = *dataframe*, *response* \~ *explanatory*) </code>
 
-<code>
-lm(data = *dataframe*, *response* \~ *explanatory*)
-</code>
+The `response ~ explanatory` part is known as the model **formula**.
+These must be the names of two column in the dataframe.
 
-The `response ~ explanatory` part is known as the model **formula**. These must be the names of two column in the dataframe. 
+When you have two explanatory variable we add the second explanatory
+variable to the formula using a `+` or a `*`. The command is:
 
-When you have two explanatory variable we add the second explanatory variable to the formula using a `+` or a `*`. The command is:
-
-<code>
-lm(data = *dataframe*, *response* \~ *explanatory1* + *explanatory2*)
-</code>
+<code> lm(data = *dataframe*, *response* \~ *explanatory1* +
+*explanatory2*) </code>
 
 or
 
-<code>
-lm(data = *dataframe*, *response* \~ *explanatory1* \* *explanatory2*)
-</code>
+<code> lm(data = *dataframe*, *response* \~ *explanatory1* \*
+*explanatory2*) </code>
 
-A model with `explanatory1 + explanatory2` considers the effects of the two variables independently. A model with `explanatory1 * explanatory2` considers the effects of the two variables *and* any interaction between them. You will learn more about independent effects and interactions in [Two-way ANOVA](two_way_anova.html)
+A model with `explanatory1 + explanatory2` considers the effects of the
+two variables independently. A model with `explanatory1 * explanatory2`
+considers the effects of the two variables *and* any interaction between
+them. You will learn more about independent effects and interactions in
+[Two-way ANOVA](two_way_anova.html)
 
-We usually assign the output of an `lm()` command to an object and view it with `summary()`. The typical workflow would be:
+We usually assign the output of an `lm()` command to an object and view
+it with `summary()`. The typical workflow would be:
 
-<code> 
-mod \<- lm(data = *dataframe*, *response* \~ *explanatory*)\
-summary(mod) 
-</code>
+<code> mod \<- lm(data = *dataframe*, *response* \~ *explanatory*)\
+summary(mod) </code>
 
-There are two sorts of statistical tests in the output of `summary(mod)`: 
+There are two sorts of statistical tests in the output of
+`summary(mod)`:
 
-1.  tests of whether each coefficient is significantly different from zero and,
+1.  tests of whether each coefficient is significantly different from
+    zero and,
 2.  an *F*-test of the model fit overall
 
-The *F*-test in the last line of the output indicates whether the relationship modelled between the response and the set of explanatory variables is statistically significant. i.e., whether it explains a significant amount of variation.
-
+The *F*-test in the last line of the output indicates whether the
+relationship modelled between the response and the set of explanatory
+variables is statistically significant. i.e., whether it explains a
+significant amount of variation.
 
 ## Checking assumptions
 
-The assumptions relate to the type of relationship chosen and the hypothesis testing about the parameters. For a general  linear model we assume the relationship between diameter and nutrients is linear and we examine this by plotting our data before running any tests.
+The assumptions relate to the type of relationship chosen and the
+hypothesis testing about the parameters. For a general linear model we
+assume the relationship between diameter and nutrients is linear and we
+examine this by plotting our data before running any tests.
 
-The assumptions of the hypothesis testing in a general linear model are that residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted and observed value. We usually check these assumptions after fitting the linear model by using the `plot()` function. This produces diagnostic plots to explore the distribution of the residuals. These cannot prove the assumptions are met but allow us to quickly determine if the assumptions are plausible, and if not, how the assumptions are violated and what data points contribute to the violation.
+The assumptions of the hypothesis testing in a general linear model are
+that residuals are normally distributed and have homogeneity of
+variance. A residual is the difference between the predicted and
+observed value. We usually check these assumptions after fitting the
+linear model by using the `plot()` function. This produces diagnostic
+plots to explore the distribution of the residuals. These cannot prove
+the assumptions are met but allow us to quickly determine if the
+assumptions are plausible, and if not, how the assumptions are violated
+and what data points contribute to the violation.
 
 ```{r}
 #| echo: false
@@ -292,19 +422,26 @@ mod <- lm(data = df, x ~ y)
 
 ```
 
-The two diagnostic plots which are most useful are the "Q-Q" plot (plot 2) and the "Residuals vs Fitted" plot (plot 1). These are given as values to the `which` argument of `plot()`.
+The two diagnostic plots which are most useful are the "Q-Q" plot (plot
+2) and the "Residuals vs Fitted" plot (plot 1). These are given as
+values to the `which` argument of `plot()`.
 
 ### The Q-Q plot
 
-The Q-Q plot is a scatterplot of the residuals (standardised to a mean of zero and a standard deviation of 1) against what is expected if the residuals are normally distributed.
+The Q-Q plot is a scatterplot of the residuals (standardised to a mean
+of zero and a standard deviation of 1) against what is expected if the
+residuals are normally distributed.
 
 ```{r}
 plot(mod, which = 2)
 ```
 
-The points should fall roughly on the line if the residuals are normally distributed. In the example above, the residuals appear normally distributed.
+The points should fall roughly on the line if the residuals are normally
+distributed. In the example above, the residuals appear normally
+distributed.
 
-The following are two examples in which the residuals are not normally distributed.
+The following are two examples in which the residuals are not normally
+distributed.
 
 ```{r}
 #| echo: false
@@ -316,7 +453,10 @@ mod2 <- lm(data = df, x ~ y)
 plot(mod2, which = 2)
 ```
 
-If you see patterns like these you should find an alternative to a general linear model such as a non-parametric test or a generalised linear model. Sometimes, applying a transformation to the response variable will result in better meeting the assumptions.
+If you see patterns like these you should find an alternative to a
+general linear model such as a non-parametric test or a generalised
+linear model. Sometimes, applying a transformation to the response
+variable will result in better meeting the assumptions.
 
 ### The Residuals vs Fitted plot
 
@@ -330,13 +470,19 @@ mod3 <- lm(data = df, x ~ y)
 plot(mod3, which = 2)
 ```
 
-The Residuals vs Fitted plot shows if residuals have homogeneous variance or non-linear patterns. Non-linear relationships between explanatory variables and the response will usually show in this plot if the model does not capture the non-linear relationship. For the assumptions to be met, the residuals should be equally spread around a horizontal line as they are here:
+The Residuals vs Fitted plot shows if residuals have homogeneous
+variance or non-linear patterns. Non-linear relationships between
+explanatory variables and the response will usually show in this plot if
+the model does not capture the non-linear relationship. For the
+assumptions to be met, the residuals should be equally spread around a
+horizontal line as they are here:
 
 ```{r}
 plot(mod, which = 1)
 ```
 
-The following are two examples in which the residuals do not have homogeneous variance and display non-linear patterns.
+The following are two examples in which the residuals do not have
+homogeneous variance and display non-linear patterns.
 
 ```{r}
 #| echo: false
@@ -351,7 +497,14 @@ plot(mod3, which = 1)
 
 ## Reporting
 
-When reporting the results of statistical tests we need to make sure we tell the reader everything they need to know and give the evidence it to support it. What they need to know is given in statements describing what difference or effect is significant and the evidence is from the test statistic and *p*-value from the test. You can think the statistical test values as being the evidence for the statements in your results sections, just as citations are the evidence for the statements in your introduction.
+When reporting the results of statistical tests we need to make sure we
+tell the reader everything they need to know and give the evidence it to
+support it. What they need to know is given in statements describing
+what difference or effect is significant and the evidence is from the
+test statistic and *p*-value from the test. You can think the
+statistical test values as being the evidence for the statements in your
+results sections, just as citations are the evidence for the statements
+in your introduction.
 
 In reporting the result of a test we give:
 
@@ -361,23 +514,48 @@ In reporting the result of a test we give:
 
 3.  the magnitude of effect
 
-Figures should demonstrate the statement. Ideally they will include all the data and the 'model', i.e., the means and error bars or the fitted line. Figure legends should be concise but contain all the information needed to understand the figure. I like this blog on [How to craft a figure legend for scientific papers](https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific-papers-b26a77fa890)
+Figures should demonstrate the statement. Ideally they will include all
+the data and the 'model', i.e., the means and error bars or the fitted
+line. Figure legends should be concise but contain all the information
+needed to understand the figure. I like this blog on [How to craft a
+figure legend for scientific
+papers](https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific-papers-b26a77fa890)
 
 ## Summary
 
-1. A statistical model is an equation that describes the relationship between a response variable and one or more explanatory variables.
+1.  A statistical model is an equation that describes the relationship
+    between a response variable and one or more explanatory variables.
 
-2. A statistical model allows you to make predictions about the response variable based on the values of the explanatory variables.
+2.  A statistical model allows you to make predictions about the
+    response variable based on the values of the explanatory variables.
 
-3. Many statistical tests are types of "General Linear Model" including linear regression, *t*-tests and ANOVA.
+3.  Many statistical tests are types of "General Linear Model" including
+    linear regression, *t*-tests and ANOVA.
 
-4. Statistical testing means estimating the model "parameters" and testing whether they are significantly different from zero. The parameters, also known as coefficients, are the intercept and slope (s) in a General Linear Model. A *p*-value less than 0.05 for the slope means there is a significant relationship between the response and the explanatory variable.
+4.  Statistical testing means estimating the model "parameters" and
+    testing whether they are significantly different from zero. The
+    parameters, also known as coefficients, are the intercept and
+    slope (s) in a General Linear Model. A *p*-value less than 0.05 for
+    the slope means there is a significant relationship between the
+    response and the explanatory variable.
 
-5. We also consider the fit of the model to the data using the *R*-squared value and the *F*-test. An *R*-squared value close to 1 indicates a good fit and *p*-value less than 0.05 for the *F*-test indicates the model explains a significant amount of variation.
+5.  We also consider the fit of the model to the data using the
+    *R*-squared value and the *F*-test. An *R*-squared value close to 1
+    indicates a good fit and *p*-value less than 0.05 for the *F*-test
+    indicates the model explains a significant amount of variation.
 
-6. The assumptions of the General Linear Model must be met for the *p*-values to be accurate. These are: are that the relationship between the response and the explanatory variables is linear and that the residuals are normally distributed and have homogeneity of variance. We check these assumptions by plotting the data and the residuals.
+6.  The assumptions of the General Linear Model must be met for the
+    *p*-values to be accurate. These are: are that the relationship
+    between the response and the explanatory variables is linear and
+    that the residuals are normally distributed and have homogeneity of
+    variance. We check these assumptions by plotting the data and the
+    residuals.
 
-7. We use the `lm()` function to fit a linear model in R. The `summary()` function gives us the *p*-values and *R*-squared value and the `plot()` function gives us diagnostic plots to check the assumptions.
+7.  We use the `lm()` function to fit a linear model in R. The
+    `summary()` function gives us the *p*-values and *R*-squared value
+    and the `plot()` function gives us diagnostic plots to check the
+    assumptions.
 
-8. When reporting the results of statistical tests give the significance, direction and magnitude of the effect and use figures to demonstrate the statement.
-
+8.  When reporting the results of statistical tests give the
+    significance, direction and magnitude of the effect and use figures
+    to demonstrate the statement.
