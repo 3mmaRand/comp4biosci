@@ -356,7 +356,12 @@ window.Quarto = {
   </ul>
 </li>
   <li><a href="#confidence-intervals-on-large-samples" id="toc-confidence-intervals-on-large-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-large-samples"><span class="header-section-number">10.3</span> Confidence intervals on large samples</a></li>
-  <li><a href="#confidence-intervals-on-small-samples" id="toc-confidence-intervals-on-small-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-small-samples"><span class="header-section-number">10.4</span> Confidence intervals on small samples</a></li>
+  <li>
+<a href="#confidence-intervals-on-small-samples" id="toc-confidence-intervals-on-small-samples" class="nav-link" data-scroll-target="#confidence-intervals-on-small-samples"><span class="header-section-number">10.4</span> Confidence intervals on small samples</a>
+  <ul class="collapse">
+<li><a href="#what-are-degrees-of-freedom" id="toc-what-are-degrees-of-freedom" class="nav-link" data-scroll-target="#what-are-degrees-of-freedom"><span class="header-section-number">10.4.1</span> What are degrees of freedom?</a></li>
+  </ul>
+</li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">10.5</span> 🎬 Your turn!</a></li>
   <li>
 <a href="#large-samples" id="toc-large-samples" class="nav-link" data-scroll-target="#large-samples"><span class="header-section-number">10.6</span> Large samples</a>
@@ -543,7 +548,10 @@ Figure&nbsp;10.4: The <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm(
 \bar{x} \pm t_{[d.f.]} \times s.e.
 \tag{10.2}\]</span></span></p>
 <p>The <em>t</em>-distibution is a modified version of the normal distribution and we use it because the sampling distribution of the mean is not quite normal when the sample size is small. The <em>t</em>-distribution has an additional parameter called the <em>degrees of freedom</em> which is the sample size minus one (<span class="math inline">\(n -1\)</span>). Like the normal distribution, the <em>t</em>-distribution has a mean of zero and is symmetrical. However, The <em>t</em>-distribution has fatter tails than the normal distribution and this means that the probability of getting a value in the tails is higher than for the normal distribution. The degrees of freedom determine how much fatter the tails are. The smaller the sample size, the fatter the tails. As the sample size increases, the <em>t</em>-distribution becomes more and more like the normal distribution.</p>
-</section><section id="your-turn" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="your-turn">
+<section id="what-are-degrees-of-freedom" class="level3" data-number="10.4.1"><h3 data-number="10.4.1" class="anchored" data-anchor-id="what-are-degrees-of-freedom">
+<span class="header-section-number">10.4.1</span> What are degrees of freedom?</h3>
+<p>Degrees of freedom (usually abbreivated <em>d.f.</em>) describe how much independent information is available to estimate variability when calculating probabilities. In a population, <em>all</em> values are known, so no parameters need estimating. In a sample, we estimate parameters such as the mean. In estimating a mean, only <span class="math inline">\(n - 1\)</span> values can vary independently because one value is constrained by the sample mean. In hypothesis tests and confidence intervals, <em>d.f.</em> adjust for uncertainty when generalizing from a sample to a population, affecting probability distributions like the <em>t</em>-distribution. More <em>d.f.</em> mean better probability estimates, while fewer <em>d.f.</em> reflect greater uncertainty in estimating population parameters.</p>
+</section></section><section id="your-turn" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="your-turn">
 <span class="header-section-number">10.5</span> 🎬 Your turn!</h2>
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
 </section><section id="large-samples" class="level2" data-number="10.6"><h2 data-number="10.6" class="anchored" data-anchor-id="large-samples">
