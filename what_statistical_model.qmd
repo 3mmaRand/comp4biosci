@@ -552,10 +552,14 @@ papers](https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific
     residuals.
 
 7.  We use the `lm()` function to fit a linear model in R. The
-    `summary()` function gives us the *p*-values and *R*-squared value
-    and the `plot()` function gives us diagnostic plots to check the
-    assumptions.
+    `summary()` function gives us the test statistic, *p*-values 
+    and *R*-squared value and the `plot()` function gives us diagnostic
+    plots to check the assumptions.
+    
+8.  If the assumptions are not met we apply a non-parametric test
+    using `wilcox.test` or `kruskal.test()`. These also give us a test
+    statistic and a *p*-value.
 
-8.  When reporting the results of statistical tests give the
+9.  When reporting the results of statistical tests give the
     significance, direction and magnitude of the effect and use figures
     to demonstrate the statement.
