@@ -409,7 +409,7 @@ Just needs proof reading
 </div>
 <section id="overview" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="overview">
 <span class="header-section-number">14.1</span> Overview</h2>
-<p>In the last chapter, we learnt how to use and interpret the general linear model when the <em>x</em> variable was categorical with two groups. You will now extend that to situations when there are more than two groups. This is often known as the one-way ANOVA (<strong>an</strong>alysis <strong>o</strong>f <strong>var</strong>iance). We will also learn about the Kruskal-Wallis test <span class="citation" data-cites="kruskal1952">(<a href="references.html#ref-kruskal1952" role="doc-biblioref">Kruskal and Wallis 1952</a>)</span> which can be used when the assumptions of the general linear model are not met.</p>
+<p>In the last chapter, we learnt how to use and interpret the general linear model when the <em>x</em> variable was categorical with two groups. You will now extend that to situations when there are more than two groups. This is often known as the one-way ANOVA (<strong>an</strong>alysis <strong>o</strong>f <strong>var</strong>iance). We will also learn about the Kruskal-Wallis test <span class="citation" data-cites="kruskal1952">(<a href="references.html#ref-kruskal1952" role="doc-biblioref">Kruskal and Wallis 1952</a>)</span>, a non-parametric test that can be used when the assumptions of the general linear model are not met.</p>
 <p>We use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to carry out a one-way ANOVA. General linear models applied with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> are based on the normal distribution and known as parametric tests because they use the parameters of the normal distribution (the mean and standard deviation) to determine if an effect is significant. Null hypotheses are about a mean or difference between means. The assumptions need to be met for the <em>p</em>-values generated to be accurate.</p>
 <p>If the assumptions are not met, we can use the non-parametric equivalent known as the Kruskal-Wallis test. Like other non-parametric tests, the Kruskal-Wallis test :</p>
 <ul>
@@ -418,7 +418,9 @@ Just needs proof reading
 <li>has fewer assumptions and can be used in more situations</li>
 <li>tends to be less powerful than a parametric test when the assumptions are met</li>
 </ul>
-<!-- Why not do several two-sample tests? ANOVA terminology and concepts --><p>The process of using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to conduct a one-way ANOVA is very like the process for using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to conduct a two-sample <em>t</em>-test but with an important addition. When we get a significant effect of our explanatory variable, it only tells us that at least two of the means differ. To find out which means differ, we need a post-hoc test. A post-hoc (“after this”) test is done after a significant ANOVA test. There are several possible post-hoc tests and we will be using Tukey’s HSD (honestly significant difference) test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> implemented in the <strong><code>emmeans</code></strong> <span class="citation" data-cites="emmeans">(<a href="references.html#ref-emmeans" role="doc-biblioref">Lenth 2023</a>)</span> package. Post-hoc tests make adjustments to the <em>p</em>-values to account for the fact that we are doing multiple comparisons. A Type I error happens when we reject a null hypothesis that is true and occurs with a probability of 0.05. Doing lots of comparisons makes it more likely we will get a significant result just by chance. The post-hoc test adjusts the <em>p</em>-values to account for this increased risk.</p>
+<!-- Why not do several two-sample tests? ANOVA terminology and concepts --><p>The process of using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to conduct a one-way ANOVA is very similar to using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for a two-sample <em>t</em>-test, but with an important distinction. When we obtain a significant effect of our explanatory variable, it only indicates that at least two group means differ—it does not specify which ones. To determine where the differences lie, we need a <strong>post-hoc test</strong>.</p>
+<p>A post-hoc (“after this”) test is performed after a significant ANOVA result. There are several options for post-hoc tests, and we will use Tukey’s HSD (honestly significant difference) test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>, implemented in the <strong><code>emmeans</code></strong> <span class="citation" data-cites="emmeans">(<a href="references.html#ref-emmeans" role="doc-biblioref">Lenth 2023</a>)</span> package.</p>
+<p>Post-hoc tests adjust <em>p</em>-values to account for multiple comparisons. A Type I error occurs when we incorrectly reject a true null hypothesis, with a probability of 0.05. Conducting multiple comparisons increases the likelihood of obtaining a significant result by chance. The post-hoc test corrects for this increased risk, ensuring more reliable conclusions.</p>
 <section id="model-assumptions" class="level3" data-number="14.1.1"><h3 data-number="14.1.1" class="anchored" data-anchor-id="model-assumptions">
 <span class="header-section-number">14.1.1</span> Model assumptions</h3>
 <p>The assumptions for a general linear model where the explanatory variable has two or more groups, are the same as for two groups: the residuals are normally distributed and have homogeneity of variance.</p>
@@ -435,12 +437,12 @@ Just needs proof reading
 <li>
 <p>the significance of the effect</p>
 <ul>
-<li>parametric: The <em>F</em>-statistic and <em>p</em>-value</li>
-<li>non-parametric: The Chi-squared statistic and <em>p</em>-value</li>
+<li>parametric (GLM): The <em>F</em>-statistic and <em>p</em>-value</li>
+<li>non-parametric (Kruskal-Wallis): The Chi-squared statistic and <em>p</em>-value</li>
 </ul>
 </li>
 <li>
-<p>the direction of effect - which of the means/medians is greater</p>
+<p>the direction of effect - which mean/median is greater in a the pairwise commparison</p>
 <ul>
 <li>Post-hoc test</li>
 </ul>
@@ -471,6 +473,15 @@ Just needs proof reading
 <li>sugar and amino acids added - the generic medium with added sugar and amino acids</li>
 </ul>
 <p>The data are in <a href="data-raw/culture.csv">culture.csv</a>.</p>
+<p>In this scenario, our null hypothesis, <span class="math inline">\(H_0\)</span>, is that there is no difference in colony diameter between the three groups or that group membership has no effect on diameter. This is written as: <span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span></p>
+<p>This means that none of the group means differ significantly from each other.</p>
+<p>Another way of describing, <span class="math inline">\(H_0\)</span>, is to say the variation caused by media is no greater than the the random background variation. This is expressed with the <strong><em>F</em>-statistic</strong>, a variance ratio that compares the variance explained by the model to the variance within groups. If <span class="math inline">\(H_0\)</span> is true, the variance between groups is no greater than the variance within groups. That is, <em>F</em>, <span class="math inline">\(\frac{Var(between)}{Var(within)}\)</span> equals 1. This is written as: <span class="math inline">\(H_0: F = 1\)</span></p>
+<p>Both versions of the null hypothesis describe the same idea: that here is <strong>no real difference</strong> between the groups.</p>
+<ul>
+<li><p><strong>Using <span class="math inline">\(\beta\)</span> coefficients:</strong> This version focuses on the <strong>linear model</strong>. It says that the group variable has no effect, meaning all groups have the same average value. If the coefficients (<span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span>, etc.) are <strong>zero</strong>, then the model isn’t capturing any meaningful differences between groups.</p></li>
+<li><p><strong>Using the F-statistic:</strong> This version looks at <strong>variance</strong>. It compares the variation <strong>between groups</strong> to the variation <strong>within groups</strong>. If the F-value is <strong>close to 1</strong>, it means the differences between groups are about the same as random variation within groups, so there’s no real effect.</p></li>
+</ul>
+<p>Both approaches test the same hypothesis—if we reject the null, we conclude that at least one group is different from the others.</p>
 <section id="import-and-explore" class="level3" data-number="14.3.1"><h3 data-number="14.3.1" class="anchored" data-anchor-id="import-and-explore">
 <span class="header-section-number">14.3.1</span> Import and explore</h3>
 <p>Import the data:</p>
@@ -833,7 +844,7 @@ Figure&nbsp;14.5: <strong>Medium affects bacterial colony diameter</strong>. Ten
 </div>
 </section></section><section id="kruskal-wallis" class="level1" data-number="15"><h1 data-number="15">
 <span class="header-section-number">15</span> Kruskal-Wallis</h1>
-<p>Our examination of the assumptions revealed a possible violation of the assumption of homogeneity of variance. We might reasonably apply a non-parametric test to this data.</p>
+<p>Our examination of the assumptions revealed a possible violation of the assumption of homogeneity of variance. We might reasonably apply a non-parametric test to this data instead.</p>
 <p>The Kruskal-Wallis <span class="citation" data-cites="kruskal1952">(<a href="references.html#ref-kruskal1952" role="doc-biblioref">Kruskal and Wallis 1952</a>)</span> is non-parametric equivalent of a one-way ANOVA. The general question you have about your data - do these groups differ (or does the medium effect diameter) - is the same, but one of more of the following is true:</p>
 <ul>
 <li>the response variable is not continuous</li>

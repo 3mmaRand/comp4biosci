@@ -609,12 +609,18 @@ anova(mod)
 ```
 
 You will notice that the *p*-value for subject is the same. The test
-statistic, $F$ has a value of `r round(anova(mod)$F[1],2)`and degrees of
-freedom of `r broom::tidy(anova(mod))$df[1]` and
-`r broom::tidy(anova(mod))$df[3]`. This would be written as \$F = \$
-`r round(anova(mod)$F[1],2)`; \$d.f.= \$
+statistic, $F$ has a value of 
+`r round(anova(mod)$F[1],2)` 
+and degrees of freedom of 
+`r broom::tidy(anova(mod))$df[1]` 
+and
+`r broom::tidy(anova(mod))$df[3]`.
+This would be written as $F = $
+`r round(anova(mod)$F[1],2)` ; 
+$d.f.= $
 `r broom::tidy(anova(mod))$df[1]`, `r broom::tidy(anova(mod))$df[3]`;
-\$p = $`r round(broom::tidy(anova(mod))$p.value\[1\], 3)\` .
+$p = $
+`r round(broom::tidy(anova(mod))$p.value[1], 3)` .
 
 ### Check assumptions
 

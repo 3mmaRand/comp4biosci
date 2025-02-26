@@ -354,6 +354,7 @@ window.Quarto = {
   <ul class="collapse">
 <li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions"><span class="header-section-number">15.1.1</span> Model assumptions</a></li>
   <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">15.1.2</span> Reporting</a></li>
+  <li><a href="#when-the-assumptions-are-not-met" id="toc-when-the-assumptions-are-not-met" class="nav-link" data-scroll-target="#when-the-assumptions-are-not-met"><span class="header-section-number">15.1.3</span> When the assumptions are not met</a></li>
   </ul>
 </li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">15.2</span> 🎬 Your turn!</a></li>
@@ -440,8 +441,22 @@ Just needs proof reading
 </li>
 </ol>
 <p>Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model: means and standard errors</p>
+</section><section id="when-the-assumptions-are-not-met" class="level3" data-number="15.1.3"><h3 data-number="15.1.3" class="anchored" data-anchor-id="when-the-assumptions-are-not-met">
+<span class="header-section-number">15.1.3</span> When the assumptions are not met</h3>
+<section id="when-residuals-are-not-normally-distributed" class="level4" data-number="15.1.3.1"><h4 data-number="15.1.3.1" class="anchored" data-anchor-id="when-residuals-are-not-normally-distributed">
+<span class="header-section-number">15.1.3.1</span> When residuals are not normally distributed</h4>
+<p>There are a few options for dealing with non-normally distributed residuals when you wanted to do a two-way ANOVA. Transforming your data might help - but it depends on how the data are not normal - if there are lots of values the same for example, no transformation helps! If the data have positive skew (tail in the positive direction) then logging can help.</p>
+</section><section id="when-residuals-are-not-normally-distributed-andor-variance-is-unequal" class="level4" data-number="15.1.3.2"><h4 data-number="15.1.3.2" class="anchored" data-anchor-id="when-residuals-are-not-normally-distributed-andor-variance-is-unequal">
+<span class="header-section-number">15.1.3.2</span> When residuals are not normally distributed and/or variance is unequal</h4>
+<p>There are some rank tests (e.g., Friedman, Scheirer Ray Hare) for specific situations but there are no non-parametric alternatives as directly equivalantas the Kruskal-Wallis is for the one-way ANOVA.</p>
+<p>In these cases you have three other good options.</p>
+<ol type="1">
+<li><p><strong>Using non-parametric one-way tests</strong>. Divide the dataset according to the groups in one factor, then carry out a Wilcoxon rank-sum test (also known as the Mann-Whitney test) or a Kruskal-Wallis test on each subset for the other factor. For example, if the two factors are Fertilizer Type (Organic, Chemical, Control) and Soil Moisture (Low, Medium, High), split the dataset by Fertilizer Type. Within each subset, perform a Wilcoxon rank-sum test if the second factor has two levels or a Kruskal-Wallis test if it has more than two levels to determine whether the second factor affects the response variable. While there is no direct test for an interaction, you can infer one. If the results are consistent across all subsets, meaning the second factor has the same effect regardless of the first factor, there is no evidence of an interaction. However, if the effect of the second factor varies between subsets, this suggests an interaction, as the influence of one factor depends on the level of the other.</p></li>
+<li><p><strong>Using a Permutation Test</strong>. A permutation test checks if an observed difference is real or just due to chance by shuffling the data many times and seeing how often a difference as big as the original one appears. Instead of using formulas based on assumptions, it creates a null distribution from the shuffled data and calculates a p-value based on how rare the observed result is. This makes it useful when normal statistical methods don’t apply.</p></li>
+<li><p><strong>Use two-way ANOVA carefully</strong>. Using the two-way ANOVA test and interpreting the results with caution is one valid approach. ANOVA is actually quite robust to violating the normality assumption (it performs quite well anyway) depending on how much the residuals deviate.</p></li>
+</ol>
 <p>We will explore all of these ideas with some examples.</p>
-</section></section><section id="your-turn" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="your-turn">
+</section></section></section><section id="your-turn" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="your-turn">
 <span class="header-section-number">15.2</span> 🎬 Your turn!</h2>
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
 </section><section id="two-way-anova" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="two-way-anova">
