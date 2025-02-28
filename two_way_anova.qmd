@@ -96,13 +96,21 @@ can help.
 
 #### When residuals are not normally distributed and/or variance is unequal
 
-There are some rank tests (e.g., Friedman, Scheirer Ray Hare) for
-specific situations but there are no non-parametric alternatives as
-directly equivalantas the Kruskal-Wallis is for the one-way ANOVA.
+There are some rank-based tests, such as the Friedman test and the 
+Scheirer-Ray-Hare test, that apply to specific situations. However, 
+there is no non-parametric alternative that directly corresponds to 
+two-way ANOVA in the same way that the Kruskal-Wallis test does for 
+one-way ANOVA.
 
-In these cases you have three other good options.
+In these cases you have other good options.
 
-1.  **Using non-parametric one-way tests**. Divide the dataset according
+1.  **Use two-way ANOVA carefully**. Using the two-way ANOVA test 
+    and interpreting the results with caution is one valid approach. 
+    ANOVA is actually quite robust to violating the normality assumption
+    (it performs quite well anyway) depending on how much the residuals 
+    deviate.
+    
+2.  **Using non-parametric one-way tests**. Divide the dataset according
     to the groups in one factor, then carry out a Wilcoxon rank-sum test
     (also known as the Mann-Whitney test) or a Kruskal-Wallis test on
     each subset for the other factor. For example, if the two factors
@@ -119,20 +127,16 @@ In these cases you have three other good options.
     interaction, as the influence of one factor depends on the level of
     the other.
 
-2.  **Using a Permutation Test**. A permutation test checks if an 
-    observed difference is real or just due to chance by shuffling 
-    the data many times and seeing how often a difference as big as 
-    the original one appears. Instead of using formulas based on 
-    assumptions, it creates a null distribution from the shuffled 
-    data and calculates a p-value based on how rare the observed 
-    result is. This makes it useful when normal statistical methods 
-    don’t apply.
+<!-- 2.  **Using a Permutation Test**. A permutation test checks if an  -->
+<!--     observed difference is real or just due to chance by shuffling  -->
+<!--     the data many times and seeing how often a difference as big as  -->
+<!--     the original one appears. Instead of using formulas based on  -->
+<!--     assumptions, it creates a null distribution from the shuffled  -->
+<!--     data and calculates a p-value based on how rare the observed  -->
+<!--     result is. This makes it useful when normal statistical methods  -->
+<!--     don’t apply. -->
 
-3.  **Use two-way ANOVA carefully**. Using the two-way ANOVA test 
-    and interpreting the results with caution is one valid approach. 
-    ANOVA is actually quite robust to violating the normality assumption
-    (it performs quite well anyway) depending on how much the residuals 
-    deviate.
+
 
 We will explore all of these ideas with some examples.
 
