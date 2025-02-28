@@ -343,27 +343,34 @@ Just needs proof reading
 </div>
 <section id="what-is-hypothesis-testing" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="what-is-hypothesis-testing">
 <span class="header-section-number">9.1</span> What is Hypothesis testing?</h2>
-<p>Hypothesis testing is a statistical technique which allows us to make inferences about the characteristics of a populations based on a sample. Since it’s usually impossible to measure every individual in a population, we rely on samples. For example, suppose we are interested in whether birth weight differs for babies born to mothers in poverty. We would not be able to measure the birth weight and maternal status of every baby in the population. Instead we would take a sample of babies born to mothers in poverty and determine if their weight, on average, was different to the national average. A statistical procedure is needed because even if maternal poverty has no effect, our sample average will differ from the national average just by chance. A statistical test helps determine if any difference is real or just down to random variation in the sample.</p>
+<p>Hypothesis testing is a statistical method that helps us draw conclusions about a population based on a sample. Since we usually can’t measure every individual in a population, we take a smaller sample and analyze it.</p>
+<p>For example, suppose we want to know if babies born to mothers in poverty have lower birth weights than the national average. Measuring the birth weight of every baby in the country would be impossible, so we take a sample. However, even if poverty has no real effect, our sample’s average birth weight might be different from the national average just by chance. Hypothesis testing helps us determine whether this difference is real or just random variation.</p>
 </section><section id="samples-and-populations" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="samples-and-populations">
 <span class="header-section-number">9.2</span> Samples and populations</h2>
+<p>Before we dive deeper into hypothesis testing, let’s clarify two key terms:</p>
+<ul>
+<li>A population is the entire group we are interested in studying (e.g., all babies in a country).</li>
+<li>A sample is a smaller group selected from the population (e.g., a few hundred babies chosen for the study).</li>
+</ul>
+<p>We use samples because studying an entire population is often impractical. The challenge is making sure our sample accurately represents the population.</p>
 </section><section id="logic-of-hypothesis-testing" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="logic-of-hypothesis-testing">
 <span class="header-section-number">9.3</span> Logic of hypothesis testing</h2>
 <p>The logic behind hypothesis testing follows these general steps:</p>
 <ol type="1">
 <li>Formulating a “Null Hypothesis” denoted <span class="math inline">\(H_0\)</span>. The null hypothesis is what we expect to happen if nothing interesting is happening. It states that there is no difference between groups or no relationship between variables. In contrast, the “Alternative Hypothesis” (<span class="math inline">\(H_1\)</span>) states that there is a significant difference between groups or a relationship between variables.</li>
-<li>Designing an experiment that generates data to test the null hypothesis.</li>
+<li>Designing an experiment and/or collecting data to test the null hypothesis.</li>
 <li>Finding the probability (the <em>p</em>-value) of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true.</li>
 <li>Deciding whether to reject or not reject the <span class="math inline">\(H_0\)</span> based on that probability:
 <ul>
-<li>If $p $ 0.05 we reject <span class="math inline">\(H_0\)</span>
+<li>If <span class="math inline">\(p ≤ 0.05\)</span> we reject <span class="math inline">\(H_0\)</span>
 </li>
-<li>If $p &gt; $ 0.05 do not reject <span class="math inline">\(H_0\)</span>
+<li>If <span class="math inline">\(p &gt; 0.05\)</span> do not reject <span class="math inline">\(H_0\)</span>
 </li>
 </ul>
 </li>
 </ol>
 <p>If the null hypothesis is rejected it means we have evidence that <span class="math inline">\(H_0\)</span> is untrue and support for <span class="math inline">\(H_1\)</span>. If the null hypothesis is not rejected, it means there is insufficient evidence to support the alternative hypothesis. It is important to recognise that not rejecting the null hypothesis does not mean <span class="math inline">\(H_0\)</span> is definitely true. It just means just that <span class="math inline">\(H_0\)</span> cannot be discounted.</p>
-<p>There is a real state to <span class="math inline">\(H_0\)</span>, that is, <span class="math inline">\(H_0\)</span> is either true or it is not true. The statistical test has us decide whether to reject or not reject <span class="math inline">\(H_0\)</span> based on the <em>p</em>-value. This we can be wrong.</p>
+<p>There is a real state to <span class="math inline">\(H_0\)</span>, that is, <span class="math inline">\(H_0\)</span> is either true or it is not true. The statistical test has us decide whether to reject or not reject <span class="math inline">\(H_0\)</span> based on the <em>p</em>-value. This means we can make mistakes when testing a hypothesis. These are called Type I and Type II errors.</p>
 <section id="type-i-and-type-ii-errors" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="type-i-and-type-ii-errors">
 <span class="header-section-number">9.3.1</span> Type I and type II errors</h3>
 <p>Type I and type II errors describe the cases when we make the wrong decision about the null hypothesis. These errors are inherent in the approach rather than mistakes you can prevent.</p>
@@ -386,7 +393,7 @@ Just needs proof reading
 <li><p>The mean of the sampling distribution of the mean is equal to the population mean</p></li>
 <li><p>The standard deviation of the sampling distribution of the mean is known the standard error of the mean and is always smaller than the standard deviation of the values. There is a fixed relationship between the standard deviation of a sample or population and the standard error of the mean: <span class="math inline">\(s.e. = \frac{s.d.}{\sqrt{n}}\)</span></p></li>
 </ul>
-<p>When we are determining the probability of getting our experimental data, or data more extreme, if <span class="math inline">\(H_0\)</span> is true, it is the sampling distribution of the mean that matters. We ask: What is the probability of getting a sample mean like this?</p>
+<p>💡 Why does this matter? When we calculate a p-value, we’re really asking: “How likely is it to get a sample mean like ours (or more extreme) if <span class="math inline">\(H_0\)</span> is true. This is why understanding the sampling distribution is so important - it helps us determine what results we should expect by random chance.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-sample-dist-means" class="quarto-float quarto-figure quarto-figure-center anchored">
