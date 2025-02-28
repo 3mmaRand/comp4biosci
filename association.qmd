@@ -10,81 +10,160 @@ status("drafting")
 
 ## Overview
 
-no explanatory variables
+Up to this point, we have focused on methods that examine how one
+variable affects another. **Regression** allowed us to model a
+relationship where one variable was explicitly treated as explanatory
+and the other as a response. Similarly, **ANOVA and two-sample tests**
+compared groups to see if a categorical explanatory variable influenced
+a numeric response.
+
+In this chapter, we shift our focus to situations where **no causal
+relationship is assumed**. Instead of asking whether one variable
+predicts another, we ask whether two variables are **associated** -
+whether they tend to change together.
+
+We will cover:
+
+-   **Pearson’s correlation**, which measures how strongly two
+    continuous variables change together in a linear way.
+-   **Spearman’s correlation**, a non-parametric alternative
+-   **Chi-square tests for contingency tables**, which assess whether
+    two categorical variables are related.
+
+Unlike regression, these methods do not imply that one variable
+influences the other - they simply measure the strength of an
+association. This allows us to explore patterns in data when no clear
+explanatory-response relationship exists.
 
 ### Correlation
 
--   two continuous variables
+When working with two continuous variables, we may be interested in
+understanding how they are associated without assuming a
+cause-and-effect relationship. Unlike regression, where one variable is
+treated as explanatory and the other as a response, correlation simply
+measures the strength and direction of their association.
 
--   neither is an explanatory variable, i.e., there is not a causal relationship
-    between the two variables
-    
--   you want to know if there is a correlation between the two variables
+The correlation coefficient quantifies this relationship on a scale from
+-1 to 1. A coefficient of 1 indicates a perfect positive association,
+meaning that higher values in one variable are always linked to higher
+values in the other. Conversely, a coefficient of -1 represents a
+perfect negative association, where higher values in one variable are
+consistently associated with lower values in the other. Most real-world
+correlations fall somewhere between these extremes, with values closer
+to 0 suggesting little to no linear relationship 
+(@fig-correl-types).
 
--   the correlation coefficient is a measure of the strength and direction of
-    the linear association between two variables and ranges from -1 to 1
-    
--   A correlation coefficient of 1 indicates a perfect positive association 
-    between the variables meaning the highest score in one variable are 
-    associated with the *highest* scores in the other.
+By calculating the correlation coefficient, we can assess how strongly
+two variables move together, helping us uncover patterns in data without
+implying causation.
 
--   A correlation coefficient of -1 indicates a perfect negative association 
-    between the variables meaning the highest scores in one variable are 
-    associated with the *lowest* scores in the other.
-    
-TODO Add a figure of the different correlation coefficients
-    
--   we estimate the population correlation coefficient, $\rho$ (pronounced rho), 
-    with the sample correlation coefficient, $r$ and test whether it 
-    is significantly different from zero because a correlation coefficient of
-    0 means association.
+## Correlation Examples
 
--   Pearson's correlation coefficient, is a parametric measure which 
-    assumes the variables are normally distributed and that any correlation
-    is linear.
 
--   Spearman's rank correlation coefficient, is a non-parametric measure
-    which does not assume the variables are normally distributed
-    
--   we use `cor.test()` in R.
+```{r}
+#| echo: false
+#| label: fig-correl-types
+#| fig-cap: "Scatter plots demonstrating different types of correlation. Left: A strong positive correlation (r ≈ 0.8), where higher values in one variable are associated with higher values in the other. Middle: A strong negative correlation (r ≈ -0.8), where higher values in one variable are associated with lower values in the other. Right: No correlation (r ≈ 0), indicating no clear pattern between the two variables."
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate data for positive correlation
+x_pos <- rnorm(100, mean = 50, sd = 10)
+y_pos <- x_pos * 0.8 + rnorm(100, mean = 0, sd = 5)  
+
+# Generate data for negative correlation
+x_neg <- rnorm(100, mean = 50, sd = 10)
+y_neg <- -x_neg * 0.8 + rnorm(100, mean = 0, sd = 5)  
+
+# Generate data for no correlation
+x_none <- rnorm(100, mean = 50, sd = 10)
+y_none <- rnorm(100, mean = 50, sd = 10)  
+
+# Compute correlation coefficients
+cor_pos <- round(cor(x_pos, y_pos), 2)
+cor_neg <- round(cor(x_neg, y_neg), 2)
+cor_none <- round(cor(x_none, y_none), 2)
+
+# Create ggplot objects
+p1 <- ggplot(data.frame(x_pos, y_pos), aes(x = x_pos, y = y_pos)) +
+  geom_point(color = pal4[1]) +
+  scale_x_continuous(name = "x") +
+  scale_y_continuous(name = "y") +
+  annotate("text", x = 50, y = 80, size = 6, 
+           label = paste("r =", cor_pos)) +
+  theme_classic() +
+  theme_no_axis_numbers()
+
+p2 <- ggplot(data.frame(x_neg, y_neg), aes(x = x_neg, y = y_neg)) +
+  geom_point(color = pal4[2]) +
+  scale_x_continuous(name = "x") +
+  scale_y_continuous(name = "y") +
+  annotate("text", x = 50, y = -10, size = 6, 
+           label = paste("r =", cor_neg)) +
+  theme_classic() +
+  theme_no_axis_numbers()
+
+p3 <- ggplot(data.frame(x_none, y_none), aes(x = x_none, y = y_none)) +
+  geom_point(color = pal4[3]) +
+  scale_x_continuous(name = "x") +
+  scale_y_continuous(name = "y") +
+  annotate("text", x = 50, y = 80, size = 6,
+           label = paste("r =", cor_none)) +
+  theme_classic() +
+  theme_no_axis_numbers()
+
+# Arrange plots in a single row
+p1 + p2 + p3 + plot_layout(ncol = 3)
+```
+
+We estimate the population correlation coefficient, $\rho$ 
+(pronounced rho), with the sample correlation coefficient, $r$ and 
+test whether it is significantly different from zero because a 
+correlation coefficient of 0 means association.
+
+Pearson's correlation coefficient, is a parametric measure which
+assumes the variables are normally distributed and that any
+correlation is linear.
+
+Spearman's rank correlation coefficient, is a non-parametric measure
+which does not assume the variables are normally distributed
+
+We use `cor.test()` in R for both types of correlation.
 
 ### Contingency Chi-squared
 
 -   two categorical variables
 
--   neither is an explanatory variable, i.e., there is not a causal relationship
-    between the two variables
-    
+-   neither is an explanatory variable, i.e., there is not a causal
+    relationship between the two variables
+
 -   we count the number of observations in each caetory of each variable
 
--   you want to know if there is an association between the two variables 
+-   you want to know if there is an association between the two
+    variables
 
+-   another way of describing this is that we test whether the
+    proportion of observations falling in to each category of one
+    variable is the same for each category of the other variable.
 
--   another way of describing this is that we test whether the proportion of 
-    observations falling in to each category of one variable is the same for 
-    each category of the other variable.
-    
--   we use a chi-squared test to test whether the observed counts are significantly
-    different from the expected counts if there was no association between the 
-    variables.    
-    
+-   we use a chi-squared test to test whether the observed counts are
+    significantly different from the expected counts if there was no
+    association between the variables.
+
 ### Reporting
-
 
 1.  the significance of effect - whether the association is significant
     different from zero
 
 2.  the direction of effect
-    
+
     -   correlation whether $r$ is positive or negative
     -   which categories have higher than expected values
 
 3.  the magnitude of effect
 
-We do not put a line of best fit on a scatter plot accompanying a correlation 
-because such a line implies a causal relationship. 
-
-
+We do not put a line of best fit on a scatter plot accompanying a
+correlation because such a line implies a causal relationship.
 
 We will explore all of these ideas with an examples.
 
@@ -97,8 +176,9 @@ folder and open a new script. You will also need to load the
 
 ## Correlation
 
-High quality images of the internal structure of wheat seeds were taken with a 
-soft X-ray technique. Seven measurements determined from the images:
+High quality images of the internal structure of wheat seeds were taken
+with a soft X-ray technique. Seven measurements determined from the
+images:
 
 -   Area
 -   Perimeter
@@ -115,7 +195,8 @@ The data are in [seeds-dataset.xlsx](data-raw/seeds-dataset.xlsx).
 
 ### Import and explore
 
-The data are in an excel file so we will need the **`readxl`** [@readxl] package.
+The data are in an excel file so we will need the **`readxl`** [@readxl]
+package.
 
 Load the package:
 
@@ -125,11 +206,11 @@ library(readxl)
 
 Find out the names of the sheets in the excel file:
 
-
 ```{r}
 excel_sheets("data-raw/seeds-dataset.xlsx")
 ```
-There is only one sheet called `seeds_dataset`. 
+
+There is only one sheet called `seeds_dataset`.
 
 Import the data:
 
@@ -138,9 +219,9 @@ seeds <- read_excel("data-raw/seeds-dataset.xlsx",
                     sheet = "seeds_dataset")
 ```
 
-
-Note that we could have omitted the `sheet` argument because there is only one 
-sheet in the Excel file. However, it is good practice to be explicit. 
+Note that we could have omitted the `sheet` argument because there is
+only one sheet in the Excel file. However, it is good practice to be
+explicit.
 
 ```{r}
 #| echo: false
@@ -150,10 +231,10 @@ knitr::kable(seeds) |>
   kableExtra::scroll_box(height = "200px")
 ```
 
-These data are formatted usefully for analysis using correlation and plotting.
-Each row is a different seed and the columns are the variables we are interested. 
-This means that the first values in each column are related - they are all from 
-the same seed
+These data are formatted usefully for analysis using correlation and
+plotting. Each row is a different seed and the columns are the variables
+we are interested. This means that the first values in each column are
+related - they are all from the same seed
 
 In the first instance, it is sensible to create a rough plot of our data
 (See @fig-seeds-rough). Plotting data early helps us in multiple ways:
@@ -174,19 +255,18 @@ ggplot(data = seeds,
   geom_point()
 ```
 
-The figure suggests that there is a positive correlation between `compactness` and
-`kernel_width` and that correlation is roughly linear.
-
+The figure suggests that there is a positive correlation between
+`compactness` and `kernel_width` and that correlation is roughly linear.
 
 ### Check assumptions
 
-We can see from @fig-seeds-rough that the relationship between `compactness` and
-`kernel_width` is roughly linear. This is a good sign for using Pearson's
-correlation coefficient.
+We can see from @fig-seeds-rough that the relationship between
+`compactness` and `kernel_width` is roughly linear. This is a good sign
+for using Pearson's correlation coefficient.
 
 Our next check is to use common sense: both variables are continuous and
-we would expect them to be normally distributed. We can then plot histograms
-to examine the distributions (See @fig-hist).
+we would expect them to be normally distributed. We can then plot
+histograms to examine the distributions (See @fig-hist).
 
 ```{r}
 #| label: fig-hist
@@ -203,8 +283,9 @@ ggplot(data = seeds, aes(x = kernel_width)) +
   geom_histogram(bins = 12)
 
 ```
-The distributions of the two variables are slightly skewed but do not seem too 
-different from a normal distribution. 
+
+The distributions of the two variables are slightly skewed but do not
+seem too different from a normal distribution.
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
 
@@ -217,50 +298,54 @@ shapiro.test(seeds$kernel_width)
 
 ```
 
-
 The *p*-values are greater than 0.05 so these tests of the normality
 assumption are not significant. Note that "not significant" means not
 significantly different from a normal distribution. It does not mean
 definitely normally distributed.
 
-It is not unreasonable to continue with the Pearson's correlation coefficient. 
-However, later we will also use the Spearman's rank correlation coefficient, a non-parametric method which has fewer assumptions. Spearman's rank correlation 
-is a more conservative approach.
-
+It is not unreasonable to continue with the Pearson's correlation
+coefficient. However, later we will also use the Spearman's rank
+correlation coefficient, a non-parametric method which has fewer
+assumptions. Spearman's rank correlation is a more conservative
+approach.
 
 ### Do a Pearson's correlation test with `cor.test()`
 
-We can carry out a Pearson's correlation test with `cor.test()`  like this:
+We can carry out a Pearson's correlation test with `cor.test()` like
+this:
 
 ```{r}
 cor.test(data = seeds, ~ compactness + kernel_width)
 ```
 
-A variable is not being explained in this case so we do not need to include
-a response variable. Pearson’s is the default test so we do not need to specify
-it.
+A variable is not being explained in this case so we do not need to
+include a response variable. Pearson’s is the default test so we do not
+need to specify it.
 
 What do all these results mean?
 
-The last line gives the correlation coefficient, $r$, that has been estimated 
-from the data. Here, $r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)` 
+The last line gives the correlation coefficient, $r$, that has been
+estimated from the data. Here, $r$ =
+`r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`
 which is a moderate positive correlation.
 
-The fifth line tells you what test has been done: 
-`alternative hypothesis: true correlation is not equal to 0`. That is $H_0$ is 
-that $\rho = 0$ 
+The fifth line tells you what test has been done:
+`alternative hypothesis: true correlation is not equal to 0`. That is
+$H_0$ is that $\rho = 0$
 
 The forth line gives the test result:
 `t = 7.3738, df = 68, p-value = 2.998e-10`
 
-The $p$-value is very much less than 0.05 so we can reject the null hypothesis 
-and conclude there is a significant positive correlation between `compactness` 
-and `kernel_width`.
+The $p$-value is very much less than 0.05 so we can reject the null
+hypothesis and conclude there is a significant positive correlation
+between `compactness` and `kernel_width`.
 
 ### Report
 
-There was a significant positive correlation ($r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`) between compactness and kernel width (Pearson's: *t* = 7.374; *df* = 68; *p*-value < 0.0001). See @fig-correlation-pears.
-
+There was a significant positive correlation ($r$ =
+`r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`)
+between compactness and kernel width (Pearson's: *t* = 7.374; *df* = 68;
+*p*-value \< 0.0001). See @fig-correlation-pears.
 
 ::: {#fig-correlation-pears}
 ```{r}
@@ -276,29 +361,28 @@ ggplot(data = seeds,
   theme_classic()
 ```
 
-
-**Correlation between compactness and kernel width of wheat seeds**. High
-quality images of the internal structure of wheat seeds were taken with a 
-soft X-ray technique and the compactness and kernel width of the seeds were
-determined. There was a significant positive correlation ($r$ = `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`) between compactness 
-and kernel width (Pearson's: *t* = 7.374; *df* = 68; *p*-value < 0.0001). Note:
-axes do not start at 0. Data analysis was conducted in R [@R-core] with
-tidyverse packages [@tidyverse].
-
+**Correlation between compactness and kernel width of wheat seeds**.
+High quality images of the internal structure of wheat seeds were taken
+with a soft X-ray technique and the compactness and kernel width of the
+seeds were determined. There was a significant positive correlation ($r$
+=
+`r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`)
+between compactness and kernel width (Pearson's: *t* = 7.374; *df* = 68;
+*p*-value \< 0.0001). Note: axes do not start at 0. Data analysis was
+conducted in R [@R-core] with tidyverse packages [@tidyverse].
 :::
 
 ### Spearman's rank correlation coefficient
 
 TODO
 
-
-
 ## Contingency Chi-squared test
 
-Researchers were interested in whether different pig breeds had the same 
-food preferences. They offered individuals of three breads, Welsh, Tamworth 
-and Essex a choice of three foods: cabbage, sugar beet and swede and recorded
-the number of individuals that chose each food. The data are shown in @tbl-food-pref.
+Researchers were interested in whether different pig breeds had the same
+food preferences. They offered individuals of three breads, Welsh,
+Tamworth and Essex a choice of three foods: cabbage, sugar beet and
+swede and recorded the number of individuals that chose each food. The
+data are shown in @tbl-food-pref.
 
 ```{r}
 #| echo: false
@@ -332,17 +416,15 @@ knitr::kable(food_pref,
 
 ```
 
+We don’t know what proportion of food are expected to be preferred but
+do expect it to be same for each breed if there is no association
+between breed and food preference. The null hypothesis is that the
+proportion of foods taken by each breed is the same.
 
-
-We don’t know what proportion of food are expected to be preferred but do 
-expect it to be same for each breed if there is no association between breed
-and food preference. The null hypothesis is that the proportion of foods taken 
-by each breed is the same.
-
-For a contingency chi squared test, the inbuilt chi-squared test can be used 
-but we need to to structure our data as a 3 x 3 table. The `matrix()` function 
-is useful here and we can label the rows and columns to help us interpret the 
-results.
+For a contingency chi squared test, the inbuilt chi-squared test can be
+used but we need to to structure our data as a 3 x 3 table. The
+`matrix()` function is useful here and we can label the rows and columns
+to help us interpret the results.
 
 Put the data into a matrix:
 
@@ -356,14 +438,15 @@ food_pref <- matrix(c(11, 19, 22,
 food_pref
 ```
 
-The `byrow` and `nrow` arguments allow us to lay out the data in the matrix as 
-we need.
-To name the rows and columns we can use the `dimnames()` function. We need
-to create a "list" object to hold the names of the rows and columns and then
-assign this to the matrix object. The names of rows are columns are called the 
-"dimension names" in a matrix.
+The `byrow` and `nrow` arguments allow us to lay out the data in the
+matrix as we need. To name the rows and columns we can use the
+`dimnames()` function. We need to create a "list" object to hold the
+names of the rows and columns and then assign this to the matrix object.
+The names of rows are columns are called the "dimension names" in a
+matrix.
 
 Make a list for the two vectors of names:
+
 ```{r}
 # 
 
@@ -376,10 +459,11 @@ vars <- list(food = c("cabbage",
 
 ```
 
-The vectors can be of different lengths in a list which would be important if 
-we had four breeds and only two foods, for example.
+The vectors can be of different lengths in a list which would be
+important if we had four breeds and only two foods, for example.
 
 Now assign the list to the dimension names in the matrix:
+
 ```{r}
 dimnames(food_pref) <- vars
 
@@ -387,43 +471,46 @@ food_pref
 
 ```
 
-The data are now in a form that can be used in the `chisq.test()` function:
+The data are now in a form that can be used in the `chisq.test()`
+function:
 
 ```{r}
 chisq.test(food_pref)
 
 ```
-The test is significant since the *p*-value is less than 0.05. We have evidence 
-of a preference for particular foods by different breeds. But in what way? We need to know the “direction of the effect” *i.e.,* Who likes what?
 
-The `chisq.test()` function has a `residuals` argument that can be used to
-calculate the residuals. These are the differences between the observed and
-expected values. The expected values are the values that would be expected if
-there was no association between the rows and columns. The residuals are
-standardised.
+The test is significant since the *p*-value is less than 0.05. We have
+evidence of a preference for particular foods by different breeds. But
+in what way? We need to know the “direction of the effect” *i.e.,* Who
+likes what?
+
+The `chisq.test()` function has a `residuals` argument that can be used
+to calculate the residuals. These are the differences between the
+observed and expected values. The expected values are the values that
+would be expected if there was no association between the rows and
+columns. The residuals are standardised.
 
 ```{r}
 chisq.test(food_pref)$residuals
 
 ```
+
 Where the residuals are positive, the observed value is greater than the
-expected value and where they are negative, the observed value is less than the
-expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly
-dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the 
-Essex pigs slightly prefer swede but have less strong likes and dislikes.
+expected value and where they are negative, the observed value is less
+than the expected value. Our results show the Welsh pigs much prefer
+sugarbeet and strongly dislike cabbage. The Essex pigs prefer cabbage
+and dislike sugarbeet and the Essex pigs slightly prefer swede but have
+less strong likes and dislikes.
 
-
-The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.
-
+The degrees of freedom are: (rows - 1)(cols - 1) = 2 \* 2 = 4.
 
 ### Report
 
-Different pig breeds showed a significant preference for the different 
-food types ($\chi^2$ = 10.64; *df* = 4; *p* = 0.031) with Essex much preferring 
-cabbage and disliking sugarbeet, Welsh showing a strong preference for 
-sugarbeet and a dislike of cabbage and Tamworth showing no clear preference.
-
-
+Different pig breeds showed a significant preference for the different
+food types ($\chi^2$ = 10.64; *df* = 4; *p* = 0.031) with Essex much
+preferring cabbage and disliking sugarbeet, Welsh showing a strong
+preference for sugarbeet and a dislike of cabbage and Tamworth showing
+no clear preference.
 
 ## Summary
 
