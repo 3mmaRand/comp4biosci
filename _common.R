@@ -54,4 +54,16 @@ pal4 <- c("#256c7a", "#7a256c", "#6c7a25")
 
 
 
-  
+# Create ggplot objects with no axis numbers
+## Correlation Examples
+
+
+# Function to remove axis numbers and ticks
+theme_no_axis_numbers <- function() {
+  theme(
+    axis.text = element_blank(),  # Remove axis numbers
+    axis.ticks = element_blank()  # Remove axis ticks
+  )
+}
+
+
