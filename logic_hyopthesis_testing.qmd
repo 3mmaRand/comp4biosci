@@ -10,21 +10,32 @@ status("complete")
 
 ## What is Hypothesis testing?
 
-Hypothesis testing is a statistical technique which allows us to make
-inferences about the characteristics of a populations based on a sample.
-Since it's usually impossible to measure every individual in a 
-population, we rely on samples. For example, suppose we are interested 
-in whether birth weight differs for babies born to mothers in poverty. 
-We would not be able to measure the birth weight and maternal status of
-every baby in the population. Instead we would take
-a sample of babies born to mothers in poverty and determine if their
-weight, on average, was different to the national average. A statistical
-procedure is needed because even if maternal poverty has no effect, our
-sample average will differ from the national average just by chance. A
-statistical test helps determine if any difference is real or just down
-to random variation in the sample.
+Hypothesis testing is a statistical method that helps us draw 
+conclusions about a population based on a sample. Since we usually 
+can’t measure every individual in a population, we take a smaller 
+sample and analyze it.
+
+For example, suppose we want to know if babies born to mothers in 
+poverty have lower birth weights than the national average. Measuring
+the birth weight of every baby in the country would be impossible, 
+so we take a sample. However, even if poverty has no real effect, 
+our sample’s average birth weight might be different from the national
+average just by chance. Hypothesis testing helps us determine whether
+this difference is real or just random variation.
 
 ## Samples and populations
+
+Before we dive deeper into hypothesis testing, let’s clarify two 
+key terms:
+
+-   A population is the entire group we are interested in studying
+    (e.g., all babies in a country).
+-   A sample is a smaller group selected from the population 
+    (e.g., a few hundred babies chosen for the study).
+
+We use samples because studying an entire population is often 
+impractical. The challenge is making sure our sample accurately 
+represents the population.
 
 ## Logic of hypothesis testing
 
@@ -36,14 +47,14 @@ The logic behind hypothesis testing follows these general steps:
     between variables. In contrast, the "Alternative Hypothesis" ($H_1$)
     states that there is a significant difference between groups or a
     relationship between variables.
-2.  Designing an experiment that generates data to test the null
+2.  Designing an experiment and/or collecting data to test the null
     hypothesis.
 3.  Finding the probability (the *p*-value) of getting our experimental
     data, or data more extreme, if $H_0$ is true.
 4.  Deciding whether to reject or not reject the $H_0$ based on that
     probability:
-    -   If $p \le $ 0.05 we reject $H_0$
-    -   If $p > $ 0.05 do not reject $H_0$
+    -   If $p ≤ 0.05$  we reject $H_0$
+    -   If $p > 0.05$  do not reject $H_0$
 
 If the null hypothesis is rejected it means we have evidence that $H_0$
 is untrue and support for $H_1$. If the null hypothesis is not rejected,
@@ -55,7 +66,8 @@ cannot be discounted.
 
 There is a real state to $H_0$, that is, $H_0$ is either true or it is 
 not true. The statistical test has us decide whether to reject or
-not reject $H_0$ based on the *p*-value. This we can be wrong.
+not reject $H_0$ based on the *p*-value. This means we can make mistakes
+when testing a hypothesis. These are called Type I and Type II errors.
 
 ### Type I and type II errors
 
@@ -107,10 +119,11 @@ The key characteristics of the sampling distribution of the mean are:
     between the standard deviation of a sample or population and the
     standard error of the mean: $s.e. = \frac{s.d.}{\sqrt{n}}$
 
-When we are determining the probability of getting our experimental
-data, or data more extreme, if $H_0$ is true, it is the sampling
-distribution of the mean that matters. We ask: What is the probability of
-getting a sample mean like this?
+💡 Why does this matter? When we calculate a p-value, we’re really 
+asking: "How likely is it to get a sample mean like ours (or more 
+extreme) if $H_0$ is true. This is why understanding the sampling 
+distribution is so important - it helps us determine what results we 
+should expect by random chance.
 
 ```{r}
 #| echo: false
