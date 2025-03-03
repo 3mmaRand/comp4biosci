@@ -5,7 +5,7 @@
 #| echo: false
 
 source("_common.R")
-status("drafting")
+status("polishing")
 ```
 
 ## Overview
@@ -126,7 +126,8 @@ assumes the variables are normally distributed and that any
 correlation is linear.
 
 Spearman's rank correlation coefficient, is a non-parametric measure
-which does not assume the variables are normally distributed
+which does not assume the variables are normally distributed or a strict
+linear association. It is also less sensitive to outliers.
 
 We use `cor.test()` in R for both types of correlation.
 
@@ -248,7 +249,7 @@ plotting with data like these.
 
 ```{r}
 #| label: fig-seeds-rough
-#| fig-cap: "A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association them the variables."
+#| fig-cap: "A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association between them."
 
 ggplot(data = seeds,
        aes(x = compactness, y = kernel_width)) +
@@ -345,7 +346,7 @@ between `compactness` and `kernel_width`.
 There was a significant positive correlation ($r$ =
 `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`)
 between compactness and kernel width (Pearson's: *t* = 7.374; *df* = 68;
-*p*-value \< 0.0001). See @fig-correlation-pears.
+*p*-value < 0.0001). See @fig-correlation-pears.
 
 ::: {#fig-correlation-pears}
 ```{r}
@@ -368,13 +369,134 @@ seeds were determined. There was a significant positive correlation ($r$
 =
 `r cor.test(data = seeds, ~ compactness + kernel_width)$estimate |> round(2)`)
 between compactness and kernel width (Pearson's: *t* = 7.374; *df* = 68;
-*p*-value \< 0.0001). Note: axes do not start at 0. Data analysis was
+*p*-value < 0.0001). Note: axes do not start at 0. Data analysis was
 conducted in R [@R-core] with tidyverse packages [@tidyverse].
 :::
 
 ### Spearman's rank correlation coefficient
 
-TODO
+Researchers are studying how systolic blood pressure (SBP) is 
+associated with kidney function in patients. Chronic high blood 
+pressure can damage the kidneys over time, leading to reduced function,
+which can be measured by estimated glomerular filtration rate (eGFR). 
+SBP is measured in mmHg and represents the force of blood against 
+artery walls when the heart beats. eGFR is estimated from from blood 
+creatine levels in mL/min/1.73m². Lower values indicate impaired kidney
+filtration.
+
+The data are in [blood-pressure-kidney-function.csv](data-raw/blood-pressure-kidney-function.csv).
+
+### Import and explore
+
+Import the data from a csv file:
+
+```{r}
+bp_kidney <- read_csv("data-raw/blood-pressure-kidney-function.csv")
+```
+
+```{r}
+#| echo: false
+
+knitr::kable(bp_kidney) |> 
+  kableExtra::kable_styling() |> 
+  kableExtra::scroll_box(height = "200px")
+```
+
+These data are formatted usefully for analysis using correlation and
+plotting. We will create a rough plot of our data
+(See @fig-kidney-rough). 
+
+Scatter plots (`geom_point()`) are a good choice for exploratory
+plotting with data like these.
+
+```{r}
+#| label: fig-kidney-rough
+#| fig-cap: "A default scatter plot of systolic blood pressure (SBP) and kidney function demonstrates a possible negative association between variables. It is not clear if the relationship is linear"
+
+ggplot(data = bp_kidney,
+       aes(x = SBP, y = eGFR)) +
+  geom_point()
+```
+
+The figure suggests that there is a negative association between
+`SBP` and `eGFR` but it is not clear if the association is linear.
+
+Spearman's rank correlation coefficient which does not assume a strict
+linear association so maybe a better choice. In addition, we might 
+expect eGFR values to be to be skewed since indicators of disease often
+show step changes in values.
+
+
+### Do a Spearman's rank correlation test with `cor.test()`
+
+We can carry out a Spearman's rank correlation test with `cor.test()` 
+like this:
+
+```{r}
+cor.test(data = bp_kidney, ~ SBP + eGFR, method = "spearman")
+```
+
+A variable is not being explained in this case so we do not need to
+include a response variable. Pearson’s is the default test so we need
+to specify `method = "spearman"`.
+
+What do all these results mean?
+
+The last line gives the correlation coefficient, $r$, that has been
+estimated from the data. Here, $r$ =
+`r cor.test(data = bp_kidney, ~ SBP + eGFR)$estimate |> round(2)`
+which is fairly strong negative correlation.
+
+The fifth line tells you what test has been done:
+`alternative hypothesis: true rho is not equal to 0`. That is
+$H_0$ is that $\rho = 0$
+
+The forth line gives the test result:
+`S = 526, p-value = 0.001192`
+
+The $p$-value is very much less than 0.05 so we can reject the null
+hypothesis and conclude there is a significant negative correlation
+between `SBP` and `eGFR`.
+
+### Report
+
+. 
+SBP is measured in mmHg and represents the force of blood against 
+artery walls when the heart beats. eGFR is measured in 
+
+There was a significant positive correlation ($r$ =
+`r cor.test(data = bp_kidney, ~ SBP + eGFR)$estimate |> round(2)`)
+between systolic blood pressure and estimated glomerular filtration 
+rate (Spearman's rank correlation: *S* = 526; *n* = 12;
+*p*-value = 0.0012). See @fig-correlation-spears.
+
+::: {#fig-correlation-spears}
+```{r}
+#| code-fold: true
+
+ggplot(data = bp_kidney,
+       aes(x = SBP, y = eGFR)) +
+  geom_point() +
+  scale_y_continuous(name = "Estimated GFR (mL/min/1.73m²)",
+                     limits = c(0, 60),
+                     expand = c(0 , 0)) +
+  scale_x_continuous(name = "Systolic blood pressure (mmHg)") +
+  annotate("text", x = 120,  y = 10, 
+           label = expression(italic(r)~"= -0.8; "~italic(p)~"= 0.0012")) +
+  theme_classic()
+```
+
+**Correlation between Systolic blood pressure and estimated glomerular filtration rate (eGFR)**.
+Twelve patients had their Systolic blood pressure determined and 
+GFR estimated from blood creatine levels. There was a significant 
+negative correlation ($r$ =
+`r cor.test(data = bp_kidney, ~ SBP + eGFR)$estimate |> round(2)`)
+between systolic blood pressure and eGFR (Spearman's rank correlation: 
+*S* = 526; *n* = 12; *p*-value = 0.0012). Note: $x$-axis does not start
+at 0. Data analysis was conducted in R [@R-core] with tidyverse packages
+[@tidyverse].
+:::
+
 
 ## Contingency Chi-squared test
 
@@ -512,6 +634,31 @@ preferring cabbage and disliking sugarbeet, Welsh showing a strong
 preference for sugarbeet and a dislike of cabbage and Tamworth showing
 no clear preference.
 
+
 ## Summary
 
-TODO
+1.   Unlike regression, correlation and chi-square contingency tests 
+     assess association between variable without implying causality.
+
+2.  Pearson’s Correlation measures the linear association between two
+    continuous variables (range: -1 to 1). Assumes normality.
+
+3.  Scatter plots help identify the strength and direction 
+     of relationships and should not include a best-fit line.
+     
+4.  Before using Pearson’s correlation, we check the normality 
+     assumptions using histograms and the Shapiro-Wilk test.
+     
+5.  Spearman’s rannk Correlation is a non-parametric alternative 
+    that does not require normality and is less sensitive to outliers.
+
+6.   Chi-Square Contingency tests allow us to test for an association 
+     between categorical variables.
+
+7.   We report the statistical significance, the direction of the 
+     association and the magnitude of the association.
+
+8.  In R we use `cor.test()` is used for correlation tests and
+    `chisq.test()` for chi-squared contingency tests
+
+
