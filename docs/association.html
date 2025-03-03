@@ -371,12 +371,15 @@ window.Quarto = {
   <li><a href="#do-a-pearsons-correlation-test-with-cor.test" id="toc-do-a-pearsons-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-pearsons-correlation-test-with-cor.test"><span class="header-section-number">16.4.3</span> Do a Pearson’s correlation test with <code>cor.test()</code></a></li>
   <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">16.4.4</span> Report</a></li>
   <li><a href="#spearmans-rank-correlation-coefficient" id="toc-spearmans-rank-correlation-coefficient" class="nav-link" data-scroll-target="#spearmans-rank-correlation-coefficient"><span class="header-section-number">16.4.5</span> Spearman’s rank correlation coefficient</a></li>
+  <li><a href="#import-and-explore-1" id="toc-import-and-explore-1" class="nav-link" data-scroll-target="#import-and-explore-1"><span class="header-section-number">16.4.6</span> Import and explore</a></li>
+  <li><a href="#do-a-spearmans-rank-correlation-test-with-cor.test" id="toc-do-a-spearmans-rank-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-spearmans-rank-correlation-test-with-cor.test"><span class="header-section-number">16.4.7</span> Do a Spearman’s rank correlation test with <code>cor.test()</code></a></li>
+  <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">16.4.8</span> Report</a></li>
   </ul>
 </li>
   <li>
 <a href="#contingency-chi-squared-test" id="toc-contingency-chi-squared-test" class="nav-link" data-scroll-target="#contingency-chi-squared-test"><span class="header-section-number">16.5</span> Contingency Chi-squared test</a>
   <ul class="collapse">
-<li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">16.5.1</span> Report</a></li>
+<li><a href="#report-2" id="toc-report-2" class="nav-link" data-scroll-target="#report-2"><span class="header-section-number">16.5.1</span> Report</a></li>
   </ul>
 </li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.6</span> Summary</a></li>
@@ -400,17 +403,17 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-important callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Incomplete
+First draft
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a dumping ground for ideas. Sections maybe missing, or contain a list of points to include.</p>
+<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
 <section id="overview" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="overview">
@@ -448,7 +451,7 @@ Figure&nbsp;16.1: Scatter plots demonstrating different types of correlation. Le
 </div>
 <p>We estimate the population correlation coefficient, <span class="math inline">\(\rho\)</span> (pronounced rho), with the sample correlation coefficient, <span class="math inline">\(r\)</span> and test whether it is significantly different from zero because a correlation coefficient of 0 means association.</p>
 <p>Pearson’s correlation coefficient, is a parametric measure which assumes the variables are normally distributed and that any correlation is linear.</p>
-<p>Spearman’s rank correlation coefficient, is a non-parametric measure which does not assume the variables are normally distributed</p>
+<p>Spearman’s rank correlation coefficient, is a non-parametric measure which does not assume the variables are normally distributed or a strict linear association. It is also less sensitive to outliers.</p>
 <p>We use <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> in R for both types of correlation.</p>
 <section id="contingency-chi-squared" class="level3" data-number="16.2.1"><h3 data-number="16.2.1" class="anchored" data-anchor-id="contingency-chi-squared">
 <span class="header-section-number">16.2.1</span> Contingency Chi-squared</h3>
@@ -1178,7 +1181,7 @@ Figure&nbsp;16.1: Scatter plots demonstrating different types of correlation. Le
 <img src="association_files/figure-html/fig-seeds-rough-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seeds-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16.2: A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association them the variables.
+Figure&nbsp;16.2: A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association between them.
 </figcaption></figure>
 </div>
 </div>
@@ -1294,7 +1297,147 @@ Figure&nbsp;16.4: <strong>Correlation between compactness and kernel width of wh
 </div>
 </section><section id="spearmans-rank-correlation-coefficient" class="level3" data-number="16.4.5"><h3 data-number="16.4.5" class="anchored" data-anchor-id="spearmans-rank-correlation-coefficient">
 <span class="header-section-number">16.4.5</span> Spearman’s rank correlation coefficient</h3>
-<p>TODO</p>
+<p>Researchers are studying how systolic blood pressure (SBP) is associated with kidney function in patients. Chronic high blood pressure can damage the kidneys over time, leading to reduced function, which can be measured by estimated glomerular filtration rate (eGFR). SBP is measured in mmHg and represents the force of blood against artery walls when the heart beats. eGFR is estimated from from blood creatine levels in mL/min/1.73m². Lower values indicate impaired kidney filtration.</p>
+<p>The data are in <a href="data-raw/blood-pressure-kidney-function.csv">blood-pressure-kidney-function.csv</a>.</p>
+</section><section id="import-and-explore-1" class="level3" data-number="16.4.6"><h3 data-number="16.4.6" class="anchored" data-anchor-id="import-and-explore-1">
+<span class="header-section-number">16.4.6</span> Import and explore</h3>
+<p>Import the data from a csv file:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bp_kidney</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/blood-pressure-kidney-function.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">SBP</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">eGFR</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">112</td>
+<td style="text-align: right;">48.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">38.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">50.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">33.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">148</td>
+<td style="text-align: right;">37.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">34.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">113</td>
+<td style="text-align: right;">53.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">169</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">35.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">50.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">162</td>
+<td style="text-align: right;">28.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">111</td>
+<td style="text-align: right;">54.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+<p>These data are formatted usefully for analysis using correlation and plotting. We will create a rough plot of our data (See <a href="#fig-kidney-rough" class="quarto-xref">Figure&nbsp;<span>16.5</span></a>).</p>
+<p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">SBP</span>, y <span class="op">=</span> <span class="va">eGFR</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-kidney-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-kidney-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="association_files/figure-html/fig-kidney-rough-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kidney-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.5: A default scatter plot of systolic blood pressure (SBP) and kidney function demonstrates a possible negative association between variables. It is not clear if the relationship is linear
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The figure suggests that there is a negative association between <code>SBP</code> and <code>eGFR</code> but it is not clear if the association is linear.</p>
+<p>Spearman’s rank correlation coefficient which does not assume a strict linear association so maybe a better choice. In addition, we might expect eGFR values to be to be skewed since indicators of disease often show step changes in values.</p>
+</section><section id="do-a-spearmans-rank-correlation-test-with-cor.test" class="level3" data-number="16.4.7"><h3 data-number="16.4.7" class="anchored" data-anchor-id="do-a-spearmans-rank-correlation-test-with-cor.test">
+<span class="header-section-number">16.4.7</span> Do a Spearman’s rank correlation test with <code>cor.test()</code>
+</h3>
+<p>We can carry out a Spearman’s rank correlation test with <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>, <span class="op">~</span> <span class="va">SBP</span> <span class="op">+</span> <span class="va">eGFR</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Spearman's rank correlation rho</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  SBP and eGFR</span></span>
+<span><span class="co">## S = 526, p-value = 0.001192</span></span>
+<span><span class="co">## alternative hypothesis: true rho is not equal to 0</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">##        rho </span></span>
+<span><span class="co">## -0.8391608</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s is the default test so we need to specify <code>method = "spearman"</code>.</p>
+<p>What do all these results mean?</p>
+<p>The last line gives the correlation coefficient, <span class="math inline">\(r\)</span>, that has been estimated from the data. Here, <span class="math inline">\(r\)</span> = -0.8 which is fairly strong negative correlation.</p>
+<p>The fifth line tells you what test has been done: <code>alternative hypothesis: true rho is not equal to 0</code>. That is <span class="math inline">\(H_0\)</span> is that <span class="math inline">\(\rho = 0\)</span></p>
+<p>The forth line gives the test result: <code>S = 526, p-value = 0.001192</code></p>
+<p>The <span class="math inline">\(p\)</span>-value is very much less than 0.05 so we can reject the null hypothesis and conclude there is a significant negative correlation between <code>SBP</code> and <code>eGFR</code>.</p>
+</section><section id="report-1" class="level3" data-number="16.4.8"><h3 data-number="16.4.8" class="anchored" data-anchor-id="report-1">
+<span class="header-section-number">16.4.8</span> Report</h3>
+<p>. SBP is measured in mmHg and represents the force of blood against artery walls when the heart beats. eGFR is measured in</p>
+<p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and estimated glomerular filtration rate (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). See <a href="#fig-correlation-spears" class="quarto-xref">Figure&nbsp;<span>16.6</span></a>.</p>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">SBP</span>, y <span class="op">=</span> <span class="va">eGFR</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Estimated GFR (mL/min/1.73m²)"</span>,</span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">60</span><span class="op">)</span>,</span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span> , <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Systolic blood pressure (mmHg)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">120</span>,  y <span class="op">=</span> <span class="fl">10</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">~</span><span class="st">"= -0.8; "</span><span class="op">~</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0012"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div id="fig-correlation-spears" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-correlation-spears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="association_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-spears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16.6: <strong>Correlation between Systolic blood pressure and estimated glomerular filtration rate (eGFR)</strong>. Twelve patients had their Systolic blood pressure determined and GFR estimated from blood creatine levels. There was a significant negative correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and eGFR (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). Note: <span class="math inline">\(x\)</span>-axis does not start at 0. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2024</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+</figcaption></figure>
+</div>
 </section></section><section id="contingency-chi-squared-test" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="contingency-chi-squared-test">
 <span class="header-section-number">16.5</span> Contingency Chi-squared test</h2>
 <p>Researchers were interested in whether different pig breeds had the same food preferences. They offered individuals of three breads, Welsh, Tamworth and Essex a choice of three foods: cabbage, sugar beet and swede and recorded the number of individuals that chose each food. The data are shown in <a href="#tbl-food-pref" class="quarto-xref">Table&nbsp;<span>16.1</span></a>.</p>
@@ -1341,7 +1484,7 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 <p>For a contingency chi squared test, the inbuilt chi-squared test can be used but we need to to structure our data as a 3 x 3 table. The <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function is useful here and we can label the rows and columns to help us interpret the results.</p>
 <p>Put the data into a matrix:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create the data</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create the data</span></span>
 <span><span class="va">food_pref</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">19</span>, <span class="fl">22</span>,</span>
 <span>                      <span class="fl">21</span>, <span class="fl">16</span>, <span class="fl">8</span>,</span>
 <span>                      <span class="fl">7</span>, <span class="fl">12</span>, <span class="fl">11</span><span class="op">)</span>,</span>
@@ -1356,7 +1499,7 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 <p>The <code>byrow</code> and <code>nrow</code> arguments allow us to lay out the data in the matrix as we need. To name the rows and columns we can use the <code><a href="https://rdrr.io/r/base/dimnames.html">dimnames()</a></code> function. We need to create a “list” object to hold the names of the rows and columns and then assign this to the matrix object. The names of rows are columns are called the “dimension names” in a matrix.</p>
 <p>Make a list for the two vectors of names:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
 <span></span>
 <span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>food <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cabbage"</span>,</span>
 <span>                      <span class="st">"sugarbeet"</span>,</span>
@@ -1368,7 +1511,7 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 <p>The vectors can be of different lengths in a list which would be important if we had four breeds and only two foods, for example.</p>
 <p>Now assign the list to the dimension names in the matrix:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">vars</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">vars</span></span>
 <span></span>
 <span><span class="va">food_pref</span></span>
 <span><span class="co">##            breed</span></span>
@@ -1379,7 +1522,7 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 </div>
 <p>The data are now in a form that can be used in the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Pearson's Chi-squared test</span></span>
 <span><span class="co">## </span></span>
@@ -1389,7 +1532,7 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 <p>The test is significant since the <em>p</em>-value is less than 0.05. We have evidence of a preference for particular foods by different breeds. But in what way? We need to know the “direction of the effect” <em>i.e.,</em> Who likes what?</p>
 <p>The <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function has a <code>residuals</code> argument that can be used to calculate the residuals. These are the differences between the observed and expected values. The expected values are the values that would be expected if there was no association between the rows and columns. The residuals are standardised.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span><span class="op">$</span><span class="va">residuals</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span><span class="op">$</span><span class="va">residuals</span></span>
 <span><span class="co">##            breed</span></span>
 <span><span class="co">## food             welsh    tamworth      essex</span></span>
 <span><span class="co">##   cabbage   -1.2433504 -0.05564283  1.2722209</span></span>
@@ -1398,12 +1541,21 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 </div>
 <p>Where the residuals are positive, the observed value is greater than the expected value and where they are negative, the observed value is less than the expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the Essex pigs slightly prefer swede but have less strong likes and dislikes.</p>
 <p>The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.</p>
-<section id="report-1" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="report-1">
+<section id="report-2" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="report-2">
 <span class="header-section-number">16.5.1</span> Report</h3>
 <p>Different pig breeds showed a significant preference for the different food types (<span class="math inline">\(\chi^2\)</span> = 10.64; <em>df</em> = 4; <em>p</em> = 0.031) with Essex much preferring cabbage and disliking sugarbeet, Welsh showing a strong preference for sugarbeet and a dislike of cabbage and Tamworth showing no clear preference.</p>
 </section></section><section id="summary" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="summary">
 <span class="header-section-number">16.6</span> Summary</h2>
-<p>TODO</p>
+<ol type="1">
+<li><p>Unlike regression, correlation and chi-square contingency tests assess association between variable without implying causality.</p></li>
+<li><p>Pearson’s Correlation measures the linear association between two continuous variables (range: -1 to 1). Assumes normality.</p></li>
+<li><p>Scatter plots help identify the strength and direction of relationships and should not include a best-fit line.</p></li>
+<li><p>Before using Pearson’s correlation, we check the normality assumptions using histograms and the Shapiro-Wilk test.</p></li>
+<li><p>Spearman’s rannk Correlation is a non-parametric alternative that does not require normality and is less sensitive to outliers.</p></li>
+<li><p>Chi-Square Contingency tests allow us to test for an association between categorical variables.</p></li>
+<li><p>We report the statistical significance, the direction of the association and the magnitude of the association.</p></li>
+<li><p>In R we use <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> is used for correlation tests and <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> for chi-squared contingency tests</p></li>
+</ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
