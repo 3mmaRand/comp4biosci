@@ -31,23 +31,30 @@ A [distribution](ideas_about_data.html#distributions) describes the
 *values* the variable can take and the *chance* of them occurring. A
 distribution has a general type, given by the function, and is further
 tuned by the *parameters* in the function. For the normal distribution
-these parameters are the mean and the standard deviation. Every variable
-that follows the normal distribution has the same bell shaped curve and
-the distributions differ only in their means and/or standard deviations.
-The mean determines where the centre of the distribution is, the
-standard deviation determines the spread (@fig-normal-distributions).
+these parameters are the **mean** and the **standard deviation**. Every
+variable that follows the normal distribution has the same bell shaped
+curve and the distributions differ only in their means and/or standard
+deviations. The mean determines where the centre of the distribution is,
+the standard deviation determines the spread
+(@fig-normal-distributions).
+
 
 ```{r}
 #| echo: false
-#| label: fig-normal-distributions
-#| fig-cap: "The mean determines where the centre of the distribution is, the standard deviation determines the spread. The distributions on the left have the same mean but different standard deviations. The distributions on the right have the same standard deviation but different means."
 mu <- 3300
 sd <- 600
 mu_shift <- 900
 sd_shift <- 250
+```
 
-a <- ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
-       aes(mass)) +
+
+::: {#fig-normal-distributions  layout-ncol="2"}
+```{r}
+#| echo: false
+#| label: fig-normal-same-mean
+
+ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
+         aes(mass)) +
   stat_function(fun = dnorm, n = 101, 
                 args = list(mean = mu, sd = sd)) +
   stat_function(fun = dnorm, n = 101, 
@@ -64,9 +71,14 @@ a <- ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
            label = "Same mean\nDifferent standard deviations") +
   theme_classic() +
   theme(axis.line.y = element_blank())
+```
 
 
-b <- ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
+```{r}
+#| echo: false
+#| label: fig-normal-same-sd
+
+ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
        aes(mass)) +
   stat_function(fun = dnorm, n = 101, 
                 args = list(mean = mu - mu_shift, sd = sd)) +
@@ -85,10 +97,17 @@ b <- ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
   theme_classic() +
   theme(axis.line.y = element_blank())
 
-a + b + plot_layout(ncol = 2)
-
 
 ```
+
+**The normal distribution has two *parameters*: the mean and the 
+standard deviation.**  The mean determines where the centre of the 
+distribution is, the standard deviation determines the spread. @fig-normal-same-mean The distributions have the same mean but 
+different standard deviations. @fig-normal-same-sd The distributions 
+have the same standard deviation but different means.
+
+:::
+
 
 Whilst normal distributions vary in the location on the horizontal axis
 and their width, they all share some properties and it is these shared
@@ -99,31 +118,18 @@ values lie between plus and minus one standard deviation from the mean
 and 95% values lie between $\pm$ 1.96 standard deviations. Another way
 of saying this is that there is a 95% chance that a randomly selected
 value will lie between $\pm$ 1.96 standard deviations from the mean.
-This is illustrated in @fig-norm-dist-means-properties.
+This is illustrated in @fig-norm-dist-properties.
 
+
+::: {#fig-norm-dist-properties layout-ncol="1"}
 ```{r}
 #| echo: false
-#| label: fig-norm-dist-means-properties
-#| fig-cap: "Normal distributions share some properties regardless of the mean and standard deviation. 68% of the values are within 1 standard deviation of the mean and 95% are within 1.96 standard deviations."
+#| label: fig-norm-dist-1sd
 
-
-# functions for shading under a normal distribution curve
-# 1 sd
-dnorm_limit_1 <- function(x) {
-  y <- dnorm(x)
-  y[x < -1 |  x > 1] <- NA
-  return(y)
-}
-# 1.96 sd
-dnorm_limit_95 <- function(x) {
-  y <- dnorm(x)
-  y[x < -1.96 |  x > 1.96] <- NA
-  return(y)
-}
-
-a <- ggplot(data = data.frame(x = c(-3, 3)),
+ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
-  stat_function(fun = dnorm_limit_1,
+  stat_function(fun = dnorm_limit,
+                args = list(q = 1, tails = 2),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -138,10 +144,15 @@ a <- ggplot(data = data.frame(x = c(-3, 3)),
   theme_classic() +
   theme(axis.line.y = element_blank(),
         axis.ticks = element_blank())
+```
 
-b <- ggplot(data = data.frame(x = c(-3, 3)),
+```{r}
+#| echo: false
+#| label: fig-norm-dist-1-96
+ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
-  stat_function(fun = dnorm_limit_95,
+  stat_function(fun = dnorm_limit,
+                args = list(q = 1.96, tails = 2),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -157,9 +168,13 @@ b <- ggplot(data = data.frame(x = c(-3, 3)),
   theme(axis.line.y = element_blank(),
         axis.ticks = element_blank())
 
-a + b + plot_layout(ncol = 1)
-
 ```
+
+*Normal distributions share some properties regardless of the mean and 
+standard deviation.** @fig-norm-dist-1sd 68% of the values are within 
+one standard deviation of the mean and, fig-norm-dist-1-96 95% are 
+within 1.96 standard deviations.
+:::
 
 R has some useful functions associated with distributions, including the
 normal distribution.
@@ -171,7 +186,8 @@ For any distribution, R has four functions:
 -   the density function, which gives the height of the function at a
     given value.
 -   the distribution function, which gives the **probability** that a
-    variable takes a particular value or less.
+    variable takes a particular value or less. This is the area under
+    the curve
 -   the quantile function which is the inverse of the Distribution
     function, *i.e.*, it returns the value ('quantile') for a given
     probability.
@@ -204,28 +220,20 @@ The R Manual Page for the normal distribution which shows the four
 functions associated functions.
 :::
 
-The functions which are of most use to us are `pnorm()` and `qnorm()`
-and these are illustrated in @fig-pnorm.
+The functions which are of most use to us are those for the normal 
+distribution: `pnorm()` and `qnorm()`. These are illustrated in
+@fig-norm.
+
+::: {#fig-norm}
 
 ```{r}
+#| fig-label: fig-pnorm
 #| echo: false
-#| label: fig-pnorm
-#| fig-height: 8
-#| fig-cap: "The `pnorm()` function calculates the probability that a value is less than or equal to a given value."
 
-
-# functions for shading under a normal distribution curve
-
-# 1.96 sd
-dnorm_limit <- function(x) {
-  y <- dnorm(x)
-  y[x > 1.96] <- NA
-  return(y)
-}
-
-a <- ggplot(data = data.frame(x = c(-3, 3)),
+ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit,
+                args = list(q = 1.96, tails = 1),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -262,10 +270,16 @@ a <- ggplot(data = data.frame(x = c(-3, 3)),
   theme(axis.line.y = element_blank(),
         axis.ticks = element_blank(),
         axis.text = element_text(size = 25))
+```
 
-b <- ggplot(data = data.frame(x = c(-3, 3)),
+```{r}
+#| fig-label: fig-qnorm
+#| echo: false
+
+ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit,
+                args = list(q = 1.96, tails = 1),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -303,9 +317,19 @@ b <- ggplot(data = data.frame(x = c(-3, 3)),
         axis.ticks = element_blank(),
         axis.text = element_text(size = 25))
 
-a + b + plot_layout(ncol = 1)
 
 ```
+
+**How the functions for statistical distributions work in R.** 
+The `pnorm()` and `qnorm()` functions return values related to the 
+normal distribution. @fig-pnorm `pnorm()` returns the probability 
+(the area under the curve) to the right of a given x-value. @fig-qnorm 
+`qnorm()` returns the value along the x-axis corresponding to a given 
+cumulative probability.
+
+:::
+
+
 
 ## Confidence intervals on large samples
 
@@ -355,18 +379,17 @@ and more like the normal distribution.
 
 ### What are degrees of freedom?
 
-Degrees of freedom (usually abbreivated *d.f.*) describe how much 
-independent information is available to estimate variability when 
-calculating probabilities. In a population, *all* values are known, 
-so no parameters need estimating. In a sample, we estimate parameters 
-such as the mean. In estimating a mean, only $n - 1$ values can vary
-independently because one value is constrained by the sample mean. 
-In hypothesis tests and confidence intervals, *d.f.* adjust for 
-uncertainty when generalizing from a sample to a population, affecting 
-probability distributions like the *t*-distribution. More *d.f.* mean 
-better probability estimates, while fewer *d.f.* reflect greater 
-uncertainty in estimating population parameters.
-
+Degrees of freedom (usually abbreivated *d.f.*) describe how much
+independent information is available to estimate variability when
+calculating probabilities. In a population, *all* values are known, so
+no parameters need estimating. In a sample, we estimate parameters such
+as the mean. In estimating a mean, only $n - 1$ values can vary
+independently because one value is constrained by the sample mean. In
+hypothesis tests and confidence intervals, *d.f.* adjust for uncertainty
+when generalizing from a sample to a population, affecting probability
+distributions like the *t*-distribution. More *d.f.* mean better
+probability estimates, while fewer *d.f.* reflect greater uncertainty in
+estimating population parameters.
 
 ## 🎬 Your turn!
 
@@ -384,7 +407,7 @@ patients and measure the CK concentration in UL^-1^ (units per litre).
 
 The goal is to estimate the average CK concentration in this patient
 population and calculate a 95% confidence interval for the mean
-concentration. The data are in [ck_concen.csv](data-raw/ck_concen.csv) 
+concentration. The data are in [ck_concen.csv](data-raw/ck_concen.csv)
 
 ### Import
 
@@ -394,21 +417,16 @@ creatinekinase <- read_csv("data-raw/ck_concen.csv")
 
 ### Calculate sample statistics
 
-Calculate the mean, standard deviation, sample size and standard error
-and assign as variables:
+We can use the `summarise()` function to calculate: the mean, 
+standard deviation, sample size and standard error and save t
+hem in a dataframe called creatine_summary
 
 ```{r}
-# mean
-m <- mean(creatinekinase$ck_conc)
-
-# standard deviation
-sd <- sd(creatinekinase$ck_conc)
-
-# sample size (needed for the se)
-n <- length(creatinekinase$ck_conc)
-
-# standard error
-se <- sd / sqrt(n)
+creatine_summary <- creatinekinase |> 
+  summarise(mean = mean(ck_conc),
+            n = length(ck_conc),
+            sd = sd(ck_conc),
+            se = sd / sqrt(n))
 ```
 
 ### Calcuate *C.I.*
@@ -423,43 +441,40 @@ q <- qnorm(0.975)
 Now we can use it in our confidence interval calculation:
 
 ```{r}
-lcl <- m - q * se
-ucl <- m + q * se
+creatine_summary <- creatine_summary |> 
+  mutate(lcl95 = mean - qnorm(0.975) * se,
+         ucl95 = mean + qnorm(0.975) * se)
 ```
 
-I used the names `lcl` and `ucl` to stand for "lower confidence limit"
-and "upper confidence limit" respectively.
+I used the names `lcl95` and `ucl95` to stand for “95% lower 
+confidence limit” and “95% upper confidence limit” respectively.
 
-Print the values:
-
-```{r}
-lcl
-ucl
-```
 
 This means we are 95% confident the population mean lies between
-`r round(lcl,2)` UL^-1^ and `r round(ucl,2)` UL^-1^. The amount we have
-added/subtracted from the mean (`q * se`) is `r round(q * se, 2)` thus
-we sometimes see this written as `r round(m, 2)` $\pm$
-`r round(q * se, 2)` mm.
+`r round(creatine_summary$lcl95,2)` UL^-1^ and 
+`r round(creatine_summary$ucl95,2)` UL^-1^. The amount we have
+added/subtracted from the mean (`q * se`) is 
+`r round(q * creatine_summary$se, 2)` thus
+we sometimes see this written as `r round(creatine_summary$mean, 2)` 
+$\pm$ `r round(q * creatine_summary$se, 2)` mm.
 
 ### Report
 
 The mean creatine kinase concentration in patients with muscle disorders
-is `r round(m, 2)` UL^-1^, 95% C.I. \[`r round(lcl,2)`,
-`r round(ucl,2)`\]
+is `r round(creatine_summary$mean, 2)` UL^-1^, 
+95% C.I. \[`r round(creatine_summary$lcl95,2)`,
+`r round(creatine_summary$ucl95,2)`\]
 
 ## Small samples
 
-
 ## Summary of Confidence Intervals
 
-1.  A confidence interval gives a range of plausible values for a 
-    population mean from a sample and is calculated from a sample
-    mean and standard error. 
+1.  A confidence interval gives a range of plausible values for a
+    population mean from a sample and is calculated from a sample mean
+    and standard error.
 
 2.  They are possible because all normal distributions have the same
-    properties. 
+    properties.
 
 3.  95% Confidence Intervals for Large Samples:
 
@@ -480,4 +495,3 @@ is `r round(m, 2)` UL^-1^, 95% C.I. \[`r round(lcl,2)`,
     -   The *t*-distribution has fatter tails and varies based on
         degrees of freedom (*n-1*), approaching the normal distribution
         as *n* increases.
-
