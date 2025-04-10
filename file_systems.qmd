@@ -42,9 +42,10 @@ colours. Text files have many different extensions to indicate what the
 text content represents. A few of these are given in
 @tbl-text-file-extensions.
 
+
+::: {#tbl-text-file-extensions}
+
 ```{r}
-#| label: tbl-text-file-extensions
-#| tbl-cap: "Some common text file extensions and the content the extension usually indicates."
 #| echo: false
 
 ext <- data.frame(ext = c(".txt", ".tab", ".csv", ".R", ".py", ".fasta"),
@@ -61,6 +62,11 @@ knitr::kable(ext,
 
 ```
 
+Some common text file extensions and the content the extension usually indicates.
+
+
+:::
+
 Plain text files are extremely portable which means they can be opened
 on any computer by a very large number of programs. Simple text editors
 which exist on any system like Windows Notepad or Mac's TextEdit will
@@ -69,9 +75,17 @@ for example, .xlsx (Excel) or .docx (Word) files (@fig-xlsx-in-notepad).
 It is usually easy for application designers to make an application
 manage plain text files. This means
 
-![Notepad will open an Excel file but the contents are a mess of strange
-characters](images/xlsx-in-notepad.png){#fig-xlsx-in-notepad
-fig-alt="shows an xlsx file open in notpade with a whole load of strange characters. It is unreadable"}
+
+:::{#fig-xlsx-in-notepad}
+
+![](images/xlsx-in-notepad.png)
+
+**How and Excel file looks if you open itwith Notepad.** Notepad will 
+open an Excel file but the contents are a mess of strange
+characters and the content is unreadable. This is because Excel 
+files are not plain text files.
+
+:::
 
 Data is commonly held in text files because of their portability.
 
@@ -82,9 +96,10 @@ annotate text to control how it is displayed or processed. Such files
 retain their portability and are human readable. You will have used them
 often! (@tbl-mark-up-text-file-extensions)
 
+
+::: {#tbl-mark-up-text-file-extensions}
+
 ```{r}
-#| label: tbl-mark-up-text-file-extensions
-#| tbl-cap: "Some common markup file extensions and the content the extension usually indicates."
 #| echo: false
 
 ext <- data.frame(ext = c(".html", ".md", ".Rmd", ".JSON", ".tex", ".qmd"),
@@ -100,6 +115,10 @@ knitr::kable(ext,
   kableExtra::kable_styling()
 
 ```
+
+Some common markup file extensions and the content the extension usually indicates
+
+:::
 
 ## The relationship between file extensions and programs
 
@@ -140,10 +159,19 @@ starts at a directory and branches out from there. This is called a
 hierarchical structure. @fig-file-system shows an example of a
 hierarchical file structure that starts at a directory called `home`:
 
-![A file hierarchy containing 4 levels of folders and files. Figure
-adapted from
-[@randemma2022].](images/file-system.png){#fig-file-system
-fig-alt="At the top level there is a directory called home/; Inside home/ are two directories (docs/ and programs/) and two files doc1.txt and image.jpg. Inside docs/ there is a file called doc2.txt and a directory called data/ which contains doc3.txt and doc4.txt. Inside programs/ are three .exe files"}
+::: {#fig-file-system}
+
+
+![.](images/file-system.png)
+
+**A file hierarchy containing 4 levels of folders and files.** At the 
+top level there is a directory called `home/`; Inside `home/` are two 
+directories (`docs/` and `programs/`) and two files `doc1.txt` and 
+`image.jpg`. Inside `docs/` there is a file called `doc2.txt` and a 
+directory called `data/` which contains `doc3.txt` and `doc4.txt`. 
+Inside `programs/` are three `.exe` files.
+Figure adapted from [@randemma2022]
+:::
 
 ## Using a file manager
 
@@ -162,7 +190,7 @@ width="100"}
 (Mac)](images/icon-finder-mac.png){#fig-mac-finder
 width="100"}
 
-File manager programs in Windows and Mac
+**File manager programs in Windows and Mac**
 :::
 
 Windows Explorer and Mac Finder do not show the file extensions on file
@@ -173,14 +201,19 @@ show the file extensions like this:
     extensions" check box @fig-show-extensions-windows
 
 -   choose Finder \| Preferences \| Advanced then check "Show all
-    filename extensions" box @fig-show-extensions-windows
+    filename extensions" box @fig-show-extensions-mac
 
 ::: {#fig-show-extensions layout-nrow="2"}
 ![Windows](images/show-extensions-windows.png){#fig-show-extensions-windows}
 
 ![Mac](images/show-extensions-mac.png){#fig-show-extensions-mac}
 
-Showing file extensions in Windows and Mac
+**Showing file extensions in Windows and Mac.** 
+@fig-show-extensions-windows In Windows, open Windows Explorer. Under 
+View, in the Show/hide group, select the "File name extensions" check 
+box.  @fig-show-extensions-mac In Mac, choose Finder \| Preferences 
+\| Advanced then check "Show all filename extensions" box.
+
 :::
 
 ## Root and home directories
@@ -202,12 +235,17 @@ directory is a directory *inside* the directory called `Users`
 immediately under the root and named with your username
 (@fig-file-system-root).
 
-![The hierarchy from the root. The top level is `C:\` in Windows and `/`
-in Mac. Below that is the Users directory which has a folder for each
-user. Your home directory is named with your username inside the Users
-folder. Figure adapted from
-[@randemma2022].](images/file-system-root.png){#fig-file-system-root
-fig-alt="The hierarchy from the root - the top level is C: in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder."}
+::: {#fig-file-system-root}
+
+![](images/file-system-root.png)
+
+**The hierarchy of a file system from the root**. The top level is `C:\` 
+in Windows and `/` in Mac. Below that is the Users directory which 
+has a folder for each user. Your home directory is named with your 
+username inside the Users folder. Figure adapted from
+[@randemma2022].
+
+:::
 
 There will be other folders immediately below the root directory (on the
 same level of the hierarchy as `Users`). These contain system-level
