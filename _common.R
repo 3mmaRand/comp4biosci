@@ -67,7 +67,7 @@ theme_no_axis_numbers <- function() {
 }
 
 # functions for shading under a normal distribution curve
-# 1.96 sd
+
 dnorm_limit <- function(x, q = 1.96, tails = 1) {
   y <- dnorm(x)
   if (tails == 1) {

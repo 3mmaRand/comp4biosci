@@ -5,7 +5,7 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
 ## What is a confidence interval?
@@ -68,7 +68,7 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
                      expand = c(0, 0),
                      limits = c(1000, 6000)) + 
   annotate("text", x = mu, y = 0.0013, 
-           label = "Same mean\nDifferent standard deviations") +
+           label = "Same mean", size = 6) +
   theme_classic() +
   theme(axis.line.y = element_blank())
 ```
@@ -93,7 +93,7 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
                      expand = c(0, 0),
                      limits = c(1000, 6000)) + 
   annotate("text", x = mu, y = 0.0013, 
-           label = "Same standard deviation\nDifferent means") +
+           label = "Same standard deviations", size = 6) +
   theme_classic() +
   theme(axis.line.y = element_blank())
 
@@ -170,9 +170,9 @@ ggplot(data = data.frame(x = c(-3, 3)),
 
 ```
 
-*Normal distributions share some properties regardless of the mean and 
+**Normal distributions share some properties regardless of the mean and 
 standard deviation.** @fig-norm-dist-1sd 68% of the values are within 
-one standard deviation of the mean and, fig-norm-dist-1-96 95% are 
+one standard deviation of the mean and, @fig-norm-dist-1-96 95% are 
 within 1.96 standard deviations.
 :::
 
@@ -183,19 +183,20 @@ normal distribution.
 
 For any distribution, R has four functions:
 
--   the density function, which gives the height of the function at a
+-   the density function, which gives the *height* of the function at a
     given value.
 -   the distribution function, which gives the **probability** that a
-    variable takes a particular value or less. This is the area under
-    the curve
+    variable takes *a particular value or less*. This is the area under
+    the curve.
 -   the quantile function which is the inverse of the Distribution
     function, *i.e.*, it returns the value ('quantile') for a given
     probability.
--   the random number generating function
+-   the random number generating function.
 
 The functions are named with a letter `d`, `p`, `q` or `r` preceding the
-distribution name. @tbl-rdistrib shows these four functions for the
-normal, binomial, Poisson and t distributions.
+distribution name. @tbl-rdistrib shows these four functions for some 
+common distributions: the normal, binomial, Poisson and *t* 
+distributions.
 
 | Distribution | Density    | Distribution | Quantile   | Random number generating |
 |---------------|---------------|---------------|---------------|---------------|
@@ -207,28 +208,16 @@ normal, binomial, Poisson and t distributions.
 : R functions that provide values for some example distributions
 {#tbl-rdistrib}
 
-Searching for the manual with `?normal` or any one of the functions
-(`?pnorm`) will bring up a single help page for all four associated
-functions.
-
-::: {#fig-manual-page}
-<iframe style="height:400px;width:750px;border:2px" src="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html" title="Manual page">
-
-</iframe>
-
-The R Manual Page for the normal distribution which shows the four
-functions associated functions.
-:::
 
 The functions which are of most use to us are those for the normal 
 distribution: `pnorm()` and `qnorm()`. These are illustrated in
 @fig-norm.
 
-::: {#fig-norm}
+::: {#fig-norm layout-ncol="1"}
 
 ```{r}
-#| fig-label: fig-pnorm
 #| echo: false
+#| label: fig-pnorm
 
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
@@ -273,8 +262,8 @@ ggplot(data = data.frame(x = c(-3, 3)),
 ```
 
 ```{r}
-#| fig-label: fig-qnorm
 #| echo: false
+#| label: fig-qnorm
 
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
@@ -324,12 +313,26 @@ ggplot(data = data.frame(x = c(-3, 3)),
 The `pnorm()` and `qnorm()` functions return values related to the 
 normal distribution. @fig-pnorm `pnorm()` returns the probability 
 (the area under the curve) to the right of a given x-value. @fig-qnorm 
-`qnorm()` returns the value along the x-axis corresponding to a given 
+`qnorm()` returns the value along the *x*-axis corresponding to a given 
 cumulative probability.
 
 :::
 
+Searching for the manual with `?normal` or any one of the functions
+(`?pnorm`) will bring up a single help page for all four associated
+functions.
 
+::: {#fig-manual-page}
+<iframe style="height:400px;width:750px;border:2px" src="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html" title="Manual page">
+
+</iframe>
+
+**The R Manual Page for the normal distribution**  shows the four
+functions associated with the normal distribution. The functions are
+`dnorm()`, `pnorm()`, `qnorm()` and `rnorm()`. The first letter of each
+function indicates the type of function: `d` for density, `p` for
+distribution, `q` for quantile and `r` for random number generator.
+:::
 
 ## Confidence intervals on large samples
 
@@ -348,11 +351,68 @@ qnorm(0.975)
 
 Notice that it is `qnorm(0.975)` and not `qnorm(0.95)` for a 95%
 confidence interval. This is because the functions are defined as giving
-the area under to the curve to the left of the value given. If we gave
-0.95, we would get the value that put 0.05 in one tail. We want 0.025 in
+the area under to the curve to the left of the value given. This is 
+known as being "one-tailed". To get 0.05 in the *two tails combined*, we
+need to have 0.025 - half of 0.05 - in *each tail*. The value on the
+*x*-axis that puts 0.025 in the upper tail is 0.975 
+(@fig-qnorm-is-one-tail). If we gave 0.95, we would get the value that 
+put 0.05 in one tail and 0.9 in the central area. We want 0.025 in 
 each tail, so we need to use 0.975 in `qnorm()`.
 
-TO-DO pic
+::: {#fig-qnorm-is-one-tail}
+
+
+```{r}
+#| echo: false
+
+ggplot(data = data.frame(x = c(-3, 3)),
+       aes(x)) +
+  stat_function(fun = dnorm_limit,
+                args = list(q = 1.96, tails = 1),
+                geom = "area",
+                fill = pal2[3]) +
+  stat_function(fun = dnorm, n = 101) +
+  annotate("text", x = 1.96, y = 0.4, 
+           label = "To get the value\nthat leaves 0.025\nin one tail",
+           size = 4) +
+  annotate("text", x = -2.3, y = 0.3, 
+           label = "You have to give\nprobability = 0.975",
+           size = 4) +
+  annotate("segment", xend = 1.96, yend = 0.27, 
+           x = 1.96, y = 0.07, 
+           linewidth = 2,
+           colour = pal4[2],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  annotate("segment", xend = -0.8, yend = 0.05, 
+           x = -2.3, y = 0.2, 
+           linewidth = 2,
+           colour = pal4[1],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.5)) +
+  scale_x_continuous(breaks = c(1.96), 
+                     labels = c("𝑥"),
+                     name = "",
+                     expand = c(0, 0),
+                     limits = c(-3, 3)) +
+  theme_classic() +
+  theme(axis.line.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_text(size = 25))
+
+
+```
+
+**The statistical distributions functions are "one-tailed".** 
+When we give `qnorm()` a probability, returns the value on the *x*-axis 
+below which that proportion of the distribution lies. For a confidence
+interval of 95%, we need the values on the *x*-axis that capture the 
+middle 95% of the normal distribution. This is 0.025 in each tail.
+
+:::
 
 ## Confidence intervals on small samples
 
@@ -429,6 +489,14 @@ creatine_summary <- creatinekinase |>
             se = sd / sqrt(n))
 ```
 
+```{r}
+#| echo: false
+
+knitr::kable(creatine_summary) |> 
+  kableExtra::kable_styling() 
+```
+
+
 ### Calcuate *C.I.*
 
 To calculate the 95% confidence interval we need to look up the quantile
@@ -445,6 +513,14 @@ creatine_summary <- creatine_summary |>
   mutate(lcl95 = mean - qnorm(0.975) * se,
          ucl95 = mean + qnorm(0.975) * se)
 ```
+
+```{r}
+#| echo: false
+
+knitr::kable(creatine_summary) |> 
+  kableExtra::kable_styling() 
+```
+
 
 I used the names `lcl95` and `ucl95` to stand for “95% lower 
 confidence limit” and “95% upper confidence limit” respectively.
@@ -466,6 +542,9 @@ is `r round(creatine_summary$mean, 2)` UL^-1^,
 `r round(creatine_summary$ucl95,2)`\]
 
 ## Small samples
+
+TO DO
+
 
 ## Summary of Confidence Intervals
 

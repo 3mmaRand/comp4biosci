@@ -122,7 +122,8 @@ div.csl-indent {
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -394,17 +395,17 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-First draft
+Just needs proof reading
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
+<p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
 </div>
 </div>
 <section id="what-is-a-confidence-interval" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="what-is-a-confidence-interval">
@@ -415,12 +416,6 @@ First draft
 </section><section id="the-normal-distribution" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="the-normal-distribution">
 <span class="header-section-number">10.2</span> The normal distribution</h2>
 <p>A <a href="ideas_about_data.html#distributions">distribution</a> describes the <em>values</em> the variable can take and the <em>chance</em> of them occurring. A distribution has a general type, given by the function, and is further tuned by the <em>parameters</em> in the function. For the normal distribution these parameters are the <strong>mean</strong> and the <strong>standard deviation</strong>. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (<a href="#fig-normal-distributions" class="quarto-xref">Figure&nbsp;<span>10.1</span></a>).</p>
-<div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">3300</span></span>
-<span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fl">600</span></span>
-<span><span class="va">mu_shift</span> <span class="op">&lt;-</span> <span class="fl">900</span></span>
-<span><span class="va">sd_shift</span> <span class="op">&lt;-</span> <span class="fl">250</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div id="fig-normal-distributions" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-normal-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
@@ -450,8 +445,7 @@ First draft
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.1: <strong>The normal distribution has two <em>parameters</em>: the mean and the standard deviation.</strong> The mean determines where the centre of the distribution is, the standard deviation determines the spread. <a href="#fig-normal-same-mean" class="quarto-xref">Figure&nbsp;<span>10.1 (a)</span></a> The distributions have the same mean but different standard deviations. <a href="#fig-normal-same-sd" class="quarto-xref">Figure&nbsp;<span>10.1 (b)</span></a> The distributions have the same standard deviation but different means.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;10.1: <strong>The normal distribution has two <em>parameters</em>: the mean and the standard deviation.</strong> The mean determines where the centre of the distribution is, the standard deviation determines the spread. <a href="#fig-normal-same-mean" class="quarto-xref">Figure&nbsp;<span>10.1 (a)</span></a> The distributions have the same mean but different standard deviations. <a href="#fig-normal-same-sd" class="quarto-xref">Figure&nbsp;<span>10.1 (b)</span></a> The distributions have the same standard deviation but different means.
 </figcaption></figure>
 </div>
 <p>Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one standard deviation from the mean and 95% values lie between <span class="math inline">\(\pm\)</span> 1.96 standard deviations. Another way of saying this is that there is a 95% chance that a randomly selected value will lie between <span class="math inline">\(\pm\)</span> 1.96 standard deviations from the mean. This is illustrated in <a href="#fig-norm-dist-properties" class="quarto-xref">Figure&nbsp;<span>10.2</span></a>.</p>
@@ -486,8 +480,7 @@ Figure&nbsp;10.1: <strong>The normal distribution has two <em>parameters</em>: t
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-dist-properties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.2: *Normal distributions share some properties regardless of the mean and standard deviation.** <a href="#fig-norm-dist-1sd" class="quarto-xref">Figure&nbsp;<span>10.2 (a)</span></a> 68% of the values are within one standard deviation of the mean and, fig-norm-dist-1-96 95% are within 1.96 standard deviations.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-dist-properties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;10.2: <strong>Normal distributions share some properties regardless of the mean and standard deviation.</strong> <a href="#fig-norm-dist-1sd" class="quarto-xref">Figure&nbsp;<span>10.2 (a)</span></a> 68% of the values are within one standard deviation of the mean and, <a href="#fig-norm-dist-1-96" class="quarto-xref">Figure&nbsp;<span>10.2 (b)</span></a> 95% are within 1.96 standard deviations.
 </figcaption></figure>
 </div>
 <p>R has some useful functions associated with distributions, including the normal distribution.</p>
@@ -495,12 +488,12 @@ Figure&nbsp;10.2: *Normal distributions share some properties regardless of the 
 <span class="header-section-number">10.2.1</span> Distributions: the R functions</h3>
 <p>For any distribution, R has four functions:</p>
 <ul>
-<li>the density function, which gives the height of the function at a given value.</li>
-<li>the distribution function, which gives the <strong>probability</strong> that a variable takes a particular value or less. This is the area under the curve</li>
+<li>the density function, which gives the <em>height</em> of the function at a given value.</li>
+<li>the distribution function, which gives the <strong>probability</strong> that a variable takes <em>a particular value or less</em>. This is the area under the curve.</li>
 <li>the quantile function which is the inverse of the Distribution function, <em>i.e.</em>, it returns the value (‘quantile’) for a given probability.</li>
-<li>the random number generating function</li>
+<li>the random number generating function.</li>
 </ul>
-<p>The functions are named with a letter <code>d</code>, <code>p</code>, <code>q</code> or <code>r</code> preceding the distribution name. <a href="#tbl-rdistrib" class="quarto-xref">Table&nbsp;<span>10.1</span></a> shows these four functions for the normal, binomial, Poisson and t distributions.</p>
+<p>The functions are named with a letter <code>d</code>, <code>p</code>, <code>q</code> or <code>r</code> preceding the distribution name. <a href="#tbl-rdistrib" class="quarto-xref">Table&nbsp;<span>10.1</span></a> shows these four functions for some common distributions: the normal, binomial, Poisson and <em>t</em> distributions.</p>
 <div id="tbl-rdistrib" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rdistrib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;10.1: R functions that provide values for some example distributions
@@ -554,38 +547,48 @@ Table&nbsp;10.1: R functions that provide values for some example distributions
 </div>
 </figure>
 </div>
+<p>The functions which are of most use to us are those for the normal distribution: <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>. These are illustrated in <a href="#fig-norm" class="quarto-xref">Figure&nbsp;<span>10.3</span></a>.</p>
+<div id="fig-norm" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-norm">
+<div id="fig-pnorm" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-pnorm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="confidence_intervals_files/figure-html/fig-pnorm-1.png" id="fig-pnorm" class="img-fluid figure-img" data-ref-parent="fig-norm" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pnorm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a)
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-norm">
+<div id="fig-qnorm" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-qnorm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="confidence_intervals_files/figure-html/fig-qnorm-1.png" id="fig-qnorm" class="img-fluid figure-img" data-ref-parent="fig-norm" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-qnorm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b)
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;10.3: <strong>How the functions for statistical distributions work in R.</strong> The <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> functions return values related to the normal distribution. <a href="#fig-pnorm" class="quarto-xref">Figure&nbsp;<span>10.3 (a)</span></a> <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> returns the probability (the area under the curve) to the right of a given x-value. <a href="#fig-qnorm" class="quarto-xref">Figure&nbsp;<span>10.3 (b)</span></a> <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> returns the value along the <em>x</em>-axis corresponding to a given cumulative probability.
+</figcaption></figure>
+</div>
 <p>Searching for the manual with <code>?normal</code> or any one of the functions (<code><a href="https://rdrr.io/r/stats/Normal.html">?pnorm</a></code>) will bring up a single help page for all four associated functions.</p>
 <div id="fig-manual-page" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-manual-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <iframe style="height:400px;width:750px;border:2px" src="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html" title="Manual page">
 </iframe>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-manual-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.3: The R Manual Page for the normal distribution which shows the four functions associated functions.
-</figcaption></figure>
-</div>
-<p>The functions which are of most use to us are those for the normal distribution: <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>. These are illustrated in <a href="#fig-norm" class="quarto-xref">Figure&nbsp;<span>10.4</span></a>.</p>
-<div id="fig-norm" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-fig-label="fig-pnorm">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="confidence_intervals_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-fig-label="fig-qnorm">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="confidence_intervals_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10.4: <strong>How the functions for statistical distributions work in R.</strong> The <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> functions return values related to the normal distribution. <span class="quarto-unresolved-ref">?fig-pnorm</span> <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> returns the probability (the area under the curve) to the right of a given x-value. <span class="quarto-unresolved-ref">?fig-qnorm</span> <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> returns the value along the x-axis corresponding to a given cumulative probability.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-manual-page-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;10.4: <strong>The R Manual Page for the normal distribution</strong> shows the four functions associated with the normal distribution. The functions are <code><a href="https://rdrr.io/r/stats/Normal.html">dnorm()</a></code>, <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code>, <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code>. The first letter of each function indicates the type of function: <code>d</code> for density, <code>p</code> for distribution, <code>q</code> for quantile and <code>r</code> for random number generator.
 </figcaption></figure>
 </div>
 </section></section><section id="confidence-intervals-on-large-samples" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="confidence-intervals-on-large-samples">
@@ -596,11 +599,24 @@ Figure&nbsp;10.4: <strong>How the functions for statistical distributions work i
 <p>95% of confidence intervals calculated in this way will contain the true population mean.</p>
 <p>Do you have to remember the value of 1.96? Not if you have R!</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span>
 <span><span class="co">## [1] 1.959964</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice that it is <code>qnorm(0.975)</code> and not <code>qnorm(0.95)</code> for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to the left of the value given. If we gave 0.95, we would get the value that put 0.05 in one tail. We want 0.025 in each tail, so we need to use 0.975 in <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
-<p>TO-DO pic</p>
+<p>Notice that it is <code>qnorm(0.975)</code> and not <code>qnorm(0.95)</code> for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to the left of the value given. This is known as being “one-tailed”. To get 0.05 in the <em>two tails combined</em>, we need to have 0.025 - half of 0.05 - in <em>each tail</em>. The value on the <em>x</em>-axis that puts 0.025 in the upper tail is 0.975 (<a href="#fig-qnorm-is-one-tail" class="quarto-xref">Figure&nbsp;<span>10.5</span></a>). If we gave 0.95, we would get the value that put 0.05 in one tail and 0.9 in the central area. We want 0.025 in each tail, so we need to use 0.975 in <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
+<div id="fig-qnorm-is-one-tail" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-qnorm-is-one-tail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="confidence_intervals_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qnorm-is-one-tail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;10.5: <strong>The statistical distributions functions are “one-tailed”.</strong> When we give <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> a probability, returns the value on the <em>x</em>-axis below which that proportion of the distribution lies. For a confidence interval of 95%, we need the values on the <em>x</em>-axis that capture the middle 95% of the normal distribution. This is 0.025 in each tail.
+</figcaption></figure>
+</div>
 </section><section id="confidence-intervals-on-small-samples" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="confidence-intervals-on-small-samples">
 <span class="header-section-number">10.4</span> Confidence intervals on small samples</h2>
 <p>The calculation of confidence intervals on small samples is very similar but we use the <em>t</em>-distribution rather than the normal distribution. The formula is:</p>
@@ -621,50 +637,79 @@ Figure&nbsp;10.4: <strong>How the functions for statistical distributions work i
 <section id="import" class="level3" data-number="10.6.1"><h3 data-number="10.6.1" class="anchored" data-anchor-id="import">
 <span class="header-section-number">10.6.1</span> Import</h3>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">creatinekinase</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/ck_concen.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">creatinekinase</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/ck_concen.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="calculate-sample-statistics" class="level3" data-number="10.6.2"><h3 data-number="10.6.2" class="anchored" data-anchor-id="calculate-sample-statistics">
 <span class="header-section-number">10.6.2</span> Calculate sample statistics</h3>
-<p>Calculate the mean, standard deviation, sample size and standard error and assign as variables:</p>
+<p>We can use the <code>summarise()</code> function to calculate: the mean, standard deviation, sample size and standard error and save t hem in a dataframe called creatine_summary</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># mean</span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">creatinekinase</span><span class="op">$</span><span class="va">ck_conc</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># standard deviation</span></span>
-<span><span class="va">sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">creatinekinase</span><span class="op">$</span><span class="va">ck_conc</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># sample size (needed for the se)</span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">creatinekinase</span><span class="op">$</span><span class="va">ck_conc</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># standard error</span></span>
-<span><span class="va">se</span> <span class="op">&lt;-</span> <span class="va">sd</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">creatine_summary</span> <span class="op">&lt;-</span> <span class="va">creatinekinase</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ck_conc</span><span class="op">)</span>,</span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ck_conc</span><span class="op">)</span>,</span>
+<span>            sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">ck_conc</span><span class="op">)</span>,</span>
+<span>            se <span class="op">=</span> <span class="va">sd</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">302.1687</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">90.71385</td>
+<td style="text-align: right;">9.071385</td>
+</tr></tbody>
+</table>
+</div>
 </div>
 </section><section id="calcuate-c.i." class="level3" data-number="10.6.3"><h3 data-number="10.6.3" class="anchored" data-anchor-id="calcuate-c.i.">
 <span class="header-section-number">10.6.3</span> Calcuate <em>C.I.</em>
 </h3>
 <p>To calculate the 95% confidence interval we need to look up the quantile (multiplier) using <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can use it in our confidence interval calculation:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lcl</span> <span class="op">&lt;-</span> <span class="va">m</span> <span class="op">-</span> <span class="va">q</span> <span class="op">*</span> <span class="va">se</span></span>
-<span><span class="va">ucl</span> <span class="op">&lt;-</span> <span class="va">m</span> <span class="op">+</span> <span class="va">q</span> <span class="op">*</span> <span class="va">se</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">creatine_summary</span> <span class="op">&lt;-</span> <span class="va">creatine_summary</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>lcl95 <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span> <span class="op">*</span> <span class="va">se</span>,</span>
+<span>         ucl95 <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span> <span class="op">*</span> <span class="va">se</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I used the names <code>lcl</code> and <code>ucl</code> to stand for “lower confidence limit” and “upper confidence limit” respectively.</p>
-<p>Print the values:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lcl</span></span>
-<span><span class="co">## [1] 284.3891</span></span>
-<span><span class="va">ucl</span></span>
-<span><span class="co">## [1] 319.9483</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">lcl95</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ucl95</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: right;">302.1687</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">90.71385</td>
+<td style="text-align: right;">9.071385</td>
+<td style="text-align: right;">284.3891</td>
+<td style="text-align: right;">319.9483</td>
+</tr></tbody>
+</table>
 </div>
+</div>
+<p>I used the names <code>lcl95</code> and <code>ucl95</code> to stand for “95% lower confidence limit” and “95% upper confidence limit” respectively.</p>
 <p>This means we are 95% confident the population mean lies between 284.39 UL<sup>-1</sup> and 319.95 UL<sup>-1</sup>. The amount we have added/subtracted from the mean (<code>q * se</code>) is 17.78 thus we sometimes see this written as 302.17 <span class="math inline">\(\pm\)</span> 17.78 mm.</p>
 </section><section id="report" class="level3" data-number="10.6.4"><h3 data-number="10.6.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">10.6.4</span> Report</h3>
 <p>The mean creatine kinase concentration in patients with muscle disorders is 302.17 UL<sup>-1</sup>, 95% C.I. [284.39, 319.95]</p>
 </section></section><section id="small-samples" class="level2" data-number="10.7"><h2 data-number="10.7" class="anchored" data-anchor-id="small-samples">
 <span class="header-section-number">10.7</span> Small samples</h2>
+<p>TO DO</p>
 </section><section id="summary-of-confidence-intervals" class="level2" data-number="10.8"><h2 data-number="10.8" class="anchored" data-anchor-id="summary-of-confidence-intervals">
 <span class="header-section-number">10.8</span> Summary of Confidence Intervals</h2>
 <ol type="1">
