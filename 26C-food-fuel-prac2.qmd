@@ -1,0 +1,296 @@
+# *Pseudomonas putida* grown in two soil types at two temperatures
+
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+status("drafting")
+```
+
+## Scenario
+
+*Pseudomonas putida*, is a hydrocarbon-degrading bacterium used for
+cleaning up oil-contaminated soil. *P.putida* was growth on either
+hexadecane contaminated or control soil at two temperatures: 4 degrees
+or 25 degrees. The was is to determine the effect of temperature and
+soil type on the number of bacteria in the soil.
+
+Each group in a large class did one replicate and added their data to a
+Google sheet:
+<https://docs.google.com/spreadsheets/d/1k2Gq4tKGEI0v_tdfgI-1d-Lk4YaWAC50sHffOmnqESU/edit?gid=886771226#gid=886771226>
+
+```{r}
+library(googlesheets4)
+library(tidyverse)
+library(emmeans)
+```
+
+```{r}
+file <- "https://docs.google.com/spreadsheets/d/1k2Gq4tKGEI0v_tdfgI-1d-Lk4YaWAC50sHffOmnqESU/edit?gid=886771226#gid=886771226"
+```
+
+```{r}
+class_data <- read_sheet(file) |> janitor::clean_names()
+```
+
+You will be asked to authenticate in your browser. This message will
+appear in the console and the browser should open
+
+```         
+Waiting for authentication in browser...
+Press Esc/Ctrl + C to abort
+```
+
+You can Allow “Tidyverse API Packages wants to access your Google
+Account”.
+
+You might also be asked
+
+```         
+Is it OK to cache OAuth access credentials in the folder
+```
+
+Choose the option for yes
+
+```         
+The httpuv package enables a nicer Google auth experience, in many cases, but it
+isn't installed.
+Would you like to install it now?
+```
+
+Choose the option for yes.
+
+
+The data should then read in.
+
+::: callout-note
+
+## Next time you run `read_sheet()` from `googlesheets4`
+
+Next time you run `read_sheet()` from `googlesheets4` you will
+not have to authenticate in your browser if you chose "yes" for
+`Is it OK to cache OAuth access credentials in the folder`.
+
+Instead you will see:
+```
+The googlesheets4 package is requesting access to your Google account.
+Enter '1' to start a new auth process or select a pre-authorized account.
+1: Send me to the browser for a new auth process.
+2: your.email@whereever.ac.uk
+```
+You can chose 2
+
+:::
+
+We don't need the timestamp or group name columns and these can be 
+dropped using the `select()` command
+
+The data are in wide format - there is sample in column. We want to
+convert to long format so that each row contains a single count
+and the other columns give the soil and the temperature treatment.
+We can use `pivot_longer()` for this.
+
+Drooping the columns (`-`) and pivoting the data can be done in one
+pipeline:
+
+```{r}
+class_data <- class_data |> 
+  select(-timestamp, -group_name) |>
+  pivot_longer(cols = everything(),
+               names_to = "treatment",
+               values_to = "counts_cpg") 
+```
+
+```{r}
+
+class_data <- class_data |>
+  extract(
+    col = treatment,
+    into = c("soil", "temp"),
+    regex = "^([uh]).([fi])_cells_gram_of_soil$"
+  ) |>
+  mutate(
+    soil = recode(soil,
+                  "u" = "uncontaminated",
+                  "h" = "hexadecane contaminated"),
+    temp = recode(temp,
+                         "f" = "4 degrees",
+                         "i" = "25 degrees")
+  ) 
+
+```
+
+```{r}
+ggplot(class_data, 
+       aes(x = soil, y = counts_cpg, fill = temp)) +
+  geom_boxplot() 
+
+```
+
+The data are not normally distributed - there are a few very large
+values. Logging the data will aid visualisation:
+
+```{r}
+ggplot(class_data, 
+       aes(x = soil, y = log10(counts_cpg), fill = temp)) +
+  geom_boxplot() 
+
+```
+
+That's better but the warning:
+`Removed 11 rows containing non-finite  outside the scale range`
+indicates that there are some zeros. We can add 1 to the counts before
+logging to avoid this. This is a common practice. It is useful because
+`log(1) = 0` which simplifies interpretation and is better than removing
+them. Many of the values are very large - the next smallest number is
+75 - and adding 1 to large values before logging will have very little
+impact.
+
+```{r}
+ggplot(class_data, 
+       aes(x = soil, y = log10(counts_cpg + 1), fill = temp)) +
+  geom_boxplot() 
+
+```
+
+Temperature seems to matter but there is little difference between the
+two soils. The difference between the two temperatures is about the same
+in both soils suggesting no interaction.
+
+Add a new column to the data frame with the logged values that we can
+use in the model.
+
+```{r}
+class_data <- class_data |> 
+  mutate(log_counts = log10(counts_cpg + 1))
+```
+
+Summarise the data to get the means and se for each group.
+
+```{r}
+class_data_summary <- class_data |> 
+  group_by(soil, temp) |> 
+  summarise(mean = mean(log_counts),
+            sd = sd(log_counts),
+            n = length(log_counts),
+            se = sd/sqrt(n)) 
+```
+
+two-way anova
+
+```{r}
+mod <- lm(data = class_data,
+          log_counts ~ soil * temp)
+```
+
+```{r}
+summary(mod)
+```
+
+```{r}
+anova(mod)
+```
+
+There is a strong and significant effect of temperature, no effect of
+soil and no interaction between temperature and soil. The effect of
+temperature is independent of soil.
+
+examine the assumptions
+
+```{r}
+ggplot(mapping = aes(x = mod$residuals)) +
+  geom_histogram(bins = 30) 
+```
+
+Too may values in the middle, too few in the shoulders for a normal
+distribution.
+
+```{r}
+shapiro.test(mod$residuals)
+```
+
+Significantly different from a normal distribution.
+
+```{r}
+plot(mod, which = 1)
+```
+
+Variances are similar in each group
+
+Not normal but reasonably symmetrical and variances are similar in each
+group. In addition, the effect is very clear - not at all borderline -
+so this case I will continue with the two-way anova.
+
+Post-hoc tests. Expecting differences between temps regardless of soil
+type.
+
+```{r}
+emmeans(mod, ~ soil * temp) |> pairs()
+```
+
+```{r}
+
+ggplot() + 
+  geom_point(data = class_data, 
+             aes(x = soil, y = log_counts, shape = temp), 
+             position = position_jitterdodge(dodge.width = 1,
+                                             jitter.width = 0.3, 
+                                             jitter.height = 0), 
+             size = 3, 
+             colour = "gray50") +
+  geom_errorbar(data = class_data_summary, 
+                aes(x = soil, ymin = mean - se,
+                    ymax = mean + se, group = temp), 
+                width = 0.5, 
+                linewidth = 1, 
+                position = position_dodge(width = 1)) + 
+  geom_errorbar(data = class_data_summary,
+                aes(x = soil, ymin = mean, ymax = mean, group = temp), 
+                width = 0.4, 
+                linewidth = 1, 
+                position = position_dodge(width = 1) ) +
+  scale_x_discrete(name = "soil", expand = c(0, 0)) +
+  scale_y_continuous(name = "Log Counts", expand = c(0, 0),                                                                                                              limits = c(0, 14)) +
+  scale_shape_manual(values = c(19, 1), 
+                     name = "Temperature") +
+  # hexadecane contaminated 25 degrees - 
+  # hexadecane contaminated 4 degrees <.0001 
+  annotate("segment", 
+           x = 0.75, xend = 1.25,
+           y = 11.7, yend = 11.7, 
+           colour = "black") +
+  annotate("text", x = 1, y = 12, 
+           label = "p < 0.0001") +
+  # uncontaminated 25 degrees - 
+  # uncontaminated 4 degrees <.0001 
+  annotate("segment", 
+           x = 1.75, xend = 2.25, 
+           y = 11.7, yend = 11.7, 
+           colour = "black") +
+  annotate("text", x = 2, y = 12, 
+           label = "p < 0.0001") +
+  # hexadecane contaminated 25 degrees -
+  # uncontaminated 4 degrees <.0001 
+  annotate("segment", 
+           x = 0.75, xend = 2.25, 
+           y = 12.7, yend = 12.7, 
+           colour = "black") +
+  annotate("text", x = 1.5, y = 13, 
+           label = "p < 0.0001") +
+  # uncontaminated 25 degrees - 
+  # hexadecane contaminated 4 degrees <.0001 
+  annotate("segment", 
+           x = 1.25, xend = 1.75, 
+           y = 10.7, yend = 10.7, 
+           colour = "black") +
+  annotate("text",
+           x = 1.5, y = 11, 
+           label = "p < 0.0001") +
+  theme_classic() +
+  theme(legend.position = "inside",
+        legend.position.inside = c(0.92, 0.9),
+        legend.background = element_rect(colour = "black"))
+
+```
+
