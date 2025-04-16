@@ -10,33 +10,62 @@ status("polishing")
 
 ## Who is this book for?
 
-This book is primarily being written to support [Bioscience students](https://www.york.ac.uk/biology/) at the [University of York](https://www.york.ac.uk/). The ultimate aim is to support the full spectrum of computational skills that a bioscience undergraduate or postgraduate at York - and elsewhere - might need. But it is a work in progress. The content included so far is described in the [Overview of contents](#overview-of-contents) section below.
+This book is primarily being written to support [Bioscience
+students](https://www.york.ac.uk/biology/) at the [University of
+York](https://www.york.ac.uk/). The ultimate aim is to support the full
+spectrum of computational skills that a bioscience undergraduate or
+postgraduate at York - and elsewhere - might need. But it is a work in
+progress. The content included so far is described in the [Overview of
+contents](#overview-of-contents) section below.
 
-It is being written in the open so that it can be used by anyone who finds it useful. It is also being written in the open so that anyone can contribute to it. 
+It is being written in the open so that it can be used by anyone who
+finds it useful. It is also being written in the open so that anyone can
+contribute to it.
 
 ## Approach of this book
 
 -   explanations followed by worked examples
 
-## Overview of contents
+## Overview of contents {#overview-of-contents}
 
 It is in sections
 
-**Part 1: What they forgot to teach you about computers**
+**Section 1: What they forgot to teach you about computers**
 
-This chapter tries to teach the computer skills that you might have missed if you have used mainly the mobile devices. I focus on the knowledge gaps that often appear when people are learning computational data analysis. Primarily these are to do with finding and organising their files and folders in the file systems.
+This chapter tries to teach the computer skills that you might have
+missed if you have used mainly the mobile devices. I focus on the
+knowledge gaps that often appear when people are learning computational
+data analysis. Primarily these are to do with finding and organising
+their files and folders in the file systems.
 
-**Part 2 Getting started with data**
+**Section 2 Getting started with data**
 
-The first steps into analysing data with R. The first chapter in this part covers important concepts about data: whether they are discrete and continuous and how we summarise them using descriptive statistics. The second chapter introduces you to R and RStudio for the first time. We start by exploring the layout and appearance then move on to coding. The third chapter describes some useful workflow patterns and tools for organising your work in RStudio. Using these will make learning R easier. Finally, we will go through a complete workflow from importing data from a file to saving a figure for reporting.
+The first steps into analysing data with R. The first chapter in this
+part covers important concepts about data: whether they are discrete and
+continuous and how we summarise them using descriptive statistics. The
+second chapter introduces you to R and RStudio for the first time. We
+start by exploring the layout and appearance then move on to coding. The
+third chapter describes some useful workflow patterns and tools for
+organising your work in RStudio. Using these will make learning R
+easier. Finally, we will go through a complete workflow from importing
+data from a file to saving a figure for reporting.
 
-**Part 3 Statistical Analysis**
+**Section 3 Statistical Analysis - Part 1**
 
-This section is a first course in Statistical inference which is the process of inferring the characteristics of populations from samples using data analysis. In this first course we take what is called a frequentist - or classical - approach to statistical inference. This is the approach that is most commonly taught in introductory statistics courses. We will learn about the logic of hypothesis testing and confidence intervals. You will also get an introduction to statistical models, what is a statistical model and in particular a linear model. 
+This section is a first course in Statistical inference which is the
+process of inferring the characteristics of populations from samples
+using data analysis. In this first course we take what is called a
+frequentist - or classical - approach to statistical inference. This is
+the approach that is most commonly taught in introductory statistics
+courses. We will learn about the logic of hypothesis testing and
+confidence intervals. You will also get an introduction to statistical
+models, what is a statistical model and in particular a linear model.
 
 ## Conventions used in the book
 
-I use some conventions most of which I hope are intuitive. I have tried to articulate them here. If you recognise conventions I have used that are not listed here please [let me know](#contributing).
+I use some conventions most of which I hope are intuitive. I have tried
+to articulate them here. If you recognise conventions I have used that
+are not listed here please [let me know](#contributing).
 
 Code and any output appears in blocks formatted like this:
 
@@ -46,14 +75,25 @@ chaff <- read_table("data-raw/chaff.txt")
 glimpse(chaff)
 ```
 
-Lines of output start with a `##` to distinguish from code comments which begin with a single `#`. You will learn more about comments in the [Using Scripts](#using-scripts) section in [First Steps in RStudio](#first_steps_rstudio.html)
+Lines of output start with a `##` to distinguish from code comments
+which begin with a single `#`. You will learn more about comments in the
+[Using Scripts](#using-scripts) section in [First Steps in
+RStudio](#first_steps_rstudio.html)
 
+Within the text: 
 
-Within the text: - packages are indicated in bold code font like this: **`ggplot2`** - functions are indicated in code font with brackets after their name like this: `ggplot()` - R objects are indicated in code font like this: `stag`
+-   packages are indicated in bold code font like this: **`ggplot2`** 
+-   functions are indicated in code font with brackets after their name 
+    like this: `ggplot()` 
+-   R objects are indicated in code font like this: `stag`
 
-The content of a code block can be copied using the icon in its top right corner.
+The content of a code block can be copied using the icon in its top
+right corner.
 
-I use packages from the **`tidyverse`** [@tidyverse] including **`ggplot2`** [@ggplot2], **`dplyr`** [@dplyr], **`tidyr`** [@tidyr] and **`readr`** [@readr] throughout the book. All the code assumes you have loaded the core **`tidyverse`** packages with:
+I use packages from the **`tidyverse`** [@tidyverse] including
+**`ggplot2`** [@ggplot2], **`dplyr`** [@dplyr], **`tidyr`** [@tidyr] and
+**`readr`** [@readr] throughout the book. All the code assumes you have
+loaded the core **`tidyverse`** packages with:
 
 ```{r}
 #| eval: false
@@ -71,16 +111,22 @@ If you run examples and get an error like this:
 
 It is likely you need to load the **`tidyverse`** as shown above.
 
-All other packages will be loaded explicitly with `library()` statements where needed.
+All other packages will be loaded explicitly with `library()` statements
+where needed.
 
-When you see "🎬 Your turn!" indicates that you might want to code along with examples or that there is an opportunity to check your understanding by answering a question. Questions are answered in words or with a piece of code. The answers are given in collapsed sections so you can try to answer them before checking the answer. For example, a question answered in words looks like this:
+When you see "🎬 Your turn!" indicates that you might want to code along
+with examples or that there is an opportunity to check your
+understanding by answering a question. Questions are answered in words
+or with a piece of code. The answers are given in collapsed sections so
+you can try to answer them before checking the answer. For example, a
+question answered in words looks like this:
 
 🎬 Your turn! Use the file system above to answer these questions.
 
--   What is the absolute path for the document`doc4.txt` on a Mac computer?
+-   What is the absolute path for the document`doc4.txt` on a Mac
+    computer?
 
 ::: {.callout-tip collapse="true"}
-
 ## 📖
 
 -   `/home/user1/docs/data/doc4.txt`
@@ -98,44 +144,71 @@ y <- 4
 
 ## Annotating this book
 
-This page has annotating with [Hypothesis](https://web.hypothes.is/) enabled. Hypothesis allows you to annotate this book with your own private notes or make notes shared with friends. You need to create a free personal account. You can make annotations that are public, private only to you or shared with a [private group](https://web.hypothes.is/help/annotating-with-groups/). Please follow the code of conduct in your annotations.
-
+This page has annotating with [Hypothesis](https://web.hypothes.is/)
+enabled. Hypothesis allows you to annotate this book with your own
+private notes or make notes shared with friends. You need to create a
+free personal account. You can make annotations that are public, private
+only to you or shared with a [private
+group](https://web.hypothes.is/help/annotating-with-groups/). Please
+follow the code of conduct in your annotations.
 
 ## Code of Conduct
 
-We are dedicated to providing a welcoming and supportive learning environment for all readers, regardless of background or identity. As such, we do not tolerate comments that are disrespectful to fellow learners or that excludes, intimidates, or causes discomfort to others. The following bullet points set out explicitly what we hope you will consider to be appropriate community guidelines:
+We are dedicated to providing a welcoming and supportive learning
+environment for all readers, regardless of background or identity. As
+such, we do not tolerate comments that are disrespectful to fellow
+learners or that excludes, intimidates, or causes discomfort to others.
+The following bullet points set out explicitly what we hope you will
+consider to be appropriate community guidelines:
 
--   Be respectful of different viewpoints and experiences. Do not use in homophobic, racist, transphobic, ageist, ableist, sexist, or otherwise exclusionary language.
+-   Be respectful of different viewpoints and experiences. Do not use in
+    homophobic, racist, transphobic, ageist, ableist, sexist, or
+    otherwise exclusionary language.
 
--   Use welcoming and inclusive language. Do not address others in an angry, intimidating, or demeaning manner. Be considerate of the ways the words you choose may impact others. Be patient and respectful of the fact that English is a second (or third or fourth!) language for many.
+-   Use welcoming and inclusive language. Do not address others in an
+    angry, intimidating, or demeaning manner. Be considerate of the ways
+    the words you choose may impact others. Be patient and respectful of
+    the fact that English is a second (or third or fourth!) language for
+    many.
 
--   Respect the privacy and safety of others. Do not share their information  without their express permission. 
+-   Respect the privacy and safety of others. Do not share their
+    information without their express permission.
 
--   As an overriding general rule, please be intentional in your actions and humble in your mistakes.
+-   As an overriding general rule, please be intentional in your actions
+    and humble in your mistakes.
 
+## Contributing {#contributing}
 
-## Contributing
-
-This book is being written in the open so that anyone can contribute to it. If you find a mistake, or have a suggestion for improvement you can [create an issue](https://github.com/3mmaRand/comp4biosci/issues/new).
+This book is being written in the open so that anyone can contribute to
+it. If you find a mistake, or have a suggestion for improvement you can
+[create an issue](https://github.com/3mmaRand/comp4biosci/issues/new).
 
 ## License
 
 <p xmlns:cc="http://creativecommons.org/ns#">
 
-This work is licensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/></a>
-This license requires that reusers give credit to the creator. It allows reusers to distribute, remix, adapt, and build upon the material in any medium or format, for noncommercial purposes only.
+This work is licensed under
+<a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC
+BY-NC
+4.0<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/><img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"/></a>
+This license requires that reusers give credit to the creator. It allows
+reusers to distribute, remix, adapt, and build upon the material in any
+medium or format, for noncommercial purposes only.
+
 </p>
 
 ## Please cite as
 
 Please cite this book as:
 
-Rand, E. (2023). Computational Analysis for Bioscientists (Version 0.1) https://3mmarand.github.io/comp4biosci/
-
+Rand, E. (2023). Computational Analysis for Bioscientists (Version 0.1)
+https://3mmarand.github.io/comp4biosci/
 
 ## Credits
 
-This book is written with R [@R-core], Quarto [@allaire2022], **`knitr`** [@knitr], **`kableExtra`** [@kableExtra]. My R session information is shown below:
+This book is written with R [@R-core], Quarto [@allaire2022],
+**`knitr`** [@knitr], **`kableExtra`** [@kableExtra]. My R session
+information is shown below:
 
 ```{r}
 sessionInfo()
