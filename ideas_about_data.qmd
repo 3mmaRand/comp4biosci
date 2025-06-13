@@ -5,93 +5,130 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
-This chapter covers some important concepts data. Data is made up of:
+## Introduction
 
--   properties we have measured or recorded, known as variables, and
+This chapter introduces some key ideas about data. Data consists of:
 
--   observations, the individual things with those properties.
+-   Variables — the properties or characteristics that we measure or
+    record, and
+-   Observations — the individual cases or items that those variables
+    describe.
 
-Data is most commonly (and helpfully) organised with variables in columns and each observation on a row.
+A helpful and common way to organise data is in a table, where each
+column represents a variable and each row represents one observation.
+Every value in a row related to a single observation such as a person,
+plant, or sample. We call data in this format "tidy".
 
-We can classify a variable in two main ways: by what role the variable takes in analysis and by what kinds of value it can take and how frequently its possible values occur. The type of value and the likelihood of values appearing is known as a variable's *distribution*. Both of these determine how we summarise, plot and analyse data.
+We can describe variables in two main ways:
+
+-   By their role in the analysis, that is, whether they are independent
+    (explanatory) or dependent (response) variables.
+
+-   By the type of values they take and how often those values occur.
+
+The second aspect — what kinds of values a variable can have and how
+common each one is — is called the variable’s distribution. The way we
+summarise, visualise, and analyse a variable depends on both its role
+and its distribution.
 
 ## Roles of variables in analysis
 
-When we do research, we typically have variables that we choose or set and variables that we measure. The variables we choose or set are called independent or explanatory variables. The variables we measure are called dependent or response variables. For example, we might measure the concentration of enzymes and hormones in blood samples of individuals with different genotypes. The genotype acts as the explanatory variable and the blood measurements are response. We would be interested in whether the blood measures differ between genotypes.
+When we do research, we typically have variables that we choose or set
+and variables that we measure. The variables we choose or set are called
+independent or explanatory variables. The variables we measure are
+called dependent or response variables. For example, we might measure
+the concentration of enzymes and hormones in blood samples of
+individuals with different genotypes. The genotype acts as the
+explanatory variable and the blood measurements are response. We would
+be interested in whether the blood measures differ between genotypes.
 
 ## Distributions
 
-Any variable has a *distribution* which describes the values the variable can take and the chance of them occurring. The distribution is a function (relationship) which captures how the values are mapped to the probability of them occurring. A distribution has a general type, given by the function and is further tuned by the *parameters* in the function. For example variables like height, length, concentration, mass and intensity follow a *normal distribution* also know as the bell-shaped curve so that they look similar. However, they have different means and standard deviations. The mean and the standard deviation are the parameters of the normal distribution.
+Any variable has a *distribution* which describes the values the
+variable can take and the chance of them occurring. The distribution is
+a function (relationship) which captures how the values are mapped to
+the probability of them occurring. A distribution has a general type,
+given by the function and is further tuned by the *parameters* in the
+function. For example, variables like height, length, concentration,
+mass and intensity follow a *normal distribution* also know as the
+bell-shaped curve so that they look similar. However, they have
+different means and standard deviations. The mean and the standard
+deviation are the parameters of the normal distribution.
 
-An important distinction is between discrete and continuous types of data. Continuous variables are measurements that can take any value in their range (@fig-distrib-contin). Discrete variables can take only specific values (@fig-distrib-discrete).
+An important distinction is between **discrete** and **continuous**
+types of data. Continuous variables are measurements that can take *any*
+value in their range. Because there an infinite number of possible
+values within within the range, the probability of a continuous variable
+taking exactly one specific value is zero. Instead, we talk about the
+probability that the value is less than a particular value, greater than
+a particular value or between two values. For example, we might say the
+probability a person's height is greater than 170cm is 0.3
+(@fig-distrib-contin). In contrast, discrete variables can take only
+specific values often counts or categories. For example, the number of
+leaves on a plant or the number of times a gene is expressed. In this
+case, it's meaningful to talk about the probability of a single value.
+Each possible value has its own individual probability, and the sum of
+all those probabilities equals 1 (@fig-distrib-discrete).
 
+::: {#fig-distrib-contin}
 ```{r}
 #| echo: false
-#| label: fig-distrib-contin
-#| fig-cap: "A continuous variable has a smooth distribution and the probability of getting a particular value or less is given by the area under the curve. The example is a normal distribution."
-mean <- 4.2
-sd <-  1.2
 
-# function for shading under a normal distribution curve
-dnorm_limit <- function(x) {
-  y <- dnorm(x, mean, sd)
-  y[x < 5 |  x > 10] <- NA
-  return(y)
-}
-
-ggplot(data = data.frame(x = c(0, 9)), aes(x)) +
-  stat_function(fun = dnorm, 
-                n = 101, 
-                args = list(mean, sd)) + 
-  stat_function(fun = dnorm_limit, 
-                geom = "area", 
+ggplot(data = data.frame(x = c(-3, 3)),
+       aes(x)) +
+  stat_function(fun = dnorm_limit,
+                args = list(q = -0.7, tails = 1),
+                geom = "area",
                 fill = pal2[1]) +
-  annotate("text", size = 5,
-           x = 1, y = 0.22,
-           label = "Function") +
-  annotate("segment",
-           x = 1, y = 0.2,
-           xend = 2.5, yend = 0.125,
-           arrow = arrow(type = "closed", 
-                         length = unit(0.03, "npc"))) +
-  annotate("text", size = 5,
-           x = 6.7, y = 0.26,
-           label = "Shaded area under curve\nis the probability of getting\na value of X or more") +
-  annotate("segment",
-           x = 6.5, y = 0.22,
-           xend = 5.5, yend = 0.1,
-           arrow = arrow(type = "closed", 
-                         length = unit(0.03, "npc"))) +
-  scale_y_continuous(breaks = NULL, 
-                     name = "",
-                     expand = c(0, 0)) +
-  scale_x_continuous(name = "Value a continuous variable can take",
+  stat_function(fun = dnorm, n = 101) +
+  annotate("text", x = -1.7, y = 0.3, 
+           label = "Shaded area under curve\nis the probability of getting\na value of X or less",
+           size = 4) +
+  annotate("segment", xend = -1.1, yend = 0.1, 
+           x = -1.7, y = 0.25, 
+           linewidth = 1,
+           colour = pal4[1],
+           arrow = arrow(type = "open", 
+                         length = unit(0.05, "npc"))) +
+  scale_y_continuous(breaks = NULL, name = "",
                      expand = c(0, 0),
-                     breaks = 5, labels = "X") +
-  
+                     limits = c(0, 0.5)) +
+  scale_x_continuous(breaks = c(-0.7), 
+                     labels = c("X"),
+                     name = "Value a continuous variable can take",
+                     expand = c(0, 0),
+                     limits = c(-3, 3)) +
   theme_classic() +
-  theme(axis.text.x = element_text(size = 20))
+  theme(axis.line.y = element_blank(),
+        axis.ticks = element_blank())
 
 ```
 
+**An example of a distribution for a continuous variable.** The values a
+continuous variable can take are on the horizontal axis. Continuous
+variables have a smooth distribution and the probability of getting a
+particular value or less is given by the area under the curve before
+that value. This example is the Normal distribution.
+:::
+
+::: {#fig-distrib-discrete}
 ```{r}
 #| echo: false
-#| label: fig-distrib-discrete
-#| fig-cap: "A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. The example is a Poisson distribtion."
+
 mean <- 2
-
-
 ggplot(data.frame(x = c(0:6)), aes(factor(x), fill = factor(x))) +
   geom_col(aes(y = dpois(x, mean)), colour = "black" ) +
-  annotate("text", size = 5,
+  annotate("text", size = 4,
            x = 4.5, y = 0.26,
            label = "Probability of getting\na value of exactly Y") +
   annotate("segment",
            x = 4.4, y = 0.23,
            xend = 4, yend = 0.15,
+           linewidth = 1,
+           colour = pal4[1],
            arrow = arrow(type = "closed", 
                          length = unit(0.03, "npc"))) +
   scale_y_continuous(breaks = NULL, 
@@ -108,60 +145,97 @@ ggplot(data.frame(x = c(0:6)), aes(factor(x), fill = factor(x))) +
                                "white",
                                "white")) +
   theme_classic() +
-  theme(legend.position = "none",
-        axis.text.x = element_text(size = 20))
+  theme(legend.position = "none")
 
 ```
+
+**An example of a distribution for a discrete variable.** A discrete
+variable has a stepped distribution and the probability of getting
+exactly a particular is given by the area of the bar at that value. This
+example is the Poisson distribution.
+:::
+
+This difference between continuous and discrete variables affects how we
+analyse and visualise data. Discrete data is often shown using bar plots
+and summarised with modes of medians, while continuous data is
+represented using histograms or density plots and summarised with means
+and standard deviations.
+
 ## Summarising data
 
-We summarise data by giving a measure of *central tendency* and a measure of *dispersion*.  A measure of central tendency is a single value that represents the middle or centre of a variable's distribution. The three most common measures are:
+We summarise data by giving a measure of *central tendency* and a
+measure of *dispersion*. A measure of central tendency is a single value
+that represents the middle or centre of a variable's distribution. The
+three most common measures are:
 
--   the mean, or more accurately, the arithmetic mean, $\bar{x} = \frac{\sum{x}}{n}$
+-   the mean, or more accurately, the arithmetic mean,
+    $\bar{x} = \frac{\sum{x}}{n}$
 
--   the median: the middle value for a variable with values arranged in order of magnitude
+-   the median: the middle value for a variable with values arranged in
+    order of magnitude
 
 -   the mode: the most frequent value in the variable.
 
-Measures of dispersion describe the spread of values around the centre and indicate how much variability there is in the variable. The most common measures of dispersion are:
+Measures of dispersion describe the spread of values around the centre
+and indicate how much variability there is in the variable. The most
+common measures of dispersion are:
 
--   the range: the difference between the maximum value and the minimum value in a variable
+-   the range: the difference between the maximum value and the minimum
+    value in a variable
 
--   the interquartile range: two values, the first quartile and the thrid quartile. The first quartile is half way between the median value and the lowest value when the values are arranged in order and the third quartile is halfway between the median value and the highest value 
+-   the interquartile range: two values, the first quartile and the
+    third quartile. The first quartile is half way between the median
+    value and the lowest value when the values are arranged in order and
+    the third quartile is halfway between the median value and the
+    highest value
 
--   the variance: the average of the squared differences between each value and the variable's mean, $s^2 = \frac{(\sum{x - \bar{x})^2}}{n - 1}$
+-   the variance: the average of the squared differences between each
+    value and the variable's mean,
+    $s^2 = \frac{(\sum{x - \bar{x})^2}}{n - 1}$
 
 -   the standard deviation: the square root of the variance.
 
-
-
 ## Discrete data
 
-Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.
+Discrete variables can take only specific values and can be categories,
+like genotype, or counts, like the number of petals.
 
 ### Categories: Nominal and Ordinal
 
-Categorical data can be nominal and ordinal depending on whether they are ordered. Nominal variable have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn't matter in what order the information was given or plotted. Ordinal variables have an order. The Likert scale @likert1932 used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (@fig-categories).
+Categorical data can be nominal or ordinal depending on whether the
+categories are are ordered. Nominal variables have no particular order,
+for example, the eye colour of Drosophila or the species of bird. When
+summarising data on bird species, it wouldn't matter in what order the
+information was given or plotted. Ordinal variables have an order. The
+Likert scale [@likert1932] used in questionnaires is one example. The
+possible responses are Strongly agree, Agree, Disagree and Strongly
+disagree; these have an order that you would use when plotting them
+(@fig-categories).
+
+
+::: {#fig-categories layout-nrow="1"}
 
 ```{r}
 #| echo: false
-#| label: fig-categories
-#| fig-cap: "The categories of bird species are unordered - or nominal - but those in a likert variable are ordinal."
-
+#| label: fig-categ-bird
 birds <- data.frame(Response = c("Robin",
                                  "Chaffinch",
                                  "Thrush",
                                  "Wren"),
                     Frequency = c(12, 6, 10, 13))
 
-a <- birds |> ggplot(aes(x = Response, y = Frequency)) +
-  geom_col() +
+birds |> 
+  ggplot(aes(x = Response, y = Frequency)) +
+  geom_col(fill = pal2[1]) +
   scale_x_discrete(name = "Species") +
   scale_y_continuous(expand = c(0, 0),
-                     limits = c(0 , 20)) +
-  theme_classic() +
-  theme(legend.position = "none")
+                     limits = c(0 , 15)) +
+  theme_classic(base_size = 16) 
+```
 
-
+```{r}
+#| echo: false
+#| label: fig-categ-likert
 likert <- data.frame(Response = factor(c("Strongly agree",
                                          "Agree",
                                          "Disagree",
@@ -170,41 +244,73 @@ likert <- data.frame(Response = factor(c("Strongly agree",
                                                   "Agree",
                                                   "Disagree",
                                                   "Strongly disagree")),
-                     Frequency = c(15, 18, 10, 2))
+                     Frequency = c(10, 14, 6, 2))
 
-b <- likert |> ggplot(aes(x = Response, y = Frequency)) +
-  geom_col() +
+likert |> 
+  ggplot(aes(x = Response, y = Frequency)) +
+  geom_col(fill = pal2[2]) +
   scale_y_continuous(expand = c(0, 0),
-                     limits = c(0 , 20)) +
-  theme_classic() +
-  theme(legend.position = "none")
+                     limits = c(0 , 15)) +
+ theme_classic(base_size = 16) +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   vjust = 1, 
+                                   hjust = 1)) 
 
-a + b
+
 ```
 
-The most appropriate way to summarise nominal or ordinal data is to report the mode (most frequent value) or tabulate the number of each value (@tbl-likert).
+**Categorical data can be nominal or ordinal.** Nominal variables like 
+species (@fig-categ-bird) have no particular order whilst ordinal variables
+like those on the Likert scale [@likert1932] have an order.
+
+:::
+
+The most appropriate way to summarise nominal or ordinal data is to
+report the mode (most frequent value) or tabulate the number of each
+value (@tbl-likert).
 
 ```{r}
 #| echo: false
 #| label: tbl-likert
-#| tbl-cap: "Frequency of reposnes."
+#| tbl-cap: "Frequency of responses to a Likert scale question."
 
-knitr::kable(likert) |> kableExtra::kable_styling()
+knitr::kable(likert) |> 
+  kableExtra::kable_styling()
 
 ```
 
 ### Counts
 
-Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical and has a tail to the right - especially for lower count ranges.
+Counts are one of the most common data types. They are quantitative but
+discrete because they can take only specific values. Counts tend to
+follow a distribution called the Poisson distribution meaning that there
+is an expected number of zeros, ones and twos etc that appear. This is
+true no matter what you count. The distribution of counts is not
+symmetrical when the average count is low. For example, the number of 
+groundsel plants in one hundred 1 metre x 1 metre square 
+quadrats[^ideas_about_data-1] is likely in the range of 0 to 3 plants 
+per quadrat. This distribution is skewed to the right, meaning it has a
+tail to the right. A mean is not usually the best way to summarise a 
+set of counts because it is dragged up by the few quadrats with more 
+than 2 plants (@fig-counts).  Instead, the median better represents the 
+middle of the distribution. The median is the middle value when the 
+values are arranged in order. The interquartile range (IQR) indicates 
+the spread in the data. The lower quartile is half way between the 
+lowest value and the middle value and the upper quartile is half way 
+between the middle value and the highest value.
 
-A mean and standard deviation are not usually the best way to summarise a count variable because their distribution is not symmetrical. @fig-counts shows the number of groundsel plants in a hundred 1 metre square quadrats[^ideas_about_data-1]. 
+
+[^ideas_about_data-1]: A quadrat is a frame used in ecology to outline a
+    standard unit of area for study of the distribution of plant species
+    over a wider are. Typically, quadrats are placed randomly over the
+    area and the number of individuals in each quadrat is recorded.
 
 
+::: {#fig-counts}
 
 ```{r}
 #| echo: false
-#| label: fig-counts
-#| fig-cap: "Counts are discrete. They often follow a Poisson distribution."
+
 set.seed(5)
 nquad <- 100
 mu <- 0.7
@@ -213,47 +319,62 @@ sample_m <- mean(plants$nplants)
 sample_median <- median(plants$nplants)
 
 plants |> ggplot(aes(x = factor(nplants))) +
-  geom_bar() +
-  geom_vline(xintercept = sample_m + 1,
-             colour = pal4[1], 
-             linewidth = 2) +
-  geom_vline(xintercept = sample_median + 1,
-             colour = pal4[2], 
-             linewidth = 2) +
-  annotate("text", x = 2.1, y = 55,
+  geom_bar(fill = pal2[3]) +
+  annotate("segment", x = sample_m + 1, xend = sample_m + 1, 
+           y = 0, yend = 58,
+           colour = pal4[1],
+           linewidth = 1) +
+  annotate("segment", x = sample_median + 1, xend = sample_median + 1, 
+           y = sample_median, yend = 58,
+           colour = pal4[2],
+           linewidth = 1) +
+  annotate("text", x = sample_m + 1, y = 60,
            label = paste("mean = ", sample_m),
            colour = pal4[1]) +
-    annotate("text", x = 1.3, y = 55,
+  annotate("text", x = 1, y = 60,
            label = paste("median = ", sample_median),
            colour = pal4[2]) +
   scale_x_discrete(name = "Number of plants per quadrat") +
   scale_y_continuous(expand = c(0, 0),
-                     limits = c(0 , 60),
+                     limits = c(0 , 65),
                      name = "Number of quadrats") +
   theme_classic() +
   theme(legend.position = "none")
 
 ```
 
-The mean of `r sample_m` groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants. The average is being dragged up by the few quadrats containing 3 plants.
+**The number of groundsel plants in one hundred 1 metre x 1 metre square 
+quadrats is a count and follows a Poisson distribution.** The mean of 
+`r sample_m` groundsel plants per quadrat does not really reflect that the 
+majority of quadrats contained no plants! The average is being dragged up by 
+the few quadrats containing 3 plants. The median is `r sample_median`.
 
-For count variables - and other variables that are not symmetrical - it is often better to give the median and interquartile range.
+:::
 
-The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.
+
 
 ## Continuous data
 
-Continuous variables are measurements that can take *any* value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. A large number of continuous variables follow the normal distribution.
+Continuous variables are measurements that can take *any* value in their
+range so there are an infinite number of possible values. The values
+have decimal places. Variables like the length and mass of an organism,
+the volume and optical density of a solution, or the colour intensity of
+an image are continuous. Many response variables are continuous but
+continuous variables can also be explanatory. A large number of
+continuous variables follow the normal distribution.
 
 ### The normal distribution
 
-For example, a variable like human height has values with decimal places which follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (@fig-normal-distribtion).
+For example, a variable like human height has values with decimal places
+which follow a normal distribution also known as the Gaussian
+distribution or the bell-shaped curve. Values of 1.65 metres occur more
+often than values of 2 metres and values of 3 metres never occur
+(@fig-normal-distribtion).
+
+::: {#fig-normal-distribtion}
 
 ```{r}
 #| echo: false
-#| label: fig-normal-distribtion
-#| fig-cap: "Human height follows a normal distribution."
-
 m <- 1.65
 sd <- 0.06
 ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
@@ -270,16 +391,30 @@ ggplot(data = data.frame(Height = c(m - 3 * sd, m + 3 * sd)), aes(Height)) +
   theme_classic()
 ```
 
-The mean and standard deviation are the best way to summarise a normally distributed variable.
+**Human height follows a normal distribution.**
+
+:::
+
+The mean and standard deviation are the best way to summarise a normally
+distributed variable.
+
+
 
 ## Theory and practice
 
-The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then the values become discrete because the only the values possible are 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (@fig-contin-is-discrete)
+The distinction between continuous and discrete values is clear in
+theory but in practice, the actual values you have may differ from the
+expected distribution for a particular variable. For example, we would
+expect the mass of cats to be continuous because any value in the range
+is possible. However, if our scales only measure to the nearest
+kilogram, then the values become discrete because the only the values
+possible are 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is
+big compared to the range of values we expect (@fig-contin-is-discrete).
+
+::: {#fig-contin-is-discrete}
 
 ```{r}
 #| echo: false
-#| label: fig-contin-is-discrete
-#| fig-cap: "The mass of cats in kilograms is theoretically continuous (left). If we measure only to the nearest kilogram, mass becomes discrete because 1kg covers a large chunk of the range (right)."
 
 m <- 4
 sd <- 0.8
@@ -304,14 +439,24 @@ b <- ggplot(data = data.frame(Mass = round(rnorm(1000, m, sd), 0)), aes(Mass)) +
 a + b
 ```
 
-In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 100,204 hairs is so tiny the variable is practically continuous (@fig-discrete-is-contin).
+
+**The mass of cats in kilograms.** Theoretically mass is a continuous variable
+(left). However if we measure only to the nearest kilogram, then mass 
+becomes discrete because cats only weigh few kilograms so 1kg covers a 
+large chunk of the range (right).
+:::
+
+
+
+In contrast, the number of hairs on a human head ranges from about
+80,000 to 150,000 so the difference between having 100,203 hairs and
+100,204 hairs is so tiny the variable is practically continuous
+(@fig-discrete-is-contin).
+
+::: {#fig-discrete-is-contin}
 
 ```{r}
 #| echo: false
-#| label: fig-discrete-is-contin
-#| fig-cap: "The number of hairs on a human head discrete. But one increment is a tiny proportion of the range of values so the number of hairs is practically continuous."
-
-
 
 m <- 120000
 sd <- 20000
@@ -328,22 +473,46 @@ ggplot() +
 
 ```
 
-A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.
+**The number of hairs on a human head**. As a count, this is a discrete 
+variable. However. one increment is a tiny proportion of the range 
+of values so the number of hairs is practically continuous.
 
+:::
+
+A rule of thumb is that if the mean count is above about 100, then the
+distribution of counts closely matches the normal distribution.
 
 ## Summary
 
-1.  Data: Data consists of variables (properties measured or recorded) and observations (individual things with those properties). Data is commonly organised with variables in columns and observations in rows.
+1.  Data: Data consists of variables (properties measured or recorded)
+    and observations (individual things with those properties). Data is
+    commonly organised with variables in columns and observations in
+    rows.
 
-2.  Roles of Variables in Analysis: Variables in research can be independent or explanatory variables (chosen or set by researchers) and dependent or response variables (measured by researchers).
+2.  Roles of Variables in Analysis: Variables in research can be
+    independent or explanatory variables (chosen or set by researchers)
+    and dependent or response variables (measured by researchers).
 
-3.  Distributions: A variable's distribution describes the types of values it can take and the likelihood of each value occurring. Variables can be classified as discrete (specific values) or continuous (any value within a range). The shape of a distribution is determined by parameters.
+3.  Distributions: A variable's distribution describes the types of
+    values it can take and the likelihood of each value occurring.
+    Variables can be classified as discrete (specific values) or
+    continuous (any value within a range). The shape of a distribution
+    is determined by parameters.
 
-4.  Discrete Data: Discrete variables can be categories or counts. Categorical data can be nominal (no order) or ordinal (ordered) and are best summarised with the mode or a table. Counts are often best summarised by the median and interquartile range.
+4.  Discrete Data: Discrete variables can be categories or counts.
+    Categorical data can be nominal (no order) or ordinal (ordered) and
+    are best summarised with the mode or a table. Counts are often best
+    summarised by the median and interquartile range.
 
-5.  Continuous Data: Continuous variables can take any value within a range. The normal distribution is the most common continuous distribution and is best summarised with the mean and standard deviation.
+5.  Continuous Data: Continuous variables can take any value within a
+    range. The normal distribution is the most common continuous
+    distribution and is best summarised with the mean and standard
+    deviation.
 
-6.  Theory and Practice: While the theoretical distinction between continuous and discrete values is clear, the actual values obtained in practice may deviate from the expected distribution. Measurement precision and range affect whether a variable is considered continuous or discrete. A rule of thumb suggests that if the mean count is above approximately 100, the distribution of counts approximates a normal distribution.
-
-
-[^ideas_about_data-1]: A quadrat is a frame used in ecology to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.
+6.  Theory and Practice: While the theoretical distinction between
+    continuous and discrete values is clear, the actual values obtained
+    in practice may deviate from the expected distribution. Measurement
+    precision and range affect whether a variable is considered
+    continuous or discrete. A rule of thumb suggests that if the mean
+    count is above approximately 100, the distribution of counts
+    approximates a normal distribution.

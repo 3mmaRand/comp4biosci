@@ -1,0 +1,30 @@
+Connor Greenhalgh
+~~~~~~~~~~~~~~~~~~~~~
+Experimental Protocol
+~~~~~~~~~~~~~~~~~~~~~
+
+Three cell types were used in the qPCR analysis: LT-HSCs, MPPs representing 
+HSPCs, and total progenitors. Progenitors and MPPs contained four biological
+replicates, each performed in triplicate, with LT-HSCs having three biological 
+replicates, also performed in triplicate. Samples were run for 40 cycles using 
+a StepOnePlus qPCR machine (Thermofisher). A housekeeping gene Hprt was used for
+the quantification.
+
+~~~~~~~~~~~~~~~~~
+Analysis Protocol
+~~~~~~~~~~~~~~~~~
+
+CT values were extracted using Applied Biosystems StepOnePlus software 
+(Thermofisher) for Hprt and Fcgrt for each technical replicate. Mean CT value 
+was next calculated for each biological replicate.
+
+  - Each Hprt CT value was subtracted from its corresponding Fcgrt CT values to
+    give delta CT for each biological replicate.
+    
+  - The DeltaDeltaCT value was then calculated by 2^-CT which was taken as 
+    relative abundance of Fcgrt.
+
+  -This analysis is coded for in "processed qPCR data.csv" The resulting 
+   abundance is then written to a .csv file which is named "qPCR_Results.csv" 
+   and is read into r as "qpcr_results".
+
