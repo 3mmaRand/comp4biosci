@@ -1,5 +1,5 @@
-library(tidyverse)
-library(patchwork)
+suppressMessages(library(tidyverse))
+suppressMessages(library(patchwork))
 
 knitr::opts_chunk$set(
   collapse = TRUE,
