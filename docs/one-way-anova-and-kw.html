@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.30">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>15&nbsp; One-way ANOVA and Kruskal-Wallis – Computational Analysis for Bioscientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./two-way-anova.html" rel="next">
+<link href="./two-sample-tests.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7a3e59189d9f0ecca6f4f741a2329820.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical-analysis-1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./one-way-anova-and-kw.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Computational Analysis for Bioscientists</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/3mmaRand/comp4biosci" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./what-they-forgot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What they forgot to teach you about computers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./machine-and-os.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./file-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./organising-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./getting-started-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started with data analysis in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ideas-about-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about-R-and-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./first-steps-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import-to-report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./statistical-analysis-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Analysis - Part 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logic-hyopthesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./what-statistical-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./single-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two-sample-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./one-way-anova-and-kw.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two-way-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./goodness-of-fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./working-with-gel-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Gel data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PCR-product-verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./molecular-weight-from-western-blot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./in-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In development</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./26C-food-fuel-prac2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./keyboard-shortcuts-tips.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">15.1</span> Overview</a>
+  <ul class="collapse">
+<li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions"><span class="header-section-number">15.1.1</span> Model assumptions</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">15.1.2</span> Reporting</a></li>
+  </ul>
+</li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">15.2</span> 🎬 Your turn!</a></li>
+  <li>
+<a href="#one-way-anova" id="toc-one-way-anova" class="nav-link" data-scroll-target="#one-way-anova"><span class="header-section-number">15.3</span> One-way ANOVA</a>
+  <ul class="collapse">
+<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">15.3.1</span> Import and explore</a></li>
+  <li><a href="#apply-lm" id="toc-apply-lm" class="nav-link" data-scroll-target="#apply-lm"><span class="header-section-number">15.3.2</span> Apply <code>lm()</code></a></li>
+  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">15.3.3</span> Check assumptions</a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">15.3.4</span> Report</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#kruskal-wallis" id="toc-kruskal-wallis" class="nav-link" data-scroll-target="#kruskal-wallis"><span class="header-section-number">16</span> Kruskal-Wallis</a>
+  <ul class="collapse">
+<li><a href="#apply-kruskal.test" id="toc-apply-kruskal.test" class="nav-link" data-scroll-target="#apply-kruskal.test"><span class="header-section-number">16.0.1</span> Apply <code>kruskal.test()</code></a></li>
+  <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">16.0.2</span> Report</a></li>
+  </ul>
+</li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">17</span> Summary</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/one-way-anova-and-kw.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical-analysis-1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./one-way-anova-and-kw.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-one-way-anova-and-kw" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Just needs proof reading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
+</div>
+</div>
+<section id="overview" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">15.1</span> Overview</h2>
+<p>In the last chapter, we learnt how to use and interpret the general linear model when the <em>x</em> variable was categorical with two groups. You will now extend that to situations when there are more than two groups. This is often known as the one-way ANOVA (<strong>an</strong>alysis <strong>o</strong>f <strong>var</strong>iance). We will also learn about the Kruskal-Wallis test <span class="citation" data-cites="kruskal1952">(<a href="references.html#ref-kruskal1952" role="doc-biblioref">Kruskal and Wallis 1952</a>)</span>, a non-parametric test that can be used when the assumptions of the general linear model are not met.</p>
+<p>We use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to carry out a one-way ANOVA. General linear models applied with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> are based on the normal distribution and known as parametric tests because they use the parameters of the normal distribution (the mean and standard deviation) to determine if an effect is significant. Null hypotheses are about a mean or difference between means. The assumptions need to be met for the <em>p</em>-values generated to be accurate.</p>
+<p>If the assumptions are not met, we can use the non-parametric equivalent known as the Kruskal-Wallis test. Like other non-parametric tests, the Kruskal-Wallis test :</p>
+<ul>
+<li>is based on the ranks of values rather than the actual values themselves</li>
+<li>has a null hypothesis about the mean rank rather than the mean</li>
+<li>has fewer assumptions and can be used in more situations</li>
+<li>tends to be less powerful than a parametric test when the assumptions are met</li>
+</ul>
+<!-- Why not do several two-sample tests? ANOVA terminology and concepts --><p>The process of using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to conduct a one-way ANOVA is very similar to using <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> for a two-sample <em>t</em>-test, but with an important distinction. When we obtain a significant effect of our explanatory variable, it only indicates that at least two group means differ—it does not specify which ones. To determine where the differences lie, we need a <strong>post-hoc test</strong>.</p>
+<p>A post-hoc (“after this”) test is performed after a significant ANOVA result. There are several options for post-hoc tests, and we will use Tukey’s HSD (honestly significant difference) test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>, implemented in the <strong><code>emmeans</code></strong> <span class="citation" data-cites="emmeans">(<a href="references.html#ref-emmeans" role="doc-biblioref">Lenth 2025</a>)</span> package.</p>
+<p>Post-hoc tests adjust <em>p</em>-values to account for multiple comparisons. A Type I error occurs when we incorrectly reject a true null hypothesis, with a probability of 0.05. Conducting multiple comparisons increases the likelihood of obtaining a significant result by chance. The post-hoc test corrects for this increased risk, ensuring more reliable conclusions.</p>
+<section id="model-assumptions" class="level3" data-number="15.1.1"><h3 data-number="15.1.1" class="anchored" data-anchor-id="model-assumptions">
+<span class="header-section-number">15.1.1</span> Model assumptions</h3>
+<p>The assumptions for a general linear model where the explanatory variable has two or more groups, are the same as for two groups: the residuals are normally distributed and have homogeneity of variance.</p>
+<p>If we have a continuous response and a categorical explanatory variable with three or more groups, we usually apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and <em>then</em> check the assumptions, however, we can sometimes tell when a non-parametric test would be more appropriate before that:</p>
+<ul>
+<li>Use common sense - the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>). Consider whether you would expect the response to be continuous</li>
+<li>There should decimal places and few repeated values.</li>
+</ul>
+<p>To examine the assumptions after fitting the linear model, we plot the residuals and test them against the normal distribution in the same way as we did for single linear regression.</p>
+</section><section id="reporting" class="level3" data-number="15.1.2"><h3 data-number="15.1.2" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">15.1.2</span> Reporting</h3>
+<p>In reporting the result of one-way ANOVA or Kruskal-Wallis test, we include:</p>
+<ol type="1">
+<li>
+<p>the significance of the effect</p>
+<ul>
+<li>parametric (GLM): The <em>F</em>-statistic and <em>p</em>-value</li>
+<li>non-parametric (Kruskal-Wallis): The Chi-squared statistic and <em>p</em>-value</li>
+</ul>
+</li>
+<li>
+<p>the direction of effect - which mean/median is greater in a the pairwise commparison</p>
+<ul>
+<li>Post-hoc test</li>
+</ul>
+</li>
+<li>
+<p>the magnitude of effect - how big is the difference between the means/medians</p>
+<ul>
+<li>parametric: the means and standard errors for each group</li>
+<li>non-parametric: the medians for each group</li>
+</ul>
+</li>
+</ol>
+<p>Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model:</p>
+<ul>
+<li>parametric: means and standard errors</li>
+<li>non-parametric: boxplots with medians and interquartile range</li>
+</ul>
+<p>We will explore all of these ideas with some examples.</p>
+</section></section><section id="your-turn" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">15.2</span> 🎬 Your turn!</h2>
+<p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
+</section><section id="one-way-anova" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="one-way-anova">
+<span class="header-section-number">15.3</span> One-way ANOVA</h2>
+<p>Researchers wanted the determine the best growth medium for growing bacterial cultures. They grew bacterial cultures on three different media formulations and measured the diameter of the colonies. The three formulations were:</p>
+<ul>
+<li>Control - a generic medium as formulated by the manufacturer</li>
+<li>sugar added - the generic medium with added sugar</li>
+<li>sugar and amino acids added - the generic medium with added sugar and amino acids</li>
+</ul>
+<p>The data are in <a href="data-raw/culture.csv">culture.csv</a>.</p>
+<p>In this scenario, our null hypothesis, <span class="math inline">\(H_0\)</span>, is that there is no difference in colony diameter between the three groups or that group membership has no effect on diameter. This is written as: <span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span></p>
+<p>This means that none of the group means differ significantly from each other.</p>
+<p>Another way of describing, <span class="math inline">\(H_0\)</span>, is to say the variation caused by media is no greater than the the random background variation. This is expressed with the <strong><em>F</em>-statistic</strong>, a variance ratio that compares the variance explained by the model to the variance within groups. If <span class="math inline">\(H_0\)</span> is true, the variance between groups is no greater than the variance within groups. That is, <em>F</em>, <span class="math inline">\(\frac{Var(between)}{Var(within)}\)</span> equals 1. This is written as: <span class="math inline">\(H_0: F = 1\)</span></p>
+<p>Both versions of the null hypothesis describe the same idea: that here is <strong>no real difference</strong> between the groups.</p>
+<ul>
+<li><p><strong>Using <span class="math inline">\(\beta\)</span> coefficients:</strong> This version focuses on the <strong>linear model</strong>. It says that the group variable has no effect, meaning all groups have the same average value. If the coefficients (<span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span>, etc.) are <strong>zero</strong>, then the model isn’t capturing any meaningful differences between groups.</p></li>
+<li><p><strong>Using the F-statistic:</strong> This version looks at <strong>variance</strong>. It compares the variation <strong>between groups</strong> to the variation <strong>within groups</strong>. If the F-value is <strong>close to 1</strong>, it means the differences between groups are about the same as random variation within groups, so there’s no real effect.</p></li>
+</ul>
+<p>Both approaches test the same hypothesis—if we reject the null, we conclude that at least one group is different from the others.</p>
+<section id="import-and-explore" class="level3" data-number="15.3.1"><h3 data-number="15.3.1" class="anchored" data-anchor-id="import-and-explore">
+<span class="header-section-number">15.3.1</span> Import and explore</h3>
+<p>Import the data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">culture</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/culture.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead><tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">diameter</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">medium</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">11.22</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9.35</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9.15</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.35</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9.63</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.96</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.07</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.40</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.33</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9.24</td>
+<td style="text-align: left;">control</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8.90</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.75</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.95</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9.85</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.12</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.05</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9.60</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.10</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.20</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.88</td>
+<td style="text-align: left;">sugar added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.45</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.19</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.84</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13.35</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.22</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9.86</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10.27</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10.62</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11.78</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11.43</td>
+<td style="text-align: left;">sugar and amino acids added</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>The Response variable is colony diameters in millimetres and we would expect it to be continuous. The Explanatory variable is type of media and is categorical with 3 groups. It is known “one-way ANOVA” or “one-factor ANOVA” because there is only one explanatory variable. It would still be one-way ANOVA if we had 4, 20 or 100 media.</p>
+<p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the diameter values are in one column with another column indicating the media. This means they are well formatted for analysis and plotting.</p>
+<p>In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
+<p>Violin plots (<code>geom_violin()</code>, see <a href="#fig-culture-rough" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>), box plots (<code>geom_boxplot()</code>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>,</span>
+<span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, y <span class="op">=</span> <span class="va">diameter</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-culture-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-culture-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="one-way-anova-and-kw_files/figure-html/fig-culture-rough-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;15.1: The diameters of bacterial colonies when grown in one of three media. A violin plot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."><img src="one-way-anova-and-kw_files/figure-html/fig-culture-rough-1.png" class="img-fluid figure-img" width="576"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-culture-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.1: The diameters of bacterial colonies when grown in one of three media. A violin plot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>R will order the groups alphabetically by default.</p>
+<p>The figure suggests that adding sugar and amino acids to the medium increases the diameter of the colonies.</p>
+<p>Summarising the data for each medium is the next sensible step. The most useful summary statistics are the means, standard deviations, sample sizes and standard errors. I recommend the <code>group_by()</code> and <code>summarise()</code> approach:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">culture_summary</span> <span class="op">&lt;-</span> <span class="va">culture</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">medium</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">diameter</span><span class="op">)</span>,</span>
+<span>            std <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">diameter</span><span class="op">)</span>,</span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">diameter</span><span class="op">)</span>,</span>
+<span>            se <span class="op">=</span> <span class="va">std</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have save the results to <code>culture_summary</code> so that we can use the means and standard errors in our plot later.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">culture_summary</span></span>
+<span><span class="co">## # A tibble: 3 × 5</span></span>
+<span><span class="co">##   medium                       mean   std     n    se</span></span>
+<span><span class="co">##   &lt;chr&gt;                       &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">## 1 control                      10.1 0.716    10 0.226</span></span>
+<span><span class="co">## 2 sugar added                  10.2 0.818    10 0.259</span></span>
+<span><span class="co">## 3 sugar and amino acids added  11.4 1.18     10 0.373</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="apply-lm" class="level3" data-number="15.3.2"><h3 data-number="15.3.2" class="anchored" data-anchor-id="apply-lm">
+<span class="header-section-number">15.3.2</span> Apply <code>lm()</code>
+</h3>
+<p>We can create a one-way ANOVA model like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="va">diameter</span> <span class="op">~</span> <span class="va">medium</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And examine the model with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:</span></span>
+<span><span class="co">## lm(formula = diameter ~ medium, data = culture)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Residuals:</span></span>
+<span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
+<span><span class="co">## -1.541 -0.700 -0.080  0.424  1.949 </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##                                   Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)                        10.0700     0.2930  34.370  &lt; 2e-16 ***</span></span>
+<span><span class="co">## mediumsugar added                   0.1700     0.4143   0.410  0.68483    </span></span>
+<span><span class="co">## mediumsugar and amino acids added   1.3310     0.4143   3.212  0.00339 ** </span></span>
+<span><span class="co">## ---</span></span>
+<span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Residual standard error: 0.9265 on 27 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.3117, Adjusted R-squared:  0.2607 </span></span>
+<span><span class="co">## F-statistic: 6.113 on 2 and 27 DF,  p-value: 0.00646</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The Estimates in the Coefficients table give:</p>
+<ul>
+<li><p><code>(Intercept)</code> known as <span class="math inline">\(\beta_0\)</span>. The mean of the control group (<a href="#fig-one-way-anova-lm-model" class="quarto-xref">Figure&nbsp;<span>15.2</span></a>). Just as the intercept is the value of the <em>y</em> (the response) when the value of <em>x</em> (the explanatory) is zero in a simple linear regression, this is the value of <code>diameter</code> when the <code>medium</code> is at its first level. The order of the levels is alphabetical by default.</p></li>
+<li><p><code>mediumsugar added</code> known as <span class="math inline">\(\beta_1\)</span>. This is what needs to be added to the mean of the control group to get the mean of the ‘medium sugar added’ group (<a href="two-sample-tests.html#fig-two-sample-lm-model" class="quarto-xref">Figure&nbsp;<span>14.3</span></a>). Just as the slope is amount of <em>y</em> that needs to be added for each unit of <em>x</em> in a simple linear regression, this is the amount of <code>diameter</code> that needs to be added when the <code>medium</code> goes from its first level to its second level (<em>i.e.</em>, one unit). The <code>mediumsugar added</code> estimate is positive so the the ‘medium sugar added’ group mean is higher than the control group mean</p></li>
+<li><p><code>mediumsugar and amino acids added</code> known as <span class="math inline">\(\beta_2\)</span> is what needs to be added to the mean of the control group to get the mean of the ‘medium sugar and amino acids added’ group (<a href="two-sample-tests.html#fig-two-sample-lm-model" class="quarto-xref">Figure&nbsp;<span>14.3</span></a>). Note that it is the amount added to the <em>intercept</em> (the control in this case). The <code>mediumsugar and amino acids added</code> estimate is positive so the the ‘medium sugar and amino acids added’ group mean is higher than the control group mean</p></li>
+</ul>
+<p>If we had more groups, we would have more estimates and all would be compared to the control group mean.</p>
+<p>The <em>p</em>-values on each line are tests of whether that coefficient is different from zero.</p>
+<ul>
+<li>
+<code>(Intercept)                     10.0700     0.2930  34.370  &lt; 2e-16 ***</code> tells us that the control group mean is significantly different from zero. This is not a very interesting, it just means the control colonies have a diameter.</li>
+<li>
+<code>mediumsugar added                 0.1700     0.4143   0.410  0.68483</code> tells us that the ‘medium sugar added’ group mean is not significantly different from the control group mean.</li>
+<li>
+<code>mediumsugar and amino acids added   1.3310     0.4143   3.212  0.00339 **</code> tells us that the ‘medium sugar and amino acids added’ group mean <em>is</em> significantly different from the control group mean.</li>
+</ul>
+<p>Note: none of this output tells us whether the medium sugar and amino acids added’ group mean <em>is</em> significantly different from the ‘medium sugar added’ group mean. We need to do a post-hoc test for that.</p>
+<p>The <em>F</em> value and <em>p</em>-value in the last line are a test of whether the model as a whole explains a significant amount of variation in the response variable.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-one-way-anova-lm-model" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-one-way-anova-lm-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="one-way-anova-and-kw_files/figure-html/fig-one-way-anova-lm-model-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;15.2: In an one-way ANOVA model with three groups, the first estimate is the intercept which is the mean of the first group. The second estimate is the ‘slope’ which is what has to added to the intercept to get the second group mean. The third estimate is the ‘slope’ which is what has to added to the intercept to get the third group mean. Note that y axis starts at 15 to create more space for the annotations."><img src="one-way-anova-and-kw_files/figure-html/fig-one-way-anova-lm-model-1.png" class="img-fluid figure-img" width="576"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-one-way-anova-lm-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.2: In an one-way ANOVA model with three groups, the first estimate is the intercept which is the mean of the first group. The second estimate is the ‘slope’ which is what has to added to the intercept to get the second group mean. The third estimate is the ‘slope’ which is what has to added to the intercept to get the third group mean. Note that y axis starts at 15 to create more space for the annotations.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>The ANOVA is significant but this only tells us that growth medium matters, meaning at least two of the means differ. To find out which means differ, we need a post-hoc test. A post-hoc (“after this”) test is done after a significant ANOVA test. There are several possible post-hoc tests and we will be using Tukey’s HSD (honestly significant difference) test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> implemented in the <strong><code>emmeans</code></strong> <span class="citation" data-cites="emmeans">(<a href="references.html#ref-emmeans" role="doc-biblioref">Lenth 2025</a>)</span> package.</p>
+<p>We need to load the package:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rvlenth.github.io/emmeans/">emmeans</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then carry out the post-hoc test:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">medium</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">##  contrast                                  estimate    SE df t.ratio p.value</span></span>
+<span><span class="co">##  control - sugar added                        -0.17 0.414 27  -0.410  0.9117</span></span>
+<span><span class="co">##  control - sugar and amino acids added        -1.33 0.414 27  -3.212  0.0092</span></span>
+<span><span class="co">##  sugar added - sugar and amino acids added    -1.16 0.414 27  -2.802  0.0244</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## P value adjustment: tukey method for comparing a family of 3 estimates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Each row is a comparison between the two means in the ‘contrast’ column. The ‘estimate’ column is the difference between those means and the ‘p.value’ indicates whether that difference is significant.</p>
+<p>A plot can be used to visualise the result of the post-hoc which can be especially useful when there are very many comparisons.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">medium</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="one-way-anova-and-kw_files/figure-html/unnamed-chunk-10-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="one-way-anova-and-kw_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Where the purple bars overlap, there is no significant difference.</p>
+<p>We have found that colony diameters are significantly greater when sugar and amino acids are added but that adding sugar alone does not significantly increase colony diameter.</p>
+</section><section id="check-assumptions" class="level3" data-number="15.3.3"><h3 data-number="15.3.3" class="anchored" data-anchor-id="check-assumptions">
+<span class="header-section-number">15.3.3</span> Check assumptions</h3>
+<p>Check the assumptions: All general linear models assume the “residuals” are normally distributed and have “homogeneity” of variance.</p>
+<p>Our first check of these assumptions is to use common sense: diameter is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed</p>
+<p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-anova1-plot1" class="quarto-xref">Figure&nbsp;<span>15.3</span></a>). This is a good way to check for homogeneity of variance.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-anova1-plot1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova1-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="one-way-anova-and-kw_files/figure-html/fig-anova1-plot1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;15.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are more variable for the highest mean."><img src="one-way-anova-and-kw_files/figure-html/fig-anova1-plot1-1.png" class="img-fluid figure-img" width="576"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova1-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are more variable for the highest mean.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Perhaps the variance is higher for the highest mean?</p>
+<p>We can also use a histogram to check for normality (See <a href="#fig-anova1-plot2" class="quarto-xref">Figure&nbsp;<span>15.4</span></a>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-anova1-plot2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova1-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="one-way-anova-and-kw_files/figure-html/fig-anova1-plot2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;15.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."><img src="one-way-anova-and-kw_files/figure-html/fig-anova1-plot2-1.png" class="img-fluid figure-img" width="576"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova1-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Finally, we can use the Shapiro-Wilk test to test for normality.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Shapiro-Wilk normality test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  mod$residuals</span></span>
+<span><span class="co">## W = 0.96423, p-value = 0.3953</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The p-value is greater than 0.05 so this test of the normality assumption is not significant.</p>
+<p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are probably not violated.</p>
+</section><section id="report" class="level3" data-number="15.3.4"><h3 data-number="15.3.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">15.3.4</span> Report</h3>
+<p>There was a significant effect of media on the diameter of bacterial colonies (<em>F</em> = 6.11; <em>d.f.</em> = 2, 27; <em>p</em> = 0.006). Post-hoc testing with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids (<span class="math inline">\(\bar{x} \pm s.e\)</span>: 11.4 <span class="math inline">\(\pm\)</span> 0.37 mm) than with neither (10.2 <span class="math inline">\(\pm\)</span> 0.26 mm; <em>p</em> = 0.0092) or just sugar (10.1 <span class="math inline">\(\pm\)</span> 0.23 mm; <em>p</em> = 0.0244). See <a href="#fig-culture" class="quarto-xref">Figure&nbsp;<span>15.5</span></a>.</p>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, y <span class="op">=</span> <span class="va">diameter</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"gray50"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_errorbar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture_summary</span>, </span>
+<span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_errorbar</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture_summary</span>, </span>
+<span>                <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Diameter (mm)"</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">16.5</span><span class="op">)</span>, </span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Medium"</span>, </span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, </span>
+<span>                              <span class="st">"Sugar added"</span>, </span>
+<span>                              <span class="st">"Sugar and amino acids added"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">2</span>, xend <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">14</span>, yend <span class="op">=</span> <span class="fl">14</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">2.5</span>,  y <span class="op">=</span> <span class="fl">14.5</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0244"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">15.5</span>, yend <span class="op">=</span> <span class="fl">15.5</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">2</span>,  y <span class="op">=</span> <span class="fl">16</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0092"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div id="fig-culture" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-culture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="one-way-anova-and-kw_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;15.5: Medium affects bacterial colony diameter. Ten replicate colonies were grown on three types of media: control, with sugar added and with both sugar and amino acids added. Error bars are means \pm 1 standard error. There was a significant effect of media on the diameter of bacterial colonies (F = 6.11; d.f. = 2, 27; p = 0.006). Post-hoc testing with Tukey’s Honestly Significant Difference test [@tukey1949] revealed the colony diameters were significantly larger when grown with both sugar and amino acids than with neither or just sugar. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]."><img src="one-way-anova-and-kw_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-culture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.5: <strong>Medium affects bacterial colony diameter</strong>. Ten replicate colonies were grown on three types of media: control, with sugar added and with both sugar and amino acids added. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. There was a significant effect of media on the diameter of bacterial colonies (<em>F</em> = 6.11; <em>d.f.</em> = 2, 27; <em>p</em> = 0.006). Post-hoc testing with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids than with neither or just sugar. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+</figcaption></figure>
+</div>
+</section></section><section id="kruskal-wallis" class="level1" data-number="16"><h1 data-number="16">
+<span class="header-section-number">16</span> Kruskal-Wallis</h1>
+<p>Our examination of the assumptions revealed a possible violation of the assumption of homogeneity of variance. We might reasonably apply a non-parametric test to this data instead.</p>
+<p>The Kruskal-Wallis <span class="citation" data-cites="kruskal1952">(<a href="references.html#ref-kruskal1952" role="doc-biblioref">Kruskal and Wallis 1952</a>)</span> is non-parametric equivalent of a one-way ANOVA. The general question you have about your data - do these groups differ (or does the medium effect diameter) - is the same, but one of more of the following is true:</p>
+<ul>
+<li>the response variable is not continuous</li>
+<li>the residuals are not normally distributed</li>
+<li>the sample size is too small to tell if they are normally distributed.</li>
+<li>the variance is not homogeneous</li>
+</ul>
+<p>Summarising the data using the median and interquartile range is more aligned to the type of analysis than using means and standard deviations:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">culture_summary</span> <span class="op">&lt;-</span> <span class="va">culture</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">medium</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">diameter</span><span class="op">)</span>,</span>
+<span>            interquartile  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html">IQR</a></span><span class="op">(</span><span class="va">diameter</span><span class="op">)</span>,</span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">diameter</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>View the results:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">culture_summary</span></span>
+<span><span class="co">## # A tibble: 3 × 4</span></span>
+<span><span class="co">##   medium                      median interquartile     n</span></span>
+<span><span class="co">##   &lt;chr&gt;                        &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;</span></span>
+<span><span class="co">## 1 control                       10.2         0.968    10</span></span>
+<span><span class="co">## 2 sugar added                   10.1         0.713    10</span></span>
+<span><span class="co">## 3 sugar and amino acids added   11.3         1.33     10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="apply-kruskal.test" class="level3" data-number="16.0.1"><h3 data-number="16.0.1" class="anchored" data-anchor-id="apply-kruskal.test">
+<span class="header-section-number">16.0.1</span> Apply <code>kruskal.test()</code>
+</h3>
+<p>We pass the dataframe and variables to <code><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test()</a></code> in the same way as we did for <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>. We give the data argument and a “formula” which says <code>diameter ~ medium</code> meaning “explain diameter by medium”.</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="va">diameter</span> <span class="op">~</span> <span class="va">medium</span><span class="op">)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##  Kruskal-Wallis rank sum test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  diameter by medium</span></span>
+<span><span class="co">## Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The result of the test is given on this line: <code>Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742</code>. <code>Chi-squared</code> is the test statistic. The <em>p</em>-value is less than 0.05 meaning there is a significant effect of medium on diameter.</p>
+<p>Notice that the <em>p</em>-value is a little larger than for the ANOVA. This is because non-parametric tests are generally more conservative (less powerful) than their parametric equivalents.</p>
+<p>A significant Kruskal-Wallis tells us at least two of the groups differ but where do the differences lie? The Dunn test <span class="citation" data-cites="dunn1964">(<a href="references.html#ref-dunn1964" role="doc-biblioref">Dunn 1964</a>)</span> is a post-hoc multiple comparison test for a significant Kruskal-Wallis. It is available in the package <strong><code>FSA</code></strong> <span class="citation" data-cites="FSA">(<a href="references.html#ref-FSA" role="doc-biblioref">Ogle et al. 2025</a>)</span></p>
+<p>Load the package using:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://fishr-core-team.github.io/FSA/">FSA</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then run the post-hoc test with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://fishr-core-team.github.io/FSA/reference/dunnTest.html">dunnTest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="va">diameter</span> <span class="op">~</span> <span class="va">medium</span><span class="op">)</span></span>
+<span><span class="co">##                                  Comparison          Z    P.unadj      P.adj</span></span>
+<span><span class="co">## 1                     control - sugar added -0.2159242 0.82904681 0.82904681</span></span>
+<span><span class="co">## 2     control - sugar and amino acids added -2.5656880 0.01029714 0.03089142</span></span>
+<span><span class="co">## 3 sugar added - sugar and amino acids added -2.3497637 0.01878533 0.03757066</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>P.adj</code> column gives <em>p</em>-value for the comparison listed in the first column. <code>Z</code> is the test statistic. The <em>p</em>-values are a little larger for the <code>control - sugar and amino acids added</code> comparison and the <code>sugar added - sugar and amino acids added</code> comparison but they are still less than 0.05. This means our conclusions are the same as for the ANOVA.</p>
+</section><section id="report-1" class="level3" data-number="16.0.2"><h3 data-number="16.0.2" class="anchored" data-anchor-id="report-1">
+<span class="header-section-number">16.0.2</span> Report</h3>
+<p>There is a significant effect of media on the diameter of bacterial colonies (Kruskal-Wallis: <em>chi-squared</em> = 6.34; <em>df</em> = 2; <em>p</em>-value = 0.042) with colonies growing significantly better when both sugar and amino acids are added to the medium. Post-hoc testing with the Dunn test <span class="citation" data-cites="dunn1964">(<a href="references.html#ref-dunn1964" role="doc-biblioref">Dunn 1964</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids (median = 11.3 mm) than with neither (median = 10.2 mm; <em>p</em> = 0.031) or just sugar (median = 10.2 mm; <em>p</em> = 0.038). See <a href="#fig-culture-kw" class="quarto-xref">Figure&nbsp;<span>16.1</span></a>.</p>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">medium</span>, y <span class="op">=</span> <span class="va">diameter</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span> <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Diameter (mm)"</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">16.5</span><span class="op">)</span>, </span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_discrete</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Medium"</span>, </span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, </span>
+<span>                              <span class="st">"Sugar added"</span>, </span>
+<span>                              <span class="st">"Sugar and amino acids added"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">2</span>, xend <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">14</span>, yend <span class="op">=</span> <span class="fl">14</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">2.5</span>,  y <span class="op">=</span> <span class="fl">14.5</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.038"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>, x <span class="op">=</span> <span class="fl">1</span>, xend <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>           y <span class="op">=</span> <span class="fl">15.5</span>, yend <span class="op">=</span> <span class="fl">15.5</span>,</span>
+<span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">2</span>,  y <span class="op">=</span> <span class="fl">16</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.031"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div id="fig-culture-kw" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-culture-kw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="one-way-anova-and-kw_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;16.1: Medium affects bacterial colony diameter. Ten replicate colonies were grown on three types of media: control, with sugar added and with both sugar and amino acids added. The heavy lines indicate median diameter, boxes indicate the interquartile range and whiskers the range. There was a significant effect of media on the diameter of bacterial colonies (Kruskal-Wallis: chi-squared = 6.34, df = 2, p-value = 0.042). Post-hoc testing with the Dunn test [@dunn1964] revealed the colony diameters were significantly larger when grown with both sugar and amino acids than with neither or just sugar. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]."><img src="one-way-anova-and-kw_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-culture-kw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.1: <strong>Medium affects bacterial colony diameter</strong>. Ten replicate colonies were grown on three types of media: control, with sugar added and with both sugar and amino acids added. The heavy lines indicate median diameter, boxes indicate the interquartile range and whiskers the range. There was a significant effect of media on the diameter of bacterial colonies (Kruskal-Wallis: <em>chi-squared</em> = 6.34, <em>df</em> = 2, <em>p</em>-value = 0.042). Post-hoc testing with the Dunn test <span class="citation" data-cites="dunn1964">(<a href="references.html#ref-dunn1964" role="doc-biblioref">Dunn 1964</a>)</span> revealed the colony diameters were significantly larger when grown with both sugar and amino acids than with neither or just sugar. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+</figcaption></figure>
+</div>
+</section></section><section id="summary" class="level1" data-number="17"><h1 data-number="17">
+<span class="header-section-number">17</span> Summary</h1>
+<ol type="1">
+<li><p>A linear model with one explanatory variable with two or more groups is also known as a <strong>one-way ANOVA</strong>.</p></li>
+<li><p>We estimate the <strong>coefficients</strong> (also called the <strong>parameters</strong>) of the model. For a one-way ANOVA with three groups these are the mean of the first group, <span class="math inline">\(\beta_0\)</span>, the difference between the means of the first and second groups, <span class="math inline">\(\beta_1\)</span>, and the difference between the means of the first and third groups, <span class="math inline">\(\beta_2\)</span>. We test whether the parameters differ significantly from zero</p></li>
+<li><p>We can use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to one-way ANOVA in R.</p></li>
+<li><p>In the output of <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> the coefficients are listed in a table in the Estimates column. The <em>p</em>-value for each coefficient is in the test of whether it differs from zero. At the bottom of the output there is an <span class="math inline">\(F\)</span> test of the model <em>overall</em>. Now we have more than two parameters, this is different from the test on any one parameter. The R-squared value is the proportion of the variance in the response variable that is explained by the model. It tells us is the explanatory variable is useful in predicting the response variable overall.</p></li>
+<li><p>When the <span class="math inline">\(F\)</span> test is significant there is a significant effect of the explanatory variable on the response variable. To find out which means differ, we need a <strong>post-hoc</strong> test. Here we use Tukey’s HSD applied with the <code><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html">emmeans()</a></code> and <code><a href="https://rdrr.io/r/graphics/pairs.html">pairs()</a></code> functions from the <strong><code>emmeans</code></strong> package. Post-hoc tests make adjustments to the <em>p</em>-values to account for the fact that we are doing multiple tests.</p></li>
+<li><p>The assumptions of the general linear model are that the residuals are normally distributed and have homogeneity of variance. A residual is the difference between the predicted value and the observed value.</p></li>
+<li><p>We examine a histogram of the residuals and use the Shapiro-Wilk normality test to check the normality assumption. We check the variance of the residuals is the same for all fitted values with a residuals vs fitted plot.</p></li>
+<li><p>If the assumptions are not met, we can use the Kruskal-Wallis test applied with <code><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test()</a></code> in R and follow it with The Dunn test applied with <code><a href="https://fishr-core-team.github.io/FSA/reference/dunnTest.html">dunnTest()</a></code> in the package <strong><code>FSA</code></strong>.</p></li>
+<li><p>When reporting the results of a test we give the significance, direction and size of the effect. Our figures and the values we give should reflect the type of test we have used. We use means and standard errors for parametric tests and medians and interquartile ranges for non-parametric tests. We also give the test statistic, the degrees of freedom (parametric) or sample size (non-parametric) and the p-value. We annotate our figures with the p-value, making clear which comparison it applies to.</p></li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-dunn1964" class="csl-entry" role="listitem">
+Dunn, Olive Jean. 1964. <span>“Multiple Comparisons Using Rank Sums.”</span> <em>Technometrics</em> 6 (3): 241–52. <a href="https://doi.org/10.1080/00401706.1964.10490181">https://doi.org/10.1080/00401706.1964.10490181</a>.
+</div>
+<div id="ref-kruskal1952" class="csl-entry" role="listitem">
+Kruskal, William H., and W. Allen Wallis. 1952. <span>“Use of Ranks in One-Criterion Variance Analysis.”</span> <em>Journal of the American Statistical Association</em> 47 (260): 583–621. <a href="https://doi.org/10.1080/01621459.1952.10483441">https://doi.org/10.1080/01621459.1952.10483441</a>.
+</div>
+<div id="ref-emmeans" class="csl-entry" role="listitem">
+Lenth, Russell V. 2025. <em>Emmeans: Estimated Marginal Means, Aka Least-Squares Means</em>. <a href="https://doi.org/10.32614/CRAN.package.emmeans">https://doi.org/10.32614/CRAN.package.emmeans</a>.
+</div>
+<div id="ref-FSA" class="csl-entry" role="listitem">
+Ogle, Derek H., Jason C. Doll, A. Powell Wheeler, and Alexis Dinno. 2025. <em>FSA: Simple Fisheries Stock Assessment Methods</em>. <a href="https://doi.org/10.32614/CRAN.package.FSA">https://doi.org/10.32614/CRAN.package.FSA</a>.
+</div>
+<div id="ref-R-core" class="csl-entry" role="listitem">
+R Core Team. 2025. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-tukey1949" class="csl-entry" role="listitem">
+Tukey, John W. 1949. <span>“Comparing Individual Means in the Analysis of Variance.”</span> <em>Biometrics</em> 5 (2): 99–114. <a href="https://doi.org/10.2307/3001913">https://doi.org/10.2307/3001913</a>.
+</div>
+<div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
+Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./two-sample-tests.html" class="pagination-link" aria-label="Two-Sample tests">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./two-way-anova.html" class="pagination-link" aria-label="Two-way ANOVA">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/one-way-anova-and-kw.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
