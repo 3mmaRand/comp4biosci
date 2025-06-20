@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>19&nbsp; Agarose gels for PCR product verfication – Computational Analysis for Bioscientists</title>
+<title>6&nbsp; About R and RStudio – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,8 +26,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./molecular_weight_from_western_blot.html" rel="next">
-<link href="./working_with_gel_data.html" rel="prev">
+<link href="./first_steps_rstudio.html" rel="next">
+<link href="./ideas_about_data.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -245,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working_with_gel_data.html">Working with Gel data</a></li><li class="breadcrumb-item"><a href="./PCR_product_verification.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./about_R_and_RStudio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -328,7 +328,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about_R_and_RStudio.html" class="sidebar-item-text sidebar-link">
+  <a href="./about_R_and_RStudio.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
   </div>
 </li>
@@ -428,7 +428,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PCR_product_verification.html" class="sidebar-item-text sidebar-link active">
+  <a href="./PCR_product_verification.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
   </div>
 </li>
@@ -483,15 +483,36 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"><span class="header-section-number">19.1</span> </a></li>
-  <li><a href="#do-probiotic-capsules-contain-lactobacillus-acidophilus" id="toc-do-probiotic-capsules-contain-lactobacillus-acidophilus" class="nav-link" data-scroll-target="#do-probiotic-capsules-contain-lactobacillus-acidophilus"><span class="header-section-number">19.2</span> Do probiotic capsules contain <em>Lactobacillus acidophilus</em>?</a></li>
-  <li><a href="#is-this-bioremediation-product-pseudomonas-putida" id="toc-is-this-bioremediation-product-pseudomonas-putida" class="nav-link" data-scroll-target="#is-this-bioremediation-product-pseudomonas-putida"><span class="header-section-number">19.3</span> Is this bioremediation product <em>Pseudomonas putida</em>?</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/PCR_product_verification.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<li>
+<a href="#what-are-r-and-rstudio" id="toc-what-are-r-and-rstudio" class="nav-link active" data-scroll-target="#what-are-r-and-rstudio"><span class="header-section-number">6.1</span> What are R and Rstudio?</a>
+  <ul class="collapse">
+<li><a href="#what-is-r" id="toc-what-is-r" class="nav-link" data-scroll-target="#what-is-r"><span class="header-section-number">6.1.1</span> What is R?</a></li>
+  <li><a href="#what-is-rstudio" id="toc-what-is-rstudio" class="nav-link" data-scroll-target="#what-is-rstudio"><span class="header-section-number">6.1.2</span> What is RStudio?</a></li>
+  <li><a href="#why-is-it-better-to-use-r-than-a-spreadsheet-program" id="toc-why-is-it-better-to-use-r-than-a-spreadsheet-program" class="nav-link" data-scroll-target="#why-is-it-better-to-use-r-than-a-spreadsheet-program"><span class="header-section-number">6.1.3</span> Why is it better to use R than a spreadsheet program?</a></li>
+  <li><a href="#why-is-it-better-to-use-r-than-a-menu-driven-statistics-program" id="toc-why-is-it-better-to-use-r-than-a-menu-driven-statistics-program" class="nav-link" data-scroll-target="#why-is-it-better-to-use-r-than-a-menu-driven-statistics-program"><span class="header-section-number">6.1.4</span> Why is it better to use R than a menu-driven statistics program?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link" data-scroll-target="#installing-r-and-rstudio"><span class="header-section-number">6.2</span> Installing R and Rstudio</a>
+  <ul class="collapse">
+<li><a href="#installing-r" id="toc-installing-r" class="nav-link" data-scroll-target="#installing-r"><span class="header-section-number">6.2.1</span> Installing R</a></li>
+  <li><a href="#installing-r-studio" id="toc-installing-r-studio" class="nav-link" data-scroll-target="#installing-r-studio"><span class="header-section-number">6.2.2</span> Installing R Studio</a></li>
+  </ul>
+</li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">6.3</span> Packages</a></li>
+  <li>
+<a href="#introduction-to-rstudio" id="toc-introduction-to-rstudio" class="nav-link" data-scroll-target="#introduction-to-rstudio"><span class="header-section-number">6.4</span> Introduction to RStudio</a>
+  <ul class="collapse">
+<li><a href="#changing-the-appearance" id="toc-changing-the-appearance" class="nav-link" data-scroll-target="#changing-the-appearance"><span class="header-section-number">6.4.1</span> Changing the appearance</a></li>
+  </ul>
+</li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.5</span> Summary</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/about_R_and_RStudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working_with_gel_data.html">Working with Gel data</a></li><li class="breadcrumb-item"><a href="./PCR_product_verification.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./about_R_and_RStudio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span>
+<span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span>
 </h1>
 </div>
 
@@ -506,38 +527,123 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header><div class="callout callout-style-default callout-important callout-titled">
+</header><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Incomplete
+First draft
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is a dumping ground for ideas. Sections maybe missing, or contain a list of points to include.</p>
+<p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
-<section id="section" class="level2" data-number="19.1"><h2 data-number="19.1" class="anchored" data-anchor-id="section">
-<span class="header-section-number">19.1</span> </h2>
-</section><section id="do-probiotic-capsules-contain-lactobacillus-acidophilus" class="level2" data-number="19.2"><h2 data-number="19.2" class="anchored" data-anchor-id="do-probiotic-capsules-contain-lactobacillus-acidophilus">
-<span class="header-section-number">19.2</span> Do probiotic capsules contain <em>Lactobacillus acidophilus</em>?</h2>
-<p><em>Lactobacillus acidophilus</em> probiotic capsules are widely available in supermarkets and health food shops as health-promoting supplements. To verify the identity of the bacteria within these capsules, primers specific to <em>Lactobacillus acidophilus</em> were designed and used in a PCR reaction. Three cell extracts were prepared from three bacterial colonies: two isolated from probiotic capsules, and one from <em>E. coli</em>, which was included as a negative control as it is not expected to be amplified by the primers. Four PCR reaction tubes were prepared, one for each cell extract and a forth as a no-template negative control. These were loaded on to an electrophoresis gel along with a 100 base pair DNA marker ladder</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="data-images/lactobacillus-gel-dna.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Primers specific to Lactobacillus acidophilus were designed and and used in a PCR reaction to confirm the identity of the bacteria isolated from probiotic capsules. E.coli was used as a negative control. The lanes from left to right are: 100 bp ladder, Lacidophilus colony 1, Lacidophilus colony 2, E.coli colony, no template control."><img src="data-images/lactobacillus-gel-dna.png" class="img-fluid figure-img" width="400" alt="Primers specific to Lactobacillus acidophilus were designed and and used in a PCR reaction to confirm the identity of the bacteria isolated from probiotic capsules. E.coli was used as a negative control. The lanes from left to right are: 100 bp ladder, Lacidophilus colony 1, Lacidophilus colony 2, E.coli colony, no template control."></a></p>
-<figcaption>Primers specific to <em>Lactobacillus acidophilus</em> were designed and and used in a PCR reaction to confirm the identity of the bacteria isolated from probiotic capsules. <em>E.coli</em> was used as a negative control. The lanes from left to right are: 100 bp ladder, <em>Lacidophilus</em> colony 1, <em>Lacidophilus</em> colony 2, <em>E.coli</em> colony, no template control.</figcaption></figure>
+<p>This chapter starts by explaining what R and RStudio are and how you can install them on your own machine. We introduce you to working in RStudio, changing its appearance to suit you and to the key things you need to know about R.</p>
+<section id="what-are-r-and-rstudio" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="what-are-r-and-rstudio">
+<span class="header-section-number">6.1</span> What are R and Rstudio?</h2>
+<section id="what-is-r" class="level3" data-number="6.1.1"><h3 data-number="6.1.1" class="anchored" data-anchor-id="what-is-r">
+<span class="header-section-number">6.1.1</span> What is R?</h3>
+<p>R is a programming language and environment for statistical computing and graphics which is free and open source. It is widely used in industry and academia. It is what is known as a “domain-specific” language meaning that it is designed especially for doing data analysis and visualisation rather than a “general-purpose” programming language like Python and C++. It makes doing the sorts of things that bioscientists do a bit easier than in a general purpose-language.</p>
+</section><section id="what-is-rstudio" class="level3" data-number="6.1.2"><h3 data-number="6.1.2" class="anchored" data-anchor-id="what-is-rstudio">
+<span class="header-section-number">6.1.2</span> What is RStudio?</h3>
+<p>RStudio is what is known as an “integrated development environment” (IDE) for R made by <a href="https://posit.co/">Posit</a>. IDEs have features that make coding a little easier.For example, syntax highlighting, code completion and viewers for files, code objects, packages and plots. You don’t have to use RStudio to use R but it is very helpful.</p>
+</section><section id="why-is-it-better-to-use-r-than-a-spreadsheet-program" class="level3" data-number="6.1.3"><h3 data-number="6.1.3" class="anchored" data-anchor-id="why-is-it-better-to-use-r-than-a-spreadsheet-program">
+<span class="header-section-number">6.1.3</span> Why is it better to use R than a spreadsheet program?</h3>
+<p>Spreadsheet programs like Excel or googlesheets can be very useful for recording and organising data but they are not statistical packages so although you can carry out some analysis tasks in them they are <a href="https://www.gapintelligence.com/blog/understanding-r-programming-over-excel-for-data-analysis/">limited</a>, get things wrong (<a href="https://www.sciencedirect.com/science/article/abs/pii/0167947394901775">known about since 1994</a>) and <a href="https://www.teampay.co/blog/biggest-excel-mistakes-of-all-time">teach you bad data habits</a>. Spreadsheets encourage you to do things that are <a href="https://datacarpentry.org/2015-05-03-NDIC/excel-ecology/02-common-mistakes.html">going to make analysis difficult</a>.</p>
+</section><section id="why-is-it-better-to-use-r-than-a-menu-driven-statistics-program" class="level3" data-number="6.1.4"><h3 data-number="6.1.4" class="anchored" data-anchor-id="why-is-it-better-to-use-r-than-a-menu-driven-statistics-program">
+<span class="header-section-number">6.1.4</span> Why is it better to use R than a menu-driven statistics program?</h3>
+<ul>
+<li>R is free and open source which it will always be available to you .</li>
+<li>Carrying out data analysis using coding makes everything you do reproducible</li>
+<li>The skills and expertise you gain through learning R are highly transferable – much more so than those acquired using SPSS.</li>
+<li>See <a href="https://rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/">Thomas Mock’s demonstration</a> of doing some data analysis in R including “The Kick Ass Curve”.</li>
+</ul>
+<p>There are other good options such as Julia and Python and you are encouraged to explore these. We chose R in part because of the <a href="https://ropensci.org/blog/2017/06/23/community/">R community which is one of R’s greatest assets</a>, being vibrant, inclusive and supportive of users at all levels.</p>
+</section></section><section id="installing-r-and-rstudio" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="installing-r-and-rstudio">
+<span class="header-section-number">6.2</span> Installing R and Rstudio</h2>
+<p>You will need to install both R and RStudio to use them on your own machine. Installation is normally straightforward but you can <a href="https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome">follow a tutorial</a>.</p>
+<section id="installing-r" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="installing-r">
+<span class="header-section-number">6.2.1</span> Installing R</h3>
+<p>Go to <a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a> and download the “Precompiled binary distributions of the base system and contributed packages” appropriate for your machine.</p>
+<section id="for-windows" class="level4" data-number="6.2.1.1"><h4 data-number="6.2.1.1" class="anchored" data-anchor-id="for-windows">
+<span class="header-section-number">6.2.1.1</span> For Windows</h4>
+<p>Click “Download R for Windows”, then “base”, then “Download R 4.#.# for Windows”. This will download an <code>.exe</code> file. Once downloaded, open (double click) that file to start the installation.</p>
+</section><section id="for-mac" class="level4" data-number="6.2.1.2"><h4 data-number="6.2.1.2" class="anchored" data-anchor-id="for-mac">
+<span class="header-section-number">6.2.1.2</span> For Mac</h4>
+<p>Click “Download R for (Mac) OS X”, then “R-4.#.#.pkg” to download the installer. Run the installer to complete installation.</p>
+</section><section id="for-linux" class="level4" data-number="6.2.1.3"><h4 data-number="6.2.1.3" class="anchored" data-anchor-id="for-linux">
+<span class="header-section-number">6.2.1.3</span> For Linux</h4>
+<p>Click “Download R for Linux”. Instructions on installing are given for Debian, Redhat, Suse and Ubuntu distributions. Where there is a choice, install both <code>r-base</code> and <code>r-base-dev</code>.</p>
+</section></section><section id="installing-r-studio" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="installing-r-studio">
+<span class="header-section-number">6.2.2</span> Installing R Studio</h3>
+<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
+</section></section><section id="packages" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="packages">
+<span class="header-section-number">6.3</span> Packages</h2>
+<p>A R package is a collection of R functions which are related to a particular task or set of tasks. When you install R, it comes with a set of packages known as the <strong>base</strong> packages. These are <strong><code>stats</code></strong>, <strong><code>graphics</code></strong>, <strong><code>grDevices</code></strong>, <strong><code>utils</code></strong>, <strong><code>datasets</code></strong>, <strong><code>methods</code></strong> and <strong><code>base</code></strong>. You can a lot done with these packages! However there are many other packages that allow you extend the functionality of R to do all manner of specialised tasks in bioinformatics, spatial analysis, audio/image analysis and almost anything else you can think of. These packages are written by the R community and are available for free – this is one of the strengths of an open source language like R.</p>
+<p>To use a package that is not one of the base packages you need to install it from a package repository. The are two main repositories for R packages:</p>
+<ul>
+<li><p><a href="https://cran.r-project.org/">CRAN</a> (Comprehensive R Archive Network) is the official and default repository for R packages. You can install packages from CRAN using the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> function in R. There is also a menu option in RStudio to install packages from CRAN.</p></li>
+<li><p><a href="https://www.bioconductor.org/">Bioconductor</a> is a repository specifically for bioinformatics packages. You can install packages from Bioconductor using the <code>BiocManager::install()</code> function in R.</p></li>
+</ul>
+<p>You can also install packages from other sources, such as GitHub. Github is a popular platform for hosting code, often including the latest versions of packages that have not yet been submitted to CRAN. Many developers release experimental or in-progress packages on GitHub with the newest features.</p>
+<p>In the next chapter you will install your first package, the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, which is a collection of packages that are designed to work together to make data analysis easier and more intuitive.</p>
+</section><section id="introduction-to-rstudio" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="introduction-to-rstudio">
+<span class="header-section-number">6.4</span> Introduction to RStudio</h2>
+<p>In this section we will introduce you to working in RStudio. We will explain the windows that you see when you first open RStudio and how to change its appearance to suit you.</p>
+<section id="changing-the-appearance" class="level3" data-number="6.4.1"><h3 data-number="6.4.1" class="anchored" data-anchor-id="changing-the-appearance">
+<span class="header-section-number">6.4.1</span> Changing the appearance</h3>
+<p>When you first open RStudio it will display three panes and have a white background <a href="#fig-rstudio-first-open" class="quarto-xref">Figure&nbsp;<span>6.1</span></a></p>
+<div id="fig-rstudio-first-open" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rstudio-first-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/rstudio-first-open.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;6.1: Screenshot of RStudio the first time you open it. When you first open RStudio it will be white with three panes. The Console is on the left, with the Environment and Files panes on the right."><img src="images/rstudio-first-open.png" class="img-fluid figure-img"></a>
 </div>
-</section><section id="is-this-bioremediation-product-pseudomonas-putida" class="level2" data-number="19.3"><h2 data-number="19.3" class="anchored" data-anchor-id="is-this-bioremediation-product-pseudomonas-putida">
-<span class="header-section-number">19.3</span> Is this bioremediation product <em>Pseudomonas putida</em>?</h2>
-<p>blah blah</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><a href="data-images/pseudomonas-gel-dna.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Primers specific to Pseudomonas putida were designed and and used in a PCR reaction to confirm the identity of the bacteria isolated from a bioremediation product. E.coli was used as a negative control. The lanes from left to right are: 100 bp ladder, Pseudomonas putida colony 1, Pseudomonas putida colony 2, E.coli colony, no template control."><img src="data-images/pseudomonas-gel-dna.png" class="img-fluid figure-img" width="400" alt="Primers specific to Pseudomonas putida were designed and and used in a PCR reaction to confirm the identity of the bacteria isolated from a bioremediation product. E.coli was used as a negative control. The lanes from left to right are: 100 bp ladder, Pseudomonas putida colony 1, Pseudomonas putida colony 2, E.coli colony, no template control."></a></p>
-<figcaption>Primers specific to <em>Pseudomonas putida</em> were designed and and used in a PCR reaction to confirm the identity of the bacteria isolated from a bioremediation product. <em>E.coli</em> was used as a negative control. The lanes from left to right are: 100 bp ladder, <em>Pseudomonas putida</em> colony 1, <em>Pseudomonas putida</em> colony 2, <em>E.coli</em> colony, no template control.</figcaption></figure>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-first-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.1: <strong>Screenshot of RStudio the first time you open it.</strong> When you first open RStudio it will be white with three panes. The <em>Console</em> is on the left, with the <em>Environment</em> and <em>Files</em> panes on the right.
+</figcaption></figure>
 </div>
+<p>We will talk more about these three panes soon but first, let’s get into character - the character of a programmer! You might have noticed that people comfortable around computers are often using dark backgrounds. A dark background reduces eye strain and often makes “code syntax” more obvious making it faster to learn and understand at a glance. Code syntax is the set of rules that define what the various combinations of symbols mean. It takes time to learn these rules and you will learn best by repeated exposure to writing, reading and copying code. You have done this before when you learned your first spoken language. All languages have syntax rules governing the order of words and we rarely think about these consciously, instead relying on what sounds and looks right. And what sounds and looks right grows out repeated exposure. For example, 35% of languages, including English, Chinese, Yoruba and Polish use the Subject-Verb-Object syntax rule:</p>
+<ul>
+<li>English: Emma likes R</li>
+<li>Chinese: 艾玛喜欢R Emma xǐhuān R</li>
+<li>Yoruba: Emma fẹran R</li>
+<li>Polish: Emma lubi R</li>
+</ul>
+<p>and 40% use Subject-Object-Verb including Turkish and Korean</p>
+<ul>
+<li>Turkish: Emma R’yi seviyor</li>
+<li>Korean: 엠마는 R을 좋아한다 emmaneun Reul joh-ahanda</li>
+</ul>
+<p>You learned this rule in your language very early, long before you were conscious of it, just by being exposed to it frequently. In this book I try to tell you the syntax rules, but you will learn most from looking at, and copying code. Because of this, it is well worth tinkering with the appearance of RStudio to see what Editor theme makes code elements most obvious to you.</p>
+<p>There is a tool bar at the top of RStudio. Choose the <code>Tools</code> option and then <code>Global options</code>. This will open a window where many options can be changed <a href="#fig-tools-global-options-appearance" class="quarto-xref">Figure&nbsp;<span>6.2</span></a>.</p>
+<div id="fig-tools-global-options-appearance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tools-global-options-appearance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/tools-global-options-appearance.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;6.2: Screenshot of RStudio’s Global Options window showing the Appearance options Choosing Tools | Global Options opens a window where many things, listed on the left, can be customised. You can change the theme and the font under Appearance"><img src="images/tools-global-options-appearance.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tools-global-options-appearance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.2: <strong>Screenshot of RStudio’s Global Options window showing the Appearance options</strong> Choosing Tools | Global Options opens a window where many things, listed on the left, can be customised. You can change the theme and the font under <em>Appearance</em>
+</figcaption></figure>
+</div>
+<p>Go to the <code>Appearance</code> Options and choose and Editor theme you like, followed by OK.</p>
+<p>The default theme is called Textmate. You will notice that all the Editor themes have syntax highlighting so that keywords, variable names, operators, etc are coloured. Some themes have stronger contrasts than others. For beginners, I recommend Vibrant Ink, Chaos or Merbivore rather than Dreamweaver or Gob which have little contrast between some elements. However, individuals differ so experiment for yourself. I tend to vary between Solarised light and dark.</p>
+<p>You can also turn one Screen Reader Support in the Accessibility Options in Tools | Global Options.</p>
+<p>Back to the Panes. You should be looking at three windows: One on the left and two on the right<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>The window on the left, labelled <em>Console</em>, is where R commands are executed. In the next chapter we will start by typing commands in this window. Over on the right hand side, at the top, are several tabs, with the <em>Environment</em> tab showing. This is where all the objects and data that you create will be listed. Behind the <em>Environment</em> tab is the <em>History</em> tab and later you will be able to view this to see a history of all your commands.</p>
+<p>On the bottom right hand side, we have a <em>Plots</em> tab, which is where your plots will go, a <em>Files</em> tab which is a file explorer just like Windows Explorer or Mac Finder, and a <em>Packages</em> tab where you can see all the packages that are installed. The Packages tab also provides a way to install additional packages. The <em>Help</em> tab has access to all the manual pages.</p>
+</section></section><section id="summary" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">6.5</span> Summary</h2>
+<ol type="1">
+<li><p><strong>R</strong> is a free, open-source programming language for statistical computing and graphics. <strong>RStudio</strong> is an integrated development environment (IDE) that provides a user-friendly interface for working with R, offering features like syntax highlighting, auto-completion, and plot viewers.</p></li>
+<li><p>R enables reproducible, script-based data analysis—more robust and flexible than spreadsheets or menu-driven tools like SPSS. It is especially well-suited for scientific research and has wide adoption in academia and industry.</p></li>
+<li><p>R is installed from <a href="https://cloud.r-project.org/">CRAN</a>, and RStudio is installed from <a href="https://posit.co/download/rstudio-desktop/">Posit</a>. The process varies slightly for Windows, macOS, and Linux users.</p></li>
+<li><p>R’s capabilities are extended by <strong>packages</strong>—collections of functions for specific tasks. Packages can be installed from <strong>CRAN</strong>, <strong>Bioconductor</strong> (for bioinformatics), or GitHub. The <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> and <code>BiocManager::install()</code> functions are commonly used.</p></li>
+<li><p>RStudio includes panes for the <strong>Console</strong>, <strong>Environment</strong>, <strong>Files</strong>, <strong>Plots</strong>, <strong>Packages</strong>, and <strong>Help</strong>. Users can customize the interface (e.g., themes for better syntax visibility). Learning R syntax comes best from repetition and experimentation.</p></li>
+</ol>
 
 
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>If this is not a fresh install of RStudio, you might be looking at fours windows, two on the left and two on the right. That’s fine - we will all be using four shortly. For the time being, you might want to close the “Script” window using the small cross next to “Untitled1”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -954,13 +1060,13 @@ Incomplete
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./working_with_gel_data.html" class="pagination-link" aria-label="Working with Gel data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Working with Gel data</span>
+      <a href="./ideas_about_data.html" class="pagination-link" aria-label="Ideas about data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./molecular_weight_from_western_blot.html" class="pagination-link" aria-label="Finding the molecular weight of proteins migrated on a western blot">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./first_steps_rstudio.html" class="pagination-link" aria-label="First Steps in RStudio">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -971,7 +1077,7 @@ Incomplete
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/PCR_product_verification.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/about_R_and_RStudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

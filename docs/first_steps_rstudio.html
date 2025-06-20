@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>6&nbsp; First Steps in RStudio – Computational Analysis for Bioscientists</title>
+<title>7&nbsp; First Steps in RStudio – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -52,7 +52,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -62,21 +82,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./workflow_rstudio.html" rel="next">
-<link href="./ideas_about_data.html" rel="prev">
+<link href="./about_R_and_RStudio.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7a3e59189d9f0ecca6f4f741a2329820.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ad70530d0d041e0409e14c309de1970f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -277,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data</a></li><li class="breadcrumb-item"><a href="./first_steps_rstudio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./first_steps_rstudio.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -346,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started with data</span></a>
+ <span class="menu-text">Getting started with data analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -360,20 +383,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./about_R_and_RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
   </div>
 </li>
       </ul>
@@ -390,55 +419,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_way_anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./goodness_of_fit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
   </div>
 </li>
       </ul>
@@ -455,13 +484,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PCR_product_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./molecular_weight_from_western_blot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
   </div>
 </li>
       </ul>
@@ -478,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./26C-food-fuel-prac2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -486,13 +515,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -509,53 +538,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li>
-<a href="#what-are-r-and-rstudio" id="toc-what-are-r-and-rstudio" class="nav-link active" data-scroll-target="#what-are-r-and-rstudio"><span class="header-section-number">6.1</span> What are R and Rstudio?</a>
-  <ul class="collapse">
-<li><a href="#what-is-r" id="toc-what-is-r" class="nav-link" data-scroll-target="#what-is-r"><span class="header-section-number">6.1.1</span> What is R?</a></li>
-  <li><a href="#what-is-rstudio" id="toc-what-is-rstudio" class="nav-link" data-scroll-target="#what-is-rstudio"><span class="header-section-number">6.1.2</span> What is RStudio?</a></li>
-  <li><a href="#why-is-it-better-to-use-r-than-excel-googlesheets-or-some-other-spreadsheet-program" id="toc-why-is-it-better-to-use-r-than-excel-googlesheets-or-some-other-spreadsheet-program" class="nav-link" data-scroll-target="#why-is-it-better-to-use-r-than-excel-googlesheets-or-some-other-spreadsheet-program"><span class="header-section-number">6.1.3</span> Why is it better to use R than Excel, googlesheets or some other spreadsheet program?</a></li>
-  <li><a href="#why-is-it-better-to-use-r-than-spss-minitab-or-some-other-menu-driven-statistics-program" id="toc-why-is-it-better-to-use-r-than-spss-minitab-or-some-other-menu-driven-statistics-program" class="nav-link" data-scroll-target="#why-is-it-better-to-use-r-than-spss-minitab-or-some-other-menu-driven-statistics-program"><span class="header-section-number">6.1.4</span> Why is it better to use R than SPSS, Minitab or some other menu-driven statistics program?</a></li>
-  </ul>
-</li>
+<li><a href="#your-first-piece-of-code" id="toc-your-first-piece-of-code" class="nav-link active" data-scroll-target="#your-first-piece-of-code"><span class="header-section-number">7.0.1</span> Your first piece of code</a></li>
+  <li><a href="#assigning-variables" id="toc-assigning-variables" class="nav-link" data-scroll-target="#assigning-variables"><span class="header-section-number">7.0.2</span> Assigning variables</a></li>
+  <li><a href="#using-scripts" id="toc-using-scripts" class="nav-link" data-scroll-target="#using-scripts"><span class="header-section-number">7.0.3</span> Using Scripts</a></li>
+  <li><a href="#other-types-of-file-in-rstudio" id="toc-other-types-of-file-in-rstudio" class="nav-link" data-scroll-target="#other-types-of-file-in-rstudio"><span class="header-section-number">7.0.4</span> Other types of file in RStudio</a></li>
+  <li><a href="#changing-some-defaults-to-make-life-easier" id="toc-changing-some-defaults-to-make-life-easier" class="nav-link" data-scroll-target="#changing-some-defaults-to-make-life-easier"><span class="header-section-number">7.0.5</span> Changing some defaults to make life easier</a></li>
+  <li><a href="#recap-of-rstudio-anatomy" id="toc-recap-of-rstudio-anatomy" class="nav-link" data-scroll-target="#recap-of-rstudio-anatomy"><span class="header-section-number">7.1</span> Recap of RStudio anatomy</a></li>
   <li>
-<a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link" data-scroll-target="#installing-r-and-rstudio"><span class="header-section-number">6.2</span> Installing R and Rstudio</a>
+<a href="#data-types-and-structures-in-r" id="toc-data-types-and-structures-in-r" class="nav-link" data-scroll-target="#data-types-and-structures-in-r"><span class="header-section-number">7.2</span> Data types and structures in R</a>
   <ul class="collapse">
-<li><a href="#installing-r" id="toc-installing-r" class="nav-link" data-scroll-target="#installing-r"><span class="header-section-number">6.2.1</span> Installing R</a></li>
-  <li><a href="#installing-r-studio" id="toc-installing-r-studio" class="nav-link" data-scroll-target="#installing-r-studio"><span class="header-section-number">6.2.2</span> Installing R Studio</a></li>
+<li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">7.2.1</span> Data types</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">7.2.2</span> Functions</a></li>
+  <li><a href="#data-structures-vectors" id="toc-data-structures-vectors" class="nav-link" data-scroll-target="#data-structures-vectors"><span class="header-section-number">7.2.3</span> Data structures: vectors</a></li>
+  <li><a href="#indexing-vectors" id="toc-indexing-vectors" class="nav-link" data-scroll-target="#indexing-vectors"><span class="header-section-number">7.2.4</span> Indexing vectors</a></li>
+  <li><a href="#changing-the-defaults-for-a-function" id="toc-changing-the-defaults-for-a-function" class="nav-link" data-scroll-target="#changing-the-defaults-for-a-function"><span class="header-section-number">7.2.5</span> Changing the defaults for a function</a></li>
+  <li><a href="#data-structures-dataframes" id="toc-data-structures-dataframes" class="nav-link" data-scroll-target="#data-structures-dataframes"><span class="header-section-number">7.2.6</span> Data structures: dataframes</a></li>
   </ul>
 </li>
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">6.3</span> Packages</a></li>
-  <li>
-<a href="#introduction-to-rstudio" id="toc-introduction-to-rstudio" class="nav-link" data-scroll-target="#introduction-to-rstudio"><span class="header-section-number">6.4</span> Introduction to RStudio</a>
-  <ul class="collapse">
-<li><a href="#changing-the-appearance" id="toc-changing-the-appearance" class="nav-link" data-scroll-target="#changing-the-appearance"><span class="header-section-number">6.4.1</span> Changing the appearance</a></li>
-  <li><a href="#your-first-piece-of-code" id="toc-your-first-piece-of-code" class="nav-link" data-scroll-target="#your-first-piece-of-code"><span class="header-section-number">6.4.2</span> Your first piece of code</a></li>
-  <li><a href="#assigning-variables" id="toc-assigning-variables" class="nav-link" data-scroll-target="#assigning-variables"><span class="header-section-number">6.4.3</span> Assigning variables</a></li>
-  <li><a href="#using-scripts" id="toc-using-scripts" class="nav-link" data-scroll-target="#using-scripts"><span class="header-section-number">6.4.4</span> Using Scripts</a></li>
-  <li><a href="#other-types-of-file-in-rstudio" id="toc-other-types-of-file-in-rstudio" class="nav-link" data-scroll-target="#other-types-of-file-in-rstudio"><span class="header-section-number">6.4.5</span> Other types of file in RStudio</a></li>
-  <li><a href="#changing-some-defaults-to-make-life-easier" id="toc-changing-some-defaults-to-make-life-easier" class="nav-link" data-scroll-target="#changing-some-defaults-to-make-life-easier"><span class="header-section-number">6.4.6</span> Changing some defaults to make life easier</a></li>
-  </ul>
-</li>
-  <li><a href="#recap-of-rstudio-anatomy" id="toc-recap-of-rstudio-anatomy" class="nav-link" data-scroll-target="#recap-of-rstudio-anatomy"><span class="header-section-number">6.5</span> Recap of RStudio anatomy</a></li>
-  <li>
-<a href="#data-types-and-structures-in-r" id="toc-data-types-and-structures-in-r" class="nav-link" data-scroll-target="#data-types-and-structures-in-r"><span class="header-section-number">6.6</span> Data types and structures in R</a>
-  <ul class="collapse">
-<li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types"><span class="header-section-number">6.6.1</span> Data types</a></li>
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">6.6.2</span> Functions</a></li>
-  <li><a href="#data-structures-vectors" id="toc-data-structures-vectors" class="nav-link" data-scroll-target="#data-structures-vectors"><span class="header-section-number">6.6.3</span> Data structures: vectors</a></li>
-  <li><a href="#indexing-vectors" id="toc-indexing-vectors" class="nav-link" data-scroll-target="#indexing-vectors"><span class="header-section-number">6.6.4</span> Indexing vectors</a></li>
-  <li><a href="#changing-the-defaults-for-a-function" id="toc-changing-the-defaults-for-a-function" class="nav-link" data-scroll-target="#changing-the-defaults-for-a-function"><span class="header-section-number">6.6.5</span> Changing the defaults for a function</a></li>
-  <li><a href="#data-structures-dataframes" id="toc-data-structures-dataframes" class="nav-link" data-scroll-target="#data-structures-dataframes"><span class="header-section-number">6.6.6</span> Data structures: dataframes</a></li>
-  </ul>
-</li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.7</span> Summary</a></li>
+  <li><a href="#install-your-first-r-package" id="toc-install-your-first-r-package" class="nav-link" data-scroll-target="#install-your-first-r-package"><span class="header-section-number">7.3</span> Install your first R package</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.4</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/first_steps_rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data</a></li><li class="breadcrumb-item"><a href="./first_steps_rstudio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting_started_with_data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./first_steps_rstudio.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span>
+<span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span>
 </h1>
 </div>
 
@@ -583,153 +590,67 @@ First draft
 <p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
-<p>This chapter starts by explaining what R and RStudio are and how you can install them on your own machine. We introduce you to working in RStudio, changing its appearance to suit you and to the key things you need to know about R.</p>
-<section id="what-are-r-and-rstudio" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="what-are-r-and-rstudio">
-<span class="header-section-number">6.1</span> What are R and Rstudio?</h2>
-<section id="what-is-r" class="level3" data-number="6.1.1"><h3 data-number="6.1.1" class="anchored" data-anchor-id="what-is-r">
-<span class="header-section-number">6.1.1</span> What is R?</h3>
-<p>R is a programming language and environment for statistical computing and graphics which is free and open source. It is widely used in industry and academia. It is what is known as a “domain-specific” language meaning that it is designed especially for doing data analysis and visualisation rather than a “general-purpose” programming language like Python and C++. It makes doing the sorts of things that bioscientists do a bit easier than in a general purpose-language.</p>
-</section><section id="what-is-rstudio" class="level3" data-number="6.1.2"><h3 data-number="6.1.2" class="anchored" data-anchor-id="what-is-rstudio">
-<span class="header-section-number">6.1.2</span> What is RStudio?</h3>
-<p>RStudio is what is known as an “integrated development environment” (IDE) for R made by <a href="https://posit.co/">Posit</a>. IDEs have features that make it easier to do coding like syntax highlighting, code completion and viewers for files, code objects, packages and plots. You don’t have to use RStudio to use R but it is very helpful.</p>
-</section><section id="why-is-it-better-to-use-r-than-excel-googlesheets-or-some-other-spreadsheet-program" class="level3" data-number="6.1.3"><h3 data-number="6.1.3" class="anchored" data-anchor-id="why-is-it-better-to-use-r-than-excel-googlesheets-or-some-other-spreadsheet-program">
-<span class="header-section-number">6.1.3</span> Why is it better to use R than Excel, googlesheets or some other spreadsheet program?</h3>
-<p>Spreadsheet programs are not statistical packages so although you can carry out some analysis tasks in them they are <a href="https://www.gapintelligence.com/blog/understanding-r-programming-over-excel-for-data-analysis/">limited</a>, get things wrong (<a href="https://www.sciencedirect.com/science/article/abs/pii/0167947394901775">known about since 1994</a>) and <a href="https://www.teampay.co/blog/biggest-excel-mistakes-of-all-time">teach you bad data habits</a>. Spreadsheets encourage you to do things that are <a href="https://datacarpentry.org/2015-05-03-NDIC/excel-ecology/02-common-mistakes.html">going to make analysis difficult</a>.</p>
-</section><section id="why-is-it-better-to-use-r-than-spss-minitab-or-some-other-menu-driven-statistics-program" class="level3" data-number="6.1.4"><h3 data-number="6.1.4" class="anchored" data-anchor-id="why-is-it-better-to-use-r-than-spss-minitab-or-some-other-menu-driven-statistics-program">
-<span class="header-section-number">6.1.4</span> Why is it better to use R than SPSS, Minitab or some other menu-driven statistics program?</h3>
-<ul>
-<li>R is free and open source which it will always be available to you .</li>
-<li>Carrying out data analysis using coding makes everything you do reproducible</li>
-<li>The skills and expertise you gain through learning R are highly transferable – much more so than those acquired using SPSS.</li>
-<li>See <a href="https://rstudio.com/resources/webinars/a-gentle-introduction-to-tidy-statistics-in-r/">Thomas Mock’s demonstration</a> of doing some data analysis in R including “The Kick Ass Curve”.</li>
-</ul>
-<p>There are other good options such as Julia and Python and you are encouraged to explore these. We chose R in part because of the R community which is one of R’s greatest assets, being vibrant, inclusive and supportive of users at all levels. https://ropensci.org/blog/2017/06/23/community/</p>
-</section></section><section id="installing-r-and-rstudio" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="installing-r-and-rstudio">
-<span class="header-section-number">6.2</span> Installing R and Rstudio</h2>
-<p>You will need to install both R and RStudio to use them on your own machine. Installation is normally straightforward but you can <a href="https://learnr-examples.shinyapps.io/ex-setup-r/#section-welcome">follow a tutorial</a></p>
-<section id="installing-r" class="level3" data-number="6.2.1"><h3 data-number="6.2.1" class="anchored" data-anchor-id="installing-r">
-<span class="header-section-number">6.2.1</span> Installing R</h3>
-<p>Go to <a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a> and download the “Precompiled binary distributions of the base system and contributed packages” appropriate for your machine.</p>
-<section id="for-windows" class="level4" data-number="6.2.1.1"><h4 data-number="6.2.1.1" class="anchored" data-anchor-id="for-windows">
-<span class="header-section-number">6.2.1.1</span> For Windows</h4>
-<p>Click “Download R for Windows”, then “base”, then “Download R 4.#.# for Windows”. This will download an <code>.exe</code> file. Once downloaded, open (double click) that file to start the installation.</p>
-</section><section id="for-mac" class="level4" data-number="6.2.1.2"><h4 data-number="6.2.1.2" class="anchored" data-anchor-id="for-mac">
-<span class="header-section-number">6.2.1.2</span> For Mac</h4>
-<p>Click “Download R for (Mac) OS X”, then “R-4.#.#.pkg” to download the installer. Run the installer to complete installation.</p>
-</section><section id="for-linux" class="level4" data-number="6.2.1.3"><h4 data-number="6.2.1.3" class="anchored" data-anchor-id="for-linux">
-<span class="header-section-number">6.2.1.3</span> For Linux</h4>
-<p>Click “Download R for Linux”. Instructions on installing are given for Debian, Redhat, Suse and Ubuntu distributions. Where there is a choice, install both <code>r-base</code> and <code>r-base-dev</code>.</p>
-</section></section><section id="installing-r-studio" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="installing-r-studio">
-<span class="header-section-number">6.2.2</span> Installing R Studio</h3>
-<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
-</section></section><section id="packages" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="packages">
-<span class="header-section-number">6.3</span> Packages</h2>
-<p>TODO some text</p>
-<p>Install <strong><code>tidyverse</code></strong>:</p>
-<div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"readxl"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section><section id="introduction-to-rstudio" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="introduction-to-rstudio">
-<span class="header-section-number">6.4</span> Introduction to RStudio</h2>
-<p>In this section we will introduce you to working in RStudio. We will explain the windows that you see when you first open RStudio and how to change its appearance to suit you. Then we will see how we use R as a calculator and how assign values to R objects.</p>
-<section id="changing-the-appearance" class="level3" data-number="6.4.1"><h3 data-number="6.4.1" class="anchored" data-anchor-id="changing-the-appearance">
-<span class="header-section-number">6.4.1</span> Changing the appearance</h3>
-<p>When you first open RStudio it will display three panes and have a white background <a href="#fig-rstudio-first-open" class="quarto-xref">Figure&nbsp;<span>6.1</span></a></p>
-<div id="fig-rstudio-first-open" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio's default appearance">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rstudio-first-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/rstudio-first-open.png" class="img-fluid figure-img" alt="screenshot of RStudio's default appearance" width="800">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-first-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.1: When you first open RStudio it will be white with three panes
-</figcaption></figure>
-</div>
-<p>We will talk more about these three panes soon but first, let’s get into character - the character of a programmer! You might have noticed that people comfortable around computers are often using dark backgrounds. A dark background reduces eye strain and often makes “code syntax” more obvious making it faster to learn and understand at a glance. Code syntax is the set of rules that define what the various combinations of symbols mean. It takes time to learn these rules and you will learn best by repeated exposure to writing, reading and copying code. You have done this before when you learned your first spoken language. All languages have syntax rules governing the order of words and we rarely think about these consciously, instead relying on what sounds and looks right. And what sounds and looks right grows out repeated exposure. For example, 35% of languages, including English, Chinese, Yoruba and Polish use the Subject-Verb-Object syntax rule:</p>
-<ul>
-<li>English: Emma likes R</li>
-<li>Chinese: 艾玛喜欢R Emma xǐhuān R</li>
-<li>Yoruba: Emma fẹran R</li>
-<li>Polish: Emma lubi R</li>
-</ul>
-<p>and 40% use Subject-Object-Verb including Turkish and Korean</p>
-<ul>
-<li>Turkish: Emma R’yi seviyor</li>
-<li>Korean: 엠마는 R을 좋아한다 emmaneun Reul joh-ahanda</li>
-</ul>
-<p>You learned this rule in your language very early, long before you were conscious of it, just by being exposed to it frequently. In this book I try to tell you the syntax rules, but you will learn most from looking at, and copying code. Because of this, it is well worth tinkering with the appearance of RStudio to see what Editor theme makes code elements most obvious to you.</p>
-<p>There is a tool bar at the top of RStudio. Choose the <code>Tools</code> option and then <code>Global options</code>. This will open a window where many options can be changed <a href="#fig-tools-global-options-appearance" class="quarto-xref">Figure&nbsp;<span>6.2</span></a>.</p>
-<div id="fig-tools-global-options-appearance" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio's Global Options window showing the Appearance options">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tools-global-options-appearance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/tools-global-options-appearance.png" class="img-fluid figure-img" alt="screenshot of RStudio's Global Options window showing the Appearance options" width="800">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tools-global-options-appearance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.2: Tools | Global Options opens a window. One of the options is Appearance
-</figcaption></figure>
-</div>
-<p>Go to the <code>Appearance</code> Options and choose and Editor theme you like, followed by OK.</p>
-<p>The default theme is Textmate. You will notice that all the Editor themes have syntax highlighting so that keywords, variable names, operators, etc are coloured but some themes have stronger contrasts than others. For beginners, I recommend Vibrant Ink, Chaos or Merbivore rather than Dreamweaver or Gob which have little contrast between some elements. However, individuals differ so experiment for yourself. I tend to vary between Solarised light and dark.</p>
-<p>You can also turn one Screen Reader Support in the Accessibility Options in Tools | Global Options.</p>
-<p>Back to the Panes. You should be looking at three windows: One on the left and two on the right<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>The window on the left, labelled Console, is where R commands are executed. In a moment we will start by typing commands in this window. Over on the right hand side, at the top, have several tabs, with the Environment tab showing. This is where all the objects and data that you create will be listed. Behind the Environment tab is the History and later you will be able to view this to see a history of all your commands.</p>
-<p>On the bottom right hand side, we have a tab called Plots which is where your plots will go, a tab called Files which is a file explorer just like Windows Explorer or Mac Finder, and a Packages tab where you can see all the packages that are installed. The Packages tab also provides a way to install additional packages. The Help tab has access to all the manual pages.</p>
+<p>This chapter …..</p>
 <p>Right, let’s start coding!</p>
-</section><section id="your-first-piece-of-code" class="level3" data-number="6.4.2"><h3 data-number="6.4.2" class="anchored" data-anchor-id="your-first-piece-of-code">
-<span class="header-section-number">6.4.2</span> Your first piece of code</h3>
+<section id="your-first-piece-of-code" class="level3" data-number="7.0.1"><h3 data-number="7.0.1" class="anchored" data-anchor-id="your-first-piece-of-code">
+<span class="header-section-number">7.0.1</span> Your first piece of code</h3>
 <p>We can use R just like a calculator. Put your cursor after the <code>&gt;</code> in the Console, type <code>3 + 4</code> and ↵ Enter to send that command:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span><span class="op">+</span><span class="fl">4</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span><span class="op">+</span><span class="fl">4</span></span>
 <span><span class="co">## [1] 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>&gt;</code> is called the “prompt”. You do not have to type it, it tells you that R is ready for input.</p>
 <p>Where I’ve written <code>3+4</code>, I have no spaces. However, you <em>can</em> have spaces, and in fact, it’s good practice to use spaces around your operators because it makes your code easier to read. So a better way of writing this would be:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">+</span> <span class="fl">4</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">+</span> <span class="fl">4</span></span>
 <span><span class="co">## [1] 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the output we have the number <code>7</code>, which, obviously, is the answer. From now on, you should assume commands typed at the console should be followed by ↵ Enter to send them.</p>
 <p>The one in parentheses, <code>[1]</code>, is an index. It is telling you that the <code>7</code> is the first element of the output. We can see this more clear if we create something with more output. For example, <code>50:100</code> will print the numbers from 50 to 100.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">50</span><span class="op">:</span><span class="fl">100</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">50</span><span class="op">:</span><span class="fl">100</span></span>
 <span><span class="co">##  [1]  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68</span></span>
 <span><span class="co">## [20]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87</span></span>
 <span><span class="co">## [39]  88  89  90  91  92  93  94  95  96  97  98  99 100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The numbers in the square parentheses at the beginning of the line give you the index of the first element in the line. R is telling you where you are in the output.</p>
-</section><section id="assigning-variables" class="level3" data-number="6.4.3"><h3 data-number="6.4.3" class="anchored" data-anchor-id="assigning-variables">
-<span class="header-section-number">6.4.3</span> Assigning variables</h3>
+</section><section id="assigning-variables" class="level3" data-number="7.0.2"><h3 data-number="7.0.2" class="anchored" data-anchor-id="assigning-variables">
+<span class="header-section-number">7.0.2</span> Assigning variables</h3>
 <p>Very often we want to keep input values or output for future use. We do this with ‘assignment’ An assignment is a statement in programming that is used to set a value to a variable name. In R, the operator used to do assignment is <code>&lt;-</code>. It assigns the value on the right-hand to the value on the left-hand side.</p>
 <p>To assign the value <code>3</code> to <code>x</code> we do:</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and ↵ Enter to send that command.</p>
 <p>The assignment operator is made of two characters, the <code>&lt;</code> and the <code>-</code> and there is a keyboard short cut: Alt+- (windows) or Option+- (Mac). Using the shortcut means you’ll automatically get spaces. You won’t see any output when the command has been executed because there is no output. However, you will see <code>x</code> listed under Values in the Environment tab (top right).</p>
 <p>Your turn! Assign the value of <code>4</code> to a variable called <code>y</code>:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Check you can see <code>y</code> listed in the Environment tab.</p>
 <p>Type <code>x</code> and ↵ Enter to print the contents of <code>x</code> in the console:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span></span>
 <span><span class="co">## [1] 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can use these values in calculations just like we could in in maths and algebra.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
 <span><span class="co">## [1] 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We get the output of <code>7</code> just as we expect. Suppose we make a mistake when typing, for example, accidentally pressing the u button instead of the y button:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span>
 <span><span class="co">## Error: object 'u' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We get an error. We will probably see this error quite often - it means we have tried to use a variable that is not in our Environment. So when you get that error, have a quick look up at your environment<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>We get an error. We will probably see this error quite often - it means we have tried to use a variable that is not in our Environment. So when you get that error, have a quick look up at your environment<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>We made a typo and will want to try again. We usefully have access to all the commands that previously entered when we use the ↑ Up Arrow. This is known as command recall. Pressing the ↑ Up Arrow once recalls the last command; pressing it twice recalls the command before the last one and so on.</p>
 <p>Recall the <code>x + u</code> command (you may need to use the ↓ Down Arrow to get back to get it) and use the Back space key to remove the <code>u</code> and then add a <code>y</code>.</p>
 <p>A lot of what we type is going to be wrong - that is not because you are a beginner, it is same for everybody! On the whole, you type it wrong until you get it right and then you move to the next part. This means you are going to have to access your previous commands often. The History - behind the Environment tab - contains everything you can see with the ↑ Up Arrow. You can imagine that as you increase the number of commands you run in a session, having access the this record of everything you did is useful. However, the thing about the history is, that it has <em>everything</em> you typed, including all the wrong things!</p>
 <p>What we really want is a record of everything we did that was right! This is why we use scripts instead of typing directly into the console.</p>
-</section><section id="using-scripts" class="level3" data-number="6.4.4"><h3 data-number="6.4.4" class="anchored" data-anchor-id="using-scripts">
-<span class="header-section-number">6.4.4</span> Using Scripts</h3>
+</section><section id="using-scripts" class="level3" data-number="7.0.3"><h3 data-number="7.0.3" class="anchored" data-anchor-id="using-scripts">
+<span class="header-section-number">7.0.3</span> Using Scripts</h3>
 <p>An R script is a plain text file with a <code>.R</code> extension and containing R code. Instead of typing into the console, we normally type into a script and then send the commands to the console when we are ready to run them. Then if we’ve made any mistakes, we just correct our script and by the end of the session, it contains a record of everything we typed that worked.</p>
 <p>You have several options open a new script:</p>
 <ul>
@@ -739,24 +660,24 @@ First draft
 </ul>
 <p>Open a script and add the two assignments to it:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To send the first line to the console, we place our cursor on the line (anywhere) and press Ctrl-Enter (Windows) / Command-Return. That line will be executed in the console and in the script, our cursor will jump to the next line. Now, send the second command to the console in the same way.</p>
 <p>From this point forward, you should assume commands should be typed into the script and sent to the console.</p>
 <p>Add the incorrect command attempting to sum the two variables:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">u</span></span>
 <span><span class="co">## Error: object 'u' not found</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To correct this, we do not add another line to the script but instead edit the existing command:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
 <span><span class="co">## [1] 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In addition to making it easy to keep a record of your work, scripts have another big advantage, you can include ‘comments’ - pieces of text that describe what the code is doing. Comments are indicated with a <code>#</code> in front of them. You can write anything you like after a <code>#</code> and R will recognise that it is not code and doesn’t need to be run.</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># This script performs the sum of two values</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># This script performs the sum of two values</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">3</span>    <span class="co"># can be altered</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">4</span>    <span class="co"># can be altered</span></span>
@@ -773,42 +694,45 @@ First draft
 <li>keyboard shortcut: Ctrl+S (Windows) / Command+S (Mac)</li>
 </ul>
 <p>You could use a name like <code>test1.R</code> - note the <code>.R</code> extension wil be added automatically.</p>
-</section><section id="other-types-of-file-in-rstudio" class="level3" data-number="6.4.5"><h3 data-number="6.4.5" class="anchored" data-anchor-id="other-types-of-file-in-rstudio">
-<span class="header-section-number">6.4.5</span> Other types of file in RStudio</h3>
+</section><section id="other-types-of-file-in-rstudio" class="level3" data-number="7.0.4"><h3 data-number="7.0.4" class="anchored" data-anchor-id="other-types-of-file-in-rstudio">
+<span class="header-section-number">7.0.4</span> Other types of file in RStudio</h3>
 <ul>
 <li>
 <code>.R</code> script code but not the objects. You always want to save this</li>
 <li>
 <code>.Rdata</code> also known as the workspace or session, the objects, but not the code. You usually do not want to save this. Some exceptions e.g., if it takes quite a long time to run the commands.</li>
 <li>text files</li>
-</ul></section><section id="changing-some-defaults-to-make-life-easier" class="level3" data-number="6.4.6"><h3 data-number="6.4.6" class="anchored" data-anchor-id="changing-some-defaults-to-make-life-easier">
-<span class="header-section-number">6.4.6</span> Changing some defaults to make life easier</h3>
-<p>I recommend changing some of the default settings to make your life a little easier. Go back into the Global Options window with Tools | Global Options. The top tab is General <a href="#fig-tools-global-options-general" class="quarto-xref">Figure&nbsp;<span>6.3</span></a>.</p>
-<div id="fig-tools-global-options-general" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of RStudio's Global Options window showing the General options">
+</ul></section><section id="changing-some-defaults-to-make-life-easier" class="level3" data-number="7.0.5"><h3 data-number="7.0.5" class="anchored" data-anchor-id="changing-some-defaults-to-make-life-easier">
+<span class="header-section-number">7.0.5</span> Changing some defaults to make life easier</h3>
+<p>I recommend changing some of the default settings to make your life a little easier. Go back into the Global Options window with Tools | Global Options. The top tab is General <a href="#fig-tools-global-options-general" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>.</p>
+<div id="fig-tools-global-options-general" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/tools-global-options-general.png" class="img-fluid figure-img" alt="screenshot of RStudio's Global Options window showing the General options" width="800">
+<a href="images/tools-global-options-general.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;7.1: Screenshot of RStudio’s Global Options window showing the General options. Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace."><img src="images/tools-global-options-general.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.3: Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;7.1: <strong>Screenshot of RStudio’s Global Options window showing the General options</strong>. Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.
 </figcaption></figure>
 </div>
-<p>First, we will set our default working directory. Under ‘Default working directory (when not in a project<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>):’ click Browse and navigate to a through your file system to a folder where you want to work. You may want to create a folder specifically for studying this book.</p>
+<p>First, we will set our default working directory. Under ‘Default working directory (when not in a project<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>):’ click Browse and navigate to a through your file system to a folder where you want to work. You may want to create a folder specifically for studying this book.</p>
 <p>Second, we will change the Workspace options. Turn off ‘Restore .RData into workspace at startup’ and change ‘Save workspace to .RData on exit’ to ‘Never’. These options mean R will start up clean each time.</p>
-</section></section><section id="recap-of-rstudio-anatomy" class="level2" data-number="6.5"><h2 data-number="6.5" class="anchored" data-anchor-id="recap-of-rstudio-anatomy">
-<span class="header-section-number">6.5</span> Recap of RStudio anatomy</h2>
-<p>This figure (see <a href="#fig-rstudio-anatomy" class="quarto-xref">Figure&nbsp;<span>6.4</span></a><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>) summarises shows what each of the four RStudio panes and what they are used for to summarise much of what we have covered so far.</p>
-<div class="cell">
-<div class="cell-output-display">
+</section><section id="recap-of-rstudio-anatomy" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="recap-of-rstudio-anatomy">
+<span class="header-section-number">7.1</span> Recap of RStudio anatomy</h2>
+<p>This figure (see <a href="#fig-rstudio-anatomy" class="quarto-xref">Figure&nbsp;<span>7.2</span></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>) summarises shows what each of the four RStudio panes and what they are used for to summarise much of what we have covered so far.</p>
 <div id="fig-rstudio-anatomy" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-rstudio-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" class="img-fluid figure-img">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;7.2: A screenshot of RStudio’s four panes annotated with what each pane is for. You can zoom into this at the Direct link"><img src="http://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg" class="img-fluid figure-img"></a></p>
+</figure>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.4: A screenshot of RStudio’s four panes annotated with what each pane is for.
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;7.2: <strong>A screenshot of RStudio’s four panes annotated with what each pane is for</strong>. You can zoom into this at the <a href="https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg">Direct link</a>
 </figcaption></figure>
 </div>
-</div>
-</div>
-</section><section id="data-types-and-structures-in-r" class="level2" data-number="6.6"><h2 data-number="6.6" class="anchored" data-anchor-id="data-types-and-structures-in-r">
-<span class="header-section-number">6.6</span> Data types and structures in R</h2>
+</section><section id="data-types-and-structures-in-r" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="data-types-and-structures-in-r">
+<span class="header-section-number">7.2</span> Data types and structures in R</h2>
 <p>In this section, we are going to introduce you to some of R’s data types and structures. We won’t be covering all of them now, just those you are going to use often in this part of the book. These are numerics (numbers), characters, ‘logicals’, vectors and dataframes. We can do a lot with just these. We will also cover using functions.</p>
 <p>We are going to consider</p>
 <ul>
@@ -816,181 +740,205 @@ First draft
 <li><p>functions</p></li>
 <li><p>data structures</p></li>
 </ul>
-<section id="data-types" class="level3" data-number="6.6.1"><h3 data-number="6.6.1" class="anchored" data-anchor-id="data-types">
-<span class="header-section-number">6.6.1</span> Data types</h3>
+<section id="data-types" class="level3" data-number="7.2.1"><h3 data-number="7.2.1" class="anchored" data-anchor-id="data-types">
+<span class="header-section-number">7.2.1</span> Data types</h3>
 <p>This refers to the type of value that something is. They might be numerics or characters or ‘logical’ (either true of false). We assign a number, like the value of 23 to a variable called <code>x</code> like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">23</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">23</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co">## [1] 23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We do not need to use quotes for numbers but we do need to use them for characters and can assign the word banana to the variable <code>a</code> like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="st">"banana"</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="st">"banana"</span></span>
 <span><span class="va">a</span></span>
 <span><span class="co">## [1] "banana"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Quotes are needed because otherwise R wouldn’t know whether you were referring to a value or a existing object called <code>banana</code>. This is also why you can’t have variable name like <code>14</code> - R would not be able to tell the difference between the number 14 and an object named <code>14</code> since numbers and objects don’t need quotes.</p>
 <p>Anything composed of non-numeric characters, including single characters, need to have quotes around it. You can even force a number to be a character by putting quotes around it:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="st">"23"</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="st">"23"</span></span>
 <span><span class="va">b</span></span>
 <span><span class="co">## [1] "23"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice that things inside quotes appear in a different colour (the colour will depend on the Editor theme you choose). This will help you identify when you have forgotten some closing quotes<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>:</p>
+<p>Notice that things inside quotes appear in a different colour (the colour will depend on the Editor theme you choose). This will help you identify when you have forgotten some closing quotes:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">"banana</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">x &lt;- 23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">"banana</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">x &lt;- 23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Notice how the <code>x &lt;- 23</code> is in the same colour as the string “banana” because we forgot to close the quotes. RStudio makes it hard for you to forget closing quotes and parentheses because when you type an opening quote or parenthesis, it automatically adds its closing partner. When people are learning they are sometimes tempted to delete these so they can type what goes inside the quotes/parentheses and then manually add the closing partner. I strongly recommend you do <em>not</em> delete them. RStudio adds the closing character <em>but</em> it leaves your cursor in the right position to complete the contents.</p>
 <p>Although the data type is ‘character’ we often use the term ‘string’ for collections - strings - of characters</p>
 <p>We also have special values called ‘logicals’ which take a value of either <code>TRUE</code> or <code>FALSE.</code></p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
 <span><span class="va">c</span></span>
 <span><span class="co">## [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Although <code>TRUE</code> is a word, R recognises it as special word. It appears in a different colour and no quotes are needed. This is the same for <code>FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
 <span><span class="va">c</span></span>
 <span><span class="co">## [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As you type <code>FALSE</code>, the colour changes as it recognises the special word <code>FALSE</code>. Try to pay attention to the editor theme’s colouring - it is trying to help you!</p>
-</section><section id="functions" class="level3" data-number="6.6.2"><h3 data-number="6.6.2" class="anchored" data-anchor-id="functions">
-<span class="header-section-number">6.6.2</span> Functions</h3>
+</section><section id="functions" class="level3" data-number="7.2.2"><h3 data-number="7.2.2" class="anchored" data-anchor-id="functions">
+<span class="header-section-number">7.2.2</span> Functions</h3>
 <p>The aim of this section is to help you understand the logic of using a function. Functions have a name and then a set of parentheses. The function name minimally explains what the function does. Inside the parentheses are ‘arguments’ - the pieces of information you give to the function. When coding, we often talk about passing arguments to functions and calling functions. A simple function call looks like this:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span><span class="va">argument</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span><span class="va">argument</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A function can take zero to many arguments. Where you give several arguments, they are separated by commas:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span><span class="va">argument1</span>, <span class="va">argument2</span>, <span class="va">argument3</span>, <span class="va">...</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">function_name</span><span class="op">(</span><span class="va">argument1</span>, <span class="va">argument2</span>, <span class="va">argument3</span>, <span class="va">...</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The first function you are going to use is <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> which gives the <strong>str</strong>ucture of an object:</p>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">##  num 23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>It’s telling me that <code>x</code> is a number and contains 23.</p>
 <p>Your turn! Use <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> on <code>b</code>:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span>
 <span><span class="co">##  chr "23"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> is a function I use a lot to check what sort of R object I have.</p>
 <p>We must give <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> at least one argument, the object we want the structure of, but additional arguments are also possible. Later we will discover how to find out and use a function’s arguments.</p>
 <p>So far we our objects have consisted of a single thing but usually we have several bits of data that we want to collect together into a data structure.</p>
-</section><section id="data-structures-vectors" class="level3" data-number="6.6.3"><h3 data-number="6.6.3" class="anchored" data-anchor-id="data-structures-vectors">
-<span class="header-section-number">6.6.3</span> Data structures: vectors</h3>
+</section><section id="data-structures-vectors" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="data-structures-vectors">
+<span class="header-section-number">7.2.3</span> Data structures: vectors</h3>
 <p>Imagine we have the ages of six people. Since all the numbers are ages, we would want to keep them together. The minimal data structure is called a vector. We can create a vector, which collects together several numbers using a function, <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. This is one of only a few functions in R with a single-letter name. Because it has a single letter, sometimes people get confused about it but we can tell it is a function because it has a set of parentheses.</p>
 <p>To create a vector called <code>ages</code> of several numbers we use</p>
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="fl">42</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">54</span>, <span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">23</span>, <span class="fl">42</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">54</span>, <span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Type <code>ages</code> and run if you want to print the contents to the console:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span></span>
 <span><span class="co">## [1] 23 42  7  9 54 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Using <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> on <code>ages</code></p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
 <span><span class="co">##  num [1:6] 23 42 7 9 54 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>tells us we have numbers with the indices of 1 to 6.</p>
 <p>We can also create a vector of strings. Suppose we have names to go with the ages.</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Rowan"</span>, <span class="st">"Aang"</span>, <span class="st">"Zain"</span>, <span class="st">"Charlie"</span>, <span class="st">"Jules"</span>, <span class="st">"Efe"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Rowan"</span>, <span class="st">"Aang"</span>, <span class="st">"Zain"</span>, <span class="st">"Charlie"</span>, <span class="st">"Jules"</span>, <span class="st">"Efe"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>RStudio has a super useful feature for putting items in quotes, brackets or parentheses if you initially forget them: If you select something and type the opening element, that thing will be surrounded rather than over written. For example, if you had written:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> Rowan, Aang, Zain, Charlie, Jules, Efe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> Rowan, Aang, Zain, Charlie, Jules, Efe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Select one of the names and then type an opening quote - you should see the name is then surrounded by quotes rather than overwritten. You can repeat this process for all the names (note that double clicking on the name will select it). Selecting the whole list and typing an opening parenthesis will put the whole list in parentheses. This is a feature you get to love so much and use so often that other programs will annoy you when you overwrite something you meant to quote!</p>
 <p>So we can also have vectors of logical values. For example, we might have a vector that indicates that Rowan, Aang and Charlie like chocolate, but Zain, Jules and Efe do not:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chocolate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chocolate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Remember, because <code>TRUE</code> and <code>FALSE</code> are special words so we do not need quote them.</p>
-</section><section id="indexing-vectors" class="level3" data-number="6.6.4"><h3 data-number="6.6.4" class="anchored" data-anchor-id="indexing-vectors">
-<span class="header-section-number">6.6.4</span> Indexing vectors</h3>
-<p>You might be wondering how to get a single element out of a vector if typing the vector’s name prints the entire vector. This is by ‘indexing’. An index is a number from 1<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> to the length of a vector which gives the position in the vector and is denoted by square brackets. For example, to pull out the second element of <code>ages</code>:</p>
+<p>Remember, because <code>TRUE</code> and <code>FALSE</code> are special words we do not need quote them.</p>
+</section><section id="indexing-vectors" class="level3" data-number="7.2.4"><h3 data-number="7.2.4" class="anchored" data-anchor-id="indexing-vectors">
+<span class="header-section-number">7.2.4</span> Indexing vectors</h3>
+<p>You might be wondering how to get a single element out of a vector if typing the vector’s name prints the entire vector. This is by ‘indexing’. An index is a number from 1<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> to the length of a vector which gives the position in the vector and is denoted by square brackets. For example, to pull out the second element of <code>ages</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="co">## [1] 42</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your turn! Print the last element of <code>names</code>:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="fl">6</span><span class="op">]</span></span>
 <span><span class="co">## [1] "Efe"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>We an extract more than one element by giving more than one index. If the indices are adjacent like 3rd, 4th and 5th, we have use the colon:</p>
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="co">## [1] "Zain"    "Charlie" "Jules"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If the indices are not adjacent, like 2 and 6 with need to combine them with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="co">## [1] "Aang" "Efe"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can also use a logical vector to extract elements. Suppose you want to extract the names and ages of the people who like chocolate:</p>
 <div class="cell">
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="va">chocolate</span><span class="op">]</span></span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">names</span><span class="op">[</span><span class="va">chocolate</span><span class="op">]</span></span>
 <span><span class="co">## [1] "Rowan"   "Aang"    "Charlie"</span></span>
 <span><span class="va">ages</span><span class="op">[</span><span class="va">chocolate</span><span class="op">]</span></span>
 <span><span class="co">## [1] 23 42  9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>At each of the indices in <code>chocolate</code> that contain <code>TRUE</code>, the name and age are returned.</p>
-</section><section id="changing-the-defaults-for-a-function" class="level3" data-number="6.6.5"><h3 data-number="6.6.5" class="anchored" data-anchor-id="changing-the-defaults-for-a-function">
-<span class="header-section-number">6.6.5</span> Changing the defaults for a function</h3>
+</section><section id="changing-the-defaults-for-a-function" class="level3" data-number="7.2.5"><h3 data-number="7.2.5" class="anchored" data-anchor-id="changing-the-defaults-for-a-function">
+<span class="header-section-number">7.2.5</span> Changing the defaults for a function</h3>
 <p>The functions we have used so far, <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> and <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> have worked without us having to change default behaviour. For example, if we want to calculate the mean age of our people we can use the <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function in default form:</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
 <span><span class="co">## [1] 24.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Imagine Charlie would like their age removed from the dataset or that we never knew their age. We would not want a vector containing just five elements because the ages would not match the people in the same position in the vector. Instead, we would have a missing value at that position. Missing values are <code>NA</code> (not applicable) in R and <code>NA</code> is another special word, like <code>TRUE</code> and <code>FALSE</code>, that doesn’t need quotes. We can set Charlie’s age to NA using indexing:</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span><span class="op">[</span><span class="va">names</span> <span class="op">==</span> <span class="st">"Charlie"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ages</span><span class="op">[</span><span class="va">names</span> <span class="op">==</span> <span class="st">"Charlie"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span><span class="va">ages</span></span>
 <span><span class="co">## [1] 23 42  7 NA 54 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>==</code> means “is equal to” and the result of <code>names == "Charlie"</code> is a vector of logicals: <code>FALSE FALSE FALSE  TRUE FALSE FALSE</code>. This means <code>ages[names == "Charlie"]</code> references the age in <code>ages</code> at the index of Charlie in <code>names</code></p>
 <p>If we now try to calculate the mean age:</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span><span class="op">)</span></span>
 <span><span class="co">## [1] NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We get an NA! What we really want is an average of the ages we do have. The <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function has an argument that allows you to cope with that situation called <code>na.rm</code>. By default, <code>na.rm</code> is set to <code>FALSE</code> but we can set it to <code>TRUE</code> using</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ages</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">## [1] 27.6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="data-structures-dataframes" class="level3" data-number="6.6.6"><h3 data-number="6.6.6" class="anchored" data-anchor-id="data-structures-dataframes">
-<span class="header-section-number">6.6.6</span> Data structures: dataframes</h3>
+</section><section id="data-structures-dataframes" class="level3" data-number="7.2.6"><h3 data-number="7.2.6" class="anchored" data-anchor-id="data-structures-dataframes">
+<span class="header-section-number">7.2.6</span> Data structures: dataframes</h3>
 <p>We have three vectors, <code>names</code>, <code>ages</code> and <code>chocolate</code> which are all part of the same dataset. By far the most common way of organising data in R is within a “dataframe”. A dataframe, has rows and columns: each column represents a variable and each row represents a case. To make a dataframe using our three vectors we use:</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">people</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">names</span>, <span class="va">ages</span>, <span class="va">chocolate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">people</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">names</span>, <span class="va">ages</span>, <span class="va">chocolate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You will see <code>people</code> listed in the Global environment under Data. To open a spreadsheet-like view of the dataframe click its name in the Global Environment <a href="#fig-view-dataframe" class="quarto-xref">Figure&nbsp;<span>6.5</span></a></p>
-<div id="fig-view-dataframe" class="quarto-float quarto-figure quarto-figure-center anchored" alt="screenshot of the dataframe Viewer showing the people dataframe">
+<p>You will see <code>people</code> listed in the Global environment under Data. To open a spreadsheet-like view of the dataframe click its name in the Global Environment <a href="#fig-view-dataframe" class="quarto-xref">Figure&nbsp;<span>7.3</span></a></p>
+<div id="fig-view-dataframe" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/view-dataframe.png" class="img-fluid figure-img" alt="screenshot of the dataframe Viewer showing the people dataframe" width="800">
+<a href="images/view-dataframe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;7.3: A screenshot of RStudio showing the people dataframe over the script on the left and the Environment pane on the right To open a spreadsheet-like view of the dataframe click its name in the Global Environment."><img src="images/view-dataframe.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;6.5: To open a spreadsheet-like view of the dataframe click its name in the Global Environment
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;7.3: <strong>A screenshot of RStudio showing the <code>people</code> dataframe over the script on the left and the Environment pane on the right</strong> To open a spreadsheet-like view of the dataframe click its name in the Global Environment.
 </figcaption></figure>
 </div>
-</section></section><section id="summary" class="level2" data-number="6.7"><h2 data-number="6.7" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">6.7</span> Summary</h2>
-<p>TODO</p>
+</section></section><section id="install-your-first-r-package" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="install-your-first-r-package">
+<span class="header-section-number">7.3</span> Install your first R package</h2>
+<p>We will be using the <strong><code>tidyverse</code></strong> <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span> package in this book.</p>
+<p>Install <strong><code>tidyverse</code></strong> like this:</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Installing</em> a package means downloading it from the internet and placing its code on your computer. You only need to do this once – or each time you update your version of R. To use the package once it has been installed you need to <em>load</em> it with:</p>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Loading a package means telling R you want to use functions from that package in an R session. You need to load packages each time you start a new R session.</p>
+</section><section id="summary" class="level2" data-number="7.4"><h2 data-number="7.4" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">7.4</span> Summary</h2>
+<ol type="1">
+<li><p>R can be used like a calculator. Commands are typed at the console prompt (<code>&gt;</code>), and output appears below with line indices. Good practice includes using spaces around operators for readability.</p></li>
+<li><p><strong>Variables</strong> are created using <code>&lt;-</code> (e.g., <code>x &lt;- 3</code>). This is called <strong>assignment</strong>. These values can be reused in calculations, and errors (like using an undefined variable) are common and part of the learning process. Use the Environment tab and command history to track objects and troubleshoot.</p></li>
+<li><p>Rather than typing directly into the console, use <code>.R</code> <strong>scripts</strong> to write and execute code. Scripts help keep a record of correct commands and allow <strong>comments</strong> (using <code>#</code>) to explain code.</p></li>
+<li><p>Change some of the default RStudio settings: decide a default working directory and adjust workspace options to start clean each time (e.g., do not restore <code>.RData</code> on startup or save workspace on exit).</p></li>
+<li><p>R uses basic data types like <strong>numeric</strong>, <strong>character</strong> (strings), and logical (<strong><code>TRUE</code></strong>/<strong><code>FALSE</code></strong>). <strong>Vectors</strong> are collections of values, created with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. Indexing (e.g., <code>ages[2]</code>) retrieves elements by position or condition.</p></li>
+<li><p><strong>Functions</strong> take arguments in parentheses (e.g., <code>mean(ages)</code>). Some functions have default settings that can be changed (e.g., <code>na.rm = TRUE</code> to ignore missing values in <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>).</p></li>
+<li><p><strong>Data frame</strong> are rectangular and the most common structure for datasets in R.</p></li>
+</ol>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1"><p>If this is not a fresh install of RStudio, you might be looking at fours windows, two on the left and two on the right. That’s fine - we will al be using four shortly. For the time being, you might want to close the “Script” window using the small cross next to “Untitled1”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>When we are using scripts, it is very easy to write code but forget to run it. Very often when you see this error it will because you have written the code to create an object but forgotten to execute it.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>We will find out what an RStudio Project is very soon. You will want to use a project for most of your work - they make everything a little easier.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>You can zoom into this at the <a href="https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg">Direct link</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>RStudio makes it hard for you to forget closing quotes and parentheses because when you type an opening quote or parenthesis, it automatically adds its closing partner. When people are learning they are sometimes tempted to delete these so they can type what goes inside the quotes/parentheses and then manually add the closing partner. I strongly recommend you don’t not delete them. RStudio adds the closing character but it leaves your cursor in the right position to complete the contents.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>We start counting from 1 in R. Most programming languages count from zero.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>When we are using scripts, it is very easy to write code but forget to run it. Very often when you see this error it will because you have written the code to create an object but forgotten to execute it.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We will find out what an RStudio Project is very soon. You will want to use a project for most of your work - they make everything a little easier.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>You can zoom into this at the <a href="https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg">Direct link</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We start counting from 1 in R. Most programming languages count from zero.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1408,20 +1356,20 @@ First draft
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./ideas_about_data.html" class="pagination-link" aria-label="Ideas about data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span>
+      <a href="./about_R_and_RStudio.html" class="pagination-link" aria-label="About R and RStudio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./workflow_rstudio.html" class="pagination-link" aria-label="Workflow in RStudio">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Rand, E. (2023). Computational Analysis for Bioscientists (Version 0.1) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1430,7 +1378,38 @@ First draft
       &nbsp;
     </div>
   </div>
-</footer>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 </body></html>

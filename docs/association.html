@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>16&nbsp; Association: Correlation and Contingency – Computational Analysis for Bioscientists</title>
+<title>17&nbsp; Association: Correlation and Contingency – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,14 +89,17 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7a3e59189d9f0ecca6f4f741a2329820.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ad70530d0d041e0409e14c309de1970f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -323,7 +326,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./association.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./association.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -392,7 +395,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started with data</span></a>
+ <span class="menu-text">Getting started with data analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -406,20 +409,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./about_R_and_RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
   </div>
 </li>
       </ul>
@@ -436,55 +445,55 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_way_anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./association.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./goodness_of_fit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
   </div>
 </li>
       </ul>
@@ -501,13 +510,13 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PCR_product_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./molecular_weight_from_western_blot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
   </div>
 </li>
       </ul>
@@ -524,7 +533,7 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./26C-food-fuel-prac2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -532,13 +541,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -556,45 +565,45 @@ window.Quarto = {
    
   <ul>
 <li>
-<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">16.1</span> Overview</a>
+<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">17.1</span> Overview</a>
   <ul class="collapse">
-<li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">16.1.1</span> Correlation</a></li>
+<li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">17.1.1</span> Correlation</a></li>
   </ul>
 </li>
   <li>
-<a href="#correlation-examples" id="toc-correlation-examples" class="nav-link" data-scroll-target="#correlation-examples"><span class="header-section-number">16.2</span> Correlation Examples</a>
+<a href="#correlation-examples" id="toc-correlation-examples" class="nav-link" data-scroll-target="#correlation-examples"><span class="header-section-number">17.2</span> Correlation Examples</a>
   <ul class="collapse">
-<li><a href="#contingency-chi-squared" id="toc-contingency-chi-squared" class="nav-link" data-scroll-target="#contingency-chi-squared"><span class="header-section-number">16.2.1</span> Contingency Chi-squared</a></li>
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">16.2.2</span> Reporting</a></li>
+<li><a href="#contingency-chi-squared" id="toc-contingency-chi-squared" class="nav-link" data-scroll-target="#contingency-chi-squared"><span class="header-section-number">17.2.1</span> Contingency Chi-squared</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">17.2.2</span> Reporting</a></li>
   </ul>
 </li>
-  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">16.3</span> 🎬 Your turn!</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">17.3</span> 🎬 Your turn!</a></li>
   <li>
-<a href="#correlation-1" id="toc-correlation-1" class="nav-link" data-scroll-target="#correlation-1"><span class="header-section-number">16.4</span> Correlation</a>
+<a href="#correlation-1" id="toc-correlation-1" class="nav-link" data-scroll-target="#correlation-1"><span class="header-section-number">17.4</span> Correlation</a>
   <ul class="collapse">
-<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">16.4.1</span> Import and explore</a></li>
-  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">16.4.2</span> Check assumptions</a></li>
-  <li><a href="#do-a-pearsons-correlation-test-with-cor.test" id="toc-do-a-pearsons-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-pearsons-correlation-test-with-cor.test"><span class="header-section-number">16.4.3</span> Do a Pearson’s correlation test with <code>cor.test()</code></a></li>
-  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">16.4.4</span> Report</a></li>
-  <li><a href="#spearmans-rank-correlation-coefficient" id="toc-spearmans-rank-correlation-coefficient" class="nav-link" data-scroll-target="#spearmans-rank-correlation-coefficient"><span class="header-section-number">16.4.5</span> Spearman’s rank correlation coefficient</a></li>
-  <li><a href="#import-and-explore-1" id="toc-import-and-explore-1" class="nav-link" data-scroll-target="#import-and-explore-1"><span class="header-section-number">16.4.6</span> Import and explore</a></li>
-  <li><a href="#do-a-spearmans-rank-correlation-test-with-cor.test" id="toc-do-a-spearmans-rank-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-spearmans-rank-correlation-test-with-cor.test"><span class="header-section-number">16.4.7</span> Do a Spearman’s rank correlation test with <code>cor.test()</code></a></li>
-  <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">16.4.8</span> Report</a></li>
+<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">17.4.1</span> Import and explore</a></li>
+  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">17.4.2</span> Check assumptions</a></li>
+  <li><a href="#do-a-pearsons-correlation-test-with-cor.test" id="toc-do-a-pearsons-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-pearsons-correlation-test-with-cor.test"><span class="header-section-number">17.4.3</span> Do a Pearson’s correlation test with <code>cor.test()</code></a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">17.4.4</span> Report</a></li>
+  <li><a href="#spearmans-rank-correlation-coefficient" id="toc-spearmans-rank-correlation-coefficient" class="nav-link" data-scroll-target="#spearmans-rank-correlation-coefficient"><span class="header-section-number">17.4.5</span> Spearman’s rank correlation coefficient</a></li>
+  <li><a href="#import-and-explore-1" id="toc-import-and-explore-1" class="nav-link" data-scroll-target="#import-and-explore-1"><span class="header-section-number">17.4.6</span> Import and explore</a></li>
+  <li><a href="#do-a-spearmans-rank-correlation-test-with-cor.test" id="toc-do-a-spearmans-rank-correlation-test-with-cor.test" class="nav-link" data-scroll-target="#do-a-spearmans-rank-correlation-test-with-cor.test"><span class="header-section-number">17.4.7</span> Do a Spearman’s rank correlation test with <code>cor.test()</code></a></li>
+  <li><a href="#report-1" id="toc-report-1" class="nav-link" data-scroll-target="#report-1"><span class="header-section-number">17.4.8</span> Report</a></li>
   </ul>
 </li>
   <li>
-<a href="#contingency-chi-squared-test" id="toc-contingency-chi-squared-test" class="nav-link" data-scroll-target="#contingency-chi-squared-test"><span class="header-section-number">16.5</span> Contingency Chi-squared test</a>
+<a href="#contingency-chi-squared-test" id="toc-contingency-chi-squared-test" class="nav-link" data-scroll-target="#contingency-chi-squared-test"><span class="header-section-number">17.5</span> Contingency Chi-squared test</a>
   <ul class="collapse">
-<li><a href="#report-2" id="toc-report-2" class="nav-link" data-scroll-target="#report-2"><span class="header-section-number">16.5.1</span> Report</a></li>
+<li><a href="#report-2" id="toc-report-2" class="nav-link" data-scroll-target="#report-2"><span class="header-section-number">17.5.1</span> Report</a></li>
   </ul>
 </li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.6</span> Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">17.6</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/association.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./association.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./association.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span>
+<span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span>
 </h1>
 </div>
 
@@ -622,8 +631,8 @@ First draft
 <p>You are reading a work in progress. This page is a first draft but should be readable.</p>
 </div>
 </div>
-<section id="overview" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="overview">
-<span class="header-section-number">16.1</span> Overview</h2>
+<section id="overview" class="level2" data-number="17.1"><h2 data-number="17.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">17.1</span> Overview</h2>
 <p>Up to this point, we have focused on methods that examine how one variable affects another. <strong>Regression</strong> allowed us to model a relationship where one variable was explicitly treated as explanatory and the other as a response. Similarly, <strong>ANOVA and two-sample tests</strong> compared groups to see if a categorical explanatory variable influenced a numeric response.</p>
 <p>In this chapter, we shift our focus to situations where <strong>no causal relationship is assumed</strong>. Instead of asking whether one variable predicts another, we ask whether two variables are <strong>associated</strong> - whether they tend to change together.</p>
 <p>We will cover:</p>
@@ -636,20 +645,20 @@ First draft
 <strong>Chi-square tests for contingency tables</strong>, which assess whether two categorical variables are related.</li>
 </ul>
 <p>Unlike regression, these methods do not imply that one variable influences the other - they simply measure the strength of an association. This allows us to explore patterns in data when no clear explanatory-response relationship exists.</p>
-<section id="correlation" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="correlation">
-<span class="header-section-number">16.1.1</span> Correlation</h3>
+<section id="correlation" class="level3" data-number="17.1.1"><h3 data-number="17.1.1" class="anchored" data-anchor-id="correlation">
+<span class="header-section-number">17.1.1</span> Correlation</h3>
 <p>When working with two continuous variables, we may be interested in understanding how they are associated without assuming a cause-and-effect relationship. Unlike regression, where one variable is treated as explanatory and the other as a response, correlation simply measures the strength and direction of their association.</p>
-<p>The correlation coefficient quantifies this relationship on a scale from -1 to 1. A coefficient of 1 indicates a perfect positive association, meaning that higher values in one variable are always linked to higher values in the other. Conversely, a coefficient of -1 represents a perfect negative association, where higher values in one variable are consistently associated with lower values in the other. Most real-world correlations fall somewhere between these extremes, with values closer to 0 suggesting little to no linear relationship (<a href="#fig-correl-types" class="quarto-xref">Figure&nbsp;<span>16.1</span></a>).</p>
+<p>The correlation coefficient quantifies this relationship on a scale from -1 to 1. A coefficient of 1 indicates a perfect positive association, meaning that higher values in one variable are always linked to higher values in the other. Conversely, a coefficient of -1 represents a perfect negative association, where higher values in one variable are consistently associated with lower values in the other. Most real-world correlations fall somewhere between these extremes, with values closer to 0 suggesting little to no linear relationship (<a href="#fig-correl-types" class="quarto-xref">Figure&nbsp;<span>17.1</span></a>).</p>
 <p>By calculating the correlation coefficient, we can assess how strongly two variables move together, helping us uncover patterns in data without implying causation.</p>
-</section></section><section id="correlation-examples" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="correlation-examples">
-<span class="header-section-number">16.2</span> Correlation Examples</h2>
+</section></section><section id="correlation-examples" class="level2" data-number="17.2"><h2 data-number="17.2" class="anchored" data-anchor-id="correlation-examples">
+<span class="header-section-number">17.2</span> Correlation Examples</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-correl-types" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-correl-types-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="association_files/figure-html/fig-correl-types-1.png" class="img-fluid figure-img" width="576">
+<a href="association_files/figure-html/fig-correl-types-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;17.1: Scatter plots demonstrating different types of correlation. Left: A strong positive correlation (r ≈ 0.8), where higher values in one variable are associated with higher values in the other. Middle: A strong negative correlation (r ≈ -0.8), where higher values in one variable are associated with lower values in the other. Right: No correlation (r ≈ 0), indicating no clear pattern between the two variables."><img src="association_files/figure-html/fig-correl-types-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correl-types-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.1: Scatter plots demonstrating different types of correlation. Left: A strong positive correlation (r ≈ 0.8), where higher values in one variable are associated with higher values in the other. Middle: A strong negative correlation (r ≈ -0.8), where higher values in one variable are associated with lower values in the other. Right: No correlation (r ≈ 0), indicating no clear pattern between the two variables.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correl-types-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.1: Scatter plots demonstrating different types of correlation. Left: A strong positive correlation (r ≈ 0.8), where higher values in one variable are associated with higher values in the other. Middle: A strong negative correlation (r ≈ -0.8), where higher values in one variable are associated with lower values in the other. Right: No correlation (r ≈ 0), indicating no clear pattern between the two variables.
 </figcaption></figure>
 </div>
 </div>
@@ -658,8 +667,8 @@ First draft
 <p>Pearson’s correlation coefficient, is a parametric measure which assumes the variables are normally distributed and that any correlation is linear.</p>
 <p>Spearman’s rank correlation coefficient, is a non-parametric measure which does not assume the variables are normally distributed or a strict linear association. It is also less sensitive to outliers.</p>
 <p>We use <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> in R for both types of correlation.</p>
-<section id="contingency-chi-squared" class="level3" data-number="16.2.1"><h3 data-number="16.2.1" class="anchored" data-anchor-id="contingency-chi-squared">
-<span class="header-section-number">16.2.1</span> Contingency Chi-squared</h3>
+<section id="contingency-chi-squared" class="level3" data-number="17.2.1"><h3 data-number="17.2.1" class="anchored" data-anchor-id="contingency-chi-squared">
+<span class="header-section-number">17.2.1</span> Contingency Chi-squared</h3>
 <ul>
 <li><p>two categorical variables</p></li>
 <li><p>neither is an explanatory variable, i.e., there is not a causal relationship between the two variables</p></li>
@@ -667,8 +676,8 @@ First draft
 <li><p>you want to know if there is an association between the two variables</p></li>
 <li><p>another way of describing this is that we test whether the proportion of observations falling in to each category of one variable is the same for each category of the other variable.</p></li>
 <li><p>we use a chi-squared test to test whether the observed counts are significantly different from the expected counts if there was no association between the variables.</p></li>
-</ul></section><section id="reporting" class="level3" data-number="16.2.2"><h3 data-number="16.2.2" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">16.2.2</span> Reporting</h3>
+</ul></section><section id="reporting" class="level3" data-number="17.2.2"><h3 data-number="17.2.2" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">17.2.2</span> Reporting</h3>
 <ol type="1">
 <li><p>the significance of effect - whether the association is significant different from zero</p></li>
 <li>
@@ -682,11 +691,11 @@ First draft
 </ol>
 <p>We do not put a line of best fit on a scatter plot accompanying a correlation because such a line implies a causal relationship.</p>
 <p>We will explore all of these ideas with an examples.</p>
-</section></section><section id="your-turn" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="your-turn">
-<span class="header-section-number">16.3</span> 🎬 Your turn!</h2>
+</section></section><section id="your-turn" class="level2" data-number="17.3"><h2 data-number="17.3" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">17.3</span> 🎬 Your turn!</h2>
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
-</section><section id="correlation-1" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="correlation-1">
-<span class="header-section-number">16.4</span> Correlation</h2>
+</section><section id="correlation-1" class="level2" data-number="17.4"><h2 data-number="17.4" class="anchored" data-anchor-id="correlation-1">
+<span class="header-section-number">17.4</span> Correlation</h2>
 <p>High quality images of the internal structure of wheat seeds were taken with a soft X-ray technique. Seven measurements determined from the images:</p>
 <ul>
 <li>Area</li>
@@ -699,8 +708,8 @@ First draft
 </ul>
 <p>Research were interested in the correlation between compactness and kernel width</p>
 <p>The data are in <a href="data-raw/seeds-dataset.xlsx">seeds-dataset.xlsx</a>.</p>
-<section id="import-and-explore" class="level3" data-number="16.4.1"><h3 data-number="16.4.1" class="anchored" data-anchor-id="import-and-explore">
-<span class="header-section-number">16.4.1</span> Import and explore</h3>
+<section id="import-and-explore" class="level3" data-number="17.4.1"><h3 data-number="17.4.1" class="anchored" data-anchor-id="import-and-explore">
+<span class="header-section-number">17.4.1</span> Import and explore</h3>
 <p>The data are in an excel file so we will need the <strong><code>readxl</code></strong> <span class="citation" data-cites="readxl">(<a href="references.html#ref-readxl" role="doc-biblioref">Wickham and Bryan 2025</a>)</span> package.</p>
 <p>Load the package:</p>
 <div class="cell">
@@ -1368,7 +1377,7 @@ First draft
 </div>
 </div>
 <p>These data are formatted usefully for analysis using correlation and plotting. Each row is a different seed and the columns are the variables we are interested. This means that the first values in each column are related - they are all from the same seed</p>
-<p>In the first instance, it is sensible to create a rough plot of our data (See <a href="#fig-seeds-rough" class="quarto-xref">Figure&nbsp;<span>16.2</span></a>). Plotting data early helps us in multiple ways:</p>
+<p>In the first instance, it is sensible to create a rough plot of our data (See <a href="#fig-seeds-rough" class="quarto-xref">Figure&nbsp;<span>17.2</span></a>). Plotting data early helps us in multiple ways:</p>
 <ul>
 <li>it helps identify whether there extreme values</li>
 <li>it allows us to see if the association is roughly linear</li>
@@ -1382,18 +1391,18 @@ First draft
 <div class="cell-output-display">
 <div id="fig-seeds-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-seeds-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="association_files/figure-html/fig-seeds-rough-1.png" class="img-fluid figure-img" width="576">
+<a href="association_files/figure-html/fig-seeds-rough-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;17.2: A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association between them."><img src="association_files/figure-html/fig-seeds-rough-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seeds-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.2: A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association between them.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-seeds-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.2: A default scatter plot of compactness and kernel width in seeds demonstrates an approximately linear positive association between them.
 </figcaption></figure>
 </div>
 </div>
 </div>
 <p>The figure suggests that there is a positive correlation between <code>compactness</code> and <code>kernel_width</code> and that correlation is roughly linear.</p>
-</section><section id="check-assumptions" class="level3" data-number="16.4.2"><h3 data-number="16.4.2" class="anchored" data-anchor-id="check-assumptions">
-<span class="header-section-number">16.4.2</span> Check assumptions</h3>
-<p>We can see from <a href="#fig-seeds-rough" class="quarto-xref">Figure&nbsp;<span>16.2</span></a> that the relationship between <code>compactness</code> and <code>kernel_width</code> is roughly linear. This is a good sign for using Pearson’s correlation coefficient.</p>
-<p>Our next check is to use common sense: both variables are continuous and we would expect them to be normally distributed. We can then plot histograms to examine the distributions (See <a href="#fig-hist" class="quarto-xref">Figure&nbsp;<span>16.3</span></a>).</p>
+</section><section id="check-assumptions" class="level3" data-number="17.4.2"><h3 data-number="17.4.2" class="anchored" data-anchor-id="check-assumptions">
+<span class="header-section-number">17.4.2</span> Check assumptions</h3>
+<p>We can see from <a href="#fig-seeds-rough" class="quarto-xref">Figure&nbsp;<span>17.2</span></a> that the relationship between <code>compactness</code> and <code>kernel_width</code> is roughly linear. This is a good sign for using Pearson’s correlation coefficient.</p>
+<p>Our next check is to use common sense: both variables are continuous and we would expect them to be normally distributed. We can then plot histograms to examine the distributions (See <a href="#fig-hist" class="quarto-xref">Figure&nbsp;<span>17.3</span></a>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span></span>
@@ -1405,7 +1414,7 @@ First draft
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hist" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-hist-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-hist-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="association_files/figure-html/fig-hist-1.png" class="img-fluid figure-img" data-ref-parent="fig-hist" width="576">
+<a href="association_files/figure-html/fig-hist-1.png" class="lightbox" data-gallery="fig-hist" title="Figure&nbsp;17.3&nbsp;(a): Compactness"><img src="association_files/figure-html/fig-hist-1.png" class="img-fluid figure-img" data-ref-parent="fig-hist" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hist-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) Compactness
@@ -1415,7 +1424,7 @@ First draft
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-hist" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="fig-hist-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-hist-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="association_files/figure-html/fig-hist-2.png" class="img-fluid figure-img" data-ref-parent="fig-hist" width="576">
+<a href="association_files/figure-html/fig-hist-2.png" class="lightbox" data-gallery="fig-hist" title="Figure&nbsp;17.3&nbsp;(b): Kernel width"><img src="association_files/figure-html/fig-hist-2.png" class="img-fluid figure-img" data-ref-parent="fig-hist" width="576"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hist-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) Kernel width
@@ -1424,7 +1433,7 @@ First draft
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.3: The distributions of the two variables are slightly skewed but do not seem too different from a normal distribution. We will continue with the Pearson’s correlation coefficient.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.3: The distributions of the two variables are slightly skewed but do not seem too different from a normal distribution. We will continue with the Pearson’s correlation coefficient.
 </figcaption></figure>
 </div>
 <p>The distributions of the two variables are slightly skewed but do not seem too different from a normal distribution.</p>
@@ -1447,8 +1456,8 @@ First draft
 </div>
 <p>The <em>p</em>-values are greater than 0.05 so these tests of the normality assumption are not significant. Note that “not significant” means not significantly different from a normal distribution. It does not mean definitely normally distributed.</p>
 <p>It is not unreasonable to continue with the Pearson’s correlation coefficient. However, later we will also use the Spearman’s rank correlation coefficient, a non-parametric method which has fewer assumptions. Spearman’s rank correlation is a more conservative approach.</p>
-</section><section id="do-a-pearsons-correlation-test-with-cor.test" class="level3" data-number="16.4.3"><h3 data-number="16.4.3" class="anchored" data-anchor-id="do-a-pearsons-correlation-test-with-cor.test">
-<span class="header-section-number">16.4.3</span> Do a Pearson’s correlation test with <code>cor.test()</code>
+</section><section id="do-a-pearsons-correlation-test-with-cor.test" class="level3" data-number="17.4.3"><h3 data-number="17.4.3" class="anchored" data-anchor-id="do-a-pearsons-correlation-test-with-cor.test">
+<span class="header-section-number">17.4.3</span> Do a Pearson’s correlation test with <code>cor.test()</code>
 </h3>
 <p>We can carry out a Pearson’s correlation test with <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> like this:</p>
 <div class="cell">
@@ -1471,9 +1480,9 @@ First draft
 <p>The fifth line tells you what test has been done: <code>alternative hypothesis: true correlation is not equal to 0</code>. That is <span class="math inline">\(H_0\)</span> is that <span class="math inline">\(\rho = 0\)</span></p>
 <p>The forth line gives the test result: <code>t = 7.3738, df = 68, p-value = 2.998e-10</code></p>
 <p>The <span class="math inline">\(p\)</span>-value is very much less than 0.05 so we can reject the null hypothesis and conclude there is a significant positive correlation between <code>compactness</code> and <code>kernel_width</code>.</p>
-</section><section id="report" class="level3" data-number="16.4.4"><h3 data-number="16.4.4" class="anchored" data-anchor-id="report">
-<span class="header-section-number">16.4.4</span> Report</h3>
-<p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). See <a href="#fig-correlation-pears" class="quarto-xref">Figure&nbsp;<span>16.4</span></a>.</p>
+</section><section id="report" class="level3" data-number="17.4.4"><h3 data-number="17.4.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">17.4.4</span> Report</h3>
+<p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). See <a href="#fig-correlation-pears" class="quarto-xref">Figure&nbsp;<span>17.4</span></a>.</p>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span>, y <span class="op">=</span> <span class="va">kernel_width</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1487,21 +1496,21 @@ First draft
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="association_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><a href="association_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;17.4: Correlation between compactness and kernel width of wheat seeds. High quality images of the internal structure of wheat seeds were taken with a soft X-ray technique and the compactness and kernel width of the seeds were determined. There was a significant positive correlation (r = 0.67) between compactness and kernel width (Pearson’s: t = 7.374; df = 68; p-value < 0.0001). Note: axes do not start at 0. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]."><img src="association_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-pears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.4: <strong>Correlation between compactness and kernel width of wheat seeds</strong>. High quality images of the internal structure of wheat seeds were taken with a soft X-ray technique and the compactness and kernel width of the seeds were determined. There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). Note: axes do not start at 0. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-pears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.4: <strong>Correlation between compactness and kernel width of wheat seeds</strong>. High quality images of the internal structure of wheat seeds were taken with a soft X-ray technique and the compactness and kernel width of the seeds were determined. There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). Note: axes do not start at 0. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
 </div>
-</section><section id="spearmans-rank-correlation-coefficient" class="level3" data-number="16.4.5"><h3 data-number="16.4.5" class="anchored" data-anchor-id="spearmans-rank-correlation-coefficient">
-<span class="header-section-number">16.4.5</span> Spearman’s rank correlation coefficient</h3>
+</section><section id="spearmans-rank-correlation-coefficient" class="level3" data-number="17.4.5"><h3 data-number="17.4.5" class="anchored" data-anchor-id="spearmans-rank-correlation-coefficient">
+<span class="header-section-number">17.4.5</span> Spearman’s rank correlation coefficient</h3>
 <p>Researchers are studying how systolic blood pressure (SBP) is associated with kidney function in patients. Chronic high blood pressure can damage the kidneys over time, leading to reduced function, which can be measured by estimated glomerular filtration rate (eGFR). SBP is measured in mmHg and represents the force of blood against artery walls when the heart beats. eGFR is estimated from from blood creatine levels in mL/min/1.73m². Lower values indicate impaired kidney filtration.</p>
 <p>The data are in <a href="data-raw/blood-pressure-kidney-function.csv">blood-pressure-kidney-function.csv</a>.</p>
-</section><section id="import-and-explore-1" class="level3" data-number="16.4.6"><h3 data-number="16.4.6" class="anchored" data-anchor-id="import-and-explore-1">
-<span class="header-section-number">16.4.6</span> Import and explore</h3>
+</section><section id="import-and-explore-1" class="level3" data-number="17.4.6"><h3 data-number="17.4.6" class="anchored" data-anchor-id="import-and-explore-1">
+<span class="header-section-number">17.4.6</span> Import and explore</h3>
 <p>Import the data from a csv file:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bp_kidney</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/blood-pressure-kidney-function.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1568,7 +1577,7 @@ First draft
 </div>
 </div>
 </div>
-<p>These data are formatted usefully for analysis using correlation and plotting. We will create a rough plot of our data (See <a href="#fig-kidney-rough" class="quarto-xref">Figure&nbsp;<span>16.5</span></a>).</p>
+<p>These data are formatted usefully for analysis using correlation and plotting. We will create a rough plot of our data (See <a href="#fig-kidney-rough" class="quarto-xref">Figure&nbsp;<span>17.5</span></a>).</p>
 <p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
@@ -1577,17 +1586,17 @@ First draft
 <div class="cell-output-display">
 <div id="fig-kidney-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-kidney-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="association_files/figure-html/fig-kidney-rough-1.png" class="img-fluid figure-img" width="576">
+<a href="association_files/figure-html/fig-kidney-rough-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;17.5: A default scatter plot of systolic blood pressure (SBP) and kidney function demonstrates a possible negative association between variables. It is not clear if the relationship is linear"><img src="association_files/figure-html/fig-kidney-rough-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kidney-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.5: A default scatter plot of systolic blood pressure (SBP) and kidney function demonstrates a possible negative association between variables. It is not clear if the relationship is linear
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kidney-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.5: A default scatter plot of systolic blood pressure (SBP) and kidney function demonstrates a possible negative association between variables. It is not clear if the relationship is linear
 </figcaption></figure>
 </div>
 </div>
 </div>
 <p>The figure suggests that there is a negative association between <code>SBP</code> and <code>eGFR</code> but it is not clear if the association is linear.</p>
 <p>Spearman’s rank correlation coefficient which does not assume a strict linear association so maybe a better choice. In addition, we might expect eGFR values to be to be skewed since indicators of disease often show step changes in values.</p>
-</section><section id="do-a-spearmans-rank-correlation-test-with-cor.test" class="level3" data-number="16.4.7"><h3 data-number="16.4.7" class="anchored" data-anchor-id="do-a-spearmans-rank-correlation-test-with-cor.test">
-<span class="header-section-number">16.4.7</span> Do a Spearman’s rank correlation test with <code>cor.test()</code>
+</section><section id="do-a-spearmans-rank-correlation-test-with-cor.test" class="level3" data-number="17.4.7"><h3 data-number="17.4.7" class="anchored" data-anchor-id="do-a-spearmans-rank-correlation-test-with-cor.test">
+<span class="header-section-number">17.4.7</span> Do a Spearman’s rank correlation test with <code>cor.test()</code>
 </h3>
 <p>We can carry out a Spearman’s rank correlation test with <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> like this:</p>
 <div class="cell">
@@ -1608,10 +1617,10 @@ First draft
 <p>The fifth line tells you what test has been done: <code>alternative hypothesis: true rho is not equal to 0</code>. That is <span class="math inline">\(H_0\)</span> is that <span class="math inline">\(\rho = 0\)</span></p>
 <p>The forth line gives the test result: <code>S = 526, p-value = 0.001192</code></p>
 <p>The <span class="math inline">\(p\)</span>-value is very much less than 0.05 so we can reject the null hypothesis and conclude there is a significant negative correlation between <code>SBP</code> and <code>eGFR</code>.</p>
-</section><section id="report-1" class="level3" data-number="16.4.8"><h3 data-number="16.4.8" class="anchored" data-anchor-id="report-1">
-<span class="header-section-number">16.4.8</span> Report</h3>
+</section><section id="report-1" class="level3" data-number="17.4.8"><h3 data-number="17.4.8" class="anchored" data-anchor-id="report-1">
+<span class="header-section-number">17.4.8</span> Report</h3>
 <p>. SBP is measured in mmHg and represents the force of blood against artery walls when the heart beats. eGFR is measured in</p>
-<p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and estimated glomerular filtration rate (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). See <a href="#fig-correlation-spears" class="quarto-xref">Figure&nbsp;<span>16.6</span></a>.</p>
+<p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and estimated glomerular filtration rate (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). See <a href="#fig-correlation-spears" class="quarto-xref">Figure&nbsp;<span>17.6</span></a>.</p>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">SBP</span>, y <span class="op">=</span> <span class="va">eGFR</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1627,22 +1636,22 @@ First draft
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="association_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><a href="association_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;17.6: Correlation between Systolic blood pressure and estimated glomerular filtration rate (eGFR). Twelve patients had their Systolic blood pressure determined and GFR estimated from blood creatine levels. There was a significant negative correlation (r = -0.8) between systolic blood pressure and eGFR (Spearman’s rank correlation: S = 526; n = 12; p-value = 0.0012). Note: x-axis does not start at 0. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]."><img src="association_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-spears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.6: <strong>Correlation between Systolic blood pressure and estimated glomerular filtration rate (eGFR)</strong>. Twelve patients had their Systolic blood pressure determined and GFR estimated from blood creatine levels. There was a significant negative correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and eGFR (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). Note: <span class="math inline">\(x\)</span>-axis does not start at 0. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-spears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.6: <strong>Correlation between Systolic blood pressure and estimated glomerular filtration rate (eGFR)</strong>. Twelve patients had their Systolic blood pressure determined and GFR estimated from blood creatine levels. There was a significant negative correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and eGFR (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). Note: <span class="math inline">\(x\)</span>-axis does not start at 0. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.
 </figcaption></figure>
 </div>
-</section></section><section id="contingency-chi-squared-test" class="level2" data-number="16.5"><h2 data-number="16.5" class="anchored" data-anchor-id="contingency-chi-squared-test">
-<span class="header-section-number">16.5</span> Contingency Chi-squared test</h2>
-<p>Researchers were interested in whether different pig breeds had the same food preferences. They offered individuals of three breads, Welsh, Tamworth and Essex a choice of three foods: cabbage, sugar beet and swede and recorded the number of individuals that chose each food. The data are shown in <a href="#tbl-food-pref" class="quarto-xref">Table&nbsp;<span>16.1</span></a>.</p>
+</section></section><section id="contingency-chi-squared-test" class="level2" data-number="17.5"><h2 data-number="17.5" class="anchored" data-anchor-id="contingency-chi-squared-test">
+<span class="header-section-number">17.5</span> Contingency Chi-squared test</h2>
+<p>Researchers were interested in whether different pig breeds had the same food preferences. They offered individuals of three breads, Welsh, Tamworth and Essex a choice of three foods: cabbage, sugar beet and swede and recorded the number of individuals that chose each food. The data are shown in <a href="#tbl-food-pref" class="quarto-xref">Table&nbsp;<span>17.1</span></a>.</p>
 <div class="cell">
 <div id="tbl-food-pref" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-food-pref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;16.1: Food preferences of three pig breeds
+Table&nbsp;17.1: Food preferences of three pig breeds
 </figcaption><div aria-describedby="tbl-food-pref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
@@ -1740,11 +1749,11 @@ Table&nbsp;16.1: Food preferences of three pig breeds
 </div>
 <p>Where the residuals are positive, the observed value is greater than the expected value and where they are negative, the observed value is less than the expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the Essex pigs slightly prefer swede but have less strong likes and dislikes.</p>
 <p>The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.</p>
-<section id="report-2" class="level3" data-number="16.5.1"><h3 data-number="16.5.1" class="anchored" data-anchor-id="report-2">
-<span class="header-section-number">16.5.1</span> Report</h3>
+<section id="report-2" class="level3" data-number="17.5.1"><h3 data-number="17.5.1" class="anchored" data-anchor-id="report-2">
+<span class="header-section-number">17.5.1</span> Report</h3>
 <p>Different pig breeds showed a significant preference for the different food types (<span class="math inline">\(\chi^2\)</span> = 10.64; <em>df</em> = 4; <em>p</em> = 0.031) with Essex much preferring cabbage and disliking sugarbeet, Welsh showing a strong preference for sugarbeet and a dislike of cabbage and Tamworth showing no clear preference.</p>
-</section></section><section id="summary" class="level2" data-number="16.6"><h2 data-number="16.6" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">16.6</span> Summary</h2>
+</section></section><section id="summary" class="level2" data-number="17.6"><h2 data-number="17.6" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">17.6</span> Summary</h2>
 <ol type="1">
 <li><p>Unlike regression, correlation and chi-square contingency tests assess association between variable without implying causality.</p></li>
 <li><p>Pearson’s Correlation measures the linear association between two continuous variables (range: -1 to 1). Assumes normality.</p></li>
@@ -2186,19 +2195,19 @@ Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./two_way_anova.html" class="pagination-link" aria-label="Two-way ANOVA">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./goodness_of_fit.html" class="pagination-link" aria-label="Goodness of fit">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Rand, E. (2023). Computational Analysis for Bioscientists (Version 0.1) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -2207,7 +2216,38 @@ Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a
       &nbsp;
     </div>
   </div>
-</footer>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 </body></html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>15&nbsp; Two-way ANOVA – Computational Analysis for Bioscientists</title>
+<title>16&nbsp; Two-way ANOVA – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,14 +89,17 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2b3e328b71be8d25427581baeb23079b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7a3e59189d9f0ecca6f4f741a2329820.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ad70530d0d041e0409e14c309de1970f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-364982630eef5352dd1537128a8ed5cb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -323,7 +326,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -392,7 +395,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./getting_started_with_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started with data</span></a>
+ <span class="menu-text">Getting started with data analysis in R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -406,20 +409,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./about_R_and_RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./first_steps_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./workflow_rstudio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./import_to_report.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
   </div>
 </li>
       </ul>
@@ -436,55 +445,55 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logic_hyopthesis_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./confidence_intervals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./what_statistical_model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./single_linear_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_sample_tests.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./one_way_anova_and_kw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./two_way_anova.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./association.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./goodness_of_fit.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
   </div>
 </li>
       </ul>
@@ -501,13 +510,13 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PCR_product_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./molecular_weight_from_western_blot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Finding the molecular weight of proteins migrated on a western blot</span></span></a>
   </div>
 </li>
       </ul>
@@ -524,7 +533,7 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./26C-food-fuel-prac2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
   </div>
 </li>
       </ul>
@@ -532,13 +541,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./keyboard_shortcuts_tips.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -556,30 +565,30 @@ window.Quarto = {
    
   <ul>
 <li>
-<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">15.1</span> Overview</a>
+<a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">16.1</span> Overview</a>
   <ul class="collapse">
-<li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions"><span class="header-section-number">15.1.1</span> Model assumptions</a></li>
-  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">15.1.2</span> Reporting</a></li>
-  <li><a href="#when-the-assumptions-are-not-met" id="toc-when-the-assumptions-are-not-met" class="nav-link" data-scroll-target="#when-the-assumptions-are-not-met"><span class="header-section-number">15.1.3</span> When the assumptions are not met</a></li>
+<li><a href="#model-assumptions" id="toc-model-assumptions" class="nav-link" data-scroll-target="#model-assumptions"><span class="header-section-number">16.1.1</span> Model assumptions</a></li>
+  <li><a href="#reporting" id="toc-reporting" class="nav-link" data-scroll-target="#reporting"><span class="header-section-number">16.1.2</span> Reporting</a></li>
+  <li><a href="#when-the-assumptions-are-not-met" id="toc-when-the-assumptions-are-not-met" class="nav-link" data-scroll-target="#when-the-assumptions-are-not-met"><span class="header-section-number">16.1.3</span> When the assumptions are not met</a></li>
   </ul>
 </li>
-  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">15.2</span> 🎬 Your turn!</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">16.2</span> 🎬 Your turn!</a></li>
   <li>
-<a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova"><span class="header-section-number">15.3</span> Two-way ANOVA</a>
+<a href="#two-way-anova" id="toc-two-way-anova" class="nav-link" data-scroll-target="#two-way-anova"><span class="header-section-number">16.3</span> Two-way ANOVA</a>
   <ul class="collapse">
-<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">15.3.1</span> Import and explore</a></li>
-  <li><a href="#apply-lm" id="toc-apply-lm" class="nav-link" data-scroll-target="#apply-lm"><span class="header-section-number">15.3.2</span> Apply <code>lm()</code></a></li>
-  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">15.3.3</span> Check assumptions</a></li>
-  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">15.3.4</span> Report</a></li>
+<li><a href="#import-and-explore" id="toc-import-and-explore" class="nav-link" data-scroll-target="#import-and-explore"><span class="header-section-number">16.3.1</span> Import and explore</a></li>
+  <li><a href="#apply-lm" id="toc-apply-lm" class="nav-link" data-scroll-target="#apply-lm"><span class="header-section-number">16.3.2</span> Apply <code>lm()</code></a></li>
+  <li><a href="#check-assumptions" id="toc-check-assumptions" class="nav-link" data-scroll-target="#check-assumptions"><span class="header-section-number">16.3.3</span> Check assumptions</a></li>
+  <li><a href="#report" id="toc-report" class="nav-link" data-scroll-target="#report"><span class="header-section-number">16.3.4</span> Report</a></li>
   </ul>
 </li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.4</span> Summary</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">16.4</span> Summary</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/two_way_anova.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav><div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical_analysis_1.html">Statistical Analysis - Part 1</a></li><li class="breadcrumb-item"><a href="./two_way_anova.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title">
-<span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span>
+<span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span>
 </h1>
 </div>
 
@@ -607,8 +616,8 @@ Just needs proof reading
 <p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
 </div>
 </div>
-<section id="overview" class="level2" data-number="15.1"><h2 data-number="15.1" class="anchored" data-anchor-id="overview">
-<span class="header-section-number">15.1</span> Overview</h2>
+<section id="overview" class="level2" data-number="16.1"><h2 data-number="16.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">16.1</span> Overview</h2>
 <p>In the last chapter, we learnt how to use and interpret the general linear model when the <em>x</em> variable was categorical with two or more groups. This procedure is known as one-way ANOVA. We will now incorporate a <em>second</em> categorical variable. This is often known as the two-way or two-factor ANOVA (<strong>an</strong>alysis <strong>o</strong>f <strong>var</strong>iance). It might also be described as a “factorial design”.</p>
 <p>In the last chapter we conducted a one-way ANOVA to test whether there was an of media on the diameter of bacterial colonies. Suppose we had run this experiment on more than one bacterial species. We would then have two explanatory variables: media and species. Perhaps we should do two one-way ANOVAs, one for each explanatory variable? This would tell us whether each explanatory variable had an effect on the response variable. However, it would not tell us whether there was an <strong>interaction</strong> between the two variables. An interaction is when the effect of one variable depends on the level of another and in some ways it is the most interesting result we could reveal. For example, we might find that the optimal media for one species was not the optimal media for the other species. A two-way ANOVA allows us to test for the effects of each explanatory variable <em>and</em> whether they interact. A two-way ANOVA has three null hypotheses:</p>
 <ol type="1">
@@ -617,14 +626,14 @@ Just needs proof reading
 <li>The effect of media is the same for all species, or the effect of media does not depend on species.</li>
 </ol>
 <p>As a General linear model, two-way ANOVA is a parametric test with assumptions based on the normal distribution which need to be met for the <em>p</em>-values generated to be accurate. We use <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to fit the model, <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> to test the significance of the explanatory variables and <code><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html">emmeans()</a></code> and pairs() for post-hoc testing.</p>
-<section id="model-assumptions" class="level3" data-number="15.1.1"><h3 data-number="15.1.1" class="anchored" data-anchor-id="model-assumptions">
-<span class="header-section-number">15.1.1</span> Model assumptions</h3>
+<section id="model-assumptions" class="level3" data-number="16.1.1"><h3 data-number="16.1.1" class="anchored" data-anchor-id="model-assumptions">
+<span class="header-section-number">16.1.1</span> Model assumptions</h3>
 <p>We examine the model assumptions in the same way as we did for single linear regression, two-sample tests and one-way ANOVA: we apply the general linear model with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and <em>then</em> check the assumptions using diagnostic plots and the Shapiro-Wilk normality test. We also use common sense:</p>
 <ul>
 <li>the response should be continuous (or nearly continuous, see <a href="ideas_about_data.html#theory-and-practice">Ideas about data: Theory and practice</a>) and we consider whether we would expect the response to be normally distributed.</li>
 <li>we expect decimal places and few repeated values.</li>
-</ul></section><section id="reporting" class="level3" data-number="15.1.2"><h3 data-number="15.1.2" class="anchored" data-anchor-id="reporting">
-<span class="header-section-number">15.1.2</span> Reporting</h3>
+</ul></section><section id="reporting" class="level3" data-number="16.1.2"><h3 data-number="16.1.2" class="anchored" data-anchor-id="reporting">
+<span class="header-section-number">16.1.2</span> Reporting</h3>
 <p>In reporting the result of two-way ANOVA, we include:</p>
 <ol type="1">
 <li>
@@ -647,13 +656,13 @@ Just needs proof reading
 </li>
 </ol>
 <p>Figures should reflect what you have said in the statements. Ideally they should show both the raw data and the statistical model: means and standard errors</p>
-</section><section id="when-the-assumptions-are-not-met" class="level3" data-number="15.1.3"><h3 data-number="15.1.3" class="anchored" data-anchor-id="when-the-assumptions-are-not-met">
-<span class="header-section-number">15.1.3</span> When the assumptions are not met</h3>
-<section id="when-residuals-are-not-normally-distributed" class="level4" data-number="15.1.3.1"><h4 data-number="15.1.3.1" class="anchored" data-anchor-id="when-residuals-are-not-normally-distributed">
-<span class="header-section-number">15.1.3.1</span> When residuals are not normally distributed</h4>
+</section><section id="when-the-assumptions-are-not-met" class="level3" data-number="16.1.3"><h3 data-number="16.1.3" class="anchored" data-anchor-id="when-the-assumptions-are-not-met">
+<span class="header-section-number">16.1.3</span> When the assumptions are not met</h3>
+<section id="when-residuals-are-not-normally-distributed" class="level4" data-number="16.1.3.1"><h4 data-number="16.1.3.1" class="anchored" data-anchor-id="when-residuals-are-not-normally-distributed">
+<span class="header-section-number">16.1.3.1</span> When residuals are not normally distributed</h4>
 <p>There are a few options for dealing with non-normally distributed residuals when you wanted to do a two-way ANOVA. Transforming your data might help - but it depends on how the data are not normal - if there are lots of values the same for example, no transformation helps! If the data have positive skew (tail in the positive direction) then logging can help.</p>
-</section><section id="when-residuals-are-not-normally-distributed-andor-variance-is-unequal" class="level4" data-number="15.1.3.2"><h4 data-number="15.1.3.2" class="anchored" data-anchor-id="when-residuals-are-not-normally-distributed-andor-variance-is-unequal">
-<span class="header-section-number">15.1.3.2</span> When residuals are not normally distributed and/or variance is unequal</h4>
+</section><section id="when-residuals-are-not-normally-distributed-andor-variance-is-unequal" class="level4" data-number="16.1.3.2"><h4 data-number="16.1.3.2" class="anchored" data-anchor-id="when-residuals-are-not-normally-distributed-andor-variance-is-unequal">
+<span class="header-section-number">16.1.3.2</span> When residuals are not normally distributed and/or variance is unequal</h4>
 <p>There are some rank-based tests, such as the Friedman test and the Scheirer-Ray-Hare test, that apply to specific situations. However, there is no non-parametric alternative that directly corresponds to two-way ANOVA in the same way that the Kruskal-Wallis test does for one-way ANOVA.</p>
 <p>In these cases you have other good options.</p>
 <ol type="1">
@@ -661,21 +670,21 @@ Just needs proof reading
 <li><p><strong>Using non-parametric one-way tests</strong>. Divide the dataset according to the groups in one factor, then carry out a Wilcoxon rank-sum test (also known as the Mann-Whitney test) or a Kruskal-Wallis test on each subset for the other factor. For example, if the two factors are Fertilizer Type (Organic, Chemical, Control) and Soil Moisture (Low, Medium, High), split the dataset by Fertilizer Type. Within each subset, perform a Wilcoxon rank-sum test if the second factor has two levels or a Kruskal-Wallis test if it has more than two levels to determine whether the second factor affects the response variable. While there is no direct test for an interaction, you can infer one. If the results are consistent across all subsets, meaning the second factor has the same effect regardless of the first factor, there is no evidence of an interaction. However, if the effect of the second factor varies between subsets, this suggests an interaction, as the influence of one factor depends on the level of the other.</p></li>
 </ol>
 <!-- 2.  **Using a Permutation Test**. A permutation test checks if an  --><!--     observed difference is real or just due to chance by shuffling  --><!--     the data many times and seeing how often a difference as big as  --><!--     the original one appears. Instead of using formulas based on  --><!--     assumptions, it creates a null distribution from the shuffled  --><!--     data and calculates a p-value based on how rare the observed  --><!--     result is. This makes it useful when normal statistical methods  --><!--     don’t apply. --><p>We will explore all of these ideas with some examples.</p>
-</section></section></section><section id="your-turn" class="level2" data-number="15.2"><h2 data-number="15.2" class="anchored" data-anchor-id="your-turn">
-<span class="header-section-number">15.2</span> 🎬 Your turn!</h2>
+</section></section></section><section id="your-turn" class="level2" data-number="16.2"><h2 data-number="16.2" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">16.2</span> 🎬 Your turn!</h2>
 <p>If you want to code along you will need to start a new <a href="workflow_rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
-</section><section id="two-way-anova" class="level2" data-number="15.3"><h2 data-number="15.3" class="anchored" data-anchor-id="two-way-anova">
-<span class="header-section-number">15.3</span> Two-way ANOVA</h2>
-<p>Researchers have collected live specimens of two species of periwinkle (See <a href="#fig-periwinkles" class="quarto-xref">Figure&nbsp;<span>15.1</span></a>) from sites in northern England in the Spring and Summer. They took a measure of the gut parasite load by examining a slide of gut contents. The data are in <a href="data-raw/periwinkle.txt">periwinkle.txt</a>. The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.</p>
+</section><section id="two-way-anova" class="level2" data-number="16.3"><h2 data-number="16.3" class="anchored" data-anchor-id="two-way-anova">
+<span class="header-section-number">16.3</span> Two-way ANOVA</h2>
+<p>Researchers have collected live specimens of two species of periwinkle (See <a href="#fig-periwinkles" class="quarto-xref">Figure&nbsp;<span>16.1</span></a>) from sites in northern England in the Spring and Summer. They took a measure of the gut parasite load by examining a slide of gut contents. The data are in <a href="data-raw/periwinkle.txt">periwinkle.txt</a>. The data were collected to determine whether there was an effect of season or species on parasite load and whether these effects were independent.</p>
 <div id="fig-periwinkles" class="quarto-float quarto-figure quarto-figure-center anchored" alt="">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Littorina.jpg" class="img-fluid figure-img" alt="">
+<a href="images/Littorina.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;16.1: Periwinkles are marine gastropod molluscs (slugs and snails). A) Littorina brevicula (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) Littorina littorea. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769"><img src="images/Littorina.jpg" class="img-fluid figure-img" alt=""></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.1: Periwinkles are marine gastropod molluscs (slugs and snails). A) <em>Littorina brevicula</em> (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) <em>Littorina littorea</em>. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkles-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.1: Periwinkles are marine gastropod molluscs (slugs and snails). A) <em>Littorina brevicula</em> (PD files - Public Domain, https://commons.wikimedia.org/w/index.php?curid=30577419) B) <em>Littorina littorea</em>. (photographed by Guttorm Flatabø (user:dittaeva). - Photograph taken with an Olympus Camedia C-70 Zoom digital camera. Metainformation edited with Irfanview, possibly cropped with jpegcrop., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=324769
 </figcaption></figure>
 </div>
-<section id="import-and-explore" class="level3" data-number="15.3.1"><h3 data-number="15.3.1" class="anchored" data-anchor-id="import-and-explore">
-<span class="header-section-number">15.3.1</span> Import and explore</h3>
+<section id="import-and-explore" class="level3" data-number="16.3.1"><h3 data-number="16.3.1" class="anchored" data-anchor-id="import-and-explore">
+<span class="header-section-number">16.3.1</span> Import and explore</h3>
 <p>Import the data:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">periwinkle</span> <span class="op">&lt;-</span> <span class="fu">read_delim</span><span class="op">(</span><span class="st">"data-raw/periwinkle.txt"</span>, delim <span class="op">=</span> <span class="st">"\t"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1198,7 +1207,7 @@ Just needs proof reading
 <p>The Response variable is parasite load and it appears to be continuous. The Explanatory variables are species and season and each has two levels. It is known “two-way ANOVA” or “two-factor ANOVA” because there are two explanatory variables.</p>
 <p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the parasite load values are in one column (<code>para</code>) with the other columns indicating the <code>species</code> and the <code>season</code>. This means they are well formatted for analysis and plotting.</p>
 <p>In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
-<p>Violin plots (<code>geom_violin()</code>, see <a href="#fig-periwinkle-rough" class="quarto-xref">Figure&nbsp;<span>15.2</span></a>), box plots (<code>geom_boxplot()</code>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
+<p>Violin plots (<code>geom_violin()</code>, see <a href="#fig-periwinkle-rough" class="quarto-xref">Figure&nbsp;<span>16.2</span></a>), box plots (<code>geom_boxplot()</code>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, </span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">para</span>, fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1206,9 +1215,9 @@ Just needs proof reading
 <div class="cell-output-display">
 <div id="fig-periwinkle-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="two_way_anova_files/figure-html/fig-periwinkle-rough-1.png" class="img-fluid figure-img" width="576">
+<a href="two_way_anova_files/figure-html/fig-periwinkle-rough-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;16.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean."><img src="two_way_anova_files/figure-html/fig-periwinkle-rough-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean.
 </figcaption></figure>
 </div>
 </div>
@@ -1237,8 +1246,8 @@ Just needs proof reading
 <span><span class="co">## 4 Summer Littorina littorea   69.9 11.5     25  2.30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The summary confirms both species have a higher mean in the summer and that the difference between the species is reversed - <em>L.brevicula</em> minus <em>L.littorea</em> is -7.2588 in the spring but 3.6328 in summer.</p>
-</section><section id="apply-lm" class="level3" data-number="15.3.2"><h3 data-number="15.3.2" class="anchored" data-anchor-id="apply-lm">
-<span class="header-section-number">15.3.2</span> Apply <code>lm()</code>
+</section><section id="apply-lm" class="level3" data-number="16.3.2"><h3 data-number="16.3.2" class="anchored" data-anchor-id="apply-lm">
+<span class="header-section-number">16.3.2</span> Apply <code>lm()</code>
 </h3>
 <p>We can create a two-way ANOVA model like this:</p>
 <div class="cell">
@@ -1324,7 +1333,7 @@ Just needs proof reading
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">species</span> <span class="op">*</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="two_way_anova_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><a href="two_way_anova_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="two_way_anova_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -1340,33 +1349,33 @@ Just needs proof reading
 <li>
 <em>L.littorea</em> in the Spring <em>L.brevicula</em> in the Summer <code>p = 0.0172</code>
 </li>
-</ul></section><section id="check-assumptions" class="level3" data-number="15.3.3"><h3 data-number="15.3.3" class="anchored" data-anchor-id="check-assumptions">
-<span class="header-section-number">15.3.3</span> Check assumptions</h3>
+</ul></section><section id="check-assumptions" class="level3" data-number="16.3.3"><h3 data-number="16.3.3" class="anchored" data-anchor-id="check-assumptions">
+<span class="header-section-number">16.3.3</span> Check assumptions</h3>
 <p>Check the assumptions: All general linear models assume the “residuals” are normally distributed and have “homogeneity” of variance.</p>
 <p>Our first check of these assumptions is to use common sense: diameter is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed</p>
-<p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-anova2-plot1" class="quarto-xref">Figure&nbsp;<span>15.3</span></a>). This is a good way to check for homogeneity of variance.</p>
+<p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-anova2-plot1" class="quarto-xref">Figure&nbsp;<span>16.3</span></a>). This is a good way to check for homogeneity of variance.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-anova2-plot1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="two_way_anova_files/figure-html/fig-anova2-plot1-1.png" class="img-fluid figure-img" width="576">
+<a href="two_way_anova_files/figure-html/fig-anova2-plot1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;16.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean."><img src="two_way_anova_files/figure-html/fig-anova2-plot1-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean.
 </figcaption></figure>
 </div>
 </div>
 </div>
-<p>We can also use a histogram to check for normality (See <a href="#fig-anova2-plot2" class="quarto-xref">Figure&nbsp;<span>15.4</span></a>).</p>
+<p>We can also use a histogram to check for normality (See <a href="#fig-anova2-plot2" class="quarto-xref">Figure&nbsp;<span>16.4</span></a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-anova2-plot2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="two_way_anova_files/figure-html/fig-anova2-plot2-1.png" class="img-fluid figure-img" width="576">
+<a href="two_way_anova_files/figure-html/fig-anova2-plot2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;16.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."><img src="two_way_anova_files/figure-html/fig-anova2-plot2-1.png" class="img-fluid figure-img" width="576"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
 </figcaption></figure>
 </div>
 </div>
@@ -1382,10 +1391,10 @@ Just needs proof reading
 </div>
 <p>The p-value is greater than 0.05 so this test of the normality assumption is not significant.</p>
 <p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are probably not violated.</p>
-</section><section id="report" class="level3" data-number="15.3.4"><h3 data-number="15.3.4" class="anchored" data-anchor-id="report">
-<span class="header-section-number">15.3.4</span> Report</h3>
+</section><section id="report" class="level3" data-number="16.3.4"><h3 data-number="16.3.4" class="anchored" data-anchor-id="report">
+<span class="header-section-number">16.3.4</span> Report</h3>
 <p>We might report this result as:</p>
-<p>The parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> (from <span class="math inline">\(\bar{x} \pm s.e\)</span>: 57.0 <span class="math inline">\(\pm\)</span> 1.77 units to 73.5 <span class="math inline">\(\pm\)</span> 2.24 units) than in <em>L.littorea</em> (from 64.2 <span class="math inline">\(\pm\)</span> 2.38 units to 69.9 <span class="math inline">\(\pm\)</span> 2.30 units). See <a href="#fig-para" class="quarto-xref">Figure&nbsp;<span>15.5</span></a>.</p>
+<p>The parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> (from <span class="math inline">\(\bar{x} \pm s.e\)</span>: 57.0 <span class="math inline">\(\pm\)</span> 1.77 units to 73.5 <span class="math inline">\(\pm\)</span> 2.24 units) than in <em>L.littorea</em> (from 64.2 <span class="math inline">\(\pm\)</span> 2.38 units to 69.9 <span class="math inline">\(\pm\)</span> 2.30 units). See <a href="#fig-para" class="quarto-xref">Figure&nbsp;<span>16.5</span></a>.</p>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>,</span>
 <span>                                    y <span class="op">=</span> <span class="va">para</span>,</span>
@@ -1444,17 +1453,17 @@ Just needs proof reading
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="two_way_anova_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></p>
+<figure class="figure"><p><a href="two_way_anova_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;16.5: Parasite load is greater in Summer especially for L.brevicula. Live specimens of two species of periwinkle, L.brevicula and L.littorea were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means \pm 1 standard error. Parasite load was significantly greater in Summer (F = 25.9; d.f. = 1, 96; p < 0.0001) but this effect differed between species (F = 6.2; d.f. = 1,96; p = 0.014) with a greater increase in parasite load in L.brevicula than in L.littorea. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test [@tukey1949]."><img src="two_way_anova_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;15.5: <strong>Parasite load is greater in Summer especially for <em>L.brevicula</em>.</strong> Live specimens of two species of periwinkle, <em>L.brevicula</em> and <em>L.littorea</em> were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. Parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;16.5: <strong>Parasite load is greater in Summer especially for <em>L.brevicula</em>.</strong> Live specimens of two species of periwinkle, <em>L.brevicula</em> and <em>L.littorea</em> were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. Parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>.
 </figcaption></figure>
 </div>
-</section></section><section id="summary" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">15.4</span> Summary</h2>
+</section></section><section id="summary" class="level2" data-number="16.4"><h2 data-number="16.4" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">16.4</span> Summary</h2>
 <ol type="1">
 <li><p>A linear model with two explanatory variable with two or more groups each is also known as a <strong>two-way ANOVA</strong>.</p></li>
 <li>
@@ -1914,19 +1923,19 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./one_way_anova_and_kw.html" class="pagination-link" aria-label="One-way ANOVA and Kruskal-Wallis">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./association.html" class="pagination-link" aria-label="Association: Correlation and Contingency">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Rand, E. (2023). Computational Analysis for Bioscientists (Version 0.1) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
@@ -1935,7 +1944,38 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
       &nbsp;
     </div>
   </div>
-</footer>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 </body></html>
