@@ -8,29 +8,54 @@ source("_common.R")
 status("polishing")
 ```
 
-In [First Steps in RStudio](first_steps_rstudio.html) we typed data into R. This is not very practical when you have a lot of data! Instead, we much more commonly import data from a file. In this chapter we go through the workflow from importing, through summarising and plotting to saving a saving the figure.
+In [First Steps in RStudio](first_steps_rstudio.html) we typed data into
+R. This is not very practical when you have a lot of data! Instead, we
+much more commonly import data from a file. In this chapter we go
+through the workflow from importing, through summarising and plotting to
+saving a saving the figure.
 
 ## Importing data from files
 
-There are two things you need to know before you can import data from a file.
+There are two things you need to know before you can import data from a
+file.
 
 1.  What format the data are in
 
-    The format of the data determines what *function* you will use to import it. Often the file extension indicates format.
+    The format of the data determines what *function* you will use to
+    import it. Often the file extension indicates format.
 
-    -   `.txt` a plain text file[^import_to_report-1], where the columns are often separated by a space but might also be separated by a tab, a backslash or forward slash, or some other character
-    -   `.csv` a plain text file where the columns are separated by commas
-    -   `.xlsx` an Excel file More detail on file types was covered in [Understanding file systems](file_systems.html#files)
-    
-    However, you should always check the file to make sure it is in the format you expect because there is little to force a match between a file's contents and the extension in its name. You can check by opening the file in a text editor (e.g., Notepad on Windows, TextEdit on Mac) or in RStudio (see below).
+    -   `.txt` a plain text file[^import_to_report-1], where the columns
+        are often separated by a space but might also be separated by a
+        tab, a backslash or forward slash, or some other character
+    -   `.csv` a plain text file where the columns are separated by
+        commas
+    -   `.xlsx` an Excel file More detail on file types was covered in
+        [Understanding file systems](file_systems.html#files)
+
+    However, you should always check the file to make sure it is in the
+    format you expect because there is little to force a match between a
+    file's contents and the extension in its name. You can check by
+    opening the file in a text editor (e.g., Notepad on Windows,
+    TextEdit on Mac) or in RStudio (see below).
 
 2.  Where the file is relative to your working directory
 
-    `R` can only read in a file if you say where it is, *i.e.*, you give its **relative path**. More detail on relative file paths and working directories was covered in [Understanding file systems](file_systems.html#working-directories)
+    `R` can only read in a file if you say where it is, *i.e.*, you give
+    its **relative path**. More detail on relative file paths and
+    working directories was covered in [Understanding file
+    systems](file_systems.html#working-directories)
 
-🎬 Your turn! If you want to code along you will need to start a new [RStudio project](workflow_rstudio.html#rstudio-projects) then a new script.
+[^import_to_report-1]: Plain text files can be opened in notepad or
+    other similar editor and still be readable.
 
-This chapter covers reading `.txt` files and `.csv` files using **`tidyverse`** [@tidyverse] functions and excel files using the **`readxl`** [@readxl] package. We will demonstrate what needs to be done differently if the file is not in your working directory.
+🎬 Your turn! If you want to code along you will need to start a new
+[RStudio project](workflow_rstudio.html#rstudio-projects) then a new
+script.
+
+This chapter covers reading `.txt` files and `.csv` files using
+**`tidyverse`** [@tidyverse] functions and excel files using the
+**`readxl`** [@readxl] package. We will demonstrate what needs to be
+done differently if the file is not in your working directory.
 
 ```{r}
 library(tidyverse)
@@ -39,30 +64,71 @@ library(readxl)
 
 ### Importing data from `.txt` file
 
-The data in [adipocytes.txt](data-raw/adipocytes.txt) give the concentration of a hormone called adiponectin in some cells. There are two columns: the first gives the adiponectin concentration and the second, treatment, indicates whether the cells were treated with nicotinic acid or not. Save this file to the project folder.
+The data in [adipocytes.txt](data-raw/adipocytes.txt) give the
+concentration of a hormone called adiponectin in some cells. There are
+two columns: the first gives the adiponectin concentration and the
+second, treatment, indicates whether the cells were treated with
+nicotinic acid or not. Save this file to the project folder.
 
-A `.txt` extension suggests this is plain text file with columns separated by spaces. However, before we attempt to read it in, when should take a look at it. We can do this from RStudio by clicking on the file in the Files pane. Any plain text file will open in the top left pane.
+A `.txt` extension suggests this is plain text file with columns
+separated by spaces. However, before we attempt to read it in, when
+should take a look at it. We can do this from RStudio by clicking on the
+file in the Files pane. Any plain text file will open in the top left
+pane.
 
-![The adipocytes.txt data file open. We can see the columns are separated by spaces](images/text-data-file-open.png){#fig-text-data-file-open fig-alt="screenshot of RStudio showing the data file open" width="600"}
+::: {#fig-text-data-file-open}
+![](images/text-data-file-open.png) 
 
-The files are separated by spaces as we suspected. We use the `read_table()` command to read in plain text files of single columns, or where the columns are separated by spaces:
+**A screenshot of RStudio showing
+the adipocytes.txt data file open over the script.** We can see the
+columns are separated by spaces which means we can use the
+`read_table()` function to read it in.
+:::
+
+The files are separated by spaces as we suspected. We use the
+`read_table()` command to read in plain text files of single columns, or
+where the columns are separated by spaces:
 
 ```{r}
 #| eval: false
 adipo <- read_table("adipocytes.txt")
 ```
 
-The data from the file has been read into a dataframe called `adipo`. You will and you will be able to see it in the Environment window. Clicking on it in the Environment window will open a spreadsheet-like view of the dataframe.
+The data from the file has been read into a dataframe called `adipo`.
+You will and you will be able to see it in the Environment window.
+Clicking on it in the Environment window will open a spreadsheet-like
+view of the dataframe.
 
 ### Importing a from a`.csv` file
 
-The data [seal.csv](data-raw/seal.csv) give the myoglobin concentration of skeletal muscle for three species of seal. There are two columns: the first gives the myoglobin concentration and the second indicates species.
+The data [seal.csv](data-raw/seal.csv) give the myoglobin concentration
+of skeletal muscle for three species of seal. There are two columns: the
+first gives the myoglobin concentration and the second indicates
+species.
 
-The `.csv` extension suggests this is plain text file with columns separated by commas. We will again check this before we attempt to read it in. Click on the file in the Files pane - a pop-up will appear for files ending `.csv` or `.xlsx`. Choose View File[^import_to_report-2].
+The `.csv` extension suggests this is plain text file with columns
+separated by commas. We will again check this before we attempt to read
+it in. Click on the file in the Files pane - a pop-up will appear for
+files ending `.csv` or `.xlsx`. Choose View File[^import_to_report-2].
 
-![Rstudio Files pane showing the data files and the View File option that appears when you click on the a particular file](images/csv-data-file-view.png){#csv-data-file-view fig-alt="screenshot of RStudio showing the View File option that appears when you click on the a particular file" width="600"}
+[^import_to_report-2]: There is also and option to import the dataset.
+    **Do not** be tempted to import data this way! Unless you are
+    careful and know what you are doing, your data import will not be
+    scripted or will not be scripted correctly.
 
-CSV files will open in the top left pane (Excel files will launch Excel). We can see that the file does contain comma separated values. There is a`read_csv()` function which works very like `read_table()`\[\^working_with_data_rstudio-3\]:
+
+::: {#csv-data-file-view}
+![](images/csv-data-file-view.png)
+
+Rstudio Files pane showing the data files and the View File option
+that appears when you click on the a particular
+file
+:::
+
+CSV files will open in the top left pane (Excel files will launch
+Excel). We can see that the file does contain comma separated values.
+There is a`read_csv()` function which works very like
+`read_table()`\[\^working_with_data_rstudio-3\]:
 
 ```{r}
 #| eval: false
@@ -71,7 +137,11 @@ seal <- read_csv("seals.csv")
 
 ### Importing a from a`.xlsx` file
 
-The data in [blood.xlsx](data-raw/blood.xlsx) are measurements of several blood parameters from fifty people with Crohn's disease, a lifelong condition where parts of the digestive system become inflamed. Twenty-five of people are in the early stages of diagnosis and 25 have started treatment.
+The data in [blood.xlsx](data-raw/blood.xlsx) are measurements of
+several blood parameters from fifty people with Crohn's disease, a
+lifelong condition where parts of the digestive system become inflamed.
+Twenty-five of people are in the early stages of diagnosis and 25 have
+started treatment.
 
 ```{r}
 #| eval: false
@@ -80,7 +150,10 @@ blood <- read_excel("blood.xlsx")
 
 ### Importing data from a file not in your working directory
 
-When using an RStudio project, your working directory is the project folder (the folder containing the `.Rproj` file. Suppose our file [adipocytes.txt](data-raw/adipocytes.txt) is in a folder, `data-raw`, in our working directory.
+When using an RStudio project, your working directory is the project
+folder (the folder containing the `.Rproj` file. Suppose our file
+[adipocytes.txt](data-raw/adipocytes.txt) is in a folder, `data-raw`, in
+our working directory.
 
 ```         
 -- myproject
@@ -98,9 +171,15 @@ We need to adjust the code to give the *relative path* to the datafile:
 adipo <- read_table("data-raw/adipocytes.txt")
 ```
 
-The [relative path](https://3mmarand.github.io/comp4biosci/file_systems.html#relative-paths) is the path from the working directory to the file. In this case, the working directory is `myproject` and the relative path is `data-raw/adipocytes.txt`. 
+The [relative
+path](https://3mmarand.github.io/comp4biosci/file_systems.html#relative-paths)
+is the path from the working directory to the file. In this case, the
+working directory is `myproject` and the relative path is
+`data-raw/adipocytes.txt`.
 
-🎬 Your turn! Create a folder called `data-raw` inside the project folder and move the data files to it. Now modify the data import code to import seal.csv from `data-raw`.
+🎬 Your turn! Create a folder called `data-raw` inside the project
+folder and move the data files to it. Now modify the data import code to
+import seal.csv from `data-raw`.
 
 ```{r}
 #| code-fold: true
@@ -109,17 +188,32 @@ seal <- read_csv("data-raw/seal.csv")
 
 ## Summarising data
 
-We summarise data using the the **`dplyr`** [@dplyr] package, which provides a set of functions designed for efficient data manipulation. This is a **`tidyverse`** [@tidyverse] package which you already loaded. The approach replies on the data being in a tidy format, meaning each column represents a variable, each row represents an observation, and each cell contains a single value. The pipeline is:
+We summarise data using the the **`dplyr`** [@dplyr] package, which
+provides a set of functions designed for efficient data manipulation.
+This is a **`tidyverse`** [@tidyverse] package which you already loaded.
+The approach replies on the data being in a tidy format, meaning each
+column represents a variable, each row represents an observation, and
+each cell contains a single value. The pipeline is:
 
--   Group the data: If you want to summarize your data based on certain groups, you can use the `group_by()`
+-   Group the data: If you want to summarize your data based on certain
+    groups, you can use the `group_by()`
 
--   Summarise: Once your data grouped (if necessary), you use `summarise()` with functions like` mean()`, `median()`, `sd()`, `min()`and `max()` within it.
+-   Summarise: Once your data grouped (if necessary), you use
+    `summarise()` with functions like`mean()`, `median()`, `sd()`,
+    `min()`and `max()` within it.
 
-We will demonstrate summarising using the `adipo` dataframe. `adiponectin` is the response and is continuous and `treatment` is an explanatory with categorical with two levels (groups).
+We will demonstrate summarising using the `adipo` dataframe.
+`adiponectin` is the response and is continuous and `treatment` is an
+explanatory with categorical with two levels (groups).
 
-The most useful summary statistics for a continuous variable like `adiponectin` are the means, standard deviations, sample sizes and standard errors. We use the `group_by()` and `summarise()` functions along with the functions that do the calculations.
+The most useful summary statistics for a continuous variable like
+`adiponectin` are the means, standard deviations, sample sizes and
+standard errors. We use the `group_by()` and `summarise()` functions
+along with the functions that do the calculations.
 
-To create a data frame called `adipo_summary` that contains the means, standard deviations, sample sizes and standard errors for the control and nicotinic acid treated samples:
+To create a data frame called `adipo_summary` that contains the means,
+standard deviations, sample sizes and standard errors for the control
+and nicotinic acid treated samples:
 
 ```{r}
 #| include: false
@@ -142,11 +236,16 @@ You can type:
 adipo_summary
 ```
 
-or click on environment to open a spreadsheet-like view of the dataframe.
+or click on environment to open a spreadsheet-like view of the
+dataframe.
 
 ### Visualise data
 
-Most commonly, we put the explanatory variable on the *x* axis and the response variable on the *y* axis. A continuous response, particularly one that follows the normal distribution, is best summarised with the mean and the standard error. In my opinion, you should also show all the raw data points if possible.
+Most commonly, we put the explanatory variable on the *x* axis and the
+response variable on the *y* axis. A continuous response, particularly
+one that follows the normal distribution, is best summarised with the
+mean and the standard error. In my opinion, you should also show all the
+raw data points if possible.
 
 We are going to create a figure like this:
 
@@ -172,47 +271,60 @@ ggplot() +
 
 ```
 
-#### **`ggplot2`** 
+#### **`ggplot2`**
 
-**`ggplot2`** [@ggplot2] is a powerful data visualisation package in R that is part of the tidyverse. It provides a flexible and layered approach to creating high-quality and customizable graphics.
+**`ggplot2`** [@ggplot2] is a powerful data visualisation package in R
+that is part of the tidyverse. It provides a flexible and layered
+approach to creating high-quality and customizable graphics.
 
-The core concept of **`ggplot2`** is to build a plot layer by layer. The basic structure consists of three main components:
+The core concept of **`ggplot2`** is to build a plot layer by layer. The
+basic structure consists of three main components:
 
 1.  Data: the data frame to be used for plotting.
-2.  Aesthetic mappings (aes): how variables in the data map to visual elements such as *x* and *y* positions, colours, shapes, etc.
-3.  Geometric objects (geoms): the actual graphical elements used to visualize the data, such as points, lines, bars, etc.
+2.  Aesthetic mappings (aes): how variables in the data map to visual
+    elements such as *x* and *y* positions, colours, shapes, etc.
+3.  Geometric objects (geoms): the actual graphical elements used to
+    visualize the data, such as points, lines, bars, etc.
 
+To create a basic plot, you start with the `ggplot()` function and
+provide the data and aesthetic mappings.
 
-To create a basic plot, you start with the `ggplot()` function and provide the data and aesthetic mappings.
-
-```
+```         
 ggplot(data = adipo, aes(x = treatment, y = adiponectin))
-
 ```
 
-You can add geometric layers to the plot using specific functions such as `geom_point()`, `geom_line()`, `geom_bar()`, etc. These functions define the type of plot you want to create:
+You can add geometric layers to the plot using specific functions such
+as `geom_point()`, `geom_line()`, `geom_bar()`, etc. These functions
+define the type of plot you want to create:
 
-
-```
+```         
 ggplot(data = adipo, aes(x = treatment, y = adiponectin)) +
   geom_point()
-
 ```
 
+In the figure we are aiming for, we are plotting two dataframes: the
+`adipo` dataframe which contains the data points themselves; and the
+`adipo_summary` dataframe containing and the means and standard errors.
 
-In the figure we are aiming for, we are plotting two dataframes: the `adipo` dataframe which contains the data points themselves; and the `adipo_summary` dataframe containing and the means and standard errors.
-
-The dataframes and aesthetics for ggplot can be specified *within a `geom_xxxx`* (rather than in the `ggplot()`). This is very useful if the geom only applies to some of the data you want to plot.
+The dataframes and aesthetics for ggplot can be specified *within a
+`geom_xxxx`* (rather than in the `ggplot()`). This is very useful if the
+geom only applies to some of the data you want to plot.
 
 ::: callout-tip
 ## Tip: `ggplot()`
 
-You put the `data` argument and `aes()` inside `ggplot()` if you want all the `geoms` to use that dataframe and variables. If you want a different dataframe for a `geom`, put the `data` argument and `aes()` inside the `geom_xxxx()`
+You put the `data` argument and `aes()` inside `ggplot()` if you want
+all the `geoms` to use that dataframe and variables. If you want a
+different dataframe for a `geom`, put the `data` argument and `aes()`
+inside the `geom_xxxx()`
 :::
 
-I will build the plot up in small steps you should edit your *existing* `ggplot()` command as we go.
+I will build the plot up in small steps you should edit your *existing*
+`ggplot()` command as we go.
 
-We will plot the data points first. Notice that we have given the data argument and the aesthetics *inside* the `geom_point()`. The variables `treatment` and `adiponectin` are in the `adipo` dataframe
+We will plot the data points first. Notice that we have given the data
+argument and the aesthetics *inside* the `geom_point()`. The variables
+`treatment` and `adiponectin` are in the `adipo` dataframe
 
 ```{r}
 ggplot() +
@@ -220,7 +332,8 @@ ggplot() +
              aes(x = treatment, y = adiponectin))
 ```
 
-So the data points don't overlap, we can add some random jitter in the *x* direction (edit your existing code):
+So the data points don't overlap, we can add some random jitter in the
+*x* direction (edit your existing code):
 
 ```{r}
 ggplot() +
@@ -229,9 +342,12 @@ ggplot() +
              position = position_jitter(width = 0.1, height = 0))
 ```
 
-Note that `position = position_jitter(width = 0.1, height = 0)` is inside the `geom_point()` parentheses, after the `aes()` and a comma.
+Note that `position = position_jitter(width = 0.1, height = 0)` is
+inside the `geom_point()` parentheses, after the `aes()` and a comma.
 
-We've set the vertical jitter to 0 because, in contrast to the categorical *x*-axis, movement on the *y*-axis has meaning (the adiponectin levels).
+We've set the vertical jitter to 0 because, in contrast to the
+categorical *x*-axis, movement on the *y*-axis has meaning (the
+adiponectin levels).
 
 Let's make the points a light grey (edit your existing code):
 
@@ -243,7 +359,8 @@ ggplot() +
              colour = "grey50")
 ```
 
-Now to add the errorbars. These go from one standard error below the mean to one standard error above the mean.
+Now to add the errorbars. These go from one standard error below the
+mean to one standard error above the mean.
 
 Add a `geom_errorbar()` for errorbars (edit your existing code):
 
@@ -258,9 +375,12 @@ ggplot() +
   
 ```
 
-We have specified the `adipo_summary` dataframe and the variables `treatment`, `mean` and `se` are in that.
+We have specified the `adipo_summary` dataframe and the variables
+`treatment`, `mean` and `se` are in that.
 
-There are several ways you could add the mean. You could use `geom_point()` but I like to use `geom_errorbar()` again with the `ymin` and `ymax` both set to the mean.
+There are several ways you could add the mean. You could use
+`geom_point()` but I like to use `geom_errorbar()` again with the `ymin`
+and `ymax` both set to the mean.
 
 Add a `geom_errorbar()` for the mean (edit your existing code):
 
@@ -278,7 +398,8 @@ ggplot() +
   
 ```
 
-Alter the axis labels and limits using `scale_y_continuous()` and `scale_x_discrete()` (edit your existing code):
+Alter the axis labels and limits using `scale_y_continuous()` and
+`scale_x_discrete()` (edit your existing code):
 
 ```{r}
 ggplot() +
@@ -299,9 +420,12 @@ ggplot() +
   
 ```
 
-You only need to use `scale_y_continuous()` and `scale_x_discrete()` to use labels that are different from those in the dataset. Often this is to use proper terminology and captialisation.
+You only need to use `scale_y_continuous()` and `scale_x_discrete()` to
+use labels that are different from those in the dataset. Often this is
+to use proper terminology and captialisation.
 
-Format the figure in a way that is more suitable for including in a report using `theme_classic()` (edit your existing code):
+Format the figure in a way that is more suitable for including in a
+report using `theme_classic()` (edit your existing code):
 
 ```{r}
 ggplot() +
@@ -322,15 +446,13 @@ ggplot() +
   theme_classic()
 ```
 
-[^import_to_report-1]: Plain text files can be opened in notepad or other similar editor and still be readable.
-
-[^import_to_report-2]: There is also and option to import the dataset. **Do not** be tempted to import data this way! Unless you are careful and know what you are doing, your data import will not be scripted or will not be scripted correctly.
-
-The `ggsave()` function is used to save a `ggplot` object as an image file. It provides a convenient way to export your plots to various file formats, such as PNG, PDF, SVG, or JPEG.
+The `ggsave()` function is used to save a `ggplot` object as an image
+file. It provides a convenient way to export your plots to various file
+formats, such as PNG, PDF, SVG, or JPEG.
 
 The basic syntax of `ggsave()` is as follows:
 
-```
+```         
 ggsave(filename,
        plot,
        device,
@@ -340,15 +462,20 @@ ggsave(filename,
        dpi)
 ```
 
+You must give a file name for the output file but all the other options
+have defaults.
 
-You must give a file name for the output file but all the other options have defaults.
+-   plot: The ggplot object you want to save. Defaults to the last
+    created plot.
+-   device: one of "png", "eps", "ps", "tex", "pdf", "jpeg", "tiff",
+    "png", "bmp", "svg" or "wmf" (windows only). Defaults to the format
+    given by the file extension in filename
+-   width, height units: Plot size in units ("in", "cm", "mm", or "px").
+    Defaults to the size of the plot in the Plots window.
+-   dpi: Plot resolution.
 
--   plot: The ggplot object you want to save. Defaults to the last created plot.
--   device: one of "png", "eps", "ps", "tex", "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). Defaults to the format given by the file extension in filename
--   width, height units: Plot size in units ("in", "cm", "mm", or "px"). Defaults to the size of the plot in the Plots window.
--   dpi: Plot resolution. 
-
-We can save the figure we just created as a 3 inch x 3 inch png file as follows:
+We can save the figure we just created as a 3 inch x 3 inch png file as
+follows:
 
 ```{r}
 ggsave("adipocytes.png",
@@ -359,7 +486,8 @@ ggsave("adipocytes.png",
        dpi = 300)
 ```
 
-It is often a good idea to explicitly assign the ggplot object to a variable and use that in the `ggsave()`
+It is often a good idea to explicitly assign the ggplot object to a
+variable and use that in the `ggsave()`
 
 ```{r}
 fig1 <- ggplot() +
@@ -388,20 +516,24 @@ ggsave("adipocytes.png",
        dpi = 300)
 ```
 
-
 ## Tidy data
 
-Data that is in a format that is easy to work with is often referred to as "tidy data". Tidy data is a concept that was introduced by Hadley Wickham in his paper Tidy Data [@Wickham2014-nl]. The paper is available online at <http://vita.had.co.nz/papers/tidy-data.pdf>. 
+Data that is in a format that is easy to work with is often referred to
+as "tidy data". Tidy data is a concept that was introduced by Hadley
+Wickham in his paper Tidy Data [@Wickham2014-nl]. The paper is available
+online at <http://vita.had.co.nz/papers/tidy-data.pdf>.
 
-Tidy data: 
+Tidy data:
 
--   Each variable should be in one column. 
--   Each different observation of that variable should be in a different row. 
--  There should be one table for each "kind" of data. 
--   If you have multiple tables, they should include a column in the table that allows them to be linked.
+-   Each variable should be in one column.
+-   Each different observation of that variable should be in a different
+    row.
+-   There should be one table for each "kind" of data.
+-   If you have multiple tables, they should include a column in the
+    table that allows them to be linked.
 
-These concepts have been around for a long time and underlie formats enforced in several statistical packages such as SPSS, minitab and SAS. 
+These concepts have been around for a long time and underlie formats
+enforced in several statistical packages such as SPSS, minitab and SAS.
 
-Recognising the structure of your data and organising it in tidy format is one of the most important step in data analysis. 
-
-
+Recognising the structure of your data and organising it in tidy format
+is one of the most important step in data analysis.
