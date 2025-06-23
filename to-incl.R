@@ -23,3 +23,8 @@ dunn_results$res$P.unadj
 # get unadjust pvalues only for the first and second comparison
 comparisons <- dunn_results$res$P.unadj[c(1,2)]
 p.adjust(comparisons, method = "holm")
+
+
+# 🎬 Your turn! If you want to code along you will need to start a new
+# (see [@sec-workflow-rstudio-creating-rsp]) then a new
+# script.
