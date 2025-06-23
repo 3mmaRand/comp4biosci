@@ -1,0 +1,72 @@
+# Recording experiemental data {#sec-recording-data}
+
+```{r}
+#| results: "asis"
+#| echo: false
+
+source("_common.R")
+status("drafting")
+```
+
+## Tidy data
+
+Data that is in a format that is easy to work with is often referred to
+as "tidy data". Tidy data is a concept that was introduced by Hadley
+Wickham in his paper Tidy Data [@Wickham2014-nl]. The paper is available
+online at <http://vita.had.co.nz/papers/tidy-data.pdf>.
+
+Tidy data:
+
+-   Each variable should be in one column.
+-   Each different observation of that variable should be in a different
+    row.
+-   There should be one table for each "kind" of data.
+-   If you have multiple tables, they should include a column in the
+    table that allows them to be linked.
+
+These concepts have been around for a long time and underlie formats
+enforced in several statistical packages such as SPSS, minitab and SAS.
+
+Recognising the structure of your data and organising it in tidy format
+is one of the most important step in data analysis.
+
+## Organising data in spreadsheets
+
+Checklist based on this excellent paper: "Data Organization in Spreadsheets" by 
+Karl W. Broman and Kara H. Woo [@broman2018].
+
+1. Be consistent: 
+   -   Use consistent codes for categorical variables.
+   -   Use a consistent fixed code for any missing values.
+   -   Use consistent variable names.
+   -   Use consistent subject identifiers.
+   -   Use a consistent data layout in multiple files
+   -   Use consistent file names.
+   -   Use a consistent format for all dates preferably with the standard 
+       format YYYY-MM-DD
+   -   Be careful about extra spaces within cells
+   
+2. Choose good names:
+   -   make them short, but meaningful
+   -   do not use spaces, either in variable names or file names. Where you 
+       might use spaces, use underscores or hyphens.
+   -   avoid special characters in names.
+   -   stick to lower case
+
+3. Do not have empty  or merged cells:
+   -   use a consistent code for missing values, such as NA.
+   -   ensure data is upper most, left most in a spreadsheet.
+   -   do not have column names over multiple rows - organise in tidy format
+       instead.
+
+4. Make it one rectangle or a collection of rectangles
+
+5. Do not have calculations in raw data files
+
+6. Do not use colour to convey meaning:
+   -   use text to convey meaning, such as "yes" or "no" rather than using 
+       colour to indicate a yes or no.
+   -   do not use colour to indicate missing values, use a consistent code 
+       such as NA.
+7. When recording data, consider using data validation to avoid errors and 
+   prevent inconsistent data entry.
