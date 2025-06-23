@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>5&nbsp; Ideas about data – Computational Analysis for Bioscientists</title>
+<title>10&nbsp; Recording experiemental data – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -46,8 +46,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about-R-and-RStudio.html" rel="next">
-<link href="./getting-started-with-data.html" rel="prev">
+<link href="./statistical-analysis-1.html" rel="next">
+<link href="./import-to-report.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -61,10 +61,7 @@ div.csl-indent {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -94,32 +91,6 @@ div.csl-indent {
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
 </script>
 </head>
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -291,7 +262,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./ideas-about-data.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./recording-data.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -368,7 +339,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ideas-about-data.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ideas-about-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
   </div>
 </li>
@@ -398,7 +369,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./recording-data.html" class="sidebar-item-text sidebar-link">
+  <a href="./recording-data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></span></a>
   </div>
 </li>
@@ -535,30 +506,13 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">5.1</span> Introduction</a></li>
-  <li><a href="#roles-of-variables-in-analysis" id="toc-roles-of-variables-in-analysis" class="nav-link" data-scroll-target="#roles-of-variables-in-analysis"><span class="header-section-number">5.2</span> Roles of variables in analysis</a></li>
-  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">5.3</span> Distributions</a></li>
-  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data"><span class="header-section-number">5.4</span> Summarising data</a></li>
-  <li>
-<a href="#discrete-data" id="toc-discrete-data" class="nav-link" data-scroll-target="#discrete-data"><span class="header-section-number">5.5</span> Discrete data</a>
-  <ul class="collapse">
-<li><a href="#categories-nominal-and-ordinal" id="toc-categories-nominal-and-ordinal" class="nav-link" data-scroll-target="#categories-nominal-and-ordinal"><span class="header-section-number">5.5.1</span> Categories: Nominal and Ordinal</a></li>
-  <li><a href="#counts" id="toc-counts" class="nav-link" data-scroll-target="#counts"><span class="header-section-number">5.5.2</span> Counts</a></li>
-  </ul>
-</li>
-  <li>
-<a href="#continuous-data" id="toc-continuous-data" class="nav-link" data-scroll-target="#continuous-data"><span class="header-section-number">5.6</span> Continuous data</a>
-  <ul class="collapse">
-<li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">5.6.1</span> The normal distribution</a></li>
-  </ul>
-</li>
-  <li><a href="#theory-and-practice" id="toc-theory-and-practice" class="nav-link" data-scroll-target="#theory-and-practice"><span class="header-section-number">5.7</span> Theory and practice</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.8</span> Summary</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/ideas-about-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<li><a href="#tidy-data" id="toc-tidy-data" class="nav-link active" data-scroll-target="#tidy-data"><span class="header-section-number">10.1</span> Tidy data</a></li>
+  <li><a href="#organising-data-in-spreadsheets" id="toc-organising-data-in-spreadsheets" class="nav-link" data-scroll-target="#organising-data-in-spreadsheets"><span class="header-section-number">10.2</span> Organising data in spreadsheets</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/recording-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./ideas-about-data.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-ideas-about-data" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./recording-data.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-recording-data" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></span></h1>
 </div>
 
 
@@ -572,249 +526,87 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-tip callout-titled">
+</header><div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Just needs proof reading
+Incomplete
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are reading a work in progress. This page is compete but needs final proof reading.</p>
+<p>You are reading a work in progress. This page is a dumping ground for ideas. Sections maybe missing, or contain a list of points to include.</p>
 </div>
 </div>
-<section id="introduction" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">5.1</span> Introduction</h2>
-<p>This chapter introduces some key ideas about data. Data consists of:</p>
+<section id="tidy-data" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="tidy-data">
+<span class="header-section-number">10.1</span> Tidy data</h2>
+<p>Data that is in a format that is easy to work with is often referred to as “tidy data”. Tidy data is a concept that was introduced by Hadley Wickham in his paper Tidy Data <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span>. The paper is available online at <a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="uri">http://vita.had.co.nz/papers/tidy-data.pdf</a>.</p>
+<p>Tidy data:</p>
 <ul>
-<li>Variables — the properties or characteristics that we measure or record, and</li>
-<li>Observations — the individual cases or items that those variables describe.</li>
+<li>Each variable should be in one column.</li>
+<li>Each different observation of that variable should be in a different row.</li>
+<li>There should be one table for each “kind” of data.</li>
+<li>If you have multiple tables, they should include a column in the table that allows them to be linked.</li>
 </ul>
-<p>A helpful and common way to organise data is in a table, where each column represents a variable and each row represents one observation. Every value in a row related to a single observation such as a person, plant, or sample. We call data in this format “tidy”.</p>
-<p>We can describe variables in two main ways:</p>
-<ul>
-<li><p>By their role in the analysis, that is, whether they are independent (explanatory) or dependent (response) variables.</p></li>
-<li><p>By the type of values they take and how often those values occur.</p></li>
-</ul>
-<p>The second aspect — what kinds of values a variable can have and how common each one is — is called the variable’s distribution. The way we summarise, visualise, and analyse a variable depends on both its role and its distribution.</p>
-</section><section id="roles-of-variables-in-analysis" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="roles-of-variables-in-analysis">
-<span class="header-section-number">5.2</span> Roles of variables in analysis</h2>
-<p>When we do research, we typically have variables that we choose or set and variables that we measure. The variables we choose or set are called independent or explanatory variables. The variables we measure are called dependent or response variables. For example, we might measure the concentration of enzymes and hormones in blood samples of individuals with different genotypes. The genotype acts as the explanatory variable and the blood measurements are response. We would be interested in whether the blood measures differ between genotypes.</p>
-</section><section id="distributions" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="distributions">
-<span class="header-section-number">5.3</span> Distributions</h2>
-<p>Any variable has a <em>distribution</em> which describes the values the variable can take and the chance of them occurring. The distribution is a function (relationship) which captures how the values are mapped to the probability of them occurring. A distribution has a general type, given by the function and is further tuned by the <em>parameters</em> in the function. For example, variables like height, length, concentration, mass and intensity follow a <em>normal distribution</em> also know as the bell-shaped curve so that they look similar. However, they have different means and standard deviations. The mean and the standard deviation are the parameters of the normal distribution.</p>
-<p>An important distinction is between <strong>discrete</strong> and <strong>continuous</strong> types of data. Continuous variables are measurements that can take <em>any</em> value in their range. Because there an infinite number of possible values within within the range, the probability of a continuous variable taking exactly one specific value is zero. Instead, we talk about the probability that the value is less than a particular value, greater than a particular value or between two values. For example, we might say the probability a person’s height is greater than 170cm is 0.3 (<a href="#fig-distrib-contin" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>). In contrast, discrete variables can take only specific values often counts or categories. For example, the number of leaves on a plant or the number of times a gene is expressed. In this case, it’s meaningful to talk about the probability of a single value. Each possible value has its own individual probability, and the sum of all those probabilities equals 1 (<a href="#fig-distrib-discrete" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>).</p>
-<div id="fig-distrib-contin" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-distrib-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><a href="ideas-about-data_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;5.1: An example of a distribution for a continuous variable. The values a continuous variable can take are on the horizontal axis. Continuous variables have a smooth distribution and the probability of getting a particular value or less is given by the area under the curve before that value. This example is the Normal distribution."><img src="ideas-about-data_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distrib-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.1: <strong>An example of a distribution for a continuous variable.</strong> The values a continuous variable can take are on the horizontal axis. Continuous variables have a smooth distribution and the probability of getting a particular value or less is given by the area under the curve before that value. This example is the Normal distribution.
-</figcaption></figure>
-</div>
-<div id="fig-distrib-discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-distrib-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><a href="ideas-about-data_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;5.2: An example of a distribution for a discrete variable. A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. This example is the Poisson distribution."><img src="ideas-about-data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distrib-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.2: <strong>An example of a distribution for a discrete variable.</strong> A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. This example is the Poisson distribution.
-</figcaption></figure>
-</div>
-<p>This difference between continuous and discrete variables affects how we analyse and visualise data. Discrete data is often shown using bar plots and summarised with modes of medians, while continuous data is represented using histograms or density plots and summarised with means and standard deviations.</p>
-</section><section id="summarising-data" class="level2" data-number="5.4"><h2 data-number="5.4" class="anchored" data-anchor-id="summarising-data">
-<span class="header-section-number">5.4</span> Summarising data</h2>
-<p>We summarise data by giving a measure of <em>central tendency</em> and a measure of <em>dispersion</em>. A measure of central tendency is a single value that represents the middle or centre of a variable’s distribution. The three most common measures are:</p>
-<ul>
-<li><p>the mean, or more accurately, the arithmetic mean, <span class="math inline">\(\bar{x} = \frac{\sum{x}}{n}\)</span></p></li>
-<li><p>the median: the middle value for a variable with values arranged in order of magnitude</p></li>
-<li><p>the mode: the most frequent value in the variable.</p></li>
-</ul>
-<p>Measures of dispersion describe the spread of values around the centre and indicate how much variability there is in the variable. The most common measures of dispersion are:</p>
-<ul>
-<li><p>the range: the difference between the maximum value and the minimum value in a variable</p></li>
-<li><p>the interquartile range: two values, the first quartile and the third quartile. The first quartile is half way between the median value and the lowest value when the values are arranged in order and the third quartile is halfway between the median value and the highest value</p></li>
-<li><p>the variance: the average of the squared differences between each value and the variable’s mean, <span class="math inline">\(s^2 = \frac{(\sum{x - \bar{x})^2}}{n - 1}\)</span></p></li>
-<li><p>the standard deviation: the square root of the variance.</p></li>
-</ul></section><section id="discrete-data" class="level2" data-number="5.5"><h2 data-number="5.5" class="anchored" data-anchor-id="discrete-data">
-<span class="header-section-number">5.5</span> Discrete data</h2>
-<p>Discrete variables can take only specific values and can be categories, like genotype, or counts, like the number of petals.</p>
-<section id="categories-nominal-and-ordinal" class="level3" data-number="5.5.1"><h3 data-number="5.5.1" class="anchored" data-anchor-id="categories-nominal-and-ordinal">
-<span class="header-section-number">5.5.1</span> Categories: Nominal and Ordinal</h3>
-<p>Categorical data can be nominal or ordinal depending on whether the categories are are ordered. Nominal variables have no particular order, for example, the eye colour of Drosophila or the species of bird. When summarising data on bird species, it wouldn’t matter in what order the information was given or plotted. Ordinal variables have an order. The Likert scale <span class="citation" data-cites="likert1932">(<a href="references.html#ref-likert1932" role="doc-biblioref">Likert 1932</a>)</span> used in questionnaires is one example. The possible responses are Strongly agree, Agree, Disagree and Strongly disagree; these have an order that you would use when plotting them (<a href="#fig-categories" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>).</p>
-<div id="fig-categories" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-categories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-categories" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-categories">
-<div id="fig-categ-bird" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
-<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-categ-bird-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="ideas-about-data_files/figure-html/fig-categ-bird-1.png" class="lightbox" data-gallery="fig-categories" title="Figure&nbsp;5.3&nbsp;(a): "><img src="ideas-about-data_files/figure-html/fig-categ-bird-1.png" id="fig-categ-bird" class="img-fluid figure-img" data-ref-parent="fig-categories" width="576"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-categ-bird-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a)
-</figcaption></figure>
-</div>
-</div>
-</div>
-<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-categories" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-categories">
-<div id="fig-categ-likert" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
-<figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-categ-likert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="ideas-about-data_files/figure-html/fig-categ-likert-1.png" class="lightbox" data-gallery="fig-categories" title="Figure&nbsp;5.3&nbsp;(b): "><img src="ideas-about-data_files/figure-html/fig-categ-likert-1.png" id="fig-categ-likert" class="img-fluid figure-img" data-ref-parent="fig-categories" width="576"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-categ-likert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
-</figcaption></figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-categories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.3: <strong>Categorical data can be nominal or ordinal.</strong> Nominal variables like species (<a href="#fig-categ-bird" class="quarto-xref">Figure&nbsp;<span>5.3 (a)</span></a>) have no particular order whilst ordinal variables like those on the Likert scale <span class="citation" data-cites="likert1932">(<a href="references.html#ref-likert1932" role="doc-biblioref">Likert 1932</a>)</span> have an order.
-</figcaption></figure>
-</div>
-<p>The most appropriate way to summarise nominal or ordinal data is to report the mode (most frequent value) or tabulate the number of each value (<a href="#tbl-likert" class="quarto-xref">Table&nbsp;<span>5.1</span></a>).</p>
-<div class="cell">
-<div id="tbl-likert" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-likert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;5.1: Frequency of responses to a Likert scale question.
-</figcaption><div aria-describedby="tbl-likert-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<thead><tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Response</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">Frequency</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Strongly agree</td>
-<td style="text-align: right;">10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Agree</td>
-<td style="text-align: right;">14</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Disagree</td>
-<td style="text-align: right;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Strongly disagree</td>
-<td style="text-align: right;">2</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</figure>
-</div>
-</div>
-</section><section id="counts" class="level3" data-number="5.5.2"><h3 data-number="5.5.2" class="anchored" data-anchor-id="counts">
-<span class="header-section-number">5.5.2</span> Counts</h3>
-<p>Counts are one of the most common data types. They are quantitative but discrete because they can take only specific values. Counts tend to follow a distribution called the Poisson distribution meaning that there is an expected number of zeros, ones and twos etc that appear. This is true no matter what you count. The distribution of counts is not symmetrical when the average count is low. For example, the number of groundsel plants in one hundred 1 metre x 1 metre square quadrats<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is likely in the range of 0 to 3 plants per quadrat. This distribution is skewed to the right, meaning it has a tail to the right. A mean is not usually the best way to summarise a set of counts because it is dragged up by the few quadrats with more than 2 plants (<a href="#fig-counts" class="quarto-xref">Figure&nbsp;<span>5.4</span></a>). Instead, the median better represents the middle of the distribution. The median is the middle value when the values are arranged in order. The interquartile range (IQR) indicates the spread in the data. The lower quartile is half way between the lowest value and the middle value and the upper quartile is half way between the middle value and the highest value.</p>
-<div id="fig-counts" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><a href="ideas-about-data_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5.4: The number of groundsel plants in one hundred 1 metre x 1 metre square quadrats is a count and follows a Poisson distribution. The mean of 0.73 groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants! The average is being dragged up by the few quadrats containing 3 plants. The median is 0."><img src="ideas-about-data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.4: <strong>The number of groundsel plants in one hundred 1 metre x 1 metre square quadrats is a count and follows a Poisson distribution.</strong> The mean of 0.73 groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants! The average is being dragged up by the few quadrats containing 3 plants. The median is 0.
-</figcaption></figure>
-</div>
-</section></section><section id="continuous-data" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="continuous-data">
-<span class="header-section-number">5.6</span> Continuous data</h2>
-<p>Continuous variables are measurements that can take <em>any</em> value in their range so there are an infinite number of possible values. The values have decimal places. Variables like the length and mass of an organism, the volume and optical density of a solution, or the colour intensity of an image are continuous. Many response variables are continuous but continuous variables can also be explanatory. A large number of continuous variables follow the normal distribution.</p>
-<section id="the-normal-distribution" class="level3" data-number="5.6.1"><h3 data-number="5.6.1" class="anchored" data-anchor-id="the-normal-distribution">
-<span class="header-section-number">5.6.1</span> The normal distribution</h3>
-<p>For example, a variable like human height has values with decimal places which follow a normal distribution also known as the Gaussian distribution or the bell-shaped curve. Values of 1.65 metres occur more often than values of 2 metres and values of 3 metres never occur (<a href="#fig-normal-distribtion" class="quarto-xref">Figure&nbsp;<span>5.5</span></a>).</p>
-<div id="fig-normal-distribtion" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-normal-distribtion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><a href="ideas-about-data_files/figure-html/unnamed-chunk-5-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;5.5: Human height follows a normal distribution."><img src="ideas-about-data_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distribtion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.5: <strong>Human height follows a normal distribution.</strong>
-</figcaption></figure>
-</div>
-<p>The mean and standard deviation are the best way to summarise a normally distributed variable.</p>
-</section></section><section id="theory-and-practice" class="level2" data-number="5.7"><h2 data-number="5.7" class="anchored" data-anchor-id="theory-and-practice">
-<span class="header-section-number">5.7</span> Theory and practice</h2>
-<p>The distinction between continuous and discrete values is clear in theory but in practice, the actual values you have may differ from the expected distribution for a particular variable. For example, we would expect the mass of cats to be continuous because any value in the range is possible. However, if our scales only measure to the nearest kilogram, then the values become discrete because the only the values possible are 0, 1, 2, 3, 4, 5, 6 and 7. The gap between values, 1kg, is big compared to the range of values we expect (<a href="#fig-contin-is-discrete" class="quarto-xref">Figure&nbsp;<span>5.6</span></a>).</p>
-<div id="fig-contin-is-discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-contin-is-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><a href="ideas-about-data_files/figure-html/unnamed-chunk-6-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;5.6: The mass of cats in kilograms. Theoretically mass is a continuous variable (left). However if we measure only to the nearest kilogram, then mass becomes discrete because cats only weigh few kilograms so 1kg covers a large chunk of the range (right)."><img src="ideas-about-data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contin-is-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.6: <strong>The mass of cats in kilograms.</strong> Theoretically mass is a continuous variable (left). However if we measure only to the nearest kilogram, then mass becomes discrete because cats only weigh few kilograms so 1kg covers a large chunk of the range (right).
-</figcaption></figure>
-</div>
-<p>In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 100,204 hairs is so tiny the variable is practically continuous (<a href="#fig-discrete-is-contin" class="quarto-xref">Figure&nbsp;<span>5.7</span></a>).</p>
-<div id="fig-discrete-is-contin" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-discrete-is-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><a href="ideas-about-data_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;5.7: The number of hairs on a human head. As a count, this is a discrete variable. However. one increment is a tiny proportion of the range of values so the number of hairs is practically continuous."><img src="ideas-about-data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></a></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-discrete-is-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.7: <strong>The number of hairs on a human head</strong>. As a count, this is a discrete variable. However. one increment is a tiny proportion of the range of values so the number of hairs is practically continuous.
-</figcaption></figure>
-</div>
-<p>A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.</p>
-</section><section id="summary" class="level2" data-number="5.8"><h2 data-number="5.8" class="anchored" data-anchor-id="summary">
-<span class="header-section-number">5.8</span> Summary</h2>
+<p>These concepts have been around for a long time and underlie formats enforced in several statistical packages such as SPSS, minitab and SAS.</p>
+<p>Recognising the structure of your data and organising it in tidy format is one of the most important step in data analysis.</p>
+</section><section id="organising-data-in-spreadsheets" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="organising-data-in-spreadsheets">
+<span class="header-section-number">10.2</span> Organising data in spreadsheets</h2>
+<p>Checklist based on this excellent paper: “Data Organization in Spreadsheets” by Karl W. Broman and Kara H. Woo <span class="citation" data-cites="broman2018">(<a href="references.html#ref-broman2018" role="doc-biblioref">Broman and Woo 2018</a>)</span>.</p>
 <ol type="1">
-<li><p>Data: Data consists of variables (properties measured or recorded) and observations (individual things with those properties). Data is commonly organised with variables in columns and observations in rows.</p></li>
-<li><p>Roles of Variables in Analysis: Variables in research can be independent or explanatory variables (chosen or set by researchers) and dependent or response variables (measured by researchers).</p></li>
-<li><p>Distributions: A variable’s distribution describes the types of values it can take and the likelihood of each value occurring. Variables can be classified as discrete (specific values) or continuous (any value within a range). The shape of a distribution is determined by parameters.</p></li>
-<li><p>Discrete Data: Discrete variables can be categories or counts. Categorical data can be nominal (no order) or ordinal (ordered) and are best summarised with the mode or a table. Counts are often best summarised by the median and interquartile range.</p></li>
-<li><p>Continuous Data: Continuous variables can take any value within a range. The normal distribution is the most common continuous distribution and is best summarised with the mean and standard deviation.</p></li>
-<li><p>Theory and Practice: While the theoretical distinction between continuous and discrete values is clear, the actual values obtained in practice may deviate from the expected distribution. Measurement precision and range affect whether a variable is considered continuous or discrete. A rule of thumb suggests that if the mean count is above approximately 100, the distribution of counts approximates a normal distribution.</p></li>
+<li>
+<p>Be consistent:</p>
+<ul>
+<li>Use consistent codes for categorical variables.</li>
+<li>Use a consistent fixed code for any missing values.</li>
+<li>Use consistent variable names.</li>
+<li>Use consistent subject identifiers.</li>
+<li>Use a consistent data layout in multiple files</li>
+<li>Use consistent file names.</li>
+<li>Use a consistent format for all dates preferably with the standard format YYYY-MM-DD</li>
+<li>Be careful about extra spaces within cells</li>
+</ul>
+</li>
+<li>
+<p>Choose good names:</p>
+<ul>
+<li>make them short, but meaningful</li>
+<li>do not use spaces, either in variable names or file names. Where you might use spaces, use underscores or hyphens.</li>
+<li>avoid special characters in names.</li>
+<li>stick to lower case</li>
+</ul>
+</li>
+<li>
+<p>Do not have empty or merged cells:</p>
+<ul>
+<li>use a consistent code for missing values, such as NA.</li>
+<li>ensure data is upper most, left most in a spreadsheet.</li>
+<li>do not have column names over multiple rows - organise in tidy format instead.</li>
+</ul>
+</li>
+<li><p>Make it one rectangle or a collection of rectangles</p></li>
+<li><p>Do not have calculations in raw data files</p></li>
+<li>
+<p>Do not use colour to convey meaning:</p>
+<ul>
+<li>use text to convey meaning, such as “yes” or “no” rather than using colour to indicate a yes or no.</li>
+<li>do not use colour to indicate missing values, use a consistent code such as NA.</li>
+</ul>
+</li>
+<li><p>When recording data, consider using data validation to avoid errors and prevent inconsistent data entry.</p></li>
 </ol>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-likert1932" class="csl-entry" role="listitem">
-Likert, R. 1932. <span>“A Technique for the Measurement of Attitudes.”</span> <em>Archives of Psychology</em> 22 140: 55–55.
+<div id="ref-broman2018" class="csl-entry" role="listitem">
+Broman, Karl W, and Kara H Woo. 2018. <span>“Data Organization in Spreadsheets.”</span> <em>Am. Stat.</em> 72 (1): 2–10. <a href="https://doi.org/10.1080/00031305.2017.1375989">https://doi.org/10.1080/00031305.2017.1375989</a>.
+</div>
+<div id="ref-Wickham2014-nl" class="csl-entry" role="listitem">
+Wickham, Hadley. 2014. <span>“Tidy Data.”</span> <em>Journal of Statistical Software, Articles</em> 59 (10): 1–23. <a href="https://vita.had.co.nz/papers/tidy-data.pdf">https://vita.had.co.nz/papers/tidy-data.pdf</a>.
 </div>
 </div>
-</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
-<ol>
-<li id="fn1"><p>A&nbsp;quadrat&nbsp;is a frame used in&nbsp;ecology&nbsp;to outline a standard unit of area for study of the distribution of plant species over a wider are. Typically, quadrats are placed randomly over the area and the number of individuals in each quadrat is recorded.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
     if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1231,13 +1023,13 @@ Likert, R. 1932. <span>“A Technique for the Measurement of Attitudes.”</span
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./getting-started-with-data.html" class="pagination-link" aria-label="Getting started with data analysis in R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started with data analysis in R</span>
+      <a href="./import-to-report.html" class="pagination-link" aria-label="From importing to reporting">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about-R-and-RStudio.html" class="pagination-link" aria-label="About R and RStudio">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./statistical-analysis-1.html" class="pagination-link" aria-label="Statistical Analysis in R - Part 1">
+        <span class="nav-page-text">Statistical Analysis in R - Part 1</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1248,43 +1040,12 @@ Likert, R. 1932. <span>“A Technique for the Measurement of Attitudes.”</span
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/ideas-about-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/recording-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
+</footer>
 
 
 </body></html>
