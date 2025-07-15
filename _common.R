@@ -18,28 +18,28 @@ knitr::opts_chunk$set(
 
 status <- function(type) {
   status <- switch(type,
-                   polishing = "is a first draft but should be readable",
-                   drafting = "is a dumping ground for ideas. Sections maybe missing, or contain a list of points to include",
-                   complete = "is compete but needs final proof reading",
+                   polishing = "is a draft but is mainly complete should be readable",
+                   drafting = "is a dumping ground for one or more ideas. Sections maybe missing, or in bullet form and code may not be explained",
+                   complete = "is compete but suggestions for improvements are welcome. Follow the link to 'Report an issue' to suggest improvements",
                    stop("Invalid `type`", call. = FALSE)
   )
   
   class <- switch(type,
-                  polishing = "warning",
+                  polishing = "note",
                   drafting = "important",
                   complete = "tip"
   )
   heading <- switch(type,
-                  polishing = "First draft",
+                  polishing = "Draft",
                   drafting = "Incomplete",
-                  complete = "Just needs proof reading"
+                  complete = "Complete"
 
   )
   cat(paste0(
     "\n",
     "::: {.callout-", class, "} \n",
     "## ", heading, "\n",
-    "You are reading a work in progress. ",
+    "You are reading a live document. ",
     "This page ", status, ".\n",
     ":::\n"
   ))
