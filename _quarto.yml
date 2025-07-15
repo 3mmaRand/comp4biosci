@@ -37,21 +37,6 @@ book:
       attributes:
         id: report-issue-link
 
-  # 2) Inject your script _below_ the sidebar TOC in the right margin:
-  body-header: |
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const a = document.getElementById("report-issue-link");
-      if (!a) return;
-      const pageUrl   = encodeURIComponent(window.location.href);
-      const pageTitle = encodeURIComponent(document.title);
-      a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
-             + `?title=${pageTitle}`
-             + `&body=${pageUrl}`;
-      a.target = "_blank";
-    });
-    </script>
-
   chapters:
     - index.qmd
     - intro.qmd
@@ -104,6 +89,24 @@ bibliography:
 
 format:
   html:
+
+    # ─────────────────────────────────────────────
+    #  Inject the script inline at the top of <body>
+    include-before-body:
+      text: |
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const a = document.getElementById("report-issue-link");
+          if (!a) return;
+          const pageUrl   = encodeURIComponent(window.location.href);
+          const pageTitle = encodeURIComponent(document.title);
+          a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+                 + `?title=${pageTitle}`
+                 + `&body=${pageUrl}`;
+          a.target = "_blank";
+        });
+        </script>
+
     theme:
       light: [cosmo, style.scss]
       dark:  [solar, style.scss]

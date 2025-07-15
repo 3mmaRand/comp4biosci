@@ -517,6 +517,18 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+         + `?title=${pageTitle}`
+         + `&body=${pageUrl}`;
+  a.target = "_blank";
+});
+</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -537,18 +549,7 @@ div.csl-indent {
 </header>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const a = document.getElementById("report-issue-link");
-  if (!a) return;
-  const pageUrl   = encodeURIComponent(window.location.href);
-  const pageTitle = encodeURIComponent(document.title);
-  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
-         + `?title=${pageTitle}`
-         + `&body=${pageUrl}`;
-  a.target = "_blank";
-});
-</script><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-allaire2022" class="csl-entry" role="listitem">
 Allaire, J. J., Charles Teague, Carlos Scheidegger, Yihui Xie, and
 Christophe Dervieux. 2022. <em>Quarto</em>. <a href="https://doi.org/10.5281/zenodo.5960048">https://doi.org/10.5281/zenodo.5960048</a>.

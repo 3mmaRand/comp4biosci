@@ -505,6 +505,18 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+         + `?title=${pageTitle}`
+         + `&body=${pageUrl}`;
+  a.target = "_blank";
+});
+</script>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -537,18 +549,7 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const a = document.getElementById("report-issue-link");
-  if (!a) return;
-  const pageUrl   = encodeURIComponent(window.location.href);
-  const pageTitle = encodeURIComponent(document.title);
-  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
-         + `?title=${pageTitle}`
-         + `&body=${pageUrl}`;
-  a.target = "_blank";
-});
-</script>
+
 <section id="welcome" class="level1 unnumbered">
 <h1 class="unnumbered">Welcome!</h1>
 <p>front page stuff</p>
