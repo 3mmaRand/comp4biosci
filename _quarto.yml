@@ -31,9 +31,7 @@ book:
   other-links:
     - text: "Report an issue"
       icon: bug
-      href: "#"                 # dummy, we’ll overwrite this
-      attributes:
-        id: report-issue-link
+      href: "#"                 # dummy, overwrite with lua
 
   chapters:
     - index.qmd
@@ -87,24 +85,6 @@ bibliography:
 
 format:
   html:
-      # ──────────────────────── inject *after* all page content ────────────────
-    include-after-body:
-      text: |
-        <script>
-        (function() {
-          const a = document.getElementById("report-issue-link");
-          if (!a) return;
-          const pageUrl   = encodeURIComponent(window.location.href);
-          const pageTitle = encodeURIComponent(document.title);
-          a.setAttribute("href",
-            "https://github.com/3mmaRand/comp4biosci/issues/new"
-            + "?title=" + pageTitle
-            + "&body="  + pageUrl
-          );
-          a.setAttribute("target", "_blank");
-        })();
-        </script>
-
     theme:
       light: [cosmo, style.scss]
       dark:  [solar, style.scss]
@@ -115,3 +95,18 @@ format:
     lightbox:
       match: auto
       loop: false
+
+crossref:
+  fig-title: '**Figure**'
+
+metadata-files:
+  - _downlit.yml
+
+# register the filter
+filters:
+  - populate_issue_link.lua
+
+comments:
+  hypothesis: true
+
+editor: source
