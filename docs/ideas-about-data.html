@@ -90,11 +90,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -554,7 +550,7 @@ window.Quarto = {
 </li>
   <li><a href="#theory-and-practice" id="toc-theory-and-practice" class="nav-link" data-scroll-target="#theory-and-practice"><span class="header-section-number">5.7</span> Theory and practice</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">5.8</span> Summary</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/ideas-about-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/ideas-about-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./ideas-about-data.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></a></li></ol></nav><div class="quarto-title">
@@ -572,7 +568,18 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-default callout-tip callout-titled">
+</header><script>
+document.addEventListener("DOMContentLoaded", function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+         + `?title=${pageTitle}`
+         + `&body=${pageUrl}`;
+  a.target = "_blank";
+});
+</script><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -617,7 +624,8 @@ Just needs proof reading
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distrib-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.1: <strong>An example of a distribution for a continuous variable.</strong> The values a continuous variable can take are on the horizontal axis. Continuous variables have a smooth distribution and the probability of getting a particular value or less is given by the area under the curve before that value. This example is the Normal distribution.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distrib-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: <strong>An example of a distribution for a continuous variable.</strong> The values a continuous variable can take are on the horizontal axis. Continuous variables have a smooth distribution and the probability of getting a particular value or less is given by the area under the curve before that value. This example is the Normal distribution.
 </figcaption></figure>
 </div>
 <div id="fig-distrib-discrete" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -631,7 +639,8 @@ Just needs proof reading
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distrib-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.2: <strong>An example of a distribution for a discrete variable.</strong> A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. This example is the Poisson distribution.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distrib-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: <strong>An example of a distribution for a discrete variable.</strong> A discrete variable has a stepped distribution and the probability of getting exactly a particular is given by the area of the bar at that value. This example is the Poisson distribution.
 </figcaption></figure>
 </div>
 <p>This difference between continuous and discrete variables affects how we analyse and visualise data. Discrete data is often shown using bar plots and summarised with modes of medians, while continuous data is represented using histograms or density plots and summarised with means and standard deviations.</p>
@@ -684,7 +693,8 @@ Just needs proof reading
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-categories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.3: <strong>Categorical data can be nominal or ordinal.</strong> Nominal variables like species (<a href="#fig-categ-bird" class="quarto-xref">Figure&nbsp;<span>5.3 (a)</span></a>) have no particular order whilst ordinal variables like those on the Likert scale <span class="citation" data-cites="likert1932">(<a href="references.html#ref-likert1932" role="doc-biblioref">Likert 1932</a>)</span> have an order.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-categories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.3: <strong>Categorical data can be nominal or ordinal.</strong> Nominal variables like species (<a href="#fig-categ-bird" class="quarto-xref">Figure&nbsp;<span>5.3 (a)</span></a>) have no particular order whilst ordinal variables like those on the Likert scale <span class="citation" data-cites="likert1932">(<a href="references.html#ref-likert1932" role="doc-biblioref">Likert 1932</a>)</span> have an order.
 </figcaption></figure>
 </div>
 <p>The most appropriate way to summarise nominal or ordinal data is to report the mode (most frequent value) or tabulate the number of each value (<a href="#tbl-likert" class="quarto-xref">Table&nbsp;<span>5.1</span></a>).</p>
@@ -737,7 +747,8 @@ Table&nbsp;5.1: Frequency of responses to a Likert scale question.
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.4: <strong>The number of groundsel plants in one hundred 1 metre x 1 metre square quadrats is a count and follows a Poisson distribution.</strong> The mean of 0.73 groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants! The average is being dragged up by the few quadrats containing 3 plants. The median is 0.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.4: <strong>The number of groundsel plants in one hundred 1 metre x 1 metre square quadrats is a count and follows a Poisson distribution.</strong> The mean of 0.73 groundsel plants per quadrat does not really reflect that the majority of quadrats contained no plants! The average is being dragged up by the few quadrats containing 3 plants. The median is 0.
 </figcaption></figure>
 </div>
 </section></section><section id="continuous-data" class="level2" data-number="5.6"><h2 data-number="5.6" class="anchored" data-anchor-id="continuous-data">
@@ -757,7 +768,8 @@ Table&nbsp;5.1: Frequency of responses to a Likert scale question.
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distribtion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.5: <strong>Human height follows a normal distribution.</strong>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distribtion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.5: <strong>Human height follows a normal distribution.</strong>
 </figcaption></figure>
 </div>
 <p>The mean and standard deviation are the best way to summarise a normally distributed variable.</p>
@@ -775,7 +787,8 @@ Table&nbsp;5.1: Frequency of responses to a Likert scale question.
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contin-is-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.6: <strong>The mass of cats in kilograms.</strong> Theoretically mass is a continuous variable (left). However if we measure only to the nearest kilogram, then mass becomes discrete because cats only weigh few kilograms so 1kg covers a large chunk of the range (right).
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-contin-is-discrete-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.6: <strong>The mass of cats in kilograms.</strong> Theoretically mass is a continuous variable (left). However if we measure only to the nearest kilogram, then mass becomes discrete because cats only weigh few kilograms so 1kg covers a large chunk of the range (right).
 </figcaption></figure>
 </div>
 <p>In contrast, the number of hairs on a human head ranges from about 80,000 to 150,000 so the difference between having 100,203 hairs and 100,204 hairs is so tiny the variable is practically continuous (<a href="#fig-discrete-is-contin" class="quarto-xref">Figure&nbsp;<span>5.7</span></a>).</p>
@@ -790,7 +803,8 @@ Table&nbsp;5.1: Frequency of responses to a Likert scale question.
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-discrete-is-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;5.7: <strong>The number of hairs on a human head</strong>. As a count, this is a discrete variable. However. one increment is a tiny proportion of the range of values so the number of hairs is practically continuous.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-discrete-is-contin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.7: <strong>The number of hairs on a human head</strong>. As a count, this is a discrete variable. However. one increment is a tiny proportion of the range of values so the number of hairs is practically continuous.
 </figcaption></figure>
 </div>
 <p>A rule of thumb is that if the mean count is above about 100, then the distribution of counts closely matches the normal distribution.</p>
@@ -899,7 +913,7 @@ Likert, R. 1932. <span>“A Technique for the Measurement of Attitudes.”</span
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1244,11 +1258,12 @@ Likert, R. 1932. <span>“A Technique for the Measurement of Attitudes.”</span
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+<p>Rand, E. (2025). Computational Analysis for Bioscientists<br>
+(Version 0.2) https://3mmarand.github.io/comp4biosci/</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/ideas-about-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/ideas-about-data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -7,7 +7,10 @@ execute:
   warning: false
   include: true
   freeze: auto
-  
+
+# If you really need a site-url (for RSS, sitemap, etc), move it here:
+website:
+  site-url: https://3mmarand.github.io/comp4biosci/
 
 book:
   title: "Computational Analysis for Bioscientists"
@@ -16,23 +19,26 @@ book:
   date: last-modified
   date-format: D MMMM, YYYY
   search: true
+
   page-footer:
     left: |
-      Rand, E. (2025). Computational Analysis for Bioscientists
-      (Version 0.2) <https://3mmarand.github.io/comp4biosci/>
-    
-  repo-actions: [edit]
+      Rand, E. (2025). Computational Analysis for Bioscientists  
+      (Version 0.2) https://3mmarand.github.io/comp4biosci/
+
+  repo-actions: [edit]  
   repo-url: https://github.com/3mmaRand/comp4biosci
-  site-url: https://3mmarand.github.io/comp4biosci/
+
+  # ───────────────────────────────
+  # 1) Only one other-links block, correctly indented under `book:`
   other-links:
     - text: "Report an issue"
       icon: bug
-      href: "#"                  # dummy href for now
+      href: "#"                # dummy – overwritten by JS
       attributes:
         id: report-issue-link
 
-  # inject this script into the margin-footer
-  margin-footer: |
+  # 2) Inject your script _below_ the sidebar TOC in the right margin:
+  body-header: |
     <script>
     document.addEventListener("DOMContentLoaded", function() {
       const a = document.getElementById("report-issue-link");
@@ -45,7 +51,7 @@ book:
       a.target = "_blank";
     });
     </script>
-  
+
   chapters:
     - index.qmd
     - intro.qmd
@@ -98,26 +104,13 @@ bibliography:
 
 format:
   html:
-    theme: 
+    theme:
       light: [cosmo, style.scss]
-      dark: [solar, style.scss]
+      dark:  [solar, style.scss]
     link-external-newwindow: true
     code-link: true
     mainfont: Atkinson Hyperlegible
     monofont: Source Code Pro
-    lightbox: 
+    lightbox:
       match: auto
       loop: false
-
-
-crossref:
-  fig-title: '**Figure**'
-
-metadata-files:
-  - _downlit.yml
-
-comments:
-  hypothesis: true
-
-editor: source
-

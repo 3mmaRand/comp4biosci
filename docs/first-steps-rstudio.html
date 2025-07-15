@@ -125,11 +125,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script>
+}</script>
 </head>
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -563,7 +559,7 @@ div.csl-indent {
 </li>
   <li><a href="#install-your-first-r-package" id="toc-install-your-first-r-package" class="nav-link" data-scroll-target="#install-your-first-r-package"><span class="header-section-number">7.3</span> Install your first R package</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.4</span> Summary</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/first-steps-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/first-steps-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./first-steps-rstudio.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></a></li></ol></nav><div class="quarto-title">
@@ -581,7 +577,18 @@ div.csl-indent {
   
 
 
-</header><div class="callout callout-style-default callout-warning callout-titled">
+</header><script>
+document.addEventListener("DOMContentLoaded", function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+         + `?title=${pageTitle}`
+         + `&body=${pageUrl}`;
+  a.target = "_blank";
+});
+</script><div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -713,7 +720,8 @@ First draft
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="images/tools-global-options-general.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;7.1: Screenshot of RStudio’s Global Options window showing the General options. Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace."><img src="images/tools-global-options-general.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;7.1: <strong>Screenshot of RStudio’s Global Options window showing the General options</strong>. Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tools-global-options-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: <strong>Screenshot of RStudio’s Global Options window showing the General options</strong>. Tools | Global Options opens a window. One of the options is General. This where you can change the default behaviour of RStudio. Highlighted is the default (start up) directory and the option to Save and Restore the workspace.
 </figcaption></figure>
 </div>
 <p>First, we will set our default working directory. Under ‘Default working directory (when not in a project<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>):’ click Browse and navigate to a through your file system to a folder where you want to work. You may want to create a folder specifically for studying this book.</p>
@@ -732,7 +740,8 @@ First draft
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;7.2: <strong>A screenshot of RStudio’s four panes annotated with what each pane is for</strong>. You can zoom into this at the <a href="https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg">Direct link</a>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-anatomy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.2: <strong>A screenshot of RStudio’s four panes annotated with what each pane is for</strong>. You can zoom into this at the <a href="https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg">Direct link</a>
 </figcaption></figure>
 </div>
 </section><section id="data-types-and-structures-in-r" class="level2" data-number="7.2"><h2 data-number="7.2" class="anchored" data-anchor-id="data-types-and-structures-in-r">
@@ -904,7 +913,8 @@ First draft
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="images/view-dataframe.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;7.3: A screenshot of RStudio showing the people dataframe over the script on the left and the Environment pane on the right To open a spreadsheet-like view of the dataframe click its name in the Global Environment."><img src="images/view-dataframe.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;7.3: <strong>A screenshot of RStudio showing the <code>people</code> dataframe over the script on the left and the Environment pane on the right</strong> To open a spreadsheet-like view of the dataframe click its name in the Global Environment.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-view-dataframe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.3: <strong>A screenshot of RStudio showing the <code>people</code> dataframe over the script on the left and the Environment pane on the right</strong> To open a spreadsheet-like view of the dataframe click its name in the Global Environment.
 </figcaption></figure>
 </div>
 </section></section><section id="install-your-first-r-package" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="install-your-first-r-package">
@@ -1028,7 +1038,7 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1373,11 +1383,12 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+<p>Rand, E. (2025). Computational Analysis for Bioscientists<br>
+(Version 0.2) https://3mmarand.github.io/comp4biosci/</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/first-steps-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/first-steps-rstudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

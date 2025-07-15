@@ -90,11 +90,7 @@ div.csl-indent {
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 </head>
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
@@ -526,7 +522,7 @@ div.csl-indent {
   <li><a href="#sec-file-systems-files-relative-paths" id="toc-sec-file-systems-files-relative-paths" class="nav-link" data-scroll-target="#sec-file-systems-files-relative-paths"><span class="header-section-number">3.10</span> Relative paths</a></li>
   <li><a href="#save-files-from-the-internet" id="toc-save-files-from-the-internet" class="nav-link" data-scroll-target="#save-files-from-the-internet"><span class="header-section-number">3.11</span> Save files from the internet</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.12</span> Summary</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file-systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file-systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what-they-forgot.html">What they forgot to teach you about computers</a></li><li class="breadcrumb-item"><a href="./file-systems.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a></li></ol></nav><div class="quarto-title">
@@ -544,7 +540,18 @@ div.csl-indent {
   
 
 
-</header><div class="callout callout-style-default callout-tip callout-titled">
+</header><script>
+document.addEventListener("DOMContentLoaded", function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+         + `?title=${pageTitle}`
+         + `&body=${pageUrl}`;
+  a.target = "_blank";
+});
+</script><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -617,7 +624,8 @@ Table&nbsp;3.1: Some common text file extensions and the content the extension u
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-xlsx-in-notepad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="images/xlsx-in-notepad.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;3.1: How an Excel file looks if you open it with Notepad. Notepad will open an Excel file but the contents are a mess of strange characters and the content is unreadable. This is because Excel files are not plain text files."><img src="images/xlsx-in-notepad.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xlsx-in-notepad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;3.1: <strong>How an Excel file looks if you open it with Notepad.</strong> Notepad will open an Excel file but the contents are a mess of strange characters and the content is unreadable. This is because Excel files are not plain text files.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xlsx-in-notepad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: <strong>How an Excel file looks if you open it with Notepad.</strong> Notepad will open an Excel file but the contents are a mess of strange characters and the content is unreadable. This is because Excel files are not plain text files.
 </figcaption></figure>
 </div>
 <p>Data is commonly held in text files because of their portability.</p>
@@ -692,7 +700,8 @@ Table&nbsp;3.2: Some common markup file extensions and the content the extension
 <figcaption>.</figcaption></figure>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-file-system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;3.2: <strong>A file hierarchy containing 4 levels of folders and files.</strong> At the top level there is a directory called <code>home/</code>; Inside <code>home/</code> are two directories (<code>docs/</code> and <code>programs/</code>) and two files <code>doc1.txt</code> and <code>image.jpg</code>. Inside <code>docs/</code> there is a file called <code>doc2.txt</code> and a directory called <code>data/</code> which contains <code>doc3.txt</code> and <code>doc4.txt</code>. Inside <code>programs/</code> are three <code>.exe</code> files. Figure adapted from <span class="citation" data-cites="randemma2022">(<a href="references.html#ref-randemma2022" role="doc-biblioref">Rand et al. 2022</a>)</span>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-file-system-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: <strong>A file hierarchy containing 4 levels of folders and files.</strong> At the top level there is a directory called <code>home/</code>; Inside <code>home/</code> are two directories (<code>docs/</code> and <code>programs/</code>) and two files <code>doc1.txt</code> and <code>image.jpg</code>. Inside <code>docs/</code> there is a file called <code>doc2.txt</code> and a directory called <code>data/</code> which contains <code>doc3.txt</code> and <code>doc4.txt</code>. Inside <code>programs/</code> are three <code>.exe</code> files. Figure adapted from <span class="citation" data-cites="randemma2022">(<a href="references.html#ref-randemma2022" role="doc-biblioref">Rand et al. 2022</a>)</span>
 </figcaption></figure>
 </div>
 </section><section id="using-a-file-manager" class="level2" data-number="3.6"><h2 data-number="3.6" class="anchored" data-anchor-id="using-a-file-manager">
@@ -723,7 +732,8 @@ Table&nbsp;3.2: Some common markup file extensions and the content the extension
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-explorer-icons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;3.3: <strong>File manager programs in Windows and Mac</strong>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-explorer-icons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: <strong>File manager programs in Windows and Mac</strong>
 </figcaption></figure>
 </div>
 <p>Windows Explorer and Mac Finder do not show the file extensions on file names by default but I find it helpful to be able to see them. You can show the file extensions like this:</p>
@@ -758,7 +768,8 @@ Table&nbsp;3.2: Some common markup file extensions and the content the extension
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;3.4: <strong>Showing file extensions in Windows and Mac.</strong> <a href="#fig-show-extensions-windows" class="quarto-xref">Figure&nbsp;<span>3.4 (a)</span></a> In Windows, open Windows Explorer. Under View, in the Show/hide group, select the “File name extensions” check box. <a href="#fig-show-extensions-mac" class="quarto-xref">Figure&nbsp;<span>3.4 (b)</span></a> In Mac, choose Finder | Preferences | Advanced then check “Show all filename extensions” box.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-show-extensions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: <strong>Showing file extensions in Windows and Mac.</strong> <a href="#fig-show-extensions-windows" class="quarto-xref">Figure&nbsp;<span>3.4 (a)</span></a> In Windows, open Windows Explorer. Under View, in the Show/hide group, select the “File name extensions” check box. <a href="#fig-show-extensions-mac" class="quarto-xref">Figure&nbsp;<span>3.4 (b)</span></a> In Mac, choose Finder | Preferences | Advanced then check “Show all filename extensions” box.
 </figcaption></figure>
 </div>
 </section><section id="root-and-home-directories" class="level2" data-number="3.7"><h2 data-number="3.7" class="anchored" data-anchor-id="root-and-home-directories">
@@ -769,7 +780,8 @@ Table&nbsp;3.2: Some common markup file extensions and the content the extension
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-file-system-root-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <a href="images/file-system-root.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;3.5: The hierarchy of a file system from the root. The top level is C:\ in Windows and / in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder. Figure adapted from [@randemma2022]."><img src="images/file-system-root.png" class="img-fluid figure-img"></a>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-file-system-root-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;3.5: <strong>The hierarchy of a file system from the root</strong>. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder. Figure adapted from <span class="citation" data-cites="randemma2022">(<a href="references.html#ref-randemma2022" role="doc-biblioref">Rand et al. 2022</a>)</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-file-system-root-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.5: <strong>The hierarchy of a file system from the root</strong>. The top level is <code>C:\</code> in Windows and <code>/</code> in Mac. Below that is the Users directory which has a folder for each user. Your home directory is named with your username inside the Users folder. Figure adapted from <span class="citation" data-cites="randemma2022">(<a href="references.html#ref-randemma2022" role="doc-biblioref">Rand et al. 2022</a>)</span>.
 </figcaption></figure>
 </div>
 <p>There will be other folders immediately below the root directory (on the same level of the hierarchy as <code>Users</code>). These contain system-level files and folders that you do not usually needed to open, edit or move. For example, <code>Program Files</code> is where programs are installed.</p>
@@ -934,7 +946,7 @@ Rand, Emma, James Chong, Jorge Buenabad-Chavez, Annabel Cansdale, Sarah Forreste
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/3mmarand\.github\.io\/comp4biosci\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1279,11 +1291,12 @@ Rand, Emma, James Chong, Jorge Buenabad-Chavez, Annabel Cansdale, Sarah Forreste
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
-<p>Rand, E. (2025). Computational Analysis for Bioscientists (Version 0.2) <a href="https://3mmarand.github.io/comp4biosci/" class="uri">https://3mmarand.github.io/comp4biosci/</a></p>
+<p>Rand, E. (2025). Computational Analysis for Bioscientists<br>
+(Version 0.2) https://3mmarand.github.io/comp4biosci/</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file-systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file-systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
