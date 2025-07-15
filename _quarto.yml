@@ -6,7 +6,7 @@ execute:
   echo: true
   warning: false
   include: true
-  #freeze: auto
+  freeze: auto
 
 # If you really need a site-url (for RSS, sitemap, etc), move it here:
 website:
@@ -28,14 +28,17 @@ book:
   repo-actions: [edit]  
   repo-url: https://github.com/3mmaRand/comp4biosci
 
-  # ───────────────────────────────
-  # 1) Only one other-links block, correctly indented under `book:`
   other-links:
     - text: "Report an issue"
       icon: bug
-      href: "#"                # dummy – overwritten by JS
-      attributes:
-        id: report-issue-link
+      # at render time, this expands to something like:
+      # https://github.com/3mmaRand/comp4biosci/issues/new
+      #   ?title=Intro%20to%20the%20Book
+      #   &body=https://3mmarand.github.io/comp4biosci/intro.html
+      href: |
+        https://github.com/3mmaRand/comp4biosci/issues/new
+        ?title={{< meta title >}}
+        &body={{< meta book.site-url >}}{{< meta book.html.page-url-path >}}
 
   chapters:
     - index.qmd
@@ -89,23 +92,6 @@ bibliography:
 
 format:
   html:
-
-    # ─────────────────────────────────────────────
-    #  Inject the script inline at the top of <body>
-    include-before-body:
-      text: |
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          const a = document.getElementById("report-issue-link");
-          if (!a) return;
-          const pageUrl   = encodeURIComponent(window.location.href);
-          const pageTitle = encodeURIComponent(document.title);
-          a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
-                 + `?title=${pageTitle}`
-                 + `&body=${pageUrl}`;
-          a.target = "_blank";
-        });
-        </script>
 
     theme:
       light: [cosmo, style.scss]
