@@ -31,14 +31,9 @@ book:
   other-links:
     - text: "Report an issue"
       icon: bug
-      # at render time, this expands to something like:
-      # https://github.com/3mmaRand/comp4biosci/issues/new
-      #   ?title=Intro%20to%20the%20Book
-      #   &body=https://3mmarand.github.io/comp4biosci/intro.html
-      href: |
-        https://github.com/3mmaRand/comp4biosci/issues/new
-        ?title={{< meta title >}}
-        &body={{< meta book.site-url >}}{{< meta book.html.page-url-path >}}
+      href: "#"                 # dummy, we’ll overwrite this
+      attributes:
+        id: report-issue-link
 
   chapters:
     - index.qmd
@@ -92,6 +87,23 @@ bibliography:
 
 format:
   html:
+      # ──────────────────────── inject *after* all page content ────────────────
+    include-after-body:
+      text: |
+        <script>
+        (function() {
+          const a = document.getElementById("report-issue-link");
+          if (!a) return;
+          const pageUrl   = encodeURIComponent(window.location.href);
+          const pageTitle = encodeURIComponent(document.title);
+          a.setAttribute("href",
+            "https://github.com/3mmaRand/comp4biosci/issues/new"
+            + "?title=" + pageTitle
+            + "&body="  + pageUrl
+          );
+          a.setAttribute("target", "_blank");
+        })();
+        </script>
 
     theme:
       light: [cosmo, style.scss]

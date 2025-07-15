@@ -521,10 +521,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li><a href="#scenario" id="toc-scenario" class="nav-link active" data-scroll-target="#scenario"><span class="header-section-number">22.1</span> Scenario</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/26C-food-fuel-prac2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new
-?title={{< meta title >}}
-&amp;body={{< meta book.site-url >}}{{< meta book.html.page-url-path >}}
-"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/26C-food-fuel-prac2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./in-development.html">In development</a></li><li class="breadcrumb-item"><a href="./26C-food-fuel-prac2.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></a></li></ol></nav><div class="quarto-title">
@@ -1283,7 +1280,20 @@ Enter '1' to start a new auth process or select a pre-authorized account.
       &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+</footer><script>
+(function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.setAttribute("href",
+    "https://github.com/3mmaRand/comp4biosci/issues/new"
+    + "?title=" + pageTitle
+    + "&body="  + pageUrl
+  );
+  a.setAttribute("target", "_blank");
+})();
+</script><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

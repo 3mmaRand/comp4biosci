@@ -513,10 +513,7 @@ div.csl-indent {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new
-?title={{< meta title >}}
-&amp;body={{< meta book.site-url >}}{{< meta book.html.page-url-path >}}
-"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></div>
+    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -1104,6 +1101,20 @@ Pipe Syntax</em>. <a href="https://doi.org/10.32614/CRAN.package.kableExtra">htt
     </div>
   </div>
 </footer>
+<script>
+(function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.setAttribute("href",
+    "https://github.com/3mmaRand/comp4biosci/issues/new"
+    + "?title=" + pageTitle
+    + "&body="  + pageUrl
+  );
+  a.setAttribute("target", "_blank");
+})();
+</script>
 
 
 

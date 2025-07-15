@@ -522,10 +522,7 @@ div.csl-indent {
   <li><a href="#sec-file-systems-files-relative-paths" id="toc-sec-file-systems-files-relative-paths" class="nav-link" data-scroll-target="#sec-file-systems-files-relative-paths"><span class="header-section-number">3.10</span> Relative paths</a></li>
   <li><a href="#save-files-from-the-internet" id="toc-save-files-from-the-internet" class="nav-link" data-scroll-target="#save-files-from-the-internet"><span class="header-section-number">3.11</span> Save files from the internet</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">3.12</span> Summary</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file-systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://github.com/3mmaRand/comp4biosci/issues/new
-?title={{< meta title >}}
-&amp;body={{< meta book.site-url >}}{{< meta book.html.page-url-path >}}
-"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/file-systems.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./what-they-forgot.html">What they forgot to teach you about computers</a></li><li class="breadcrumb-item"><a href="./file-systems.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></a></li></ol></nav><div class="quarto-title">
@@ -1293,7 +1290,20 @@ Rand, Emma, James Chong, Jorge Buenabad-Chavez, Annabel Cansdale, Sarah Forreste
       &nbsp;
     </div>
   </div>
-</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+</footer><script>
+(function() {
+  const a = document.getElementById("report-issue-link");
+  if (!a) return;
+  const pageUrl   = encodeURIComponent(window.location.href);
+  const pageTitle = encodeURIComponent(document.title);
+  a.setAttribute("href",
+    "https://github.com/3mmaRand/comp4biosci/issues/new"
+    + "?title=" + pageTitle
+    + "&body="  + pageUrl
+  );
+  a.setAttribute("target", "_blank");
+})();
+</script><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
