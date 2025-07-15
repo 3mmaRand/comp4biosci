@@ -21,17 +21,30 @@ book:
       Rand, E. (2025). Computational Analysis for Bioscientists
       (Version 0.2) <https://3mmarand.github.io/comp4biosci/>
     
-    # right:
-    #   - icon: twitter
-    #     href: https://twitter.com/er_13
-    #     aria-label: Twitter
-    #   - icon: github
-    #     href: https://github.com/3mmaRand/comp4biosci
-    #     aria-label: comp4biosci GitHub
-    # 
-  repo-actions: [edit, issue]
+  repo-actions: [edit]
   repo-url: https://github.com/3mmaRand/comp4biosci
   site-url: https://3mmarand.github.io/comp4biosci/
+  other-links:
+    - text: "Report an issue"
+      icon: bug
+      href: "#"                  # dummy href for now
+      attributes:
+        id: report-issue-link
+
+  # inject this script into the margin-footer
+  margin-footer: |
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const a = document.getElementById("report-issue-link");
+      if (!a) return;
+      const pageUrl   = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      a.href = "https://github.com/3mmaRand/comp4biosci/issues/new"
+             + `?title=${pageTitle}`
+             + `&body=${pageUrl}`;
+      a.target = "_blank";
+    });
+    </script>
   
   chapters:
     - index.qmd
