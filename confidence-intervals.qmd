@@ -19,14 +19,14 @@ contain the population mean.
 The confidence interval is calculated from the sample mean and the
 standard error of the mean. The standard error of the mean is the
 standard deviation of the [sampling distribution of the
-mean](logic_hyopthesis_testing.html#sampling-distribution-of-the-mean).
+mean](logic-hypothesis-testing.html#sampling-distribution-of-the-mean).
 
 To understand confidence intervals we need to understand some properties
 of the normal distribution.
 
 ## The normal distribution
 
-A [distribution](ideas_about_data.html#distributions) describes the
+A [distribution](ideas-about-data.html#distributions) describes the
 *values* the variable can take and the *chance* of them occurring. A
 distribution has a general type, given by the function, and is further
 tuned by the *parameters* in the function. For the normal distribution
@@ -101,8 +101,9 @@ ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
 
 **The normal distribution has two *parameters*: the mean and the 
 standard deviation.**  The mean determines where the centre of the 
-distribution is, the standard deviation determines the spread. @fig-normal-same-mean The distributions have the same mean but 
-different standard deviations. @fig-normal-same-sd The distributions 
+distribution is, the standard deviation determines the spread. 
+-@fig-normal-same-mean The distributions have the same mean but 
+different standard deviations. -@fig-normal-same-sd The distributions 
 have the same standard deviation but different means.
 
 :::
@@ -120,7 +121,7 @@ value will lie between $\pm$ 1.96 standard deviations from the mean.
 This is illustrated in @fig-norm-dist-properties.
 
 
-::: {#fig-norm-dist-properties layout-ncol="1"}
+::: {#fig-norm-dist-properties layout-ncol="2"}
 ```{r}
 #| echo: false
 #| label: fig-norm-dist-1sd
@@ -128,7 +129,7 @@ This is illustrated in @fig-norm-dist-properties.
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit,
-                args = list(q = 1, tails = 2),
+                args = list(q = 1, area = "middle"),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -151,7 +152,7 @@ ggplot(data = data.frame(x = c(-3, 3)),
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit,
-                args = list(q = 1.96, tails = 2),
+                args = list(q = 1.96, area = "middle"),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -170,8 +171,8 @@ ggplot(data = data.frame(x = c(-3, 3)),
 ```
 
 **Normal distributions share some properties regardless of the mean and 
-standard deviation.** @fig-norm-dist-1sd 68% of the values are within 
-one standard deviation of the mean and, @fig-norm-dist-1-96 95% are 
+standard deviation.** -@fig-norm-dist-1sd 68% of the values are within 
+one standard deviation of the mean and, -@fig-norm-dist-1-96 95% are 
 within 1.96 standard deviations.
 :::
 
@@ -212,7 +213,7 @@ The functions which are of most use to us are those for the normal
 distribution: `pnorm()` and `qnorm()`. These are illustrated in
 @fig-norm.
 
-::: {#fig-norm layout-ncol="1"}
+::: {#fig-norm layout-ncol="2"}
 
 ```{r}
 #| echo: false
@@ -221,7 +222,7 @@ distribution: `pnorm()` and `qnorm()`. These are illustrated in
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit,
-                args = list(q = 1.96, tails = 1),
+                args = list(q = 1.96, area = "lowertail"),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -267,7 +268,7 @@ ggplot(data = data.frame(x = c(-3, 3)),
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
   stat_function(fun = dnorm_limit,
-                args = list(q = 1.96, tails = 1),
+                args = list(q = 1.96, area = "lowertail"),
                 geom = "area",
                 fill = pal2[3]) +
   stat_function(fun = dnorm, n = 101) +
@@ -310,8 +311,8 @@ ggplot(data = data.frame(x = c(-3, 3)),
 
 **How the functions for statistical distributions work in R.** 
 The `pnorm()` and `qnorm()` functions return values related to the 
-normal distribution. @fig-pnorm `pnorm()` returns the probability 
-(the area under the curve) to the right of a given x-value. @fig-qnorm 
+normal distribution. -@fig-pnorm `pnorm()` returns the probability 
+(the area under the curve) to the right of a given x-value. -@fig-qnorm 
 `qnorm()` returns the value along the *x*-axis corresponding to a given 
 cumulative probability.
 
@@ -342,7 +343,8 @@ $$ {#eq-ci-large-sample}
 95% of confidence intervals calculated in this way will contain the true
 population mean.
 
-Do you have to remember the value of 1.96? Not if you have R!
+Do you have to remember the value of 1.96? Not if you have R! We can use the
+`qnorm()` function:
 
 ```{r}
 qnorm(0.975)
@@ -350,9 +352,9 @@ qnorm(0.975)
 
 Notice that it is `qnorm(0.975)` and not `qnorm(0.95)` for a 95%
 confidence interval. This is because the functions are defined as giving
-the area under to the curve to the left of the value given. This is 
+the area under to the curve to *the left* of the value given. This is 
 known as being "one-tailed". To get 0.05 in the *two tails combined*, we
-need to have 0.025 - half of 0.05 - in *each tail*. The value on the
+need to have 0.025 -- half of 0.05 -- in *each tail*. The value on the
 *x*-axis that puts 0.025 in the upper tail is 0.975 
 (@fig-qnorm-is-one-tail). If we gave 0.95, we would get the value that 
 put 0.05 in one tail and 0.9 in the central area. We want 0.025 in 
@@ -366,25 +368,41 @@ each tail, so we need to use 0.975 in `qnorm()`.
 
 ggplot(data = data.frame(x = c(-3, 3)),
        aes(x)) +
+  geom_segment(x = -1.96, xend = -1.96, 
+               y = 0, 
+               yend = dnorm(-1.96),
+               linewidth = 2) +
   stat_function(fun = dnorm_limit,
-                args = list(q = 1.96, tails = 1),
+                args = list(q = 1.96, area = "lowertail"),
                 geom = "area",
-                fill = pal2[3]) +
+                fill = pal2[3], 
+                alpha = 0.3) +
+    stat_function(fun = dnorm_limit,
+                args = list(q = 1.96, area = "middle"),
+                geom = "area",
+                fill = pal2[3], 
+                alpha = 0.7) +
   stat_function(fun = dnorm, n = 101) +
-  annotate("text", x = 1.96, y = 0.4, 
-           label = "To get the value\nthat leaves 0.025\nin one tail",
+  annotate("text", x = -2.3, y = 0.1, 
+           label = ". . . and 0.025 in\nthe other tail . . .",
            size = 4) +
-  annotate("text", x = -2.3, y = 0.3, 
-           label = "You have to give\nprobability = 0.975",
+    annotate("text", x = 1.96, y = 0.25, 
+           label = ". . . to get the value\nthat leaves 0.025\nin one tail . . .",
            size = 4) +
-  annotate("segment", xend = 1.96, yend = 0.27, 
+  annotate("text", x = -2.3, y = 0.4, 
+           label = "You have to give a\nprobability = 0.975",
+           size = 4) +
+    annotate("text", x = 0, y = 0.2, 
+           label = "0.95 in the middle",
+           size = 4) +
+  annotate("segment", xend = 1.96, yend = 0.2, 
            x = 1.96, y = 0.07, 
            linewidth = 2,
            colour = pal4[2],
            arrow = arrow(type = "open", 
                          length = unit(0.05, "npc"))) +
-  annotate("segment", xend = -0.8, yend = 0.05, 
-           x = -2.3, y = 0.2, 
+  annotate("segment", xend = -0.5, yend = 0.3, 
+           x = -1.7, y = 0.4, 
            linewidth = 2,
            colour = pal4[1],
            arrow = arrow(type = "open", 
@@ -453,7 +471,7 @@ estimating population parameters.
 ## 🎬 Your turn!
 
 If you want to code along you will need to start a new [RStudio
-project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+project](workflow-rstudio.html#rstudio-projects), add a `data-raw`
 folder and open a new script. You will also need to load the
 **`tidyverse`** package [@tidyverse].
 
@@ -478,7 +496,7 @@ creatinekinase <- read_csv("data-raw/ck_concen.csv")
 
 We can use the `summarise()` function to calculate: the mean, 
 standard deviation, sample size and standard error and save t
-hem in a dataframe called creatine_summary
+hem in a dataframe called `creatine_summary`
 
 ```{r}
 creatine_summary <- creatinekinase |> 
@@ -486,14 +504,10 @@ creatine_summary <- creatinekinase |>
             n = length(ck_conc),
             sd = sd(ck_conc),
             se = sd / sqrt(n))
+
+creatine_summary
 ```
 
-```{r}
-#| echo: false
-
-knitr::kable(creatine_summary) |> 
-  kableExtra::kable_styling() 
-```
 
 
 ### Calcuate *C.I.*
@@ -511,14 +525,11 @@ Now we can use it in our confidence interval calculation:
 creatine_summary <- creatine_summary |> 
   mutate(lcl95 = mean - qnorm(0.975) * se,
          ucl95 = mean + qnorm(0.975) * se)
+
+creatine_summary
 ```
 
-```{r}
-#| echo: false
 
-knitr::kable(creatine_summary) |> 
-  kableExtra::kable_styling() 
-```
 
 
 I used the names `lcl95` and `ucl95` to stand for “95% lower 

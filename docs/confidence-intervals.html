@@ -82,7 +82,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./what-statistical-model.html" rel="next">
-<link href="./logic-hyopthesis-testing.html" rel="prev">
+<link href="./logic-hypothesis-testing.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -450,8 +450,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./logic-hyopthesis-testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span></a>
+  <a href="./logic-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The logic of hypothesis testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -630,11 +630,11 @@ Complete
 <section id="what-is-a-confidence-interval" class="level2" data-number="12.1"><h2 data-number="12.1" class="anchored" data-anchor-id="what-is-a-confidence-interval">
 <span class="header-section-number">12.1</span> What is a confidence interval?</h2>
 <p>When we calculate a mean from a sample, we are using it to estimate the mean of the population. Confidence intervals are a range of values and are a way to quantify the uncertainty in our estimate. When we report a mean with its 95% confidence interval we give the mean plus and minus some variation. We are saying that 95% of the time, that range will contain the population mean.</p>
-<p>The confidence interval is calculated from the sample mean and the standard error of the mean. The standard error of the mean is the standard deviation of the <a href="logic_hyopthesis_testing.html#sampling-distribution-of-the-mean">sampling distribution of the mean</a>.</p>
+<p>The confidence interval is calculated from the sample mean and the standard error of the mean. The standard error of the mean is the standard deviation of the <a href="logic-hypothesis-testing.html#sampling-distribution-of-the-mean">sampling distribution of the mean</a>.</p>
 <p>To understand confidence intervals we need to understand some properties of the normal distribution.</p>
 </section><section id="the-normal-distribution" class="level2" data-number="12.2"><h2 data-number="12.2" class="anchored" data-anchor-id="the-normal-distribution">
 <span class="header-section-number">12.2</span> The normal distribution</h2>
-<p>A <a href="ideas_about_data.html#distributions">distribution</a> describes the <em>values</em> the variable can take and the <em>chance</em> of them occurring. A distribution has a general type, given by the function, and is further tuned by the <em>parameters</em> in the function. For the normal distribution these parameters are the <strong>mean</strong> and the <strong>standard deviation</strong>. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (<a href="#fig-normal-distributions" class="quarto-xref">Figure&nbsp;<span>12.1</span></a>).</p>
+<p>A <a href="ideas-about-data.html#distributions">distribution</a> describes the <em>values</em> the variable can take and the <em>chance</em> of them occurring. A distribution has a general type, given by the function, and is further tuned by the <em>parameters</em> in the function. For the normal distribution these parameters are the <strong>mean</strong> and the <strong>standard deviation</strong>. Every variable that follows the normal distribution has the same bell shaped curve and the distributions differ only in their means and/or standard deviations. The mean determines where the centre of the distribution is, the standard deviation determines the spread (<a href="#fig-normal-distributions" class="quarto-xref">Figure&nbsp;<span>12.1</span></a>).</p>
 <div id="fig-normal-distributions" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-normal-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
@@ -664,14 +664,14 @@ Complete
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;12.1: <strong>The normal distribution has two <em>parameters</em>: the mean and the standard deviation.</strong> The mean determines where the centre of the distribution is, the standard deviation determines the spread. <a href="#fig-normal-same-mean" class="quarto-xref">Figure&nbsp;<span>12.1 (a)</span></a> The distributions have the same mean but different standard deviations. <a href="#fig-normal-same-sd" class="quarto-xref">Figure&nbsp;<span>12.1 (b)</span></a> The distributions have the same standard deviation but different means.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;12.1: <strong>The normal distribution has two <em>parameters</em>: the mean and the standard deviation.</strong> The mean determines where the centre of the distribution is, the standard deviation determines the spread. <a href="#fig-normal-same-mean" class="quarto-xref"><span>12.1 (a)</span></a> The distributions have the same mean but different standard deviations. <a href="#fig-normal-same-sd" class="quarto-xref"><span>12.1 (b)</span></a> The distributions have the same standard deviation but different means.
 </figcaption></figure>
 </div>
 <p>Whilst normal distributions vary in the location on the horizontal axis and their width, they all share some properties and it is these shared properties that allow the calculation of confidence intervals with some standard formulae. The properties are that a fix percentage of values lie between a given number of standard deviations. For example, 68.2% values lie between plus and minus one standard deviation from the mean and 95% values lie between <span class="math inline">\(\pm\)</span> 1.96 standard deviations. Another way of saying this is that there is a 95% chance that a randomly selected value will lie between <span class="math inline">\(\pm\)</span> 1.96 standard deviations from the mean. This is illustrated in <a href="#fig-norm-dist-properties" class="quarto-xref">Figure&nbsp;<span>12.2</span></a>.</p>
 <div id="fig-norm-dist-properties" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-norm-dist-properties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm-dist-properties" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm-dist-properties" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-norm-dist-properties">
 <div id="fig-norm-dist-1sd" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-norm-dist-1sd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -683,9 +683,7 @@ Complete
 </div>
 </div>
 </div>
-</div>
-<div class="quarto-layout-row">
-<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm-dist-properties" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm-dist-properties" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-norm-dist-properties">
 <div id="fig-norm-dist-1-96" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-norm-dist-1-96-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -699,7 +697,7 @@ Complete
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-dist-properties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;12.2: <strong>Normal distributions share some properties regardless of the mean and standard deviation.</strong> <a href="#fig-norm-dist-1sd" class="quarto-xref">Figure&nbsp;<span>12.2 (a)</span></a> 68% of the values are within one standard deviation of the mean and, <a href="#fig-norm-dist-1-96" class="quarto-xref">Figure&nbsp;<span>12.2 (b)</span></a> 95% are within 1.96 standard deviations.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-dist-properties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;12.2: <strong>Normal distributions share some properties regardless of the mean and standard deviation.</strong> <a href="#fig-norm-dist-1sd" class="quarto-xref"><span>12.2 (a)</span></a> 68% of the values are within one standard deviation of the mean and, <a href="#fig-norm-dist-1-96" class="quarto-xref"><span>12.2 (b)</span></a> 95% are within 1.96 standard deviations.
 </figcaption></figure>
 </div>
 <p>R has some useful functions associated with distributions, including the normal distribution.</p>
@@ -770,7 +768,7 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 <div id="fig-norm" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
-<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-norm">
 <div id="fig-pnorm" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-pnorm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -782,9 +780,7 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 </div>
 </div>
 </div>
-</div>
-<div class="quarto-layout-row">
-<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div class="cell quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-norm" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="cell-output-display quarto-layout-cell-subref" data-ref-parent="fig-norm">
 <div id="fig-qnorm" class="quarto-float quarto-figure quarto-figure-center anchored" width="576">
 <figure class="quarto-float quarto-subfloat-fig figure"><div aria-describedby="fig-qnorm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -798,7 +794,7 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;12.3: <strong>How the functions for statistical distributions work in R.</strong> The <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> functions return values related to the normal distribution. <a href="#fig-pnorm" class="quarto-xref">Figure&nbsp;<span>12.3 (a)</span></a> <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> returns the probability (the area under the curve) to the right of a given x-value. <a href="#fig-qnorm" class="quarto-xref">Figure&nbsp;<span>12.3 (b)</span></a> <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> returns the value along the <em>x</em>-axis corresponding to a given cumulative probability.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;12.3: <strong>How the functions for statistical distributions work in R.</strong> The <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> and <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> functions return values related to the normal distribution. <a href="#fig-pnorm" class="quarto-xref"><span>12.3 (a)</span></a> <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> returns the probability (the area under the curve) to the right of a given x-value. <a href="#fig-qnorm" class="quarto-xref"><span>12.3 (b)</span></a> <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> returns the value along the <em>x</em>-axis corresponding to a given cumulative probability.
 </figcaption></figure>
 </div>
 <p>Searching for the manual with <code>?normal</code> or any one of the functions (<code><a href="https://rdrr.io/r/stats/Normal.html">?pnorm</a></code>) will bring up a single help page for all four associated functions.</p>
@@ -816,12 +812,12 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 \bar{x} \pm 1.96 \times s.e.
 \tag{12.1}\]</span></span></p>
 <p>95% of confidence intervals calculated in this way will contain the true population mean.</p>
-<p>Do you have to remember the value of 1.96? Not if you have R!</p>
+<p>Do you have to remember the value of 1.96? Not if you have R! We can use the <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> function:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span>
 <span><span class="co">## [1] 1.959964</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice that it is <code>qnorm(0.975)</code> and not <code>qnorm(0.95)</code> for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to the left of the value given. This is known as being “one-tailed”. To get 0.05 in the <em>two tails combined</em>, we need to have 0.025 - half of 0.05 - in <em>each tail</em>. The value on the <em>x</em>-axis that puts 0.025 in the upper tail is 0.975 (<a href="#fig-qnorm-is-one-tail" class="quarto-xref">Figure&nbsp;<span>12.5</span></a>). If we gave 0.95, we would get the value that put 0.05 in one tail and 0.9 in the central area. We want 0.025 in each tail, so we need to use 0.975 in <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
+<p>Notice that it is <code>qnorm(0.975)</code> and not <code>qnorm(0.95)</code> for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to <em>the left</em> of the value given. This is known as being “one-tailed”. To get 0.05 in the <em>two tails combined</em>, we need to have 0.025 – half of 0.05 – in <em>each tail</em>. The value on the <em>x</em>-axis that puts 0.025 in the upper tail is 0.975 (<a href="#fig-qnorm-is-one-tail" class="quarto-xref">Figure&nbsp;<span>12.5</span></a>). If we gave 0.95, we would get the value that put 0.05 in one tail and 0.9 in the central area. We want 0.025 in each tail, so we need to use 0.975 in <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
 <div id="fig-qnorm-is-one-tail" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-qnorm-is-one-tail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell">
@@ -860,7 +856,7 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 </div>
 </section><section id="calculate-sample-statistics" class="level3" data-number="12.6.2"><h3 data-number="12.6.2" class="anchored" data-anchor-id="calculate-sample-statistics">
 <span class="header-section-number">12.6.2</span> Calculate sample statistics</h3>
-<p>We can use the <code>summarise()</code> function to calculate: the mean, standard deviation, sample size and standard error and save t hem in a dataframe called creatine_summary</p>
+<p>We can use the <code>summarise()</code> function to calculate: the mean, standard deviation, sample size and standard error and save t hem in a dataframe called <code>creatine_summary</code></p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">creatine_summary</span> <span class="op">&lt;-</span> <span class="va">creatinekinase</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">summarise</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ck_conc</span><span class="op">)</span>,</span>
@@ -1381,8 +1377,8 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
     }
   });
   </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./logic-hyopthesis-testing.html" class="pagination-link" aria-label="The logic of hyothesis testing">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The logic of hyothesis testing</span></span>
+      <a href="./logic-hypothesis-testing.html" class="pagination-link" aria-label="The logic of hypothesis testing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The logic of hypothesis testing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
