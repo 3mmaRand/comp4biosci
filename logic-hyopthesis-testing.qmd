@@ -10,31 +10,31 @@ status("complete")
 
 ## What is Hypothesis testing?
 
-Hypothesis testing is a statistical method that helps us draw 
-conclusions about a population based on a sample. Since we usually 
-can’t measure every individual in a population, we take a smaller 
-sample and analyze it.
+Hypothesis testing is a statistical method that helps us draw
+conclusions about a population based on a sample. Since we usually can’t
+measure every individual in a population, we instead take a smaller sample and
+make inferences about the population.
 
-For example, suppose we want to know if babies born to mothers in 
-poverty have lower birth weights than the national average. Measuring
-the birth weight of every baby in the country would be impossible, 
-so we take a sample. However, even if poverty has no real effect, 
-our sample’s average birth weight might be different from the national
-average just by chance. Hypothesis testing helps us determine whether
-this difference is real or just random variation.
+For example, suppose we want to know if knocking out **gene X** in
+cultured cells changes the expression level of **protein Y** compared to
+the established wild‑type mean. Measuring expression in every cell would
+be impractical, so we take a sample. However, even if the knockout has
+no real effect, our sample’s average expression might differ from the
+wild‑type reference just by chance. Hypothesis testing helps us
+determine whether this difference is real or just random variation.
 
 ## Samples and populations
 
-Before we dive deeper into hypothesis testing, let’s clarify two 
-key terms:
+Before we dive deeper into hypothesis testing, let’s clarify two key
+terms:
 
 -   A population is the entire group we are interested in studying
-    (e.g., all babies in a country).
--   A sample is a smaller group selected from the population 
-    (e.g., a few hundred babies chosen for the study).
+    (e.g., all possible knockout cells cultures).
+-   A sample is a smaller group selected from the population (e.g., a
+    10 samples of cells cultured for the study).
 
-We use samples because studying an entire population is often 
-impractical. The challenge is making sure our sample accurately 
+We use samples because studying an entire population is often
+impractical. This means making sure our sample accurately
 represents the population.
 
 ## Logic of hypothesis testing
@@ -44,30 +44,30 @@ The logic behind hypothesis testing follows these general steps:
 1.  Formulating a "Null Hypothesis" denoted $H_0$. The null hypothesis
     is what we expect to happen if nothing interesting is happening. It
     states that there is no difference between groups or no relationship
-    between variables. In contrast, the "Alternative Hypothesis" ($H_1$)
-    states that there is a significant difference between groups or a
-    relationship between variables.
-2.  Designing an experiment and/or collecting data to test the null
+    between variables. In our case, $H_0$ is that the mean expression of
+    protein Y in the knockout cells equals that of the wild‑type. In
+    contrast, the "Alternative Hypothesis" ($H_1$) states that there is
+    a significant difference between the knockout mean and wild-type 
+    reference
+2.  Designing an experiment and collecting data to test the null
     hypothesis.
 3.  Finding the probability (the *p*-value) of getting our experimental
-    data, or data more extreme, if $H_0$ is true.
+    data, or data as extreme or more extreme, if $H_0$ is true.
 4.  Deciding whether to reject or not reject the $H_0$ based on that
     probability:
-    -   If $p ≤ 0.05$  we reject $H_0$
-    -   If $p > 0.05$  do not reject $H_0$
+    -   If $p ≤ 0.05$ we reject $H_0$
+    -   If $p > 0.05$ do not reject $H_0$
 
 If the null hypothesis is rejected it means we have evidence that $H_0$
 is untrue and support for $H_1$. If the null hypothesis is not rejected,
 it means there is insufficient evidence to support the alternative
-hypothesis. 
-It is important to recognise that not rejecting the null hypothesis
-does not mean $H_0$ is definitely true. It just means just that $H_0$
-cannot be discounted. 
+hypothesis. It is important to recognise that not rejecting $H_0$ does not 
+mean it is definitely true -- it just indicates that $H_0$ cannot be discounted.
 
-There is a real state to $H_0$, that is, $H_0$ is either true or it is 
-not true. The statistical test has us decide whether to reject or
-not reject $H_0$ based on the *p*-value. This means we can make mistakes
-when testing a hypothesis. These are called Type I and Type II errors.
+Whatever our test result, there is a real state to $H_0$, that is, $H_0$ is
+either true or it is not true. The statistical test has us decide whether
+to reject or not reject $H_0$ based on the *p*-value. This means we can make 
+mistakes when testing a hypothesis. These are called Type I and Type II errors.
 
 ### Type I and type II errors
 
@@ -77,20 +77,28 @@ approach rather than mistakes you can prevent.
 
 -   A type I error occurs when we reject a null hypothesis that is true.
     This can be thought of as a false positive. It is a real error in
-    that we have a real difference or effect. Since we use a probability
-    of 0.05 to reject the null hypothesis, we will make a type I error
-    5% of the time.
+    that we conclude there is a real difference or effect when there is not. 
+    Since we use a probability of 0.05 to reject the null hypothesis, 
+    we will make a type I error 5% of the time.
 -   A type II error occurs when we do not reject a null hypothesis that
-    is false. This is a false negative. It is not a real error in the
+    is false -- a false negative. It is not a real error in the
     sense that we only conclude we do not have enough evidence to reject
-    the null hypothesis.
+    the null hypothesis. We do not claim the null hypothesis is true.
 -   If we reject a null hypothesis that is false we have not made an
     error.
 -   If we do not reject a null hypothesis that is true we have not made
     an error.
 
-![Type I and Type II
-errors.](images/type-1-2-errors.png){fig-alt="tabular representation of type I and II error. If we reject a true H0 we have made a type I error; if we do not reject a true H0 we have not made an error. If we do not reject a false H0 we have not made an error; if we do reject a false H0 we have made a type II error"}
+::: {#fig-type-1-2-errors}
+![](images/type-1-2-errors.png)
+
+**Tabular representation of Type I and Type II errors**. A null
+hypothesis has a true state -- which is unknown -- it is either True or False.
+We make the decision to reject H0 or not reject it. If we reject a true
+H0 we have made a type I error; if we do not reject a true H0 we have
+not made an error. If we do not reject a false H0 we have not made an
+error; if we do reject a false H0 we have made a type II error
+:::
 
 We can decrease our chance of making a type I error by reducing the the
 *p*-value required to reject the null hypothesis. However, this will
@@ -104,7 +112,7 @@ random variation in the data.
 The sampling distribution of the mean is a fundamental concept in
 hypothesis testing and constructing confidence intervals. Parametric
 tests such as regression, two-sample tests and ANOVA (all applied with
-`lm()`) are based on the sampling distribution of the mean. It is a
+`lm()`) are all based on the sampling distribution of the mean. It is a
 theoretical distribution that describes the distribution of the sample
 means if an infinite number of samples were taken.
 
@@ -119,194 +127,233 @@ The key characteristics of the sampling distribution of the mean are:
     between the standard deviation of a sample or population and the
     standard error of the mean: $s.e. = \frac{s.d.}{\sqrt{n}}$
 
-💡 Why does this matter? When we calculate a p-value, we’re really 
-asking: "How likely is it to get a sample mean like ours (or more 
-extreme) if $H_0$ is true. This is why understanding the sampling 
-distribution is so important - it helps us determine what results we 
-should expect by random chance.
+-   As the sample size increases, the sampling distribution of the mean
+    becomes narrower and and more peaked around the population mean. As
+    the sample size decreases the sampling distribution of the mean
+    becomes wider and closer to the population distribution.
 
+💡 Why does this matter? It matters because when we calculate a *p*-value, 
+what we really want to know is: "How likely is it to get a sample mean like 
+this (or one as extreme or more extreme) if $H_0$ is true. That is, it is the 
+distribution of the sample means that we are interested in, not the 
+distribution of the values.
+
+
+::: {#fig-sample-dist-means}
 ```{r}
 #| echo: false
-#| label: fig-sample-dist-means
-#| fig-cap: "The sampling distribution of the means is a theoretical distribution that describes the distribution of the sample means if an infinite number of samples of size n were taken. The sampling distribution of the mean has a standard devation which is smaller than the population and is called the standard error."
-mu <- 3300
-sd <- 900
-n <- 12
+
+mu <- 100     # wild-type mean expression
+sd <- 20      # population SD of expression
+n  <- 10      # sample size
 se <- sd/sqrt(n)
-mean <- 3000
 
-
-ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
-       aes(mass)) +
-  stat_function(fun = dnorm, n = 101, 
-                args = list(mean = mu, sd = sd)) +
-  stat_function(fun = dnorm, n = 101, 
-                args = list(mean = mu, sd = se)) +
-  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
-  scale_y_continuous(breaks = NULL, name = "",
-                     expand = c(0, 0),
-                     limits = c(0, 0.0016)) +
-  scale_x_continuous(breaks = NULL, name = "",
-                     expand = c(0, 0),
-                     limits = c(1000, 6000)) + 
-  annotate("text", size = 5,
-           x = 1800, y = 0.00055,
-           label = "Distribution\nof the values") +
-  annotate("segment",
-           x = 1800, y = 0.0005,
-           xend = 2000, yend = dnorm(2000, mu, sd),
-           arrow = arrow(type = "closed", 
-                         length = unit(0.03, "npc"))) +
-  annotate("text", size = 5,
-           x = 4600, y = 0.0011,
-           label = "Distribution of the\nsample means") +
-  annotate("segment",
-           x = 4600, y = 0.001,
-           xend = 3600, yend = dnorm(3600, mu, se),
-           arrow = arrow(type = "closed", 
-                         length = unit(0.03, "npc"))) +
+ggplot(data = data.frame(expr = c(mu - 3*sd, mu + 3*sd)), 
+       aes(expr)) +
+  stat_function(fun = dnorm, 
+                args = list(mean = mu, sd = sd), 
+                size = 1) +
+  stat_function(fun = dnorm, 
+                args = list(mean = mu, sd = se),
+                linetype = "dashed", 
+                linewidth = 1) +
+    geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
+  annotate("text", 
+           x = 60, y = 0.018, 
+           label = "Population distribution\n(the distribution of the\nvalues)") +
+  annotate("text", 
+           x = 130, y = 0.05,
+           label = "Sampling distribution of\nthe means (the distribution\nof the sample means)") +
+  scale_x_continuous(breaks = NULL, name = "") +
+  scale_y_continuous(breaks = NULL, name = "") +
   theme_classic() +
   theme(axis.line.y = element_blank())
 ```
+
+**Comparison of the population distribution and the sampling
+distribution of the mean**. The sampling distribution of the mean is a
+theoretical distribution that describes the distribution of the sample
+means if an infinite number of samples of size *n* were taken. The
+sampling distribution of the mean has a standard deviation which is
+smaller than the population and is called the standard error.
+:::
 
 ### Example
 
-Let's work through this logic using an example.
-
-Question: National average birth weight is 3300 grams with an s.d. = 900
-grams. Does maternal poverty influence birth weight?
-
-1.  Set up the null hypothesis. The null hypothesis is what we 
-    expect to happen if nothing interesting is happening. In this case,
-    that there is no effect of maternal poverty on
-    birth weight, *i.e.*, the mean of a sample of babies born into 
-    poverty is equal to the national average (@fig-null-example). This 
-    is written as $H_0: \bar{x} = 3300$. The alternative hypothesis 
-    is that the sample mean is not equal to the national average. This 
-    is written as $H_1: \bar{x} \neq 3300$.
+Let's work through this logic using our example.
 
 ```{r}
 #| echo: false
-#| label: fig-null-example
-#| fig-cap: "Distribution of the population of birth weights has a mean of 3300 g and a standard deviation of 900. The null hypothesis is that the mean birth weight of babies born to women in poverty is the same as the national average of 3300 g."
-
-mu <- 3300
-sd <- 900
-ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
-       aes(mass)) +
-  stat_function(fun = dnorm, n = 101, 
-                args = list(mean = mu, sd = sd)) +
-  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, sd)) +
-  scale_y_continuous(breaks = NULL, name = "",
-                     expand = c(0, 0),
-                     limits = c(0, 0.0016)) +
-  scale_x_continuous(breaks = c(1000, 2000, 3000, 4000, 5000, 6000),
-                     expand = c(0, 0),
-                     limits = c(1000, 6000)) + 
-  annotate("text", x = 3300, y = 0.0006, label = glue::glue("mean = {mu}")) +
-  theme_classic() +
-  theme(axis.line.y = element_blank())
+mu <- 100
+sd <- 20
+n <- 10
+se <- sd/sqrt(n)
+mean <- 92
+diff <- mu - mean
 ```
 
-2.  Design an experiment that generates data to test the null 
-    hypothesis[^logic_hyopthesis_testing-1]. We take a sample 
-    of $n = 12$ women who live in poverty and determine the mean birth 
-    weight of their babies. We calculate $\bar{x} = 3000 g$. This is 
-    lower than the national average but might we get a sample like that
-    even if the null hypothesis is true?
+Question: The wild‑type mean expression of protein Y is `r mu` a.u. with 
+a standard deviation of `r sd` a.u. If we knock out gene X, does the 
+mean expression change?
 
-[^logic_hyopthesis_testing-1]: In fact this is an observational study
-rather than a real experimental study. This means we can potential
-conclude birth weight differs in the two groups but we cannot say
-maternal poverty causes that difference.
+1.  Set up the null hypothesis. The null hypothesis is what we expect to
+    happen if nothing interesting is happening. In this case, that there
+    is no effect of knocking out gene X, *i.e.*, the mean of a sample of
+    knockout cell cultures is equal to wild‑type mean of `r mu` a.u.
+    (@fig-null-example). This is written as $H_0: \bar{x} =$ `r mu`. The
+    alternative hypothesis is that the sample mean is not equal to
+    wild‑type mean of `r mu` a.u. This is written as $H_1: \bar{x}
+    \neq $ `r mu`.
 
+::: {#fig-null-example}
+```{r}
+#| echo: false
+
+ggplot(data = data.frame(expr = c(mu - 3*sd, mu + 3*sd)),
+       aes(expr)) +
+  stat_function(fun = dnorm, 
+                args = list(mean = mu, sd = sd), 
+                size = 1) +
+  annotate("segment", x = mu, xend = mu, 
+                   y = 0, yend = dnorm(mu, mu, sd), 
+               size = 1) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.025)) +
+  scale_x_continuous(breaks = seq(40, 160, by = 20), 
+                     name = "Expression level (a.u.)",
+                     expand = c(0, 0)) + 
+  annotate("text", x = 100, y = 0.021, 
+           label = glue::glue("mean = {mu}")) +
+  theme_classic() +
+  theme(axis.line.y = element_blank())
+
+```
+
+**Distribution of the population of protein Y expression in wild-type cells.**
+This has a mean of `r mu` a.u. and a standard deviation of `r sd` a.u.
+The null hypothesis is that mean of a sample of knockout cell cultures
+is equal to wild‑type mean of `r mu` a.u.
+:::
+
+2.  Design an experiment that generates data to test the null
+    hypothesis. We take a sample of $n = $ `r n` knockout cell
+    cultures and determine the mean protein Y expression. Suppose we calculate
+    $\bar{x} = $ `r mean`. This *is* lower than the wild-type population
+    mean but might we get such a sample even if the null hypothesis
+    is true?
 
 3.  Determine the probability (the *p*-value) of getting our
-    experimental data, or more extreme data, if $H_0$ is true.
-    (@fig-sample-dist-means-example)
+    experimental data , or data as extreme or more extreme, if $H_0$ is true. 
+    This would be a mean of `r mean` or *less*  
+    **OR** a mean of `r mu + diff` or *more* (@fig-sample-dist-means-example).
+    This is because `r mu + diff` a.u. is just as far away from the expected 
+    value as `r mean` a.u.
+
+::: {#fig-sample-dist-means-example layout-nrow="1"}
+
 
 ```{r}
 #| echo: false
-#| label: fig-sample-dist-means-example
-#| fig-cap: "The probability of getting a sample mean of 3000 or less is the area under the sampling distribution of the mean to the left of 3000."
+#| label: fig-sample-dist-means-onetail
 
-n <- 12
-se <- sd/sqrt(n)
-mean <- 3000
-
-# function for shading under a normal distribution curve
-dnorm_limit <- function(x) {
-  y <- dnorm(x, mu, se)
-  y[x < 2000 |  x > mean] <- NA
-  return(y)
-}
-
-ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
-       aes(mass)) +
-  stat_function(fun = dnorm, n = 101, 
+ggplot(data = data.frame(expr = c(mu - 3 * sd, mu + 3 * sd)),
+       aes(expr)) +
+  stat_function(fun = dnorm, 
                 args = list(mean = mu, sd = sd)) +
   stat_function(fun = dnorm_limit,
+                args = list(q = mean, mu = mu, sd = se, area = "lowertail"),
                 geom = "area",
                 fill = pal2[1]) +
-  stat_function(fun = dnorm, n = 101, 
-                args = list(mean = mu, sd = se)) +
-  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
+    stat_function(fun = dnorm, 
+                args = list(mean = mu, sd = se),
+                linetype = "dashed") +
+  geom_segment(x = mu, xend = mu, 
+               y = 0, yend = dnorm(mu, mu, se)) +
+  scale_y_continuous(breaks = NULL, name = "",
+                     expand = c(0, 0),
+                     limits = c(0, 0.065)) +
+  scale_x_continuous(breaks = seq(40, 160, by = 20), 
+                     name = "Expression level (a.u.)",
+                     expand = c(0, 0)) + 
   annotate("text", size = 5,
-           x = 1800, y = 0.00055,
+           x = 60, y = 0.01, 
            label = glue::glue("Probability of {mean}\nor less"),
-           colour = pal4[1])  +
-  scale_y_continuous(breaks = NULL, name = "",
-                     expand = c(0, 0),
-                     limits = c(0, 0.0016)) +
-  scale_x_continuous(breaks = c(1000, 2000, 3000, 4000, 5000, 6000),
-                     expand = c(0, 0),
-                     limits = c(1000, 6000)) + 
+           colour = pal4[1]) +
   theme_classic() +
   theme(axis.line.y = element_blank())
 ```
+
+
 
 ```{r}
 #| echo: false
-#| label: fig-sample-dist-means-example2
-#| fig-cap: "The probability of getting a sample mean of 3000 or more extreme is the area under the sampling distribution of the mean to the left of 3000 plus that to the right of 3600. This is because 3600 is as extreme (as far away from the mean) as 3000."
+#| label: fig-sample-dist-means-twotail
 
-
-# function for shading the other side
-dnorm_limit2 <- function(x) {
-  y <- dnorm(x, mu, se)
-  y[x < 3600 |  x > 4500] <- NA
-  return(y)
-}
-
-ggplot(data = data.frame(mass = c(mu - 3 * sd, mu + 3 * sd)),
-       aes(mass)) +
-  stat_function(fun = dnorm, n = 101, 
+ggplot(data = data.frame(expr = c(mu - 3 * sd, mu + 3 * sd)),
+       aes(expr)) +
+  stat_function(fun = dnorm, 
                 args = list(mean = mu, sd = sd)) +
   stat_function(fun = dnorm_limit,
+                args = list(q = mean, mu = mu, sd = se, area = "twotails"),
                 geom = "area",
                 fill = pal2[1]) +
-  stat_function(fun = dnorm_limit2,
-                geom = "area",
-                fill = pal2[1]) +
-  annotate("text", size = 5,
-           x = 1800, y = 0.00055,
-           label = glue::glue("Probability of {mean}\nor more extreme"),
-           colour = pal4[1])  +
-  stat_function(fun = dnorm, n = 101, 
-                args = list(mean = mu, sd = se)) +
-  geom_segment(x = mu, xend = mu, y = 0, yend = dnorm(mu, mu, se)) +
+    stat_function(fun = dnorm, 
+                args = list(mean = mu, sd = se),
+                linetype = "dashed") +
+  geom_segment(x = mu, xend = mu, 
+               y = 0, yend = dnorm(mu, mu, se)) +
   scale_y_continuous(breaks = NULL, name = "",
                      expand = c(0, 0),
-                     limits = c(0, 0.0016)) +
-  scale_x_continuous(breaks = c(1000, 2000, 3000, 4000, 5000, 6000),
-                     expand = c(0, 0),
-                     limits = c(1000, 6000)) + 
+                     limits = c(0, 0.065)) +
+  scale_x_continuous(breaks = seq(40, 160, by = 20), 
+                     name = "Expression level (a.u.)",
+                     expand = c(0, 0)) + 
+  annotate("text", size = 5,
+           x = 60, y = 0.01, 
+           label = glue::glue("Probability of {mean}\nor more extreme"),
+           colour = pal4[1]) +
   theme_classic() +
   theme(axis.line.y = element_blank())
 ```
+
+**The probability of getting our data or data as extreme or more extreme is 
+determined from the the sampling distribution of the mean**. @fig-sample-dist-means-onetail The probability of getting a mean of `r mean` or
+less is the area under the sampling distribution of the mean to the left 
+of `r mean`. @fig-sample-dist-means-twotail The probability of getting 
+a mean of `r mean + diff` or more is the area under the sampling 
+distribution of the mean to the right of `r mean + diff`. Thus, the probability
+of getting a sample mean of `r mean` or one as extreme or more extreme is
+the area under the curve to the left of `r mean` **PLUS** the area under the 
+curve to the to the right of `r mu + diff`. 
+:::
 
 4.  Decide whether to reject or not reject the $H_0$ based on that
     probability. If the shaded area is less than 0.05 we reject the null
-    hypothesis and conclude there is a difference in the birth weights 
-    between the two groups. If the shaded area is more than 0.05 we do 
+    hypothesis and conclude there is a difference in the birth weights
+    between the two groups. If the shaded area is more than 0.05 we do
     not reject the null hypothesis.
+
+
+## Summary
+
+1.   Hypothesis testing is a statistical method that helps us draw
+    conclusions about a population based on a sample.
+
+2. A population is the full set of entities possible; a sample is a random
+    subset of the population.
+
+3.   The logic of hypothesis testing involves formulating a null hypothesis,
+    designing an experiment, calculating the probability of obtaining the
+    observed data if the null hypothesis is true, and deciding whether to
+    reject or not reject the null hypothesis based on that probability.
+
+4.  That probability is determined by the sampling distribution of the mean. 
+    This is a theoretical distribution that describes the distribution of 
+    sample means if an infinite number of samples were taken. It has a mean 
+    equal to the population mean and a
+    standard deviation known as the standard error of the mean.
+
+5. A type I error occurs when we reject a null hypothesis that is true, 
+   while a type II error occurs when we do not reject a null hypothesis 
+   that is false.

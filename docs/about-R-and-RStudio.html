@@ -17,7 +17,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -513,7 +533,7 @@ ul.task-list li input[type="checkbox"] {
   </ul>
 </li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.5</span> Summary</a></li>
-  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/about-R-and-RStudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-bug"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/about-R-and-RStudio.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-chat-left-dots"></i>Make a suggestion</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./about-R-and-RStudio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></a></li></ol></nav><div class="quarto-title">
@@ -582,7 +602,7 @@ Draft
 <p>Click “Download R for Linux”. Instructions on installing are given for Debian, Redhat, Suse and Ubuntu distributions. Where there is a choice, install both <code>r-base</code> and <code>r-base-dev</code>.</p>
 </section></section><section id="installing-r-studio" class="level3" data-number="6.2.2"><h3 data-number="6.2.2" class="anchored" data-anchor-id="installing-r-studio">
 <span class="header-section-number">6.2.2</span> Installing R Studio</h3>
-<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
+<p>Go to <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> and download RStudio Desktop for your operating system.</p>
 </section></section><section id="packages" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="packages">
 <span class="header-section-number">6.3</span> Packages</h2>
 <p>A R package is a collection of R functions which are related to a particular task or set of tasks. When you install R, it comes with a set of packages known as the <strong>base</strong> packages. These are <strong><code>stats</code></strong>, <strong><code>graphics</code></strong>, <strong><code>grDevices</code></strong>, <strong><code>utils</code></strong>, <strong><code>datasets</code></strong>, <strong><code>methods</code></strong> and <strong><code>base</code></strong>. You can a lot done with these packages! However there are many other packages that allow you extend the functionality of R to do all manner of specialised tasks in bioinformatics, spatial analysis, audio/image analysis and almost anything else you can think of. These packages are written by the R community and are available for free – this is one of the strengths of an open source language like R.</p>
@@ -592,7 +612,7 @@ Draft
 <li><p><a href="https://www.bioconductor.org/">Bioconductor</a> is a repository specifically for bioinformatics packages. You can install packages from Bioconductor using the <code>BiocManager::install()</code> function in R.</p></li>
 </ul>
 <p>You can also install packages from other sources, such as GitHub. Github is a popular platform for hosting code, often including the latest versions of packages that have not yet been submitted to CRAN. Many developers release experimental or in-progress packages on GitHub with the newest features.</p>
-<p>In the next chapter you will install your first package, the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, which is a collection of packages that are designed to work together to make data analysis easier and more intuitive.</p>
+<p>In the next chapter you will install your first package, the <strong><code>tidyverse</code></strong> <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>, which is a collection of packages that are designed to work together to make data analysis easier and more intuitive.</p>
 </section><section id="introduction-to-rstudio" class="level2" data-number="6.4"><h2 data-number="6.4" class="anchored" data-anchor-id="introduction-to-rstudio">
 <span class="header-section-number">6.4</span> Introduction to RStudio</h2>
 <p>In this section we will introduce you to working in RStudio. We will explain the windows that you see when you first open RStudio and how to change its appearance to suit you.</p>
@@ -644,6 +664,11 @@ Draft
 </ol>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
 </section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>If this is not a fresh install of RStudio, you might be looking at fours windows, two on the left and two on the right. That’s fine - we will all be using four shortly. For the time being, you might want to close the “Script” window using the small cross next to “Untitled1”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

@@ -20,7 +20,7 @@ status <- function(type) {
   status <- switch(type,
                    polishing = "is a draft but is mainly complete should be readable",
                    drafting = "is a dumping ground for one or more ideas. Sections maybe missing, or in bullet form and code may not be explained",
-                   complete = "is compete but suggestions for improvements are welcome. Follow the link to 'Report an issue' to suggest improvements",
+                   complete = "is compete but suggestions for improvements are welcome. Follow the link to 'Make a suggestion' to suggest improvements",
                    stop("Invalid `type`", call. = FALSE)
   )
   
@@ -66,18 +66,34 @@ theme_no_axis_numbers <- function() {
   )
 }
 
-# functions for shading under a normal distribution curve
+# function for shading under a normal distribution curve
 
-dnorm_limit <- function(x, q = 1.96, tails = 1) {
-  y <- dnorm(x)
-  if (tails == 1) {
-    y[x > q] <- NA
-  } else if (tails == 2) {
-    y[x < -q | x > q] <- NA
-  } else {
-    stop("Invalid value for tails. Use 1 or 2.")
+dnorm_limit <- function(x,
+                        q    = 1.96,
+                        mu   = 0,
+                        sd   = 1,
+                        area = c("lowertail", "uppertail", "twotails", "middle")) {
+  area <- match.arg(area)
+  y <- dnorm(x, mean = mu, sd = sd)
+  
+  # distance from mu
+  d <- abs(q - mu)
+  lower_bound <- mu - d
+  upper_bound <- mu + d
+  
+  if (area == "lowertail") {
+    # keep x <= q
+    y[x >  q] <- NA
+  } else if (area == "uppertail") {
+    # keep x >= q
+    y[x <  q] <- NA
+  } else if (area == "twotails") {
+    # keep x <= lower_bound OR x >= upper_bound
+    y[x > lower_bound & x < upper_bound] <- NA
+  } else if (area == "middle") {
+    # keep lower_bound <= x <= upper_bound
+    y[x < lower_bound | x > upper_bound] <- NA
   }
-  return(y)
+  
+  y
 }
-
-

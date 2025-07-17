@@ -5,12 +5,23 @@
 #| echo: false
 
 source("_common.R")
-status("polishing")
+status("complete")
 ```
 
-This chapter .....
-
-Right, let's start coding!
+Imagine tapping into a powerful computational engine that doubles as a
+scientific calculator and data workhorse: welcome to R! By typing
+commands at the console prompt (`>`), you can perform instant
+calculations, store results in variables with intuitive assignment
+(`x <- 3`), and build on them like a pro. Mistakes aren’t obstacles but
+stepping stones on your learning path, and tools like the Environment
+tab and command history keep you on track. Beyond the console, `.R`
+scripts become your living notebook: draft, comment (`#`), and rerun
+code to preserve your best ideas. You’ll also discover how a few simple
+tweaks in RStudio will streamline your work. Dive into R’s core data
+types, master vectors with `c()`, index values by position or condition,
+and harness functions like `mean()`—even handling missing values with
+`na.rm=TRUE`. Finally, meet "data frames", the rectangular grids that
+lie at the heart of data analysis in R. Let’s embark on this journey!
 
 ### Your first piece of code
 
@@ -107,9 +118,9 @@ x + u
 We get an error. We will probably see this error quite often - it means
 we have tried to use a variable that is not in our Environment. So when
 you get that error, have a quick look up at your
-environment[^first_steps_rstudio-1].
+environment[^first-steps-rstudio-1].
 
-[^first_steps_rstudio-1]: When we are using scripts, it is very easy to
+[^first-steps-rstudio-1]: When we are using scripts, it is very easy to
     write code but forget to run it. Very often when you see this error
     it will because you have written the code to create an object but
     forgotten to execute it.
@@ -237,12 +248,12 @@ and Restore the workspace.
 :::
 
 First, we will set our default working directory. Under 'Default working
-directory (when not in a project[^first_steps_rstudio-2]):' click Browse
+directory (when not in a project[^first-steps-rstudio-2]):' click Browse
 and navigate to a through your file system to a folder where you want to
 work. You may want to create a folder specifically for studying this
 book.
 
-[^first_steps_rstudio-2]: We will find out what an RStudio Project is
+[^first-steps-rstudio-2]: We will find out what an RStudio Project is
     very soon. You will want to use a project for most of your work -
     they make everything a little easier.
 
@@ -252,11 +263,11 @@ to 'Never'. These options mean R will start up clean each time.
 
 ## Recap of RStudio anatomy
 
-This figure (see @fig-rstudio-anatomy[^first_steps_rstudio-3])
+This figure (see @fig-rstudio-anatomy[^first-steps-rstudio-3])
 summarises shows what each of the four RStudio panes and what they are
 used for to summarise much of what we have covered so far.
 
-[^first_steps_rstudio-3]: You can zoom into this at the [Direct
+[^first-steps-rstudio-3]: You can zoom into this at the [Direct
     link](https://www-users.york.ac.uk/~er13/RStudio%20Anatomy.svg)
 
 ::: {#fig-rstudio-anatomy}
@@ -483,12 +494,12 @@ quote them.
 
 You might be wondering how to get a single element out of a vector if
 typing the vector's name prints the entire vector. This is by
-'indexing'. An index is a number from 1[^first_steps_rstudio-4] to the
+'indexing'. An index is a number from 1[^first-steps-rstudio-4] to the
 length of a vector which gives the position in the vector and is denoted
 by square brackets. For example, to pull out the second element of
 `ages`:
 
-[^first_steps_rstudio-4]: We start counting from 1 in R. Most
+[^first-steps-rstudio-4]: We start counting from 1 in R. Most
     programming languages count from zero.
 
 ```{r}
@@ -587,13 +598,13 @@ You will see `people` listed in the Global environment under Data. To
 open a spreadsheet-like view of the dataframe click its name in the
 Global Environment @fig-view-dataframe
 
-
 ::: {#fig-view-dataframe}
 ![](images/view-dataframe.png)
 
-**A screenshot of RStudio showing the `people` dataframe over the script on 
-the left and the Environment pane on the right** To open a spreadsheet-like 
-view of the dataframe click its name in the Global Environment.
+**A screenshot of RStudio showing the `people` dataframe over the script
+on the left and the Environment pane on the right** To open a
+spreadsheet-like view of the dataframe click its name in the Global
+Environment.
 :::
 
 ## Install your first R package
@@ -607,17 +618,18 @@ Install **`tidyverse`** like this:
 install.packages("tidyverse")
 ```
 
-*Installing* a package means downloading it from the internet and placing its 
-code on your computer. You only need to do this once -- or each time you 
-update your version of R.
-To use the package once it has been installed you need to *load* it with:
+*Installing* a package means downloading it from the internet and
+placing its code on your computer. You only need to do this once -- or
+each time you update your version of R. To use the package once it has
+been installed you need to *load* it with:
 
 ```{r}
 library(tidyverse)
 ```
 
-Loading a package means telling R you want to use functions from that package 
-in an R session. You need to load packages each time you start a new R session.
+Loading a package means telling R you want to use functions from that
+package in an R session. You need to load packages each time you start a
+new R session.
 
 ## Summary
 
