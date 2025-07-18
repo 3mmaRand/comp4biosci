@@ -619,7 +619,7 @@ window.Quarto = {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./statistical-analysis-1.html">Statistical Analysis in R - Part 1</a></li><li class="breadcrumb-item"><a href="./two-sample-tests.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></a></li></ol></nav><div class="quarto-title">
-<h1 class="title"><span id="sec-two-sample-tests" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-two-sample-tests" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -1374,6 +1374,8 @@ Complete
 </ol>
 
 
+<!-- -->
+
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-R-core" class="csl-entry" role="listitem">
 R Core Team. 2025. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
@@ -1477,6 +1479,57 @@ Wilcoxon, Frank. 1945. <span>“Individual Comparisons by Ranking Methods.”</s
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1821,7 +1874,806 @@ Wilcoxon, Frank. 1945. <span>“Individual Comparisons by Ranking Methods.”</s
         <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb28" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Two-Sample tests {#sec-two-sample-tests}</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: "asis"</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"_common.R"</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span>(<span class="st">"complete"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>In the last chapter, we explored single linear regression, a technique</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>used when the explanatory variable is continuous. Now, we shift our</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>focus to cases where the explanatory variable is categorical with two</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>groups. For example, we may want to determine if there is a difference</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>in mass between two subspecies of chaffinch or compare marks in two</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>subjects.</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>To conduct a two-sample test, we use either <span class="in">`lm()`</span> or <span class="in">`wilcox.test()`</span>,</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>depending on whether the assumptions of <span class="in">`lm()`</span> are met. General linear</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>models applied with <span class="in">`lm()`</span> are parametric tests, meaning they rely on</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>the normal distribution's parameters (mean and standard deviation) to</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>determine statistical significance. The null hypothesis typically</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>concerns the mean or the difference between means. For the *p*-values to</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>be valid, the assumptions must be satisfied.</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>If these assumptions are not met, we turn to non-parametric tests, which</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>rely on the ranks of values rather than the actual values themselves.</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>Here, the null hypothesis concerns the mean rank instead of the mean.</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>While non-parametric tests are more flexible and applicable in a wider</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>range of scenarios, they tend to be less powerful, meaning they are less</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>likely to detect a true difference when one exists.</span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### Independent vs. Paired Samples</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>A crucial consideration when conducting tests is whether the values in</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>one group are independent of those in the other. Non-independence occurs</span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>when the two measures are linked in some way—for instance, if they come</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>from the same individual, time, or location.</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>For example, when evaluating a treatment for high blood pressure, we</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>might measure blood pressure before and after treatment on the same</span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>individuals. In this case, the before and after measurements are not</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>independent. If pairs of observations across groups share a common</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>factor that makes them more similar to each other than to other</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>observations, the samples are not independent.</span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>We use different testing approaches for independent and non-independent</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>samples to account for this dependency.</span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### *T*-tests</span></span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a>A linear model with one explanatory variable with two groups is also</span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>known as a **two-sample *t*-test** when the samples are independent and</span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a>as a **paired-samples *t*-test** when they are not. R does have a</span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a><span class="in">`t.test()`</span> function which allows you to fit a linear model with just two</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a>groups. However, here we teach you to use and interpret the <span class="in">`lm()`</span></span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>function because it is more generalisable. You can use <span class="in">`lm()`</span> when you</span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>have three or more groups or additional explanatory variables. The</span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>output of <span class="in">`lm()`</span> is also in the same form as many other statistical</span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a>functions in R. This means what you learn in performing *t*-tests with</span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a><span class="in">`lm()`</span> will help you learn other methods more easily. However, it is</span>
+<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a>definitely not wrong to use <span class="in">`t.test()`</span> rather than <span class="in">`lm()`</span> for two-group</span>
+<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a>situations - the procedures are identical and the *p*-values will be the</span>
+<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>same.</span>
+<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model assumptions</span></span>
+<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a>The assumptions of the general linear model are that the residuals are</span>
+<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a>normally distributed and have homogeneity of variance. A residual is the</span>
+<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a>difference between the predicted value and the observed value.</span>
+<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a>If we have a continuous response and a categorical explanatory variable</span>
+<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a>with two groups, we usually apply the general linear model with <span class="in">`lm()`</span></span>
+<span id="cb28-78"><a href="#cb28-78" aria-hidden="true" tabindex="-1"></a>and *then* check the assumptions, however, we can sometimes tell when a</span>
+<span id="cb28-79"><a href="#cb28-79" aria-hidden="true" tabindex="-1"></a>non-parametric test would be more appropriate before that:</span>
+<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use common sense - the response should be continuous (or nearly</span>
+<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a>    continuous, see [Ideas about data: Theory and</span>
+<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a>    practice](ideas_about_data.html#theory-and-practice)). Consider</span>
+<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>    whether you would expect the response to be continuous.</span>
+<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>We expect decimal places and few repeated values.</span>
+<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a>To examine the assumptions after fitting the linear model, we plot the</span>
+<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a>residuals and test them against the normal distribution in the same way</span>
+<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a>as we did for single linear regression.</span>
+<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reporting</span></span>
+<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-94"><a href="#cb28-94" aria-hidden="true" tabindex="-1"></a>In reporting the result of two-sample test we give:</span>
+<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>the significance of effect - whether there is there a difference</span>
+<span id="cb28-97"><a href="#cb28-97" aria-hidden="true" tabindex="-1"></a>    between the groups</span>
+<span id="cb28-98"><a href="#cb28-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>parametric: whether there is there a difference between the</span>
+<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a>        groups means</span>
+<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>non-parametric: whether there is there a difference between the</span>
+<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a>        group medians</span>
+<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>the direction of effect - which of the means/medians is greater</span>
+<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>the magnitude of effect - how big is the difference between the</span>
+<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a>    means/medians</span>
+<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>parametric: the means and standard errors for each group or the</span>
+<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a>        mean difference for paired samples</span>
+<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>non-parametric: the medians for each group or the median</span>
+<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a>        difference for paired samples</span>
+<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-114"><a href="#cb28-114" aria-hidden="true" tabindex="-1"></a>Figures should reflect what you have said in the statements. Ideally</span>
+<span id="cb28-115"><a href="#cb28-115" aria-hidden="true" tabindex="-1"></a>they should show both the raw data and the statistical model:</span>
+<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>parametric: means and standard errors</span>
+<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>non-parametric: boxplots with medians and interquartile range</span>
+<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a>We will explore all of these ideas with some examples.</span>
+<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎬 Your turn!</span></span>
+<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a>If you want to code along you will need to start a new [RStudio</span>
+<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a>project](workflow_rstudio.html#rstudio-projects), add a <span class="in">`data-raw`</span></span>
+<span id="cb28-126"><a href="#cb28-126" aria-hidden="true" tabindex="-1"></a>folder and open a new script. You will also need to load the</span>
+<span id="cb28-127"><a href="#cb28-127" aria-hidden="true" tabindex="-1"></a>**`tidyverse`** package <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two independent samples, parametric</span></span>
+<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a>A number of [subspecies of the common chaffinch, *Fringilla</span>
+<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a>coelebs*](https://en.wikipedia.org/wiki/Common_chaffinch), have been</span>
+<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a>described based principally on the differences in the pattern and colour</span>
+<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a>of the adult male plumage <span class="co">[</span><span class="ot">@suárez2009</span><span class="co">]</span>. Two of groups of these</span>
+<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a>subspecies are:</span>
+<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the "coelebs group" (@fig-coelebs) that occurs in Europe and Asia</span>
+<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the "canariensis group" (@fig-canariensis) that occurs on the Canary</span>
+<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a>    Islands.</span>
+<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a>::: {#fig-subspecies layout-ncol="2"}</span>
+<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a>![*F. c.</span>
+<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a>coelebs*](images/512px-Chaffinch_(Fringilla_coelebs).jpg){#fig-coelebs}</span>
+<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a>![*F. c.</span>
+<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a>palmae*](images/512px-Fringilla_coelebs_palmae_-_Los_Tilos.jpg){#fig-canariensis}</span>
+<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a>Adult male *Fringilla coelebs* of the coelebs group on the left (Andreas</span>
+<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a>Trepte, CC BY-SA 2.5 <span class="ot">&lt;https://creativecommons.org/licenses/by-sa/2.5&gt;</span>,</span>
+<span id="cb28-150"><a href="#cb28-150" aria-hidden="true" tabindex="-1"></a>via Wikimedia Commons) and of the canariensis group on the right (H.</span>
+<span id="cb28-151"><a href="#cb28-151" aria-hidden="true" tabindex="-1"></a>Zell, CC BY-SA 3.0 <span class="ot">&lt;https://creativecommons.org/licenses/by-sa/3.0&gt;</span>, via</span>
+<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a>Wikimedia Commons).</span>
+<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a>The data in <span class="co">[</span><span class="ot">chaff.txt</span><span class="co">](data-raw/chaff.txt)</span> give the masses of twenty</span>
+<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a>individuals from each subspecies. We want to know if the subspecies</span>
+<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a>differ in mass. These groups are independent - there is no link between</span>
+<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a>values in one group and any value in the other group. In this scenario</span>
+<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a>our null hypothesis, $H_0$, is that there is no difference between the</span>
+<span id="cb28-160"><a href="#cb28-160" aria-hidden="true" tabindex="-1"></a>two subspecies in mass or that subspecies has no effect on mass. This is</span>
+<span id="cb28-161"><a href="#cb28-161" aria-hidden="true" tabindex="-1"></a>written as: $H_0: \beta_1 = 0$.</span>
+<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import and explore</span></span>
+<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a>Import the data:</span>
+<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a>chaff <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"data-raw/chaff.txt"</span>)</span>
+<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-175"><a href="#cb28-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-176"><a href="#cb28-176" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(chaff) <span class="sc">|&gt;</span> </span>
+<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"200px"</span>)</span>
+<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a>These data are in tidy format <span class="co">[</span><span class="ot">@Wickham2014-nl</span><span class="co">]</span> - all the mass values</span>
+<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a>are in one column with another column indicating the subspecies. This</span>
+<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a>means they are well formatted for analysis and plotting.</span>
+<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a>In the first instance, it is always sensible to create a rough plot of</span>
+<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a>our data. This is to give us an overview and help identify if there are</span>
+<span id="cb28-189"><a href="#cb28-189" aria-hidden="true" tabindex="-1"></a>any issues like missing or extreme values. It also gives us idea what we</span>
+<span id="cb28-190"><a href="#cb28-190" aria-hidden="true" tabindex="-1"></a>are expecting from the analysis which will make it easier for us to</span>
+<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a>identify if we make some mistake in applying that analysis.</span>
+<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a>Violin plots (<span class="in">`geom_violin()`</span>), box plots (<span class="in">`geom_boxplot()`</span>, see</span>
+<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a>@fig-chaff-rough) or scatter plots (<span class="in">`geom_point()`</span>) all make good</span>
+<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a>choices for exploratory plotting and it does not matter which of these</span>
+<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a>you choose.</span>
+<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-chaff-rough</span></span>
+<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "The mass of two subspecies of chaffinch. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."</span></span>
+<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-204"><a href="#cb28-204" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> chaff,</span>
+<span id="cb28-205"><a href="#cb28-205" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> subspecies, <span class="at">y =</span> mass)) <span class="sc">+</span></span>
+<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a>R will order the groups alphabetically by default.</span>
+<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a>The figure suggests that the canariensis group is heavier than the</span>
+<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a>coelebs group.</span>
+<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-214"><a href="#cb28-214" aria-hidden="true" tabindex="-1"></a>Summarising the data for each subspecies group is the next sensible</span>
+<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a>step. The most useful summary statistics are the means, standard</span>
+<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a>deviations, sample sizes and standard errors. I recommend the</span>
+<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a><span class="in">`group_by()`</span> and <span class="in">`summarise()`</span> approach:</span>
+<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-222"><a href="#cb28-222" aria-hidden="true" tabindex="-1"></a>chaff_summary <span class="ot">&lt;-</span> chaff <span class="sc">|&gt;</span> </span>
+<span id="cb28-223"><a href="#cb28-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subspecies) <span class="sc">|&gt;</span> </span>
+<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mass),</span>
+<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(mass),</span>
+<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(mass),</span>
+<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> std<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a>We have save the results to <span class="in">`chaff_summary`</span> so that we can use the means</span>
+<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a>and standard errors in our plot later.</span>
+<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a>chaff_summary</span>
+<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a><span class="fu">### Apply `lm()`</span></span>
+<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-241"><a href="#cb28-241" aria-hidden="true" tabindex="-1"></a>We can create a two-sample model like this:</span>
+<span id="cb28-242"><a href="#cb28-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> chaff, mass <span class="sc">~</span> subspecies)</span>
+<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a>And examine the model with:</span>
+<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a>The Estimates in the Coefficients table give:</span>
+<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`(Intercept)`</span> known as $\beta_0$. The mean of the canariensis group</span>
+<span id="cb28-260"><a href="#cb28-260" aria-hidden="true" tabindex="-1"></a>    (@fig-two-sample-lm-model). Just as the intercept is the value of</span>
+<span id="cb28-261"><a href="#cb28-261" aria-hidden="true" tabindex="-1"></a>    the *y* (the response) when the value of *x* (the explanatory) is</span>
+<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a>    zero in a simple linear regression, this is the value of <span class="in">`mass`</span> when</span>
+<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a>    the <span class="in">`subspecies`</span> is at its first level. The order of the levels is</span>
+<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a>    alphabetical by default.</span>
+<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`subspeciescoelebs`</span>, known as $\beta_1$, is what needs to be added</span>
+<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a>    to the mean of the canariensis group to get the mean of the coelebs</span>
+<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a>    group (@fig-two-sample-lm-model). Just as the slope is amount of *y*</span>
+<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a>    that needs to be added for each unit of *x* in a simple linear</span>
+<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a>    regression, this is the amount of <span class="in">`mass`</span> that needs to be added when</span>
+<span id="cb28-271"><a href="#cb28-271" aria-hidden="true" tabindex="-1"></a>    the <span class="in">`subspecies`</span> goes from its first level to its second level</span>
+<span id="cb28-272"><a href="#cb28-272" aria-hidden="true" tabindex="-1"></a>    (*i.e.*, one unit). The <span class="in">`subspeciescoelebs`</span> estimate is negative so</span>
+<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a>    the the coelebs group mean is lower than the canariensis group mean</span>
+<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a>The *p*-values on each line are tests of whether that coefficient is</span>
+<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a>different from zero. Thus it is:</span>
+<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a><span class="in">`subspeciescoelebs  -1.7950     0.6781  -2.647   0.0118 *`</span></span>
+<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>that tells us the difference between the means is significant.</span>
+<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a>The *F* value and *p*-value in the last line are a test of whether the</span>
+<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a>model as a whole explains a significant amount of variation in the</span>
+<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a>response variable. For a two-sample test, just like a regression, this</span>
+<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a>is exactly equivalent to the test of the slope against zero and the two</span>
+<span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a>*p*-values will be the same.</span>
+<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-290"><a href="#cb28-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-two-sample-lm-model</span></span>
+<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the 'slope' which is what has to added to the intercept to get the second group mean. Note that y axis starts at 15 to create more space for the annotations."</span></span>
+<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> chaff_summary, </span>
+<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> subspecies, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean), </span>
+<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a>                <span class="at">colour =</span> pal3[<span class="dv">1</span>], <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb28-298"><a href="#cb28-298" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), </span>
+<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">30</span>),</span>
+<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">"Mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.8</span>,</span>
+<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> <span class="sc">-</span><span class="cn">Inf</span>,</span>
+<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span>,</span>
+<span id="cb28-306"><a href="#cb28-306" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>]),</span>
+<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> pal3[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb28-308"><a href="#cb28-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">1.1</span>, </span>
+<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">4</span>,</span>
+<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"Intercept (β0) is mean of</span><span class="sc">\n</span><span class="st">{ chaff_summary$subspecies[1] }: { mod$coefficients[1] |&gt; round(2) }"</span>), </span>
+<span id="cb28-312"><a href="#cb28-312" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal3[<span class="dv">2</span>],</span>
+<span id="cb28-313"><a href="#cb28-313" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb28-314"><a href="#cb28-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.5</span>,</span>
+<span id="cb28-315"><a href="#cb28-315" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> <span class="fl">1.5</span>,</span>
+<span id="cb28-316"><a href="#cb28-316" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>],</span>
+<span id="cb28-317"><a href="#cb28-317" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod<span class="sc">$</span>coefficients[<span class="dv">2</span>]),</span>
+<span id="cb28-318"><a href="#cb28-318" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> pal3[<span class="dv">3</span>],</span>
+<span id="cb28-319"><a href="#cb28-319" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.03</span>, <span class="st">"npc"</span>), </span>
+<span id="cb28-320"><a href="#cb28-320" aria-hidden="true" tabindex="-1"></a>                             <span class="at">ends =</span> <span class="st">"both"</span>)) <span class="sc">+</span></span>
+<span id="cb28-321"><a href="#cb28-321" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.7</span>,</span>
+<span id="cb28-322"><a href="#cb28-322" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> <span class="fl">1.5</span>,</span>
+<span id="cb28-323"><a href="#cb28-323" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span>,</span>
+<span id="cb28-324"><a href="#cb28-324" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb28-325"><a href="#cb28-325" aria-hidden="true" tabindex="-1"></a>               <span class="at">colour =</span> pal3[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb28-326"><a href="#cb28-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb28-327"><a href="#cb28-327" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="dv">2</span>, </span>
+<span id="cb28-328"><a href="#cb28-328" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">5</span>,</span>
+<span id="cb28-329"><a href="#cb28-329" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"subspeciescoelebs (β1) is the</span><span class="sc">\n</span><span class="st">difference between mean of</span><span class="sc">\n</span><span class="st">{ chaff_summary$subspecies[1] } and { chaff_summary$subspecies[2] }: { mod$coefficients[2] |&gt; round(2) }"</span>), </span>
+<span id="cb28-330"><a href="#cb28-330" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal3[<span class="dv">2</span>],</span>
+<span id="cb28-331"><a href="#cb28-331" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb28-332"><a href="#cb28-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb28-333"><a href="#cb28-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-334"><a href="#cb28-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-335"><a href="#cb28-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-336"><a href="#cb28-336" aria-hidden="true" tabindex="-1"></a><span class="fu">### Check assumptions</span></span>
+<span id="cb28-337"><a href="#cb28-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-338"><a href="#cb28-338" aria-hidden="true" tabindex="-1"></a>Check the assumptions: All general linear models assume the "residuals"</span>
+<span id="cb28-339"><a href="#cb28-339" aria-hidden="true" tabindex="-1"></a>are normally distributed and have "homogeneity" of variance.</span>
+<span id="cb28-340"><a href="#cb28-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-341"><a href="#cb28-341" aria-hidden="true" tabindex="-1"></a>Our first check of these assumptions is to use common sense: mass is a</span>
+<span id="cb28-342"><a href="#cb28-342" aria-hidden="true" tabindex="-1"></a>continuous variable and we would expect it to be normally distributed</span>
+<span id="cb28-343"><a href="#cb28-343" aria-hidden="true" tabindex="-1"></a>thus we would also expect the residuals to be normally distributed.</span>
+<span id="cb28-344"><a href="#cb28-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-345"><a href="#cb28-345" aria-hidden="true" tabindex="-1"></a>We then plot the residuals. The <span class="in">`plot()`</span> function can be used to plot</span>
+<span id="cb28-346"><a href="#cb28-346" aria-hidden="true" tabindex="-1"></a>the residuals against the fitted values (See @fig-lm-plot1). This is a</span>
+<span id="cb28-347"><a href="#cb28-347" aria-hidden="true" tabindex="-1"></a>good way to check for homogeneity of variance.</span>
+<span id="cb28-348"><a href="#cb28-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-351"><a href="#cb28-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-352"><a href="#cb28-352" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-lm-plot1</span></span>
+<span id="cb28-353"><a href="#cb28-353" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A plot of the residuals against the fitted values shows the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance."</span></span>
+<span id="cb28-354"><a href="#cb28-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-355"><a href="#cb28-355" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb28-356"><a href="#cb28-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-357"><a href="#cb28-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-358"><a href="#cb28-358" aria-hidden="true" tabindex="-1"></a>We can also use a histogram to check for normality (See @fig-lm-plot2).</span>
+<span id="cb28-359"><a href="#cb28-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-362"><a href="#cb28-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-363"><a href="#cb28-363" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-lm-plot2</span></span>
+<span id="cb28-364"><a href="#cb28-364" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."</span></span>
+<span id="cb28-365"><a href="#cb28-365" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mod<span class="sc">$</span>residuals)) <span class="sc">+</span> </span>
+<span id="cb28-366"><a href="#cb28-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)</span>
+<span id="cb28-367"><a href="#cb28-367" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-368"><a href="#cb28-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-369"><a href="#cb28-369" aria-hidden="true" tabindex="-1"></a>Finally, we can use the Shapiro-Wilk test to test for normality.</span>
+<span id="cb28-370"><a href="#cb28-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-373"><a href="#cb28-373" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-374"><a href="#cb28-374" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mod<span class="sc">$</span>residuals)</span>
+<span id="cb28-375"><a href="#cb28-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-376"><a href="#cb28-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-377"><a href="#cb28-377" aria-hidden="true" tabindex="-1"></a>The p-value is greater than 0.05 so this test of the normality</span>
+<span id="cb28-378"><a href="#cb28-378" aria-hidden="true" tabindex="-1"></a>assumption is not significant.</span>
+<span id="cb28-379"><a href="#cb28-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-380"><a href="#cb28-380" aria-hidden="true" tabindex="-1"></a>Taken together, these results suggest that the assumptions of normality</span>
+<span id="cb28-381"><a href="#cb28-381" aria-hidden="true" tabindex="-1"></a>and homogeneity of variance are not violated.</span>
+<span id="cb28-382"><a href="#cb28-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-383"><a href="#cb28-383" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb28-384"><a href="#cb28-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-385"><a href="#cb28-385" aria-hidden="true" tabindex="-1"></a>Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) were</span>
+<span id="cb28-386"><a href="#cb28-386" aria-hidden="true" tabindex="-1"></a>significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65;</span>
+<span id="cb28-387"><a href="#cb28-387" aria-hidden="true" tabindex="-1"></a>*d.f.* = 38; *p* = 0.012). See @fig-chaff.</span>
+<span id="cb28-388"><a href="#cb28-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-389"><a href="#cb28-389" aria-hidden="true" tabindex="-1"></a>::: {#fig-chaff}</span>
+<span id="cb28-392"><a href="#cb28-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-393"><a href="#cb28-393" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb28-394"><a href="#cb28-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-395"><a href="#cb28-395" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb28-396"><a href="#cb28-396" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> chaff, <span class="fu">aes</span>(<span class="at">x =</span> subspecies, <span class="at">y =</span> mass),</span>
+<span id="cb28-397"><a href="#cb28-397" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb28-398"><a href="#cb28-398" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb28-399"><a href="#cb28-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> chaff_summary, </span>
+<span id="cb28-400"><a href="#cb28-400" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> subspecies, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb28-401"><a href="#cb28-401" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb28-402"><a href="#cb28-402" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> chaff_summary, </span>
+<span id="cb28-403"><a href="#cb28-403" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> subspecies, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean),</span>
+<span id="cb28-404"><a href="#cb28-404" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb28-405"><a href="#cb28-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Mass (g)"</span>, </span>
+<span id="cb28-406"><a href="#cb28-406" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>), </span>
+<span id="cb28-407"><a href="#cb28-407" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb28-408"><a href="#cb28-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Subspecies"</span>, </span>
+<span id="cb28-409"><a href="#cb28-409" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Canariensis"</span>, <span class="st">"Coelebs"</span>)) <span class="sc">+</span></span>
+<span id="cb28-410"><a href="#cb28-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="dv">2</span>, </span>
+<span id="cb28-411"><a href="#cb28-411" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">28</span>, <span class="at">yend =</span> <span class="dv">28</span>,</span>
+<span id="cb28-412"><a href="#cb28-412" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb28-413"><a href="#cb28-413" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">29</span>, </span>
+<span id="cb28-414"><a href="#cb28-414" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">expression</span>(<span class="fu">italic</span>(p)<span class="sc">~</span><span class="st">"= 0.012"</span>)) <span class="sc">+</span></span>
+<span id="cb28-415"><a href="#cb28-415" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb28-416"><a href="#cb28-416" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-417"><a href="#cb28-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-418"><a href="#cb28-418" aria-hidden="true" tabindex="-1"></a>**Canariensis chaffinches are heavier than Coelebs chaffinches**. The</span>
+<span id="cb28-419"><a href="#cb28-419" aria-hidden="true" tabindex="-1"></a>mean mass of 20 randomly sampled males from each subspecies was</span>
+<span id="cb28-420"><a href="#cb28-420" aria-hidden="true" tabindex="-1"></a>determined. Error bars are $\pm$ 1 standard error. Canariensis</span>
+<span id="cb28-421"><a href="#cb28-421" aria-hidden="true" tabindex="-1"></a>chaffinches were significantly heavier than Coelebs (*t* = 2.65; *d.f.*</span>
+<span id="cb28-422"><a href="#cb28-422" aria-hidden="true" tabindex="-1"></a>= 38; *p* = 0.012). Data analysis was conducted in R <span class="co">[</span><span class="ot">@R-core</span><span class="co">]</span> with</span>
+<span id="cb28-423"><a href="#cb28-423" aria-hidden="true" tabindex="-1"></a>tidyverse packages <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb28-424"><a href="#cb28-424" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-425"><a href="#cb28-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-426"><a href="#cb28-426" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two independent samples, non-parametric</span></span>
+<span id="cb28-427"><a href="#cb28-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-428"><a href="#cb28-428" aria-hidden="true" tabindex="-1"></a>The non-parametric equivalent of the linear model with two independent</span>
+<span id="cb28-429"><a href="#cb28-429" aria-hidden="true" tabindex="-1"></a>samples is the "Wilcoxon rank sum test" <span class="co">[</span><span class="ot">@wilcoxon1945</span><span class="co">]</span>. It is commonly</span>
+<span id="cb28-430"><a href="#cb28-430" aria-hidden="true" tabindex="-1"></a>also known as the Mann-Whitney or Wilcoxon–Mann–Whitney.</span>
+<span id="cb28-431"><a href="#cb28-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-432"><a href="#cb28-432" aria-hidden="true" tabindex="-1"></a>The general question you have about your data - are these two groups</span>
+<span id="cb28-433"><a href="#cb28-433" aria-hidden="true" tabindex="-1"></a>different - is the same, but one of more of the following is true:</span>
+<span id="cb28-434"><a href="#cb28-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-435"><a href="#cb28-435" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the response variable is not continuous</span>
+<span id="cb28-436"><a href="#cb28-436" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the residuals are not normally distributed</span>
+<span id="cb28-437"><a href="#cb28-437" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the sample size is too small to tell if they are normally</span>
+<span id="cb28-438"><a href="#cb28-438" aria-hidden="true" tabindex="-1"></a>    distributed.</span>
+<span id="cb28-439"><a href="#cb28-439" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the variance is not homogeneous</span>
+<span id="cb28-440"><a href="#cb28-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-441"><a href="#cb28-441" aria-hidden="true" tabindex="-1"></a>The test is a applied in R with the <span class="in">`wilcox.test()`</span> function.</span>
+<span id="cb28-442"><a href="#cb28-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-443"><a href="#cb28-443" aria-hidden="true" tabindex="-1"></a>The data in <span class="co">[</span><span class="ot">arabidopsis.txt</span><span class="co">](data-raw/arabidopsis.txt)</span> give the number</span>
+<span id="cb28-444"><a href="#cb28-444" aria-hidden="true" tabindex="-1"></a>of leaves on eight wildtype and eight mutant *Arabidopsis thaliana*</span>
+<span id="cb28-445"><a href="#cb28-445" aria-hidden="true" tabindex="-1"></a>plants. We want to know if the two types of plants have differing</span>
+<span id="cb28-446"><a href="#cb28-446" aria-hidden="true" tabindex="-1"></a>numbers of leaves. These are counts, so they are not continuous and the</span>
+<span id="cb28-447"><a href="#cb28-447" aria-hidden="true" tabindex="-1"></a>sample sizes are quite small. A non-parametric test is a safer option.</span>
+<span id="cb28-448"><a href="#cb28-448" aria-hidden="true" tabindex="-1"></a>In this scenario our null hypothesis, $H_0$, is that there is no</span>
+<span id="cb28-449"><a href="#cb28-449" aria-hidden="true" tabindex="-1"></a>difference between the two types of plant in the number of leaves.</span>
+<span id="cb28-450"><a href="#cb28-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-451"><a href="#cb28-451" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import and explore</span></span>
+<span id="cb28-452"><a href="#cb28-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-455"><a href="#cb28-455" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-456"><a href="#cb28-456" aria-hidden="true" tabindex="-1"></a>arabidopsis <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"data-raw/arabidopsis.txt"</span>)</span>
+<span id="cb28-457"><a href="#cb28-457" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-458"><a href="#cb28-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-459"><a href="#cb28-459" aria-hidden="true" tabindex="-1"></a>These data are in tidy format <span class="co">[</span><span class="ot">@Wickham2014-nl</span><span class="co">]</span> - the numbers of leaves</span>
+<span id="cb28-460"><a href="#cb28-460" aria-hidden="true" tabindex="-1"></a>are in one column with another column indicating whether the observation</span>
+<span id="cb28-461"><a href="#cb28-461" aria-hidden="true" tabindex="-1"></a>comes from a wildtype or mutant *Arabidopsis*. This means they are well</span>
+<span id="cb28-462"><a href="#cb28-462" aria-hidden="true" tabindex="-1"></a>formatted for analysis and plotting.</span>
+<span id="cb28-463"><a href="#cb28-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-464"><a href="#cb28-464" aria-hidden="true" tabindex="-1"></a>Create a quick plot of the data:</span>
+<span id="cb28-465"><a href="#cb28-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-468"><a href="#cb28-468" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-469"><a href="#cb28-469" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-arabid-rough</span></span>
+<span id="cb28-470"><a href="#cb28-470" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "The number of leaves on mutant and wildtype plants. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."</span></span>
+<span id="cb28-471"><a href="#cb28-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-472"><a href="#cb28-472" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> arabidopsis, </span>
+<span id="cb28-473"><a href="#cb28-473" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> leaves)) <span class="sc">+</span></span>
+<span id="cb28-474"><a href="#cb28-474" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb28-475"><a href="#cb28-475" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-476"><a href="#cb28-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-477"><a href="#cb28-477" aria-hidden="true" tabindex="-1"></a>Our rough plot shows that the mutant plants have fewer leaves than the</span>
+<span id="cb28-478"><a href="#cb28-478" aria-hidden="true" tabindex="-1"></a>wildtype plants.</span>
+<span id="cb28-479"><a href="#cb28-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-480"><a href="#cb28-480" aria-hidden="true" tabindex="-1"></a>Summarising the data using the median and interquartile range is more</span>
+<span id="cb28-481"><a href="#cb28-481" aria-hidden="true" tabindex="-1"></a>aligned to the type of data and the type of analysis than using means</span>
+<span id="cb28-482"><a href="#cb28-482" aria-hidden="true" tabindex="-1"></a>and standard deviations:</span>
+<span id="cb28-483"><a href="#cb28-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-486"><a href="#cb28-486" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-487"><a href="#cb28-487" aria-hidden="true" tabindex="-1"></a>arabidopsis_summary <span class="ot">&lt;-</span> arabidopsis <span class="sc">|&gt;</span> </span>
+<span id="cb28-488"><a href="#cb28-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">|&gt;</span> </span>
+<span id="cb28-489"><a href="#cb28-489" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">median =</span> <span class="fu">median</span>(leaves),</span>
+<span id="cb28-490"><a href="#cb28-490" aria-hidden="true" tabindex="-1"></a>            <span class="at">interquartile  =</span> <span class="fu">IQR</span>(leaves),</span>
+<span id="cb28-491"><a href="#cb28-491" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(leaves))</span>
+<span id="cb28-492"><a href="#cb28-492" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-493"><a href="#cb28-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-494"><a href="#cb28-494" aria-hidden="true" tabindex="-1"></a>View the results:</span>
+<span id="cb28-495"><a href="#cb28-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-498"><a href="#cb28-498" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-499"><a href="#cb28-499" aria-hidden="true" tabindex="-1"></a>arabidopsis_summary</span>
+<span id="cb28-500"><a href="#cb28-500" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-501"><a href="#cb28-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-502"><a href="#cb28-502" aria-hidden="true" tabindex="-1"></a><span class="fu">### Apply `wilcox.test()`</span></span>
+<span id="cb28-503"><a href="#cb28-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-504"><a href="#cb28-504" aria-hidden="true" tabindex="-1"></a>We pass the dataframe and variables to <span class="in">`wilcox.test()`</span> in the same way</span>
+<span id="cb28-505"><a href="#cb28-505" aria-hidden="true" tabindex="-1"></a>as we did for <span class="in">`lm()`</span>. We give the data argument and a "formula" which</span>
+<span id="cb28-506"><a href="#cb28-506" aria-hidden="true" tabindex="-1"></a>says <span class="in">`leaves ~ type`</span> meaning "explain leaves by type".</span>
+<span id="cb28-507"><a href="#cb28-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-510"><a href="#cb28-510" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-511"><a href="#cb28-511" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(<span class="at">data =</span> arabidopsis, leaves <span class="sc">~</span> type)</span>
+<span id="cb28-512"><a href="#cb28-512" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-513"><a href="#cb28-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-514"><a href="#cb28-514" aria-hidden="true" tabindex="-1"></a>The warning message "Warning: cannot compute exact p-value with ties" is</span>
+<span id="cb28-515"><a href="#cb28-515" aria-hidden="true" tabindex="-1"></a>not something to worry about too much. It is a warning rather than an</span>
+<span id="cb28-516"><a href="#cb28-516" aria-hidden="true" tabindex="-1"></a>indication that your results are incorrect. It means the *p* -value is</span>
+<span id="cb28-517"><a href="#cb28-517" aria-hidden="true" tabindex="-1"></a>based on an approximation rather than being exact because there are ties</span>
+<span id="cb28-518"><a href="#cb28-518" aria-hidden="true" tabindex="-1"></a>(some values are the same).</span>
+<span id="cb28-519"><a href="#cb28-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-520"><a href="#cb28-520" aria-hidden="true" tabindex="-1"></a>The result of the test is given on this line:</span>
+<span id="cb28-521"><a href="#cb28-521" aria-hidden="true" tabindex="-1"></a><span class="in">`W = 5, p-value = 0.005051`</span>. <span class="in">`W`</span> is the test statistic. The *p*-value is</span>
+<span id="cb28-522"><a href="#cb28-522" aria-hidden="true" tabindex="-1"></a>less than 0.05 meaning there is a significant difference in the number</span>
+<span id="cb28-523"><a href="#cb28-523" aria-hidden="true" tabindex="-1"></a>of leaves on wildtype and mutant plants.</span>
+<span id="cb28-524"><a href="#cb28-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-525"><a href="#cb28-525" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb28-526"><a href="#cb28-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-527"><a href="#cb28-527" aria-hidden="true" tabindex="-1"></a>There are significantly more leaves on wildtype (median = 8.5) than</span>
+<span id="cb28-528"><a href="#cb28-528" aria-hidden="true" tabindex="-1"></a>mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8,</span>
+<span id="cb28-529"><a href="#cb28-529" aria-hidden="true" tabindex="-1"></a>$n_2$ = 8, *p* = 0.005). See @fig-arabid.</span>
+<span id="cb28-530"><a href="#cb28-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-531"><a href="#cb28-531" aria-hidden="true" tabindex="-1"></a>::: {#fig-arabid}</span>
+<span id="cb28-534"><a href="#cb28-534" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-535"><a href="#cb28-535" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb28-536"><a href="#cb28-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-537"><a href="#cb28-537" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> arabidopsis, </span>
+<span id="cb28-538"><a href="#cb28-538" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> leaves)) <span class="sc">+</span></span>
+<span id="cb28-539"><a href="#cb28-539" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb28-540"><a href="#cb28-540" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Number of leaves"</span>, </span>
+<span id="cb28-541"><a href="#cb28-541" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>), </span>
+<span id="cb28-542"><a href="#cb28-542" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb28-543"><a href="#cb28-543" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">""</span>, </span>
+<span id="cb28-544"><a href="#cb28-544" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Mutatnt"</span>, <span class="st">"Wildtype"</span>)) <span class="sc">+</span></span>
+<span id="cb28-545"><a href="#cb28-545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="dv">2</span>, </span>
+<span id="cb28-546"><a href="#cb28-546" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="fl">10.5</span>, <span class="at">yend =</span> <span class="fl">10.5</span>,</span>
+<span id="cb28-547"><a href="#cb28-547" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb28-548"><a href="#cb28-548" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">11</span>, </span>
+<span id="cb28-549"><a href="#cb28-549" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">expression</span>(<span class="fu">italic</span>(p)<span class="sc">~</span><span class="st">"= 0.005"</span>)) <span class="sc">+</span></span>
+<span id="cb28-550"><a href="#cb28-550" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb28-551"><a href="#cb28-551" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-552"><a href="#cb28-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-553"><a href="#cb28-553" aria-hidden="true" tabindex="-1"></a>**Mutant *Arabidopsis thaliana* have fewer leaves**. There are</span>
+<span id="cb28-554"><a href="#cb28-554" aria-hidden="true" tabindex="-1"></a>significantly more leaves on wildtype than mutant plants (Wilcoxon rank</span>
+<span id="cb28-555"><a href="#cb28-555" aria-hidden="true" tabindex="-1"></a>sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). The heavy lines</span>
+<span id="cb28-556"><a href="#cb28-556" aria-hidden="true" tabindex="-1"></a>indicate the median of leaves, boxes indicate the interquartile range</span>
+<span id="cb28-557"><a href="#cb28-557" aria-hidden="true" tabindex="-1"></a>and whiskers the range. Data analysis was conducted in R <span class="co">[</span><span class="ot">@R-core</span><span class="co">]</span> with</span>
+<span id="cb28-558"><a href="#cb28-558" aria-hidden="true" tabindex="-1"></a>tidyverse packages <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb28-559"><a href="#cb28-559" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-560"><a href="#cb28-560" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-561"><a href="#cb28-561" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two paired-samples, parametric</span></span>
+<span id="cb28-562"><a href="#cb28-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-563"><a href="#cb28-563" aria-hidden="true" tabindex="-1"></a>The data in <span class="co">[</span><span class="ot">marks.csv</span><span class="co">](data-raw/marks.csv)</span> give the marks for ten</span>
+<span id="cb28-564"><a href="#cb28-564" aria-hidden="true" tabindex="-1"></a>students in two subjects: Data Analysis and Biology. These data are</span>
+<span id="cb28-565"><a href="#cb28-565" aria-hidden="true" tabindex="-1"></a>paired because we have two marks from one student so that a mark in one</span>
+<span id="cb28-566"><a href="#cb28-566" aria-hidden="true" tabindex="-1"></a>group has a closer relationship with one of the marks in the other group</span>
+<span id="cb28-567"><a href="#cb28-567" aria-hidden="true" tabindex="-1"></a>than with any of the other values. We want to know if students do</span>
+<span id="cb28-568"><a href="#cb28-568" aria-hidden="true" tabindex="-1"></a>equally well in both subjects. In this scenario our null hypothesis,</span>
+<span id="cb28-569"><a href="#cb28-569" aria-hidden="true" tabindex="-1"></a>$H_0$, is that there is no difference between the Data Analysis and</span>
+<span id="cb28-570"><a href="#cb28-570" aria-hidden="true" tabindex="-1"></a>Biology marks for a student.</span>
+<span id="cb28-571"><a href="#cb28-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-572"><a href="#cb28-572" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import and explore</span></span>
+<span id="cb28-573"><a href="#cb28-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-574"><a href="#cb28-574" aria-hidden="true" tabindex="-1"></a>Import the data:</span>
+<span id="cb28-575"><a href="#cb28-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-578"><a href="#cb28-578" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-579"><a href="#cb28-579" aria-hidden="true" tabindex="-1"></a>marks <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/marks.csv"</span>)</span>
+<span id="cb28-580"><a href="#cb28-580" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-581"><a href="#cb28-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-582"><a href="#cb28-582" aria-hidden="true" tabindex="-1"></a>Since these data are paired, it makes sense to highlight how the marks</span>
+<span id="cb28-583"><a href="#cb28-583" aria-hidden="true" tabindex="-1"></a>differ for each student. One way of doing that is to draw a line linking</span>
+<span id="cb28-584"><a href="#cb28-584" aria-hidden="true" tabindex="-1"></a>their marks in each subject. This is known as a spaghetti plot. We can</span>
+<span id="cb28-585"><a href="#cb28-585" aria-hidden="true" tabindex="-1"></a>use two geoms: <span class="in">`geom_point()`</span> and <span class="in">`geom_line()`</span>. To join a student's</span>
+<span id="cb28-586"><a href="#cb28-586" aria-hidden="true" tabindex="-1"></a>marks, we need to set the <span class="in">`group`</span> aesthetic to</span>
+<span id="cb28-587"><a href="#cb28-587" aria-hidden="true" tabindex="-1"></a><span class="in">`student`</span>.<span class="ot">[^two_sample_tests-1]</span></span>
+<span id="cb28-588"><a href="#cb28-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-589"><a href="#cb28-589" aria-hidden="true" tabindex="-1"></a><span class="ot">[^two_sample_tests-1]: </span>You might like to try removing</span>
+<span id="cb28-590"><a href="#cb28-590" aria-hidden="true" tabindex="-1"></a>    <span class="in">`aes(group = student)`</span> to see what ggplot does when the lines are</span>
+<span id="cb28-591"><a href="#cb28-591" aria-hidden="true" tabindex="-1"></a>    *not* grouped by student.</span>
+<span id="cb28-592"><a href="#cb28-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-595"><a href="#cb28-595" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-596"><a href="#cb28-596" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> marks, <span class="fu">aes</span>(<span class="at">x =</span> subject, <span class="at">y =</span> mark)) <span class="sc">+</span></span>
+<span id="cb28-597"><a href="#cb28-597" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-598"><a href="#cb28-598" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> student))</span>
+<span id="cb28-599"><a href="#cb28-599" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-600"><a href="#cb28-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-601"><a href="#cb28-601" aria-hidden="true" tabindex="-1"></a>Summarise the data so that we can use the means in plots later:</span>
+<span id="cb28-602"><a href="#cb28-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-605"><a href="#cb28-605" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-606"><a href="#cb28-606" aria-hidden="true" tabindex="-1"></a>marks_summary <span class="ot">&lt;-</span> marks <span class="sc">|&gt;</span></span>
+<span id="cb28-607"><a href="#cb28-607" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subject) <span class="sc">|&gt;</span></span>
+<span id="cb28-608"><a href="#cb28-608" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(mark))</span>
+<span id="cb28-609"><a href="#cb28-609" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-610"><a href="#cb28-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-611"><a href="#cb28-611" aria-hidden="true" tabindex="-1"></a>A paired test requires us to into account the variation between</span>
+<span id="cb28-612"><a href="#cb28-612" aria-hidden="true" tabindex="-1"></a>students.</span>
+<span id="cb28-613"><a href="#cb28-613" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-614"><a href="#cb28-614" aria-hidden="true" tabindex="-1"></a><span class="fu">### Apply `lm()`</span></span>
+<span id="cb28-615"><a href="#cb28-615" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-616"><a href="#cb28-616" aria-hidden="true" tabindex="-1"></a>We can create a paired-sample model with the <span class="in">`lm()`</span></span>
+<span id="cb28-617"><a href="#cb28-617" aria-hidden="true" tabindex="-1"></a>function<span class="ot">[^two_sample_tests-2]</span> like this:</span>
+<span id="cb28-618"><a href="#cb28-618" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-619"><a href="#cb28-619" aria-hidden="true" tabindex="-1"></a><span class="ot">[^two_sample_tests-2]: </span>This is not the only way to apply a paired test.</span>
+<span id="cb28-620"><a href="#cb28-620" aria-hidden="true" tabindex="-1"></a>    When there are only two groups and no other explanatory variables,</span>
+<span id="cb28-621"><a href="#cb28-621" aria-hidden="true" tabindex="-1"></a>    we can use <span class="in">`t.test(data = marks, mark ~ subject, paired = TRUE)`</span>. A</span>
+<span id="cb28-622"><a href="#cb28-622" aria-hidden="true" tabindex="-1"></a>    more general method that works when you have two or more</span>
+<span id="cb28-623"><a href="#cb28-623" aria-hidden="true" tabindex="-1"></a>    non-independent values (e.g., more than two subjects) or additional</span>
+<span id="cb28-624"><a href="#cb28-624" aria-hidden="true" tabindex="-1"></a>    explanatory variables is to create a "linear mixed model" with</span>
+<span id="cb28-625"><a href="#cb28-625" aria-hidden="true" tabindex="-1"></a>    <span class="in">`lmer()`</span>.</span>
+<span id="cb28-626"><a href="#cb28-626" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-629"><a href="#cb28-629" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-630"><a href="#cb28-630" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(mark <span class="sc">~</span> subject <span class="sc">+</span> <span class="fu">factor</span>(student), <span class="at">data =</span> marks)</span>
+<span id="cb28-631"><a href="#cb28-631" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-632"><a href="#cb28-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-633"><a href="#cb28-633" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mark`</span> is the dependent variable (response).</span>
+<span id="cb28-634"><a href="#cb28-634" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`subject`</span> is the independent variable (explanatory factor).</span>
+<span id="cb28-635"><a href="#cb28-635" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`factor(student)`</span> accounts for the pairing by treating student as</span>
+<span id="cb28-636"><a href="#cb28-636" aria-hidden="true" tabindex="-1"></a>    another explanatory variable. We have used factor because the values</span>
+<span id="cb28-637"><a href="#cb28-637" aria-hidden="true" tabindex="-1"></a>    in students are the numbers 1 to 10 and we want <span class="in">`student`</span> to be</span>
+<span id="cb28-638"><a href="#cb28-638" aria-hidden="true" tabindex="-1"></a>    treated as a category not a number</span>
+<span id="cb28-639"><a href="#cb28-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-642"><a href="#cb28-642" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-643"><a href="#cb28-643" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb28-644"><a href="#cb28-644" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-645"><a href="#cb28-645" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-646"><a href="#cb28-646" aria-hidden="true" tabindex="-1"></a>The coefficient for <span class="in">`(Intercept)`</span> gives the mean Biology mark and that</span>
+<span id="cb28-647"><a href="#cb28-647" aria-hidden="true" tabindex="-1"></a>for <span class="in">`subjectDataAnalysis`</span> is amount that the Data Analysis mark are</span>
+<span id="cb28-648"><a href="#cb28-648" aria-hidden="true" tabindex="-1"></a>above Biology marks in general. The *p*-value tests whether this</span>
+<span id="cb28-649"><a href="#cb28-649" aria-hidden="true" tabindex="-1"></a>difference is significantly different from zero. The rest of the output</span>
+<span id="cb28-650"><a href="#cb28-650" aria-hidden="true" tabindex="-1"></a>considers how students differ. You can ignore this here.</span>
+<span id="cb28-651"><a href="#cb28-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-652"><a href="#cb28-652" aria-hidden="true" tabindex="-1"></a>If you find this a bit overwhelming to read you can use the <span class="in">`anova()`</span></span>
+<span id="cb28-653"><a href="#cb28-653" aria-hidden="true" tabindex="-1"></a>function on the model object to get a simpler output:</span>
+<span id="cb28-654"><a href="#cb28-654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-657"><a href="#cb28-657" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-658"><a href="#cb28-658" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span>
+<span id="cb28-659"><a href="#cb28-659" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-660"><a href="#cb28-660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-661"><a href="#cb28-661" aria-hidden="true" tabindex="-1"></a>You will notice that the *p*-value for subject is the same. The test</span>
+<span id="cb28-662"><a href="#cb28-662" aria-hidden="true" tabindex="-1"></a>statistic, $F$ has a value of </span>
+<span id="cb28-663"><a href="#cb28-663" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(anova(mod)$F[1],2)`</span> </span>
+<span id="cb28-664"><a href="#cb28-664" aria-hidden="true" tabindex="-1"></a>and degrees of freedom of </span>
+<span id="cb28-665"><a href="#cb28-665" aria-hidden="true" tabindex="-1"></a><span class="in">`r broom::tidy(anova(mod))$df[1]`</span> </span>
+<span id="cb28-666"><a href="#cb28-666" aria-hidden="true" tabindex="-1"></a>and</span>
+<span id="cb28-667"><a href="#cb28-667" aria-hidden="true" tabindex="-1"></a><span class="in">`r broom::tidy(anova(mod))$df[3]`</span>.</span>
+<span id="cb28-668"><a href="#cb28-668" aria-hidden="true" tabindex="-1"></a>This would be written as $F = $</span>
+<span id="cb28-669"><a href="#cb28-669" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(anova(mod)$F[1],2)`</span> ; </span>
+<span id="cb28-670"><a href="#cb28-670" aria-hidden="true" tabindex="-1"></a>$d.f.= $</span>
+<span id="cb28-671"><a href="#cb28-671" aria-hidden="true" tabindex="-1"></a><span class="in">`r broom::tidy(anova(mod))$df[1]`</span>, <span class="in">`r broom::tidy(anova(mod))$df[3]`</span>;</span>
+<span id="cb28-672"><a href="#cb28-672" aria-hidden="true" tabindex="-1"></a>$p = $</span>
+<span id="cb28-673"><a href="#cb28-673" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(broom::tidy(anova(mod))$p.value[1], 3)`</span> .</span>
+<span id="cb28-674"><a href="#cb28-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-675"><a href="#cb28-675" aria-hidden="true" tabindex="-1"></a><span class="fu">### Check assumptions</span></span>
+<span id="cb28-676"><a href="#cb28-676" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-677"><a href="#cb28-677" aria-hidden="true" tabindex="-1"></a>We might expect marks to be normally distributed. However, this is a</span>
+<span id="cb28-678"><a href="#cb28-678" aria-hidden="true" tabindex="-1"></a>very small sample, and choosing a non-parametric test instead would be</span>
+<span id="cb28-679"><a href="#cb28-679" aria-hidden="true" tabindex="-1"></a>reasonable. However, we will continue with this example to demonstrate</span>
+<span id="cb28-680"><a href="#cb28-680" aria-hidden="true" tabindex="-1"></a>how to interpret and report on the result of a parametric paired-samples</span>
+<span id="cb28-681"><a href="#cb28-681" aria-hidden="true" tabindex="-1"></a>test (paired-samples *t*-test).</span>
+<span id="cb28-682"><a href="#cb28-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-683"><a href="#cb28-683" aria-hidden="true" tabindex="-1"></a>A plot the residuals against the fitted values (<span class="in">`plot(mod, which = 1)`</span>)</span>
+<span id="cb28-684"><a href="#cb28-684" aria-hidden="true" tabindex="-1"></a>is not useful for a paired test. The normality of the residuals should</span>
+<span id="cb28-685"><a href="#cb28-685" aria-hidden="true" tabindex="-1"></a>be checked.</span>
+<span id="cb28-686"><a href="#cb28-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-689"><a href="#cb28-689" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-690"><a href="#cb28-690" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mod<span class="sc">$</span>residuals)) <span class="sc">+</span></span>
+<span id="cb28-691"><a href="#cb28-691" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">3</span>)</span>
+<span id="cb28-692"><a href="#cb28-692" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-693"><a href="#cb28-693" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-694"><a href="#cb28-694" aria-hidden="true" tabindex="-1"></a>We only have 10 values, so the distribution is never going to look</span>
+<span id="cb28-695"><a href="#cb28-695" aria-hidden="true" tabindex="-1"></a>smooth. We can't draw strong conclusions from this, but we do at least</span>
+<span id="cb28-696"><a href="#cb28-696" aria-hidden="true" tabindex="-1"></a>have a peak at 0. Similarly, a normality test is likely to be</span>
+<span id="cb28-697"><a href="#cb28-697" aria-hidden="true" tabindex="-1"></a>non-significant because of the small sample size, meaning the test is</span>
+<span id="cb28-698"><a href="#cb28-698" aria-hidden="true" tabindex="-1"></a>not very powerful. This means a non-significant result is not strong</span>
+<span id="cb28-699"><a href="#cb28-699" aria-hidden="true" tabindex="-1"></a>evidence of the residuals following a normal distribution:</span>
+<span id="cb28-700"><a href="#cb28-700" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-703"><a href="#cb28-703" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-704"><a href="#cb28-704" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mod<span class="sc">$</span>residuals)</span>
+<span id="cb28-705"><a href="#cb28-705" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-706"><a href="#cb28-706" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-707"><a href="#cb28-707" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb28-708"><a href="#cb28-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-709"><a href="#cb28-709" aria-hidden="true" tabindex="-1"></a>Individual students score significantly higher in Data Analysis than in</span>
+<span id="cb28-710"><a href="#cb28-710" aria-hidden="true" tabindex="-1"></a>Biology (*t* = 2.47; *d.f.* = 9; *p* = 0.0355) with an average</span>
+<span id="cb28-711"><a href="#cb28-711" aria-hidden="true" tabindex="-1"></a>difference of 7%. See @fig-marks</span>
+<span id="cb28-712"><a href="#cb28-712" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-713"><a href="#cb28-713" aria-hidden="true" tabindex="-1"></a>::: {#fig-marks}</span>
+<span id="cb28-716"><a href="#cb28-716" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-717"><a href="#cb28-717" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb28-718"><a href="#cb28-718" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-719"><a href="#cb28-719" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> marks, <span class="fu">aes</span>(<span class="at">x =</span> subject, <span class="at">y =</span> mark)) <span class="sc">+</span></span>
+<span id="cb28-720"><a href="#cb28-720" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">pch =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb28-721"><a href="#cb28-721" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> student), <span class="at">linetype =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb28-722"><a href="#cb28-722" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> marks_summary,</span>
+<span id="cb28-723"><a href="#cb28-723" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> subject, <span class="at">y =</span> mean),</span>
+<span id="cb28-724"><a href="#cb28-724" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb28-725"><a href="#cb28-725" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb28-726"><a href="#cb28-726" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Mark"</span>,</span>
+<span id="cb28-727"><a href="#cb28-727" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb28-728"><a href="#cb28-728" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">110</span>)) <span class="sc">+</span></span>
+<span id="cb28-729"><a href="#cb28-729" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">1</span>, <span class="at">xend =</span> <span class="dv">2</span>,</span>
+<span id="cb28-730"><a href="#cb28-730" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">105</span>, <span class="at">yend =</span> <span class="dv">105</span>,</span>
+<span id="cb28-731"><a href="#cb28-731" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb28-732"><a href="#cb28-732" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">108</span>,</span>
+<span id="cb28-733"><a href="#cb28-733" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">expression</span>(<span class="fu">italic</span>(p)<span class="sc">~</span><span class="st">"= 0.0355"</span>)) <span class="sc">+</span></span>
+<span id="cb28-734"><a href="#cb28-734" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb28-735"><a href="#cb28-735" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-736"><a href="#cb28-736" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-737"><a href="#cb28-737" aria-hidden="true" tabindex="-1"></a>**Students score higher in Data Analysis than in Biology**. Open circles</span>
+<span id="cb28-738"><a href="#cb28-738" aria-hidden="true" tabindex="-1"></a>indicate an individual student's marks in each subject with dashed lines</span>
+<span id="cb28-739"><a href="#cb28-739" aria-hidden="true" tabindex="-1"></a>joining their marks in each subject. The filled circles indicate the</span>
+<span id="cb28-740"><a href="#cb28-740" aria-hidden="true" tabindex="-1"></a>mean mark for each subject. Individual students score significantly</span>
+<span id="cb28-741"><a href="#cb28-741" aria-hidden="true" tabindex="-1"></a>higher in Data Analysis than in Biology (*t* = 2.47; *d.f.* = 9; *p* =</span>
+<span id="cb28-742"><a href="#cb28-742" aria-hidden="true" tabindex="-1"></a>0.0355) with an average difference of 7%. Data analysis was conducted in</span>
+<span id="cb28-743"><a href="#cb28-743" aria-hidden="true" tabindex="-1"></a>R <span class="co">[</span><span class="ot">@R-core</span><span class="co">]</span> with tidyverse packages <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb28-744"><a href="#cb28-744" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb28-745"><a href="#cb28-745" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-746"><a href="#cb28-746" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two paired-samples, non-parametric</span></span>
+<span id="cb28-747"><a href="#cb28-747" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-748"><a href="#cb28-748" aria-hidden="true" tabindex="-1"></a>We have the marks for just 10 students. This sample is too small for us</span>
+<span id="cb28-749"><a href="#cb28-749" aria-hidden="true" tabindex="-1"></a>to judge whether the marks are normally distributed. We will use a</span>
+<span id="cb28-750"><a href="#cb28-750" aria-hidden="true" tabindex="-1"></a>non-parametric test instead. The "Wilcoxon signed-rank" test is the</span>
+<span id="cb28-751"><a href="#cb28-751" aria-hidden="true" tabindex="-1"></a>non-parametric equivalent of the paired-samples *t*-test. This is often</span>
+<span id="cb28-752"><a href="#cb28-752" aria-hidden="true" tabindex="-1"></a>referred to as the paired-sample Wilcoxon test, or just the Wilcoxon</span>
+<span id="cb28-753"><a href="#cb28-753" aria-hidden="true" tabindex="-1"></a>test.</span>
+<span id="cb28-754"><a href="#cb28-754" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-755"><a href="#cb28-755" aria-hidden="true" tabindex="-1"></a>The test is also applied in R with the <span class="in">`wilcox.test()`</span> function but we</span>
+<span id="cb28-756"><a href="#cb28-756" aria-hidden="true" tabindex="-1"></a>add the <span class="in">`paired = TRUE`</span> argument. We also have to give the two datasets</span>
+<span id="cb28-757"><a href="#cb28-757" aria-hidden="true" tabindex="-1"></a>rather than using the "formula method" of <span class="in">`mark ~ subject`</span>. This means</span>
+<span id="cb28-758"><a href="#cb28-758" aria-hidden="true" tabindex="-1"></a>it is useful to pivot the data to "wide" format.</span>
+<span id="cb28-759"><a href="#cb28-759" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-760"><a href="#cb28-760" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pivot wider</span></span>
+<span id="cb28-761"><a href="#cb28-761" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-762"><a href="#cb28-762" aria-hidden="true" tabindex="-1"></a>Create a new dataframe marks_wide from marks:</span>
+<span id="cb28-763"><a href="#cb28-763" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-766"><a href="#cb28-766" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-767"><a href="#cb28-767" aria-hidden="true" tabindex="-1"></a>marks_wide <span class="ot">&lt;-</span> marks <span class="sc">|&gt;</span> </span>
+<span id="cb28-768"><a href="#cb28-768" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">values_from =</span> mark, </span>
+<span id="cb28-769"><a href="#cb28-769" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from =</span> subject, </span>
+<span id="cb28-770"><a href="#cb28-770" aria-hidden="true" tabindex="-1"></a>              <span class="at">id_cols =</span> student)</span>
+<span id="cb28-771"><a href="#cb28-771" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-772"><a href="#cb28-772" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-773"><a href="#cb28-773" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`values_from = mark`</span>: Uses the <span class="in">`mark`</span> column as values in the wide</span>
+<span id="cb28-774"><a href="#cb28-774" aria-hidden="true" tabindex="-1"></a>    format.</span>
+<span id="cb28-775"><a href="#cb28-775" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`names_from = subject`</span>: Creates new columns based on unique values</span>
+<span id="cb28-776"><a href="#cb28-776" aria-hidden="true" tabindex="-1"></a>    in <span class="in">`subject`</span></span>
+<span id="cb28-777"><a href="#cb28-777" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`id_cols = student`</span>: Keeps <span class="in">`student`</span> as the identifier (*i.e.*, each</span>
+<span id="cb28-778"><a href="#cb28-778" aria-hidden="true" tabindex="-1"></a>    row represents a student).</span>
+<span id="cb28-779"><a href="#cb28-779" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-780"><a href="#cb28-780" aria-hidden="true" tabindex="-1"></a><span class="fu">### Apply `wilcox.test()`</span></span>
+<span id="cb28-781"><a href="#cb28-781" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-782"><a href="#cb28-782" aria-hidden="true" tabindex="-1"></a>To apply a paired test with <span class="in">`wilcox.test()`</span> we need to use the wide</span>
+<span id="cb28-783"><a href="#cb28-783" aria-hidden="true" tabindex="-1"></a>format data (untidy) and add the <span class="in">`paired = TRUE`</span> argument:</span>
+<span id="cb28-784"><a href="#cb28-784" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-787"><a href="#cb28-787" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-788"><a href="#cb28-788" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(marks_wide<span class="sc">$</span>Biology, marks_wide<span class="sc">$</span>DataAnalysis, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-789"><a href="#cb28-789" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb28-790"><a href="#cb28-790" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-791"><a href="#cb28-791" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb28-792"><a href="#cb28-792" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-793"><a href="#cb28-793" aria-hidden="true" tabindex="-1"></a>Individual students score significantly higher in Data Analysis than in</span>
+<span id="cb28-794"><a href="#cb28-794" aria-hidden="true" tabindex="-1"></a>Biology (Wilcoxon signed rank test: *V* = 6.5; $n$ = 10; *p* = 0.036).</span>
+<span id="cb28-795"><a href="#cb28-795" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-796"><a href="#cb28-796" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb28-797"><a href="#cb28-797" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-798"><a href="#cb28-798" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>A linear model with one explanatory variable with two groups and one</span>
+<span id="cb28-799"><a href="#cb28-799" aria-hidden="true" tabindex="-1"></a>    continuous response is "a two-sample test".</span>
+<span id="cb28-800"><a href="#cb28-800" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-801"><a href="#cb28-801" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>If pairs of observations in the groups have something in common that</span>
+<span id="cb28-802"><a href="#cb28-802" aria-hidden="true" tabindex="-1"></a>    make them more similar to each other, than to other observations,</span>
+<span id="cb28-803"><a href="#cb28-803" aria-hidden="true" tabindex="-1"></a>    then those observations are not independent. A **paired-samples</span>
+<span id="cb28-804"><a href="#cb28-804" aria-hidden="true" tabindex="-1"></a>    test** is used when the observations are not independent.</span>
+<span id="cb28-805"><a href="#cb28-805" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-806"><a href="#cb28-806" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>A linear model with one explanatory variable with two groups and one</span>
+<span id="cb28-807"><a href="#cb28-807" aria-hidden="true" tabindex="-1"></a>    continuous response is also known as a **two-sample *t*-test** when</span>
+<span id="cb28-808"><a href="#cb28-808" aria-hidden="true" tabindex="-1"></a>    the samples are independent and as a **paired-samples *t*-test**</span>
+<span id="cb28-809"><a href="#cb28-809" aria-hidden="true" tabindex="-1"></a>    when they are not</span>
+<span id="cb28-810"><a href="#cb28-810" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-811"><a href="#cb28-811" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>We can use <span class="in">`lm()`</span> to do two-sample and paired sample tests. We can</span>
+<span id="cb28-812"><a href="#cb28-812" aria-hidden="true" tabindex="-1"></a>    also use <span class="in">`t.test()`</span> for these but using <span class="in">`lm()`</span> helps us understand</span>
+<span id="cb28-813"><a href="#cb28-813" aria-hidden="true" tabindex="-1"></a>    tests with more groups and/or more variables where we will have to</span>
+<span id="cb28-814"><a href="#cb28-814" aria-hidden="true" tabindex="-1"></a>    use <span class="in">`lm()`</span>. The output of <span class="in">`lm()`</span> is also more typical of the output</span>
+<span id="cb28-815"><a href="#cb28-815" aria-hidden="true" tabindex="-1"></a>    of statistical functions in R.</span>
+<span id="cb28-816"><a href="#cb28-816" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-817"><a href="#cb28-817" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>We estimate the **coefficients** (also called the **parameters**) of</span>
+<span id="cb28-818"><a href="#cb28-818" aria-hidden="true" tabindex="-1"></a>    the model. For a two-sample test these are the mean of the first</span>
+<span id="cb28-819"><a href="#cb28-819" aria-hidden="true" tabindex="-1"></a>    group, $\beta_0$ (which might also be called the intercept) and the</span>
+<span id="cb28-820"><a href="#cb28-820" aria-hidden="true" tabindex="-1"></a>    difference between the means of the first and second groups,</span>
+<span id="cb28-821"><a href="#cb28-821" aria-hidden="true" tabindex="-1"></a>    $\beta_1$ (which might also be called the slope). For a</span>
+<span id="cb28-822"><a href="#cb28-822" aria-hidden="true" tabindex="-1"></a>    paired-sample test there is just one parameter, the mean difference</span>
+<span id="cb28-823"><a href="#cb28-823" aria-hidden="true" tabindex="-1"></a>    between pairs of values, $\beta_0$ (which might also be called the</span>
+<span id="cb28-824"><a href="#cb28-824" aria-hidden="true" tabindex="-1"></a>    intercept). We test whether the parameters differ significantly from</span>
+<span id="cb28-825"><a href="#cb28-825" aria-hidden="true" tabindex="-1"></a>    zero</span>
+<span id="cb28-826"><a href="#cb28-826" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-827"><a href="#cb28-827" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>We can use <span class="in">`lm()`</span> to a linear regression.</span>
+<span id="cb28-828"><a href="#cb28-828" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-829"><a href="#cb28-829" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>In the output of <span class="in">`lm()`</span> the coefficients are listed in a table in</span>
+<span id="cb28-830"><a href="#cb28-830" aria-hidden="true" tabindex="-1"></a>    the Estimates column. The *p*-value for each coefficient is in the</span>
+<span id="cb28-831"><a href="#cb28-831" aria-hidden="true" tabindex="-1"></a>    test of whether it differs from zero. At the bottom of the output</span>
+<span id="cb28-832"><a href="#cb28-832" aria-hidden="true" tabindex="-1"></a>    there is a test of the model *overall*. In this case, this is</span>
+<span id="cb28-833"><a href="#cb28-833" aria-hidden="true" tabindex="-1"></a>    exactly the same as the test of the $\beta_1$ and the p-values are</span>
+<span id="cb28-834"><a href="#cb28-834" aria-hidden="true" tabindex="-1"></a>    identical. The R-squared value is the proportion of the variance in</span>
+<span id="cb28-835"><a href="#cb28-835" aria-hidden="true" tabindex="-1"></a>    the response variable that is explained by the model.</span>
+<span id="cb28-836"><a href="#cb28-836" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-837"><a href="#cb28-837" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>The assumptions of the general linear model are that the residuals</span>
+<span id="cb28-838"><a href="#cb28-838" aria-hidden="true" tabindex="-1"></a>    are normally distributed and have homogeneity of variance. A</span>
+<span id="cb28-839"><a href="#cb28-839" aria-hidden="true" tabindex="-1"></a>    residual is the difference between the predicted value and the</span>
+<span id="cb28-840"><a href="#cb28-840" aria-hidden="true" tabindex="-1"></a>    observed value.</span>
+<span id="cb28-841"><a href="#cb28-841" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-842"><a href="#cb28-842" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>We examine a histogram of the residuals and use the Shapiro-Wilk</span>
+<span id="cb28-843"><a href="#cb28-843" aria-hidden="true" tabindex="-1"></a>    normality test to check the normality assumption. We check the</span>
+<span id="cb28-844"><a href="#cb28-844" aria-hidden="true" tabindex="-1"></a>    variance of the residuals is the same for all fitted values with a</span>
+<span id="cb28-845"><a href="#cb28-845" aria-hidden="true" tabindex="-1"></a>    residuals vs fitted plot.</span>
+<span id="cb28-846"><a href="#cb28-846" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-847"><a href="#cb28-847" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>If the assumptions are not met, we can use alternatives known as</span>
+<span id="cb28-848"><a href="#cb28-848" aria-hidden="true" tabindex="-1"></a>    non-parametric tests. These are applied with <span class="in">`wilcox.test()`</span> in R.</span>
+<span id="cb28-849"><a href="#cb28-849" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-850"><a href="#cb28-850" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>When reporting the results of a test we give the significance,</span>
+<span id="cb28-851"><a href="#cb28-851" aria-hidden="true" tabindex="-1"></a>    direction and size of the effect. Our figures and the values we give</span>
+<span id="cb28-852"><a href="#cb28-852" aria-hidden="true" tabindex="-1"></a>    should reflect the type of test we have used. We use means and</span>
+<span id="cb28-853"><a href="#cb28-853" aria-hidden="true" tabindex="-1"></a>    standard errors for parametric tests and medians and interquartile</span>
+<span id="cb28-854"><a href="#cb28-854" aria-hidden="true" tabindex="-1"></a>    ranges for non-parametric tests. We also give the test statistic,</span>
+<span id="cb28-855"><a href="#cb28-855" aria-hidden="true" tabindex="-1"></a>    the degrees of freedom (parametric) or sample size (non-parametric)</span>
+<span id="cb28-856"><a href="#cb28-856" aria-hidden="true" tabindex="-1"></a>    and the p-value. We annotate our figures with the p-value, making</span>
+<span id="cb28-857"><a href="#cb28-857" aria-hidden="true" tabindex="-1"></a>    clear which comparison it applies to.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
@@ -1840,8 +2692,8 @@ document.addEventListener("DOMContentLoaded", function() {
   // grab all links under “Other Links” in the right-hand TOC
   const links = document.querySelectorAll('.quarto-other-links ul li a');
   links.forEach(function(a) {
-    // find the one whose text is exactly “Report an issue”
-    if (a.textContent.trim() === 'Report an issue') {
+    // find the one whose text is exactly “Make a suggestion”
+    if (a.textContent.trim() === 'Make a suggestion') {
       const pageUrl   = encodeURIComponent(window.location.href);
       const pageTitle = encodeURIComponent(document.title);
       a.href = 'https://github.com/3mmaRand/comp4biosci/issues/new'

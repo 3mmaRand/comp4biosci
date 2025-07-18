@@ -8,6 +8,8 @@ execute:
   include: true
   freeze: false
 
+engine: knitr
+
 # If you really need a site-url (for RSS, sitemap, etc), move it here:
 website:
   site-url: https://3mmarand.github.io/comp4biosci/
@@ -90,6 +92,7 @@ format:
       dark:  [solar, style.scss]
     link-external-newwindow: true
     code-link: true
+    code-tools: true
     mainfont: Atkinson Hyperlegible
     monofont: Source Code Pro
     lightbox:
@@ -102,8 +105,8 @@ format:
           // grab all links under “Other Links” in the right-hand TOC
           const links = document.querySelectorAll('.quarto-other-links ul li a');
           links.forEach(function(a) {
-            // find the one whose text is exactly “Report an issue”
-            if (a.textContent.trim() === 'Report an issue') {
+            // find the one whose text is exactly “Make a suggestion”
+            if (a.textContent.trim() === 'Make a suggestion') {
               const pageUrl   = encodeURIComponent(window.location.href);
               const pageTitle = encodeURIComponent(document.title);
               a.href = 'https://github.com/3mmaRand/comp4biosci/issues/new'

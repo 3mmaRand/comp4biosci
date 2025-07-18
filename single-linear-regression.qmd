@@ -31,7 +31,7 @@ those two parameters differ significantly from zero.
 ### Reporting
 
 Reporting [the significance of effect, direction of effect, magnitude of
-effect](https://3mmarand.github.io/comp4biosci/what_statistical_model.html#reporting)
+effect](what-statistical-model.html#reporting)
 for a single linear regression means making the following clear to the
 reader:
 
@@ -50,18 +50,18 @@ We will explore all of these ideas with an example.
 ## 🎬 Your turn!
 
 If you want to code along you will need to start a new [RStudio
-project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+project](workflow-rstudio.html#rstudio-projects), add a `data-raw`
 folder and open a new script. You will also need to load the
 **`tidyverse`** package [@tidyverse].
 
 ## Single linear regression
 
-Three replicates water baths were set up at each of five temperatures
+Three replicate water baths were set up at each of five temperatures
 (10, 11C, 12C, 13C, 14C). Ten Brine Shrimp (*Artemia salina*) were
 placed in each and their average respiration rate per water bath was
 measured (in arbitrary units). The data are in
 [shrimp.txt](data-raw/shrimp.txt). In this scenario our null hypothesis,
-$H_0$, is that temparature has no effect on respiration rate. Another 
+$H_0$, is that temperature has no effect on respiration rate. Another 
 way of saying this is the slope of the line is zero. This is written 
 as: $H_0: \beta_1 = 0$. 
 
@@ -96,14 +96,19 @@ In the first instance, it is sensible to create a rough plot of our data
 Scatter plots (`geom_point()`) are a good choice for exploratory
 plotting with data like these.
 
-```{r}
-#| label: fig-shrimp-rough
-#| fig-cap: "A default scatter plot of the relationship between temperature and respiration rate in brine shrimp is enough for us to see that respiration rate seems to increase with temperature approximately linearly."
+:::{#fig-shrimp-rough}
 
+```{r}
 ggplot(data = shrimp,
        aes(x = temperature, y = respiration)) +
   geom_point()
 ```
+
+**Relationship between temperature and respiration rate in brine shrimp** 
+The default scatter plot is enough for us to see that respiration rate seems 
+to increase with temperature approximately linearly. 
+
+:::
 
 The figure suggests that respiration rate increases with temperature and
 there are no particularly extreme values. We can also see that any
@@ -134,12 +139,12 @@ What do all these results mean?
 
 The `Estimate` in the `Coefficients` table give:
 
--   the `(Intercept)` known as $\beta_0$, which is the value of the *y*
+-   the `(Intercept)`, known as $\beta_0$, which is the value of *y*
     (the response) when the value of *x* (the explanatory) is zero.
 
--   the slope labelled `temperature` known as $\beta_1$, which is the
-    amount of *y* you add for each unit of *x*. `temperature` is
-    positive so respiration rate increases with temperature
+-   the slope, labelled `temperature` known as $\beta_1$, which is the
+    amount of *y* to add for each unit of *x*. Since `temperature` is
+    positive we know respiration rate *increases* with temperature
 
 @fig-regression-lm-model shows the model and its parameters.
 
@@ -157,10 +162,12 @@ model as a whole explains a significant amount of variation in the
 response variable. For a regression, this is exactly equivalent to the
 test of the slope against zero and the two *p*-values will be the same.
 
+
+:::{#fig-regression-lm-model}
+
 ```{r}
 #| echo: false
-#| label: fig-regression-lm-model
-#| fig-cap: "In a linear model, the first estimate is the intercept and the second estimate is the 'slope'."
+
 ggplot(data = shrimp, 
                 aes(x = temperature, y = respiration)) +
   geom_point(colour = "black") +   
@@ -212,6 +219,12 @@ ggplot(data = shrimp,
 
 ```
 
+**The a linear model fitted to the relationship between temperature and 
+respiration rate.** The model has two coefficients (parameters) estimated from 
+the data. The first estimate is the intercept and the second estimate is the 
+slope.
+:::
+
 ### Check assumptions
 
 Check the assumptions: All general linear models assume the "residuals"
@@ -227,22 +240,38 @@ to plot the residuals against the fitted values (See
 @fig-regression-plot1). This is a good way to check for homogeneity of
 variance.
 
+:::{#fig-regression-plot1}
+
 ```{r}
-#| label: fig-regression-plot1
-#| fig-cap: "A plot of the residuals against the fitted values shows no obvious pattern as the points are roughly evenly distributed around the line. This is a good sign for the assumption of homogeneity of variance."
 
 plot(mod, which = 1)
 ```
 
+*Residuals against fitted values.** A plot of the residuals against the 
+fitted values is a "diagnostic plot" that allows us to check the homogeneity of
+variance assumption. Here we see no obvious pattern as the points are 
+roughly evenly distributed around the line. This is a good sign for the 
+assumption of homogeneity of variance.
+:::
+
+
+
 We can also use a histogram to check for normality (See
 @fig-regression-plot2).
 
+:::{#fig-regression-plot2}
+
 ```{r}
-#| label: fig-regression-plot2
-#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 5)
 ```
+
+**Distribution of the residuals.** A histogram of the residuals is a 
+"diagnostic plot" that allows us to check the normality assumption. Here, the
+distribution fairly is symmetrical and seems consistent with a normal 
+distribution. This is a good sign for the assumption of normally 
+distributed residuals."
+:::
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
 
