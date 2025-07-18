@@ -44,7 +44,7 @@ Where:
 
 This model is a linear model because the relationship between the
 response variable, height, and the explanatory variable, time, is linear
-(See @fig-model-1). In a linear model, the gradient of the line is the
+(See @fig-model-linear). In a linear model, the gradient of the line is the
 same no matter what the value of $t$. In this case, it is fixed at 2 cm
 per day.
 
@@ -62,17 +62,16 @@ Where:
 -   $h_{(t)}$ is the height of the plant at time $t$
 -   $h_{(0)}$ is the height of the plant at $t=0$, *i.e.*, at two weeks
 
-This model is not a straight line (See @fig-model-2). The gradient of
+This model is not a straight line (See @fig-model-exponential). The gradient of
 the line increase as time goes on.
+
+
+::: {#fig-model layout-ncol=2}
 
 ```{r}
 #| echo: false
-#| label: fig-model
-#| layout-ncol: 2
-#| fig-cap: "Two possible models of plant growth."
-#| fig-subcap: 
-#|   - "Linear"
-#|   - "Expontential"
+#| label: fig-model-linear
+
 b0 <- 3
 b1 <-  2
 df <- data.frame(days = 0:20)
@@ -87,8 +86,12 @@ ggplot(df, aes(x = days, y = height)) +
                      limits = c(0, 45)) +
   ggtitle(expression(h[(t)]~"="~h[(0)]~+~2*t)) +
   theme_classic()
+```
 
 
+```{r}
+#| echo: false
+#| label: fig-model-exponential
 b0 <- 3
 b1 <-  1.12
 df <- data.frame(days = 0:20)
@@ -106,12 +109,20 @@ ggplot(df, aes(x = days, y = height)) +
 
 ```
 
+**Two possible models of plant growth.** -@fig-model-linear shows a linear
+model of plant growth where the height increases by a fixed amount each
+day. -@fig-model-exponential shows an exponential model of plant growth
+where the height increases by a fixed percentage each day. The linear model
+has a constant gradient, while the exponential model has a gradient that
+increases over time.
+:::
+
 ## Statistical Models and Hypothesis Testing
 
 When we conduct statistical analysis, we are using a statistical
 model —a mathematical framework that describes the relationship between
-explanatory and response variables. Every model makes assumptions about
-this relationship, and we estimate the parameters of the model from the
+explanatory and response variables. Every model makes some assumptions about
+this relationship. We estimate the parameters of the model from the
 data. For example, in a simple linear model of plant growth, the key
 parameters are the intercept and the slope.
 
@@ -145,7 +156,7 @@ For this reason, checking model assumptions is crucial. If the
 assumptions are not met, we might need to transform the data, choose
 a different model, or use **non-parametric tests**, which make fewer
 assumptions about data distribution. Non-parametric methods do not
-estimate parameters like an intercept and slope, which makes them useful
+estimate parameters (like an intercept and slope), which makes them useful
 when standard parametric assumptions are questionable.
 
 
@@ -173,14 +184,12 @@ b1 <- mod$coefficients[2] |> round(2)
 
 ```
 
+::: {#fig-linear-bact layout-ncol=2}
+
 ```{r}
 #| echo: false
-#| label: fig-linear-bact
-#| layout-ncol: 2
-#| fig-cap: "The effect of nutrient level on bacterial colony diamters without (1) and with (2) a linear model."
-#| fig-subcap: 
-#|   - "Data without a model."
-#|   - "Data with a line of best fit"
+#| label: fig-linear-bact-without
+
 ggplot(df1, aes(x = Nutrient, y = Diameter)) +
   geom_point() +
   scale_x_continuous(expand = c(0, 0),
@@ -188,6 +197,11 @@ ggplot(df1, aes(x = Nutrient, y = Diameter)) +
   scale_y_continuous(expand = c(0, 0),
                      limits = c(0, 12)) +
   theme_classic()
+```
+
+```{r}
+#| echo: false
+#| label: fig-linear-bact-with
 ggplot(df1, aes(x = Nutrient, y = Diameter)) +
   geom_point() +
   scale_x_continuous(expand = c(0, 0),
@@ -202,6 +216,11 @@ ggplot(df1, aes(x = Nutrient, y = Diameter)) +
   theme_classic()
 
 ```
+
+**The effect of nutrient level on bacterial colony diameters**. 
+-@fig-linear-bact-without Data plotted without and 
+-@fig-linear-bact-with with a linear model.
+:::
 
 The equation of this line is a statistical model that allows us to make
 predictions about colony diameter from nutrient levels. A line - or
@@ -219,8 +238,8 @@ Where:
 -   $\beta_{1}$ is the amount added to $y$ for each unit increase in $x$
     usually known as the slope
 
-$\beta_{0}$ and $\beta_{1}$ are called the *coefficients* - or
-*parameters* - of the model.
+$\beta_{0}$ and $\beta_{1}$ are called the *coefficients* -- or
+*parameters* -- of the model.
 
 In this case $$
 Diameter = \beta_{0} + \beta_{1}Nutrient
@@ -232,12 +251,13 @@ Linear models are amongst the most commonly used statistics. Regression,
 
 ## Model fitting
 
-The process of estimating the parameters $\beta_{0}$ and $\beta_{1}$
-from data is known as *fitting a linear model*. The line gives the
-predicted values of $y$. The actual measured value of $y$ will differ
-from the predicted value and this difference is called a *residual* or
-an *error*. The line is a best fit in the sense that $\beta_{0}$ and
-$\beta_{1}$ minimise the *sum of the squared residuals*, $SSE$.
+Fitting a linear model is the process of estimating the parameters 
+$\beta_{0}$ and $\beta_{1}$ from data. The line gives the
+values of $y$ which the model predicts. For any value of $x$, the actual 
+measured value of $y$ will differ from the predicted value and this difference 
+is called a *residual* or an *error*. The line is a best fit in the sense 
+that $\beta_{0}$ and $\beta_{1}$ minimises the *sum of the squared residuals*. 
+The sum of the squared residuals is usually abbreviated $SSE$.
 
 $$
 SSE = \sum(y_{i}-\hat{y})^2
@@ -253,7 +273,7 @@ Since $\beta_{0}$ and $\beta_{1}$ are those that minimise the $SSE$,
 they are described as *least squares estimates*. You do not need to
 worry about this too much but it is a useful piece of statistical jargon
 to have heard of because it pops up often. The mean of a sample is also
-a least squares estimate - the sum of the squared differences between
+a least squares estimate because the sum of the squared differences between
 each value and the mean is smaller than the sum of the squared
 differences between each value and any other value.
 
@@ -286,18 +306,23 @@ good model should fit the response better than the mean - that is, a
 good model should fit the response better than a best guess. The output
 of `lm()` includes the $R^2$. It represents the proportional improvement
 in the predictions from the regression model relative to the mean model.
-It ranges from zero, the model is no better than the mean, to 1, the
-predictions are perfect. See @fig-lm-fit
+It ranges from zero (the model is no better than the mean) to 1 (the
+predictions are perfect). See @fig-lm-fit
 
-![A linear model with different fits. A) the model is a poor fit - the
+::: {#fig-lm-fit}
+
+![](images/lm_fit.svg)
+
+**A linear model with different fits**. A) the model is a poor fit - the
 explanatory variable is no better than the response mean for predicting
 the response. B) the model is good fit - the explanatory variable
 explains a high proportion of the variance in the response. C) the model
 is a perfect fit - the response can be predicted perfectly from the
 explanatory variable. Measured response values are in pink, the
 predictions are in green and the dashed blue line gives the mean of the
-response.](images/lm_fit.svg){#fig-lm-fit
-width="400"}
+response.
+
+:::
 
 Since the distribution of the responses for a given $x$ is assumed to be
 normal and the variances of those distributions are assumed to be
@@ -308,13 +333,16 @@ met.
 See @fig-lm-annotated for a graphical representation of linear modelling
 terms introduced so far.
 
-![A linear model annotated with the terms used in modelling. Measured
+:::{#fig-lm-annotated}
+
+![](images/generic_lm.svg)
+
+**A linear model annotated with the terms used in modelling**. Measured
 response values are in pink, the predictions are in green, and the
 differences between these, known as the residuals, are in blue. The
 estimated model parameters, $\beta_{0}$ (the intercept) and $\beta_{1}$
-(the slope) are
-indicated.](images/generic_lm.svg){#fig-lm-annotated
-width="400"}
+(the slope) are indicated.
+:::
 
 ### General linear model assumptions
 
@@ -329,22 +357,25 @@ non-parametric test would be more appropriate before that:
 
 -   Use common sense - the response should be continuous (or nearly
     continuous, see [Ideas about data: Theory and
-    practice](ideas_about_data.html#theory-and-practice)). Consider
+    practice](ideas-about-data.html#theory-and-practice)). Consider
     whether you would expect the response to be continuous
--   There should decimal places and few repeated values.
+-   We would expect decimal places and few repeated values.
 
 To examine the assumptions after fitting the linear model, we plot the
 residuals and test them against the normal distribution
 
 ## Choice of model
 
-before: appropriate to the question, type of relationship. assumptions
-about the type of model
+Choosing a statistical model is usually iterative. We first consider whether
+a model is appropriate to answer the research and whether the type of 
+relationship between variables could be expected to be captured by that type of
+model. We then fit the model to the data and check the assumptions. If the
+assumptions are met, we can proceed with the model. If the assumptions
+are not met, we may need to consider a different model or a 
+non-parametric test. 
 
-and after assumption calculations the probability calculations
-
-implications of wrong choices: doesn't anwser the question p value is
-inaccurate conclusions are wrong
+The consequence of using the wrong model is that your research question is not
+answered and *p*-values are not accurate. This can lead to false conclusions.
 
 ## General linear models in R
 
@@ -354,7 +385,7 @@ model. When you have one explanatory variable the command is:
 <code> lm(data = *dataframe*, *response* \~ *explanatory*) </code>
 
 The `response ~ explanatory` part is known as the model **formula**.
-These must be the names of two column in the dataframe.
+These must be the names of two columns in the dataframe.
 
 When you have two explanatory variable we add the second explanatory
 variable to the formula using a `+` or a `*`. The command is:
@@ -388,7 +419,7 @@ There are two sorts of statistical tests in the output of
 
 The *F*-test in the last line of the output indicates whether the
 relationship modelled between the response and the set of explanatory
-variables is statistically significant. i.e., whether it explains a
+variables is statistically significant. *i.e.*, whether it explains a
 significant amount of variation.
 
 ## Checking assumptions
@@ -499,8 +530,8 @@ plot(mod3, which = 1)
 
 When reporting the results of statistical tests we need to make sure we
 tell the reader everything they need to know and give the evidence it to
-support it. What they need to know is given in statements describing
-what difference or effect is significant and the evidence is from the
+support it. What they need to know is given with statements describing
+what difference or effect is significant. The evidence is comprises the
 test statistic and *p*-value from the test. You can think the
 statistical test values as being the evidence for the statements in your
 results sections, just as citations are the evidence for the statements
@@ -515,7 +546,7 @@ In reporting the result of a test we give:
 3.  the magnitude of effect
 
 Figures should demonstrate the statement. Ideally they will include all
-the data and the 'model', i.e., the means and error bars or the fitted
+the data and the 'model', *i.e.*, the means and error bars or the fitted
 line. Figure legends should be concise but contain all the information
 needed to understand the figure. I like this blog on [How to craft a
 figure legend for scientific
