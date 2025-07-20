@@ -78,7 +78,7 @@ non-parametric test would be more appropriate before that:
 
 -   Use common sense - the response should be continuous (or nearly
     continuous, see [Ideas about data: Theory and
-    practice](ideas_about_data.html#theory-and-practice)). Consider
+    practice](ideas-about-data.html#theory-and-practice)). Consider
     whether you would expect the response to be continuous.
 
 -   We expect decimal places and few repeated values.
@@ -119,17 +119,17 @@ We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new [RStudio
-project](workflow_rstudio.html#rstudio-projects), add a `data-raw`
+If you want to code along you will need to start a new RStudio Project
+(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw`
 folder and open a new script. You will also need to load the
 **`tidyverse`** package [@tidyverse].
 
 ## Two independent samples, parametric
 
-A number of [subspecies of the common chaffinch, *Fringilla
+A number of subspecies of the [common chaffinch, *Fringilla
 coelebs*](https://en.wikipedia.org/wiki/Common_chaffinch), have been
 described based principally on the differences in the pattern and colour
-of the adult male plumage [@suárez2009]. Two of groups of these
+of the adult male plumage [@suárez2009]. Two groups of these
 subspecies are:
 
 -   the "coelebs group" (@fig-coelebs) that occurs in Europe and Asia
@@ -143,16 +143,17 @@ coelebs*](images/512px-Chaffinch_(Fringilla_coelebs).jpg){#fig-coelebs}
 ![*F. c.
 palmae*](images/512px-Fringilla_coelebs_palmae_-_Los_Tilos.jpg){#fig-canariensis}
 
-Adult male *Fringilla coelebs* of the coelebs group on the left (Andreas
+**Adult males of two subspecies of the common chaffinch, *Fringilla coelebs*.** 
+@fig-coelebs Coelebs group (Andreas
 Trepte, CC BY-SA 2.5 <https://creativecommons.org/licenses/by-sa/2.5>,
-via Wikimedia Commons) and of the canariensis group on the right (H.
+via Wikimedia Commons) and -@fig-canariensis the canariensis group (H.
 Zell, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via
 Wikimedia Commons).
 :::
 
 The data in [chaff.txt](data-raw/chaff.txt) give the masses of twenty
-individuals from each subspecies. We want to know if the subspecies
-differ in mass. These groups are independent - there is no link between
+individuals from each subspecies. We want to know if the two subspecies
+differ in mass. These two groups are independent - there is no link between
 values in one group and any value in the other group. In this scenario
 our null hypothesis, $H_0$, is that there is no difference between the
 two subspecies in mass or that subspecies has no effect on mass. This is
@@ -189,14 +190,20 @@ Violin plots (`geom_violin()`), box plots (`geom_boxplot()`, see
 choices for exploratory plotting and it does not matter which of these
 you choose.
 
+:::{#fig-chaff-rough}
+
 ```{r}
-#| label: fig-chaff-rough
-#| fig-cap: "The mass of two subspecies of chaffinch. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
 
 ggplot(data = chaff,
        aes(x = subspecies, y = mass)) +
   geom_boxplot()
 ```
+
+**The mass of two subspecies of chaffinch**. A boxplot is a useful way to 
+get an overview of the data and helps us identify any issues such as missing 
+or extreme values. It also tells us what to expect from the analysis. The
+canariensis group appears heavier than the coelebs group.
+:::
 
 R will order the groups alphabetically by default.
 
@@ -216,6 +223,36 @@ chaff_summary <- chaff |>
             n = length(mass),
             se = std/sqrt(n))
 ```
+
+```{r}
+#| echo: false
+# extract values for ease of reporting
+cana_m <- chaff_summary |> 
+  filter(subspecies == "canariensis") |> 
+  pull(mean) |> round(2)
+
+cana_se <- chaff_summary |> 
+  filter(subspecies == "canariensis") |> 
+  pull(se) |> round(2)
+
+cana_n <- chaff_summary |> 
+  filter(subspecies == "canariensis") |> 
+  pull(n) 
+
+coel_m <- chaff_summary |> 
+  filter(subspecies == "coelebs") |> 
+  pull(mean) |> round(2)
+
+coel_se <- chaff_summary |> 
+  filter(subspecies == "coelebs") |> 
+  pull(se) |> round(2)
+
+coel_n <- chaff_summary |> 
+  filter(subspecies == "coelebs") |> 
+  pull(n)
+
+```
+
 
 We have save the results to `chaff_summary` so that we can use the means
 and standard errors in our plot later.
@@ -269,10 +306,13 @@ response variable. For a two-sample test, just like a regression, this
 is exactly equivalent to the test of the slope against zero and the two
 *p*-values will be the same.
 
+
+:::{#fig-two-sample-lm-model}
+
+
 ```{r}
 #| echo: false
-#| label: fig-two-sample-lm-model
-#| fig-cap: "In a two-sample linear model, the first estimate is the intercept which is the mean of the first group. The second estimate is the 'slope' which is what has to added to the intercept to get the second group mean. Note that y axis starts at 15 to create more space for the annotations."
+
 ggplot() +
   geom_errorbar(data = chaff_summary, 
                 aes(x = subspecies, ymin = mean, ymax = mean), 
@@ -315,6 +355,31 @@ ggplot() +
 
 ```
 
+**The a linear model fitted to the relationship between subspecies and mass.** 
+The model has two coefficients (parameters) estimated from the data. Where the 
+explanatory variable is categorical with two groups in a linear model, the 
+first estimate is the intercept which is the mean of the first group. The 
+second estimate is the slope which is what has to added to the intercept to 
+get the second group mean. Note that y axis starts at 15 to create more 
+space for the annotations.
+
+:::
+
+
+```{r}
+#| echo: false
+# extract values from mod using broom for ease of reporting
+mod_tidy <- broom::glance(mod)
+
+t_value <- mod_tidy |> pull(statistic) |> round(2)
+p_value <- mod_tidy |> pull(p.value) |> round(4)
+df <- mod_tidy |> pull(df)
+df_residuals <- mod_tidy |> pull(df.residual)
+
+```
+
+
+
 ### Check assumptions
 
 Check the assumptions: All general linear models assume the "residuals"
@@ -328,21 +393,36 @@ We then plot the residuals. The `plot()` function can be used to plot
 the residuals against the fitted values (See @fig-lm-plot1). This is a
 good way to check for homogeneity of variance.
 
-```{r}
-#| label: fig-lm-plot1
-#| fig-cap: "A plot of the residuals against the fitted values shows the points are distributed similarly in each group. This is a good sign for the assumption of homogeneity of variance."
+:::{#fig-lm-plot1}
 
+```{r}
 plot(mod, which = 1)
 ```
 
+*Residuals against fitted values.** A plot of the residuals against the 
+fitted values allows us to check the homogeneity of variance assumption.
+Here, the points are distributed similarly in each group. This is a good sign
+for the assumption of homogeneity of variance.
+:::
+
 We can also use a histogram to check for normality (See @fig-lm-plot2).
 
+
+:::{#fig-lm-plot2}
+
 ```{r}
-#| label: fig-lm-plot2
-#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
+
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 10)
 ```
+
+**Distribution of the residuals.** A histogram of the residuals allows us 
+to check the normality assumption. Here, the distribution fairly is 
+symmetrical and seems consistent with a normal 
+distribution. This is a good sign for the assumption of normally 
+distributed residuals.
+
+:::
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
 
@@ -358,9 +438,10 @@ and homogeneity of variance are not violated.
 
 ### Report
 
-Canariensis chaffinches ($\bar{x} \pm s.e$: 22.48 $\pm$ 0.48) were
-significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65;
-*d.f.* = 38; *p* = 0.012). See @fig-chaff.
+Canariensis chaffinches ($\bar{x} \pm s.e$: `r cana_m` $\pm$ `r cana_se` g) were
+significantly heavier than Coelebs (`r coel_m` $\pm$ `r coel_se` g; 
+*t* = `r t_value`;
+*d.f.* = `r df_residuals`; *p* = `r cana_m`). See @fig-chaff.
 
 ::: {#fig-chaff}
 ```{r}
@@ -368,8 +449,7 @@ significantly heavier than Coelebs (20.28 $\pm$ 0.48 ) (*t* = 2.65;
 
 ggplot() +
   geom_point(data = chaff, aes(x = subspecies, y = mass),
-             position = position_jitter(width = 0.1, height = 0),
-             colour = "gray50") +
+             position = position_jitter(width = 0.1, height = 0)) +
   geom_errorbar(data = chaff_summary, 
                 aes(x = subspecies, ymin = mean - se, ymax = mean + se),
                 width = 0.3) +
@@ -385,16 +465,17 @@ ggplot() +
            y = 28, yend = 28,
            colour = "black") +
   annotate("text", x = 1.5,  y = 29, 
-           label = expression(italic(p)~"= 0.012")) +
+           label = glue::glue("italic(p) == { p_value }"),
+                              parse = TRUE) +
   theme_classic()
 ```
 
 **Canariensis chaffinches are heavier than Coelebs chaffinches**. The
-mean mass of 20 randomly sampled males from each subspecies was
+mean mass of `r cana_n` randomly sampled males from each subspecies was
 determined. Error bars are $\pm$ 1 standard error. Canariensis
-chaffinches were significantly heavier than Coelebs (*t* = 2.65; *d.f.*
-= 38; *p* = 0.012). Data analysis was conducted in R [@R-core] with
-tidyverse packages [@tidyverse].
+chaffinches were significantly heavier than Coelebs (*t* = `r coel_se`;
+*d.f.* = `r df_residuals`; *p* = `r t_value`). Data analysis was conducted 
+in R [@R-core] with tidyverse packages [@tidyverse].
 :::
 
 ## Two independent samples, non-parametric
@@ -435,14 +516,20 @@ formatted for analysis and plotting.
 
 Create a quick plot of the data:
 
+:::{#fig-arabid-rough}
 ```{r}
-#| label: fig-arabid-rough
-#| fig-cap: "The number of leaves on mutant and wildtype plants. A boxplot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
 
 ggplot(data = arabidopsis, 
        aes(x = type, y = leaves)) +
   geom_boxplot()
 ```
+
+**The number of leaves on mutant and wildtype plants.** A boxplot is a
+useful way to get an overview of the data and helps us identify any
+issues such as missing or extreme values. It also tells us what to expect
+from the analysis. The mutant plants appear to have fewer leaves than the
+wildtype plants.
+:::
 
 Our rough plot shows that the mutant plants have fewer leaves than the
 wildtype plants.
@@ -465,6 +552,32 @@ View the results:
 arabidopsis_summary
 ```
 
+
+```{r}
+#| echo: false
+# extract values for ease of reporting
+mutant_m <- arabidopsis_summary |> 
+  filter(type == "mutant") |> 
+  pull(median) |> round(1)
+
+
+mutant_n <- arabidopsis_summary |> 
+  filter(type == "mutant") |> 
+  pull(n) 
+
+wild_m <- arabidopsis_summary |> 
+  filter(type == "wild") |> 
+  pull(median) |> round(1)
+
+
+wild_n <- arabidopsis_summary |> 
+  filter(type == "wild") |> 
+  pull(n)
+
+```
+
+
+
 ### Apply `wilcox.test()`
 
 We pass the dataframe and variables to `wilcox.test()` in the same way
@@ -483,14 +596,31 @@ based on an approximation rather than being exact because there are ties
 
 The result of the test is given on this line:
 `W = 5, p-value = 0.005051`. `W` is the test statistic. The *p*-value is
-less than 0.05 meaning there is a significant difference in the number
+less than 0.05 meaning there *is* a significant difference in the number
 of leaves on wildtype and mutant plants.
+
+
+```{r}
+#| echo: false
+#| warning: false
+# extract values from mod using broom for ease of reporting
+wilc_tidy <- broom::tidy(wilcox.test(data = arabidopsis, leaves ~ type))
+
+W_value <- wilc_tidy |> pull(statistic) |> round(2)
+p_value <- wilc_tidy |> pull(p.value) |> round(4)
+
+
+```
+
+
+
 
 ### Report
 
-There are significantly more leaves on wildtype (median = 8.5) than
-mutant (median = 5) plants (Wilcoxon rank sum test: *W* = 5, $n_1$ = 8,
-$n_2$ = 8, *p* = 0.005). See @fig-arabid.
+There are significantly more leaves on wildtype (median = `r wild_m`) than
+mutant (median = `r mutant_m`) plants (Wilcoxon rank sum test:
+*W* = `r W_value`; $n_1$ = `r wild_n`; $n_2$ = `r mutant_n`; 
+*p* = `r p_value`). See @fig-arabid.
 
 ::: {#fig-arabid}
 ```{r}
@@ -508,14 +638,16 @@ ggplot(data = arabidopsis,
            y = 10.5, yend = 10.5,
            colour = "black") +
   annotate("text", x = 1.5,  y = 11, 
-           label = expression(italic(p)~"= 0.005")) +
+           label = glue::glue("italic(p) == { p_value }"),
+                              parse = TRUE) +
   theme_classic()
 ```
 
 **Mutant *Arabidopsis thaliana* have fewer leaves**. There are
-significantly more leaves on wildtype than mutant plants (Wilcoxon rank
-sum test: *W* = 5, $n_1$ = 8, $n_2$ = 8, *p* = 0.005). The heavy lines
-indicate the median of leaves, boxes indicate the interquartile range
+significantly more leaves on wildtype than mutant plants (Wilcoxon rank 
+sum test: *W* = `r W_value`; $n_1$ = `r wild_n`; $n_2$ = `r mutant_n`; 
+*p* = `r p_value`). The heavy lines
+indicate the median number of leaves, boxes indicate the interquartile range
 and whiskers the range. Data analysis was conducted in R [@R-core] with
 tidyverse packages [@tidyverse].
 :::
@@ -561,8 +693,37 @@ Summarise the data so that we can use the means in plots later:
 ```{r}
 marks_summary <- marks |>
   group_by(subject) |>
-  summarise(mean = mean(mark))
+  summarise(mean = mean(mark),
+            n = length(mark))
+
+marks_summary
 ```
+
+```{r}
+#| echo: false
+# extract values for ease of reporting
+biol_m <- marks_summary |> 
+  filter(subject == "Biology") |> 
+  pull(mean) |> round(1)
+
+biol_n <- marks_summary |> 
+  filter(subject == "Biology") |> 
+  pull(n) 
+
+data_m <- marks_summary |> 
+  filter(subject == "DataAnalysis") |> 
+  pull(mean) |> round(1)
+
+data_n <- marks_summary |> 
+  filter(subject == "DataAnalysis") |> 
+  pull(n)
+
+diff <- data_m - biol_m
+
+
+```
+
+
 
 A paired test requires us to into account the variation between
 students.
@@ -595,6 +756,8 @@ mod <- lm(mark ~ subject + factor(student), data = marks)
 summary(mod)
 ```
 
+
+
 The coefficient for `(Intercept)` gives the mean Biology mark and that
 for `subjectDataAnalysis` is amount that the Data Analysis mark are
 above Biology marks in general. The *p*-value tests whether this
@@ -608,6 +771,28 @@ function on the model object to get a simpler output:
 anova(mod)
 ```
 
+
+```{r}
+#| echo: false
+# extract values from mod using broom for ease of reporting
+mod_tidy <- broom::tidy(anova(mod))
+
+t_value <- mod_tidy |> 
+  filter(term == "subject") |> 
+  pull(statistic) |> sqrt() |> round(2)
+p_value <- mod_tidy |> 
+  filter(term == "subject") |> 
+  pull(p.value) |> round(4)
+df_residuals <- mod_tidy |>  
+  filter(term == "Residuals") |> 
+  pull(df)
+
+```
+
+
+
+
+
 You will notice that the *p*-value for subject is the same. The test
 statistic, $F$ has a value of 
 `r round(anova(mod)$F[1],2)` 
@@ -615,12 +800,7 @@ and degrees of freedom of
 `r broom::tidy(anova(mod))$df[1]` 
 and
 `r broom::tidy(anova(mod))$df[3]`.
-This would be written as $F = $
-`r round(anova(mod)$F[1],2)` ; 
-$d.f.= $
-`r broom::tidy(anova(mod))$df[1]`, `r broom::tidy(anova(mod))$df[3]`;
-$p = $
-`r round(broom::tidy(anova(mod))$p.value[1], 3)` .
+
 
 ### Check assumptions
 
@@ -634,10 +814,20 @@ A plot the residuals against the fitted values (`plot(mod, which = 1)`)
 is not useful for a paired test. The normality of the residuals should
 be checked.
 
+
+:::{#fig-lm-paired-plot2}
+
 ```{r}
 ggplot(mapping = aes(x = mod$residuals)) +
   geom_histogram(bins = 3)
 ```
+
+**Distribution of the residuals.** A histogram of the residuals allows us 
+to check the normality assumption. We can't draw strong conclusions from this, 
+but we do at least have a peak at 0.
+
+:::
+
 
 We only have 10 values, so the distribution is never going to look
 smooth. We can't draw strong conclusions from this, but we do at least
@@ -653,8 +843,8 @@ shapiro.test(mod$residuals)
 ### Report
 
 Individual students score significantly higher in Data Analysis than in
-Biology (*t* = 2.47; *d.f.* = 9; *p* = 0.0355) with an average
-difference of 7%. See @fig-marks
+Biology (*t* = `r t_value`; *d.f.* = `r df_residuals`; *p* = `r p_value`) with 
+an average difference of `r diff`%. See @fig-marks
 
 ::: {#fig-marks}
 ```{r}
@@ -674,7 +864,8 @@ ggplot(data = marks, aes(x = subject, y = mark)) +
            y = 105, yend = 105,
            colour = "black") +
   annotate("text", x = 1.5,  y = 108,
-           label = expression(italic(p)~"= 0.0355")) +
+           label = glue::glue("italic(p) == { p_value }"),
+                              parse = TRUE) +
   theme_classic()
 ```
 
@@ -682,8 +873,9 @@ ggplot(data = marks, aes(x = subject, y = mark)) +
 indicate an individual student's marks in each subject with dashed lines
 joining their marks in each subject. The filled circles indicate the
 mean mark for each subject. Individual students score significantly
-higher in Data Analysis than in Biology (*t* = 2.47; *d.f.* = 9; *p* =
-0.0355) with an average difference of 7%. Data analysis was conducted in
+higher in Data Analysis than in Biology *t* = `r t_value`; 
+*d.f.* = `r df_residuals`; *p* = `r p_value`) with 
+an average difference of `r diff`%. Data analysis was conducted in
 R [@R-core] with tidyverse packages [@tidyverse].
 :::
 
@@ -728,10 +920,23 @@ format data (untidy) and add the `paired = TRUE` argument:
 wilcox.test(marks_wide$Biology, marks_wide$DataAnalysis, paired = TRUE)
 ```
 
+```{r}
+#| echo: false
+#| warning: false
+# extract values from mod using broom for ease of reporting
+wilc_subj <- broom::tidy(wilcox.test(marks_wide$Biology, marks_wide$DataAnalysis, paired = TRUE))
+
+V_value <- wilc_subj |> pull(statistic) |> round(2)
+p_value <- wilc_subj |> pull(p.value) |> round(4)
+
+
+```
+
 ### Report
 
 Individual students score significantly higher in Data Analysis than in
-Biology (Wilcoxon signed rank test: *V* = 6.5; $n$ = 10; *p* = 0.036).
+Biology (Wilcoxon signed rank test: *V* = `r V_value`; $n$ = `r data_n`; 
+*p* = `r p_value`).
 
 ## Summary
 

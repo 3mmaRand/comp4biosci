@@ -843,7 +843,7 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 <p>Degrees of freedom (usually abbreivated <em>d.f.</em>) describe how much independent information is available to estimate variability when calculating probabilities. In a population, <em>all</em> values are known, so no parameters need estimating. In a sample, we estimate parameters such as the mean. In estimating a mean, only <span class="math inline">\(n - 1\)</span> values can vary independently because one value is constrained by the sample mean. In hypothesis tests and confidence intervals, <em>d.f.</em> adjust for uncertainty when generalizing from a sample to a population, affecting probability distributions like the <em>t</em>-distribution. More <em>d.f.</em> mean better probability estimates, while fewer <em>d.f.</em> reflect greater uncertainty in estimating population parameters.</p>
 </section></section><section id="your-turn" class="level2" data-number="12.5"><h2 data-number="12.5" class="anchored" data-anchor-id="your-turn">
 <span class="header-section-number">12.5</span> 🎬 Your turn!</h2>
-<p>If you want to code along you will need to start a new <a href="workflow-rstudio.html#rstudio-projects">RStudio project</a>, add a <code>data-raw</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
+<p>If you want to code along you will need to start a new (see <a href="workflow-rstudio.html#sec-workflow-rstudio-creating-rsp" class="quarto-xref"><span>Section 8.1.2</span></a>) then a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
 </section><section id="large-samples" class="level2" data-number="12.6"><h2 data-number="12.6" class="anchored" data-anchor-id="large-samples">
 <span class="header-section-number">12.6</span> Large samples</h2>
 <p>A team of biomedical researchers is studying the concentration of Creatine Kinase (CK) in the blood of patients with muscle disorders. They collect a large random sample (n = 100) of blood samples from patients and measure the CK concentration in UL<sup>-1</sup> (units per litre).</p>
@@ -1883,119 +1883,118 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <span id="cb6-490"><a href="#cb6-490" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-491"><a href="#cb6-491" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎬 Your turn!</span></span>
 <span id="cb6-492"><a href="#cb6-492" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-493"><a href="#cb6-493" aria-hidden="true" tabindex="-1"></a>If you want to code along you will need to start a new [RStudio</span>
-<span id="cb6-494"><a href="#cb6-494" aria-hidden="true" tabindex="-1"></a>project](workflow-rstudio.html#rstudio-projects), add a <span class="in">`data-raw`</span></span>
-<span id="cb6-495"><a href="#cb6-495" aria-hidden="true" tabindex="-1"></a>folder and open a new script. You will also need to load the</span>
-<span id="cb6-496"><a href="#cb6-496" aria-hidden="true" tabindex="-1"></a>**`tidyverse`** package <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
-<span id="cb6-497"><a href="#cb6-497" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-498"><a href="#cb6-498" aria-hidden="true" tabindex="-1"></a><span class="fu">## Large samples</span></span>
-<span id="cb6-499"><a href="#cb6-499" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-500"><a href="#cb6-500" aria-hidden="true" tabindex="-1"></a>A team of biomedical researchers is studying the concentration of</span>
-<span id="cb6-501"><a href="#cb6-501" aria-hidden="true" tabindex="-1"></a>Creatine Kinase (CK) in the blood of patients with muscle disorders.</span>
-<span id="cb6-502"><a href="#cb6-502" aria-hidden="true" tabindex="-1"></a>They collect a large random sample (n = 100) of blood samples from</span>
-<span id="cb6-503"><a href="#cb6-503" aria-hidden="true" tabindex="-1"></a>patients and measure the CK concentration in UL^-1^ (units per litre).</span>
-<span id="cb6-504"><a href="#cb6-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-505"><a href="#cb6-505" aria-hidden="true" tabindex="-1"></a>The goal is to estimate the average CK concentration in this patient</span>
-<span id="cb6-506"><a href="#cb6-506" aria-hidden="true" tabindex="-1"></a>population and calculate a 95% confidence interval for the mean</span>
-<span id="cb6-507"><a href="#cb6-507" aria-hidden="true" tabindex="-1"></a>concentration. The data are in <span class="co">[</span><span class="ot">ck_concen.csv</span><span class="co">](data-raw/ck_concen.csv)</span></span>
-<span id="cb6-508"><a href="#cb6-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-509"><a href="#cb6-509" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import</span></span>
-<span id="cb6-510"><a href="#cb6-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-513"><a href="#cb6-513" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-514"><a href="#cb6-514" aria-hidden="true" tabindex="-1"></a>creatinekinase <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/ck_concen.csv"</span>)</span>
-<span id="cb6-515"><a href="#cb6-515" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-516"><a href="#cb6-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-517"><a href="#cb6-517" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate sample statistics</span></span>
-<span id="cb6-518"><a href="#cb6-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-519"><a href="#cb6-519" aria-hidden="true" tabindex="-1"></a>We can use the <span class="in">`summarise()`</span> function to calculate: the mean, </span>
-<span id="cb6-520"><a href="#cb6-520" aria-hidden="true" tabindex="-1"></a>standard deviation, sample size and standard error and save t</span>
-<span id="cb6-521"><a href="#cb6-521" aria-hidden="true" tabindex="-1"></a>hem in a dataframe called <span class="in">`creatine_summary`</span></span>
-<span id="cb6-522"><a href="#cb6-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-525"><a href="#cb6-525" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-526"><a href="#cb6-526" aria-hidden="true" tabindex="-1"></a>creatine_summary <span class="ot">&lt;-</span> creatinekinase <span class="sc">|&gt;</span> </span>
-<span id="cb6-527"><a href="#cb6-527" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(ck_conc),</span>
-<span id="cb6-528"><a href="#cb6-528" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(ck_conc),</span>
-<span id="cb6-529"><a href="#cb6-529" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(ck_conc),</span>
-<span id="cb6-530"><a href="#cb6-530" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
-<span id="cb6-531"><a href="#cb6-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-532"><a href="#cb6-532" aria-hidden="true" tabindex="-1"></a>creatine_summary</span>
-<span id="cb6-533"><a href="#cb6-533" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-493"><a href="#cb6-493" aria-hidden="true" tabindex="-1"></a>If you want to code along you will need to start a new</span>
+<span id="cb6-494"><a href="#cb6-494" aria-hidden="true" tabindex="-1"></a>(see <span class="co">[</span><span class="ot">@sec-workflow-rstudio-creating-rsp</span><span class="co">]</span>) then a new script. You will also need to load the</span>
+<span id="cb6-495"><a href="#cb6-495" aria-hidden="true" tabindex="-1"></a>**`tidyverse`** package <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb6-496"><a href="#cb6-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-497"><a href="#cb6-497" aria-hidden="true" tabindex="-1"></a><span class="fu">## Large samples</span></span>
+<span id="cb6-498"><a href="#cb6-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-499"><a href="#cb6-499" aria-hidden="true" tabindex="-1"></a>A team of biomedical researchers is studying the concentration of</span>
+<span id="cb6-500"><a href="#cb6-500" aria-hidden="true" tabindex="-1"></a>Creatine Kinase (CK) in the blood of patients with muscle disorders.</span>
+<span id="cb6-501"><a href="#cb6-501" aria-hidden="true" tabindex="-1"></a>They collect a large random sample (n = 100) of blood samples from</span>
+<span id="cb6-502"><a href="#cb6-502" aria-hidden="true" tabindex="-1"></a>patients and measure the CK concentration in UL^-1^ (units per litre).</span>
+<span id="cb6-503"><a href="#cb6-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-504"><a href="#cb6-504" aria-hidden="true" tabindex="-1"></a>The goal is to estimate the average CK concentration in this patient</span>
+<span id="cb6-505"><a href="#cb6-505" aria-hidden="true" tabindex="-1"></a>population and calculate a 95% confidence interval for the mean</span>
+<span id="cb6-506"><a href="#cb6-506" aria-hidden="true" tabindex="-1"></a>concentration. The data are in <span class="co">[</span><span class="ot">ck_concen.csv</span><span class="co">](data-raw/ck_concen.csv)</span></span>
+<span id="cb6-507"><a href="#cb6-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-508"><a href="#cb6-508" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import</span></span>
+<span id="cb6-509"><a href="#cb6-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-512"><a href="#cb6-512" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-513"><a href="#cb6-513" aria-hidden="true" tabindex="-1"></a>creatinekinase <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/ck_concen.csv"</span>)</span>
+<span id="cb6-514"><a href="#cb6-514" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-515"><a href="#cb6-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-516"><a href="#cb6-516" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculate sample statistics</span></span>
+<span id="cb6-517"><a href="#cb6-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-518"><a href="#cb6-518" aria-hidden="true" tabindex="-1"></a>We can use the <span class="in">`summarise()`</span> function to calculate: the mean, </span>
+<span id="cb6-519"><a href="#cb6-519" aria-hidden="true" tabindex="-1"></a>standard deviation, sample size and standard error and save t</span>
+<span id="cb6-520"><a href="#cb6-520" aria-hidden="true" tabindex="-1"></a>hem in a dataframe called <span class="in">`creatine_summary`</span></span>
+<span id="cb6-521"><a href="#cb6-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-524"><a href="#cb6-524" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-525"><a href="#cb6-525" aria-hidden="true" tabindex="-1"></a>creatine_summary <span class="ot">&lt;-</span> creatinekinase <span class="sc">|&gt;</span> </span>
+<span id="cb6-526"><a href="#cb6-526" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(ck_conc),</span>
+<span id="cb6-527"><a href="#cb6-527" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(ck_conc),</span>
+<span id="cb6-528"><a href="#cb6-528" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(ck_conc),</span>
+<span id="cb6-529"><a href="#cb6-529" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb6-530"><a href="#cb6-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-531"><a href="#cb6-531" aria-hidden="true" tabindex="-1"></a>creatine_summary</span>
+<span id="cb6-532"><a href="#cb6-532" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-533"><a href="#cb6-533" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-534"><a href="#cb6-534" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-535"><a href="#cb6-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-536"><a href="#cb6-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-537"><a href="#cb6-537" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calcuate *C.I.*</span></span>
-<span id="cb6-538"><a href="#cb6-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-539"><a href="#cb6-539" aria-hidden="true" tabindex="-1"></a>To calculate the 95% confidence interval we need to look up the quantile</span>
-<span id="cb6-540"><a href="#cb6-540" aria-hidden="true" tabindex="-1"></a>(multiplier) using <span class="in">`qnorm()`</span>:</span>
-<span id="cb6-541"><a href="#cb6-541" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-544"><a href="#cb6-544" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-545"><a href="#cb6-545" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
-<span id="cb6-546"><a href="#cb6-546" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-547"><a href="#cb6-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-548"><a href="#cb6-548" aria-hidden="true" tabindex="-1"></a>Now we can use it in our confidence interval calculation:</span>
-<span id="cb6-549"><a href="#cb6-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-552"><a href="#cb6-552" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-553"><a href="#cb6-553" aria-hidden="true" tabindex="-1"></a>creatine_summary <span class="ot">&lt;-</span> creatine_summary <span class="sc">|&gt;</span> </span>
-<span id="cb6-554"><a href="#cb6-554" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lcl95 =</span> mean <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se,</span>
-<span id="cb6-555"><a href="#cb6-555" aria-hidden="true" tabindex="-1"></a>         <span class="at">ucl95 =</span> mean <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se)</span>
-<span id="cb6-556"><a href="#cb6-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-557"><a href="#cb6-557" aria-hidden="true" tabindex="-1"></a>creatine_summary</span>
-<span id="cb6-558"><a href="#cb6-558" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-536"><a href="#cb6-536" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calcuate *C.I.*</span></span>
+<span id="cb6-537"><a href="#cb6-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-538"><a href="#cb6-538" aria-hidden="true" tabindex="-1"></a>To calculate the 95% confidence interval we need to look up the quantile</span>
+<span id="cb6-539"><a href="#cb6-539" aria-hidden="true" tabindex="-1"></a>(multiplier) using <span class="in">`qnorm()`</span>:</span>
+<span id="cb6-540"><a href="#cb6-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-543"><a href="#cb6-543" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-544"><a href="#cb6-544" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb6-545"><a href="#cb6-545" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-546"><a href="#cb6-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-547"><a href="#cb6-547" aria-hidden="true" tabindex="-1"></a>Now we can use it in our confidence interval calculation:</span>
+<span id="cb6-548"><a href="#cb6-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-551"><a href="#cb6-551" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-552"><a href="#cb6-552" aria-hidden="true" tabindex="-1"></a>creatine_summary <span class="ot">&lt;-</span> creatine_summary <span class="sc">|&gt;</span> </span>
+<span id="cb6-553"><a href="#cb6-553" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lcl95 =</span> mean <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se,</span>
+<span id="cb6-554"><a href="#cb6-554" aria-hidden="true" tabindex="-1"></a>         <span class="at">ucl95 =</span> mean <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se)</span>
+<span id="cb6-555"><a href="#cb6-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-556"><a href="#cb6-556" aria-hidden="true" tabindex="-1"></a>creatine_summary</span>
+<span id="cb6-557"><a href="#cb6-557" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-558"><a href="#cb6-558" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-559"><a href="#cb6-559" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-560"><a href="#cb6-560" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-561"><a href="#cb6-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-562"><a href="#cb6-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-563"><a href="#cb6-563" aria-hidden="true" tabindex="-1"></a>I used the names <span class="in">`lcl95`</span> and <span class="in">`ucl95`</span> to stand for “95% lower </span>
-<span id="cb6-564"><a href="#cb6-564" aria-hidden="true" tabindex="-1"></a>confidence limit” and “95% upper confidence limit” respectively.</span>
+<span id="cb6-562"><a href="#cb6-562" aria-hidden="true" tabindex="-1"></a>I used the names <span class="in">`lcl95`</span> and <span class="in">`ucl95`</span> to stand for “95% lower </span>
+<span id="cb6-563"><a href="#cb6-563" aria-hidden="true" tabindex="-1"></a>confidence limit” and “95% upper confidence limit” respectively.</span>
+<span id="cb6-564"><a href="#cb6-564" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-565"><a href="#cb6-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-566"><a href="#cb6-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-567"><a href="#cb6-567" aria-hidden="true" tabindex="-1"></a>This means we are 95% confident the population mean lies between</span>
-<span id="cb6-568"><a href="#cb6-568" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(creatine_summary$lcl95,2)`</span> UL^-1^ and </span>
-<span id="cb6-569"><a href="#cb6-569" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(creatine_summary$ucl95,2)`</span> UL^-1^. The amount we have</span>
-<span id="cb6-570"><a href="#cb6-570" aria-hidden="true" tabindex="-1"></a>added/subtracted from the mean (<span class="in">`q * se`</span>) is </span>
-<span id="cb6-571"><a href="#cb6-571" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(q * creatine_summary$se, 2)`</span> thus</span>
-<span id="cb6-572"><a href="#cb6-572" aria-hidden="true" tabindex="-1"></a>we sometimes see this written as <span class="in">`r round(creatine_summary$mean, 2)`</span> </span>
-<span id="cb6-573"><a href="#cb6-573" aria-hidden="true" tabindex="-1"></a>$\pm$ <span class="in">`r round(q * creatine_summary$se, 2)`</span> mm.</span>
-<span id="cb6-574"><a href="#cb6-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-575"><a href="#cb6-575" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
-<span id="cb6-576"><a href="#cb6-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-577"><a href="#cb6-577" aria-hidden="true" tabindex="-1"></a>The mean creatine kinase concentration in patients with muscle disorders</span>
-<span id="cb6-578"><a href="#cb6-578" aria-hidden="true" tabindex="-1"></a>is <span class="in">`r round(creatine_summary$mean, 2)`</span> UL^-1^, </span>
-<span id="cb6-579"><a href="#cb6-579" aria-hidden="true" tabindex="-1"></a>95% C.I. <span class="sc">\[</span><span class="in">`r round(creatine_summary$lcl95,2)`</span>,</span>
-<span id="cb6-580"><a href="#cb6-580" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(creatine_summary$ucl95,2)`</span><span class="sc">\]</span></span>
-<span id="cb6-581"><a href="#cb6-581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-582"><a href="#cb6-582" aria-hidden="true" tabindex="-1"></a><span class="fu">## Small samples</span></span>
-<span id="cb6-583"><a href="#cb6-583" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-584"><a href="#cb6-584" aria-hidden="true" tabindex="-1"></a>TO DO</span>
+<span id="cb6-566"><a href="#cb6-566" aria-hidden="true" tabindex="-1"></a>This means we are 95% confident the population mean lies between</span>
+<span id="cb6-567"><a href="#cb6-567" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(creatine_summary$lcl95,2)`</span> UL^-1^ and </span>
+<span id="cb6-568"><a href="#cb6-568" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(creatine_summary$ucl95,2)`</span> UL^-1^. The amount we have</span>
+<span id="cb6-569"><a href="#cb6-569" aria-hidden="true" tabindex="-1"></a>added/subtracted from the mean (<span class="in">`q * se`</span>) is </span>
+<span id="cb6-570"><a href="#cb6-570" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(q * creatine_summary$se, 2)`</span> thus</span>
+<span id="cb6-571"><a href="#cb6-571" aria-hidden="true" tabindex="-1"></a>we sometimes see this written as <span class="in">`r round(creatine_summary$mean, 2)`</span> </span>
+<span id="cb6-572"><a href="#cb6-572" aria-hidden="true" tabindex="-1"></a>$\pm$ <span class="in">`r round(q * creatine_summary$se, 2)`</span> mm.</span>
+<span id="cb6-573"><a href="#cb6-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-574"><a href="#cb6-574" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb6-575"><a href="#cb6-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-576"><a href="#cb6-576" aria-hidden="true" tabindex="-1"></a>The mean creatine kinase concentration in patients with muscle disorders</span>
+<span id="cb6-577"><a href="#cb6-577" aria-hidden="true" tabindex="-1"></a>is <span class="in">`r round(creatine_summary$mean, 2)`</span> UL^-1^, </span>
+<span id="cb6-578"><a href="#cb6-578" aria-hidden="true" tabindex="-1"></a>95% C.I. <span class="sc">\[</span><span class="in">`r round(creatine_summary$lcl95,2)`</span>,</span>
+<span id="cb6-579"><a href="#cb6-579" aria-hidden="true" tabindex="-1"></a><span class="in">`r round(creatine_summary$ucl95,2)`</span><span class="sc">\]</span></span>
+<span id="cb6-580"><a href="#cb6-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-581"><a href="#cb6-581" aria-hidden="true" tabindex="-1"></a><span class="fu">## Small samples</span></span>
+<span id="cb6-582"><a href="#cb6-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-583"><a href="#cb6-583" aria-hidden="true" tabindex="-1"></a>TO DO</span>
+<span id="cb6-584"><a href="#cb6-584" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-585"><a href="#cb6-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-586"><a href="#cb6-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-587"><a href="#cb6-587" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
-<span id="cb6-588"><a href="#cb6-588" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>A confidence interval gives a range of plausible values for a</span>
-<span id="cb6-589"><a href="#cb6-589" aria-hidden="true" tabindex="-1"></a>    population mean from a sample and is calculated from a sample mean</span>
-<span id="cb6-590"><a href="#cb6-590" aria-hidden="true" tabindex="-1"></a>    and standard error.</span>
-<span id="cb6-591"><a href="#cb6-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-592"><a href="#cb6-592" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>They are possible because all normal distributions have the same</span>
-<span id="cb6-593"><a href="#cb6-593" aria-hidden="true" tabindex="-1"></a>    properties.</span>
-<span id="cb6-594"><a href="#cb6-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-595"><a href="#cb6-595" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>95% Confidence Intervals for Large Samples:</span>
-<span id="cb6-596"><a href="#cb6-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-597"><a href="#cb6-597" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Formula:\</span>
-<span id="cb6-598"><a href="#cb6-598" aria-hidden="true" tabindex="-1"></a>        $$</span>
-<span id="cb6-599"><a href="#cb6-599" aria-hidden="true" tabindex="-1"></a>        \bar{x} \pm 1.96 \times s.e.</span>
-<span id="cb6-600"><a href="#cb6-600" aria-hidden="true" tabindex="-1"></a>        $$</span>
-<span id="cb6-601"><a href="#cb6-601" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>95% of confidence intervals computed this way will contain the</span>
-<span id="cb6-602"><a href="#cb6-602" aria-hidden="true" tabindex="-1"></a>        true population mean.</span>
-<span id="cb6-603"><a href="#cb6-603" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-604"><a href="#cb6-604" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>95% Confidence Intervals for Small Samples:</span>
-<span id="cb6-605"><a href="#cb6-605" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-606"><a href="#cb6-606" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Uses the *t*-distribution instead of the normal distribution.\</span>
-<span id="cb6-607"><a href="#cb6-607" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Formula:\</span>
-<span id="cb6-608"><a href="#cb6-608" aria-hidden="true" tabindex="-1"></a>        $$</span>
-<span id="cb6-609"><a href="#cb6-609" aria-hidden="true" tabindex="-1"></a>        \bar{x} \pm t_{<span class="co">[</span><span class="ot">d.f.</span><span class="co">]</span>} \times s.e.</span>
-<span id="cb6-610"><a href="#cb6-610" aria-hidden="true" tabindex="-1"></a>        $$</span>
-<span id="cb6-611"><a href="#cb6-611" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The *t*-distribution has fatter tails and varies based on</span>
-<span id="cb6-612"><a href="#cb6-612" aria-hidden="true" tabindex="-1"></a>        degrees of freedom (*n-1*), approaching the normal distribution</span>
-<span id="cb6-613"><a href="#cb6-613" aria-hidden="true" tabindex="-1"></a>        as *n* increases.</span>
+<span id="cb6-586"><a href="#cb6-586" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb6-587"><a href="#cb6-587" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>A confidence interval gives a range of plausible values for a</span>
+<span id="cb6-588"><a href="#cb6-588" aria-hidden="true" tabindex="-1"></a>    population mean from a sample and is calculated from a sample mean</span>
+<span id="cb6-589"><a href="#cb6-589" aria-hidden="true" tabindex="-1"></a>    and standard error.</span>
+<span id="cb6-590"><a href="#cb6-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-591"><a href="#cb6-591" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>They are possible because all normal distributions have the same</span>
+<span id="cb6-592"><a href="#cb6-592" aria-hidden="true" tabindex="-1"></a>    properties.</span>
+<span id="cb6-593"><a href="#cb6-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-594"><a href="#cb6-594" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>95% Confidence Intervals for Large Samples:</span>
+<span id="cb6-595"><a href="#cb6-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-596"><a href="#cb6-596" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Formula:\</span>
+<span id="cb6-597"><a href="#cb6-597" aria-hidden="true" tabindex="-1"></a>        $$</span>
+<span id="cb6-598"><a href="#cb6-598" aria-hidden="true" tabindex="-1"></a>        \bar{x} \pm 1.96 \times s.e.</span>
+<span id="cb6-599"><a href="#cb6-599" aria-hidden="true" tabindex="-1"></a>        $$</span>
+<span id="cb6-600"><a href="#cb6-600" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>95% of confidence intervals computed this way will contain the</span>
+<span id="cb6-601"><a href="#cb6-601" aria-hidden="true" tabindex="-1"></a>        true population mean.</span>
+<span id="cb6-602"><a href="#cb6-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-603"><a href="#cb6-603" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>95% Confidence Intervals for Small Samples:</span>
+<span id="cb6-604"><a href="#cb6-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-605"><a href="#cb6-605" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Uses the *t*-distribution instead of the normal distribution.\</span>
+<span id="cb6-606"><a href="#cb6-606" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Formula:\</span>
+<span id="cb6-607"><a href="#cb6-607" aria-hidden="true" tabindex="-1"></a>        $$</span>
+<span id="cb6-608"><a href="#cb6-608" aria-hidden="true" tabindex="-1"></a>        \bar{x} \pm t_{<span class="co">[</span><span class="ot">d.f.</span><span class="co">]</span>} \times s.e.</span>
+<span id="cb6-609"><a href="#cb6-609" aria-hidden="true" tabindex="-1"></a>        $$</span>
+<span id="cb6-610"><a href="#cb6-610" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The *t*-distribution has fatter tails and varies based on</span>
+<span id="cb6-611"><a href="#cb6-611" aria-hidden="true" tabindex="-1"></a>        degrees of freedom (*n-1*), approaching the normal distribution</span>
+<span id="cb6-612"><a href="#cb6-612" aria-hidden="true" tabindex="-1"></a>        as *n* increases.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
