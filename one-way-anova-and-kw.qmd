@@ -70,8 +70,8 @@ with `lm()` and *then* check the assumptions, however, we can sometimes
 tell when a non-parametric test would be more appropriate before that:
 
 -   Use common sense - the response should be continuous (or nearly
-    continuous, see [Ideas about data: Theory and
-    practice](ideas_about_data.html#theory-and-practice)). Consider
+    continuous, see Ideas about data: Theory and
+    practice (see @sec-ideas-about-data-theory-practice). Consider
     whether you would expect the response to be continuous
 -   There should decimal places and few repeated values.
 
@@ -185,7 +185,7 @@ The Response variable is colony diameters in millimetres and we would
 expect it to be continuous. The Explanatory variable is type of media
 and is categorical with 3 groups. It is known “one-way ANOVA” or
 “one-factor ANOVA” because there is only one explanatory variable. It
-would still be one-way ANOVA if we had 4, 20 or 100 media.
+would still be one-way ANOVA if we had 4, 20 or 100 different types of media.
 
 These data are in tidy format [@Wickham2014-nl] - all the diameter
 values are in one column with another column indicating the media. This
@@ -212,7 +212,7 @@ ggplot(data = culture,
 ```
 
 **The diameters of bacterial colonies when grown in one of three media**. 
-A violin plot is an alternative to boxplot for getting an overview of our data
+A violin plot is an alternative to a boxplot for getting an overview of our data
 before we begin analysis. Quick graphical overviews help us identify any 
 issues such as missing or extreme values. It also tells us what to expect from 
 the analysis. Adding both sugar and amino acids to the medium seems to
@@ -231,8 +231,8 @@ sizes and standard errors. I recommend the `group_by()` and
 `summarise()` approach:
 
 ```{r}
-culture_summary <- culture %>%
-  group_by(medium) %>%
+culture_summary <- culture |> 
+  group_by(medium) |> 
   summarise(mean = mean(diameter),
             std = sd(diameter),
             n = length(diameter),
@@ -800,7 +800,7 @@ Post-hoc testing with the Dunn test [@dunn1964] revealed the colony diameters
 were significantly larger when grown with both sugar and amino acids 
 (median = `r suaa_m` mm) than with neither (median = `r cont_m` mm; 
 *p* = `r p_cont_v_suaa`) or just sugar (median = `r suga_m` mm;
-*p* = `r p_cont_v_suga`). See @fig-culture-kw.
+*p* = `r p_suga_v_suaa`). See @fig-culture-kw.
 
 ::: {#fig-culture-kw}
 ```{r}
@@ -819,12 +819,14 @@ ggplot(data = culture, aes(x = medium, y = diameter)) +
            y = 14, yend = 14,
            colour = "black") +
   annotate("text", x = 2.5,  y = 14.5, 
-           label = expression(italic(p)~"= 0.038")) +
+           label = glue::glue("italic(p) == { p_suga_v_suaa }"),
+                              parse = TRUE) +
     annotate("segment", x = 1, xend = 3, 
            y = 15.5, yend = 15.5,
            colour = "black") +
   annotate("text", x = 2,  y = 16, 
-           label = expression(italic(p)~"= 0.031")) +
+           label = glue::glue("italic(p) == { p_cont_v_suaa }"),
+                              parse = TRUE) +
   theme_classic()
 ```
 
