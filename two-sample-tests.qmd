@@ -399,7 +399,7 @@ good way to check for homogeneity of variance.
 plot(mod, which = 1)
 ```
 
-*Residuals against fitted values.** A plot of the residuals against the 
+**Residuals against fitted values.** A plot of the residuals against the 
 fitted values allows us to check the homogeneity of variance assumption.
 Here, the points are distributed similarly in each group. This is a good sign
 for the assumption of homogeneity of variance.
@@ -783,6 +783,9 @@ t_value <- mod_tidy |>
 p_value <- mod_tidy |> 
   filter(term == "subject") |> 
   pull(p.value) |> round(4)
+effect_df <- mod_tidy |> 
+  filter(term == "subject") |> 
+  pull(df) 
 df_residuals <- mod_tidy |>  
   filter(term == "Residuals") |> 
   pull(df)
@@ -791,15 +794,9 @@ df_residuals <- mod_tidy |>
 
 
 
-
-
 You will notice that the *p*-value for subject is the same. The test
-statistic, $F$ has a value of 
-`r round(anova(mod)$F[1],2)` 
-and degrees of freedom of 
-`r broom::tidy(anova(mod))$df[1]` 
-and
-`r broom::tidy(anova(mod))$df[3]`.
+statistic, $F$ has a value of `r t_value^2` and degrees of freedom of
+`r effect_df` and `r df_residuals`.
 
 
 ### Check assumptions

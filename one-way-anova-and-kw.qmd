@@ -111,10 +111,10 @@ We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new
-(see [@sec-workflow-rstudio-creating-rsp]) then a new script, 
-add a `data-raw` folder and open a new script. 
-You will also need to load the **`tidyverse`** package [@tidyverse].
+If you want to code along you will need to start a new RStudio Project
+(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw`
+folder and open a new script. You will also need to load the
+**`tidyverse`** package [@tidyverse].
 
 ## One-way ANOVA
 
@@ -202,14 +202,23 @@ Violin plots (`geom_violin()`, see @fig-culture-rough), box plots
 choices for exploratory plotting and it does not matter which of these
 you choose.
 
+:::{#fig-culture-rough}
+
 ```{r}
-#| label: fig-culture-rough
-#| fig-cap: "The diameters of bacterial colonies when grown in one of three media. A violin plot is a useful way to get an overview of the data and helps us identify any issues such as missing or extreme values. It also tells us what to expect from the analysis."
-#| 
+
 ggplot(data = culture,
        aes(x = medium, y = diameter)) +
   geom_violin()
 ```
+
+**The diameters of bacterial colonies when grown in one of three media**. 
+A violin plot is an alternative to boxplot for getting an overview of our data
+before we begin analysis. Quick graphical overviews help us identify any 
+issues such as missing or extreme values. It also tells us what to expect from 
+the analysis. Adding both sugar and amino acids to the medium seems to
+increase the colony diameter.
+
+:::
 
 R will order the groups alphabetically by default.
 
@@ -228,9 +237,52 @@ culture_summary <- culture %>%
             std = sd(diameter),
             n = length(diameter),
             se = std/sqrt(n))
+
 ```
 
-We have save the results to `culture_summary` so that we can use the
+
+```{r}
+#| echo: false
+# extract values for ease of reporting
+cont_m <- culture_summary |> 
+  filter(medium == "control") |> 
+  pull(mean) |> round(2)
+
+cont_se <- culture_summary |> 
+  filter(medium == "control") |> 
+  pull(se) |> round(2)
+
+cont_n <- culture_summary |> 
+  filter(medium == "control") |> 
+  pull(n) 
+
+suga_m <- culture_summary |> 
+  filter(medium == "sugar added") |> 
+  pull(mean) |> round(2)
+
+suga_se <- culture_summary |> 
+  filter(medium == "sugar added") |> 
+  pull(se) |> round(2)
+
+suga_n <- culture_summary |> 
+  filter(medium == "sugar added") |> 
+  pull(n)
+
+suaa_m <- culture_summary |> 
+  filter(medium == "sugar and amino acids added") |> 
+  pull(mean) |> round(2)
+
+suaa_se <- culture_summary |> 
+  filter(medium == "sugar and amino acids added") |> 
+  pull(se) |> round(2)
+
+suaa_n <- culture_summary |> 
+  filter(medium == "sugar and amino acids added") |> 
+  pull(n)
+
+```
+
+We have saved the results to `culture_summary` so that we can use the
 means and standard errors in our plot later.
 
 ```{r}
@@ -304,10 +356,11 @@ The *F* value and *p*-value in the last line are a test of whether the
 model as a whole explains a significant amount of variation in the
 response variable.
 
+:::{#fig-two-sample-lm-model}
+
 ```{r}
 #| echo: false
-#| label: fig-one-way-anova-lm-model
-#| fig-cap: "In an one-way ANOVA model with three groups, the first estimate is the intercept which is the mean of the first group. The second estimate is the 'slope' which is what has to added to the intercept to get the second group mean. The third estimate is the 'slope' which is what has to added to the intercept to get the third group mean. Note that y axis starts at 15 to create more space for the annotations."
+
 ggplot() +
   geom_errorbar(data = culture_summary, 
                 aes(x = medium, ymin = mean, ymax = mean), 
@@ -374,12 +427,58 @@ theme_classic()
 
 ```
 
+
+**The a linear model fitted to the relationship between media and diameter**.
+In an one-way ANOVA model with three groups, the model has three coefficients
+(parameters) estimated from the data. The first estimate is the intercept 
+which is the mean of the first group. The second estimate is the 'slope' 
+to the second group which is what has to added to the intercept to get 
+the second group mean. The third estimate is the 'slope' to the third group
+which is what has to added to the intercept to get the third group mean. 
+Note that y axis starts at 15 to create more space for the annotations.
+
+:::
+
+If you find this a bit overwhelming to read you can use the `anova()`
+function on the model object to get a simpler output:
+
+```{r}
+anova(mod)
+```
+
+
+```{r}
+#| echo: false
+# extract values from mod using broom for ease of reporting
+mod_tidy <- broom::tidy(anova(mod))
+
+F_value <- mod_tidy |> 
+  filter(term == "medium") |> 
+  pull(statistic) |> round(2)
+p_value <- mod_tidy |> 
+  filter(term == "medium") |> 
+  pull(p.value) |> round(4)
+df_effect <- mod_tidy |> 
+  filter(term == "medium") |> 
+  pull(df) 
+df_residuals <- mod_tidy |>  
+  filter(term == "Residuals") |> 
+  pull(df)
+
+```
+
 The ANOVA is significant but this only tells us that growth medium
 matters, meaning at least two of the means differ. To find out which
-means differ, we need a post-hoc test. A post-hoc ("after this") test is
-done after a significant ANOVA test. There are several possible post-hoc
-tests and we will be using Tukey's HSD (honestly significant difference)
-test [@tukey1949] implemented in the **`emmeans`** [@emmeans] package.
+means differ, we need a post-hoc test.
+
+### Post-hoc testing
+
+A post-hoc ("after this") test is done after a significant ANOVA test. If the 
+ANOVA is *not* significant, no post-hoc is needed.
+
+There are several possible post-hoc tests and we will be using Tukey's HSD
+(honestly significant difference) test [@tukey1949] implemented in 
+the **`emmeans`** [@emmeans] package.
 
 We need to load the package:
 
@@ -394,18 +493,34 @@ emmeans(mod, ~ medium) |> pairs()
 
 ```
 
-Each row is a comparison between the two means in the 'contrast' column.
-The 'estimate' column is the difference between those means and the
-'p.value' indicates whether that difference is significant.
-
-A plot can be used to visualise the result of the post-hoc which can be
-especially useful when there are very many comparisons.
-
 ```{r}
-emmeans(mod, ~ medium) |> plot()
+#| echo: false
+# extract pvalues from emmeans using broom for ease of reporting
+ph_tidy <- emmeans(mod, ~ medium) |> pairs() |> broom::tidy()
+
+p_cont_v_suga <- ph_tidy |> 
+  filter(contrast == "control - sugar added") |> 
+  pull(adj.p.value) |> round(4)
+p_cont_v_suaa <- ph_tidy |> 
+  filter(contrast == "control - sugar and amino acids added") |> 
+  pull(adj.p.value) |> round(4)
+p_suga_v_suaa <- ph_tidy |> 
+  filter(contrast == "sugar added - sugar and amino acids added") |> 
+  pull(adj.p.value) |> round(4)
+
+
 ```
 
-Where the purple bars overlap, there is no significant difference.
+
+Each row is a comparison between the two means in the 'contrast' column.
+The 'estimate' column is the difference between those means and the
+'p.value' indicates whether that difference is significant. In this case,
+two of the comparisons are significant: 
+
+-  control - sugar and amino acids added with *p* = `r p_cont_v_suaa`
+-  sugar added - sugar and amino acids added with *p* = `r p_suga_v_suaa`
+
+
 
 We have found that colony diameters are significantly greater when sugar
 and amino acids are added but that adding sugar alone does not
@@ -425,24 +540,38 @@ We then proceed by plotting residuals. The `plot()` function can be used
 to plot the residuals against the fitted values (See @fig-anova1-plot1).
 This is a good way to check for homogeneity of variance.
 
+:::{#fig-anova1-plot1}
+
 ```{r}
-#| label: fig-anova1-plot1
-#| fig-cap: "A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are more variable for the highest mean."
 
 plot(mod, which = 1)
 ```
+
+**Residuals against fitted values.** A plot of the residuals against the 
+fitted values allows us to check the homogeneity of variance assumption.
+Here, the points are distributed similarly in each group. Any difference 
+seems small but perhaps the residuals are more variable for the highest mean.
+
+:::
 
 Perhaps the variance is higher for the highest mean?
 
 We can also use a histogram to check for normality (See
 @fig-anova1-plot2).
 
+:::{#fig-anova1-plot2}
+
 ```{r}
-#| label: fig-anova1-plot2
-#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
+
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 8)
 ```
+
+**Distribution of the residuals**. A histogram of the residuals allows us to 
+check the normality assumption. Here, the distribution fairly is symmetrical
+and seems consistent with a normal distribution. This is a good sign for 
+the assumption of normally distributed residuals.
+:::
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
 
@@ -459,12 +588,14 @@ and homogeneity of variance are probably not violated.
 ### Report
 
 There was a significant effect of media on the diameter of bacterial
-colonies (*F* = 6.11; *d.f.* = 2, 27; *p* = 0.006). Post-hoc testing
+colonies (*F* = `r F_value`; *d.f.* = `r df_effect`, `r df_residuals`; 
+*p* = `r p_value`). Post-hoc testing
 with Tukey's Honestly Significant Difference test [@tukey1949] revealed
 the colony diameters were significantly larger when grown with both
-sugar and amino acids ($\bar{x} \pm s.e$: 11.4 $\pm$ 0.37 mm) than with
-neither (10.2 $\pm$ 0.26 mm; *p* = 0.0092) or just sugar (10.1 $\pm$
-0.23 mm; *p* = 0.0244). See @fig-culture.
+sugar and amino acids ($\bar{x} \pm s.e$: `r suaa_m` $\pm$ `r suaa_se` mm) 
+than with neither (`r cont_m` $\pm$ `r cont_se` mm; *p* = `r p_cont_v_suaa`) or 
+just sugar (`r suga_m` $\pm$ `r suga_se` mm; *p* = `r p_suga_v_suaa`). 
+See @fig-culture.
 
 ::: {#fig-culture}
 ```{r}
@@ -472,8 +603,7 @@ neither (10.2 $\pm$ 0.26 mm; *p* = 0.0092) or just sugar (10.1 $\pm$
 
 ggplot() +
   geom_point(data = culture, aes(x = medium, y = diameter),
-             position = position_jitter(width = 0.1, height = 0),
-             colour = "gray50") +
+             position = position_jitter(width = 0.1, height = 0)) +
   geom_errorbar(data = culture_summary, 
                 aes(x = medium, ymin = mean - se, ymax = mean + se),
                 width = 0.3) +
@@ -491,12 +621,14 @@ ggplot() +
            y = 14, yend = 14,
            colour = "black") +
   annotate("text", x = 2.5,  y = 14.5, 
-           label = expression(italic(p)~"= 0.0244")) +
-    annotate("segment", x = 1, xend = 3, 
+           label = glue::glue("italic(p) == { p_suga_v_suaa }"),
+                              parse = TRUE) +
+  annotate("segment", x = 1, xend = 3, 
            y = 15.5, yend = 15.5,
            colour = "black") +
   annotate("text", x = 2,  y = 16, 
-           label = expression(italic(p)~"= 0.0092")) +
+           label = glue::glue("italic(p) == { p_cont_v_suaa }"),
+                              parse = TRUE) +
   theme_classic()
 ```
 
@@ -504,7 +636,8 @@ ggplot() +
 were grown on three types of media: control, with sugar added and with
 both sugar and amino acids added. Error bars are means $\pm$ 1 standard
 error. There was a significant effect of media on the diameter of
-bacterial colonies (*F* = 6.11; *d.f.* = 2, 27; *p* = 0.006). Post-hoc
+bacterial colonies (*F* = `r F_value`; *d.f.* = `r df_effect`, 
+`r df_residuals`; *p* = `r p_value`)). Post-hoc
 testing with Tukey's Honestly Significant Difference test [@tukey1949]
 revealed the colony diameters were significantly larger when grown with
 both sugar and amino acids than with neither or just sugar. Data
@@ -541,6 +674,38 @@ culture_summary <- culture |>
             n = length(diameter))
 ```
 
+```{r}
+#| echo: false
+# extract values for ease of reporting
+control_m <- culture_summary |> 
+  filter(medium == "control") |> 
+  pull(median) |> round(1)
+
+control_n <- culture_summary |> 
+  filter(medium == "control") |> 
+  pull(n) 
+
+suga_m <- culture_summary |> 
+  filter(medium == "sugar added") |> 
+  pull(median) |> round(1)
+
+
+suga_n <- culture_summary |> 
+  filter(medium == "sugar added") |> 
+  pull(n)
+
+suaa_m <- culture_summary |> 
+  filter(medium == "sugar and amino acids added") |> 
+  pull(median) |> round(1)
+
+
+suaa_n <- culture_summary |> 
+  filter(medium == "sugar and amino acids added") |> 
+  pull(n)
+
+```
+
+
 View the results:
 
 ```{r}
@@ -558,6 +723,19 @@ kruskal.test(data = culture, diameter ~ medium)
 
 ```
 
+```{r}
+#| echo: false
+#| warning: false
+# extract values from mod using broom for ease of reporting
+krus_tidy <- broom::tidy(kruskal.test(data = culture, diameter ~ medium))
+
+chisq_value <- krus_tidy |> pull(statistic) |> round(2)
+p_value <- krus_tidy |> pull(p.value) |> round(4)
+df <- krus_tidy |> pull(parameter) 
+
+```
+
+
 The result of the test is given on this line:
 `Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742`.
 `Chi-squared` is the test statistic. The *p*-value is less than 0.05
@@ -567,7 +745,7 @@ Notice that the *p*-value is a little larger than for the ANOVA. This is
 because non-parametric tests are generally more conservative (less
 powerful) than their parametric equivalents.
 
-A significant Kruskal-Wallis tells us at least two of the groups differ
+A significant Kruskal-Wallis tells us *at least two* of the groups differ
 but where do the differences lie? The Dunn test [@dunn1964] is a
 post-hoc multiple comparison test for a significant Kruskal-Wallis. It
 is available in the package **`FSA`** [@FSA]
@@ -591,16 +769,38 @@ the `sugar added - sugar and amino acids added` comparison but they are
 still less than 0.05. This means our conclusions are the same as for the
 ANOVA.
 
+```{r}
+#| echo: false
+#| warning: false
+# extract values from dunn for ease of reporting
+dunn_tidy <- dunnTest(data = culture, diameter ~ medium)$res
+
+p_cont_v_suga <- dunn_tidy |> 
+  filter(Comparison == "control - sugar added") |> 
+  pull(P.adj) |> round(4)
+p_cont_v_suaa <- dunn_tidy |> 
+  filter(Comparison == "control - sugar and amino acids added") |> 
+  pull(P.adj) |> round(4)
+p_suga_v_suaa <- dunn_tidy |> 
+  filter(Comparison == "sugar added - sugar and amino acids added") |> 
+  pull(P.adj) |> round(4)
+
+```
+
+
+
+
 ### Report
 
 There is a significant effect of media on the diameter of bacterial
-colonies (Kruskal-Wallis: *chi-squared* = 6.34; *df* = 2; *p*-value =
-0.042) with colonies growing significantly better when both sugar and
-amino acids are added to the medium. Post-hoc testing with the Dunn test
-[@dunn1964] revealed the colony diameters were significantly larger when
-grown with both sugar and amino acids (median = 11.3 mm) than with
-neither (median = 10.2 mm; *p* = 0.031) or just sugar (median = 10.2 mm;
-*p* = 0.038). See @fig-culture-kw.
+colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; 
+*df* = `r df`; *p*-value = `r p_value`) with colonies growing 
+significantly better when both sugar and amino acids are added to the medium. 
+Post-hoc testing with the Dunn test [@dunn1964] revealed the colony diameters 
+were significantly larger when grown with both sugar and amino acids 
+(median = `r suaa_m` mm) than with neither (median = `r cont_m` mm; 
+*p* = `r p_cont_v_suaa`) or just sugar (median = `r suga_m` mm;
+*p* = `r p_cont_v_suga`). See @fig-culture-kw.
 
 ::: {#fig-culture-kw}
 ```{r}
@@ -633,9 +833,10 @@ were grown on three types of media: control, with sugar added and with
 both sugar and amino acids added. The heavy lines indicate median
 diameter, boxes indicate the interquartile range and whiskers the range.
 There was a significant effect of media on the diameter of bacterial
-colonies (Kruskal-Wallis: *chi-squared* = 6.34, *df* = 2, *p*-value =
-0.042). Post-hoc testing with the Dunn test [@dunn1964] revealed the
-colony diameters were significantly larger when grown with both sugar
+colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; 
+*df* = `r df`; *p*-value = `r p_value`). Post-hoc testing with the Dunn test 
+[@dunn1964] revealed the colony diameters were significantly larger when
+grown with both sugar
 and amino acids than with neither or just sugar. Data analysis was
 conducted in R [@R-core] with tidyverse packages [@tidyverse].
 :::
