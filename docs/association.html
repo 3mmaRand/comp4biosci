@@ -1448,7 +1448,7 @@ Draft
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  seeds$compactness</span></span>
-<span><span class="co">## W = 0.99484, p-value = 0.9937</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.99, p-value = 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">seeds</span><span class="op">$</span><span class="va">kernel_width</span><span class="op">)</span></span>
@@ -1456,7 +1456,7 @@ Draft
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  seeds$kernel_width</span></span>
-<span><span class="co">## W = 0.98989, p-value = 0.8486</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.99, p-value = 0.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <em>p</em>-values are greater than 0.05 so these tests of the normality assumption are not significant. Note that “not significant” means not significantly different from a normal distribution. It does not mean definitely normally distributed.</p>
 <p>It is not unreasonable to continue with the Pearson’s correlation coefficient. However, later we will also use the Spearman’s rank correlation coefficient, a non-parametric method which has fewer assumptions. Spearman’s rank correlation is a more conservative approach.</p>
@@ -1470,13 +1470,13 @@ Draft
 <span><span class="co">##  Pearson's product-moment correlation</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  compactness and kernel_width</span></span>
-<span><span class="co">## t = 7.3738, df = 68, p-value = 2.998e-10</span></span>
+<span><span class="co">## t = 7.4, df = 68, p-value = 0.0000000003</span></span>
 <span><span class="co">## alternative hypothesis: true correlation is not equal to 0</span></span>
 <span><span class="co">## 95 percent confidence interval:</span></span>
-<span><span class="co">##  0.5117537 0.7794620</span></span>
+<span><span class="co">##  0.5118 0.7795</span></span>
 <span><span class="co">## sample estimates:</span></span>
-<span><span class="co">##       cor </span></span>
-<span><span class="co">## 0.6665731</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">##    cor </span></span>
+<span><span class="co">## 0.6666</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s is the default test so we do not need to specify it.</p>
 <p>What do all these results mean?</p>
@@ -1609,11 +1609,11 @@ Draft
 <span><span class="co">##  Spearman's rank correlation rho</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  SBP and eGFR</span></span>
-<span><span class="co">## S = 526, p-value = 0.001192</span></span>
+<span><span class="co">## S = 526, p-value = 0.001</span></span>
 <span><span class="co">## alternative hypothesis: true rho is not equal to 0</span></span>
 <span><span class="co">## sample estimates:</span></span>
-<span><span class="co">##        rho </span></span>
-<span><span class="co">## -0.8391608</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">##     rho </span></span>
+<span><span class="co">## -0.8392</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s is the default test so we need to specify <code>method = "spearman"</code>.</p>
 <p>What do all these results mean?</p>
@@ -1739,17 +1739,17 @@ Table&nbsp;18.1: Food preferences of three pig breeds
 <span><span class="co">##  Pearson's Chi-squared test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  food_pref</span></span>
-<span><span class="co">## X-squared = 10.64, df = 4, p-value = 0.03092</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## X-squared = 11, df = 4, p-value = 0.03</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The test is significant since the <em>p</em>-value is less than 0.05. We have evidence of a preference for particular foods by different breeds. But in what way? We need to know the “direction of the effect” <em>i.e.,</em> Who likes what?</p>
 <p>The <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function has a <code>residuals</code> argument that can be used to calculate the residuals. These are the differences between the observed and expected values. The expected values are the values that would be expected if there was no association between the rows and columns. The residuals are standardised.</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span><span class="op">$</span><span class="va">residuals</span></span>
 <span><span class="co">##            breed</span></span>
-<span><span class="co">## food             welsh    tamworth      essex</span></span>
-<span><span class="co">##   cabbage   -1.2433504 -0.05564283  1.2722209</span></span>
-<span><span class="co">##   sugarbeet  1.9317656 -0.16014783 -1.7125943</span></span>
-<span><span class="co">##   swede     -0.7289731  0.26939742  0.4225344</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## food         welsh tamworth   essex</span></span>
+<span><span class="co">##   cabbage   -1.243 -0.05564  1.2722</span></span>
+<span><span class="co">##   sugarbeet  1.932 -0.16015 -1.7126</span></span>
+<span><span class="co">##   swede     -0.729  0.26940  0.4225</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Where the residuals are positive, the observed value is greater than the expected value and where they are negative, the observed value is less than the expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the Essex pigs slightly prefer swede but have less strong likes and dislikes.</p>
 <p>The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.</p>

@@ -814,7 +814,7 @@ Table&nbsp;12.1: R functions that provide values for some example distributions
 <p>Do you have to remember the value of 1.96? Not if you have R! We can use the <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> function:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span><span class="fl">0.975</span><span class="op">)</span></span>
-<span><span class="co">## [1] 1.959964</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## [1] 1.96</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notice that it is <code>qnorm(0.975)</code> and not <code>qnorm(0.95)</code> for a 95% confidence interval. This is because the functions are defined as giving the area under to the curve to <em>the left</em> of the value given. This is known as being “one-tailed”. To get 0.05 in the <em>two tails combined</em>, we need to have 0.025 – half of 0.05 – in <em>each tail</em>. The value on the <em>x</em>-axis that puts 0.025 in the upper tail is 0.975 (<a href="#fig-qnorm-is-one-tail" class="quarto-xref">Figure&nbsp;<span>12.5</span></a>). If we gave 0.95, we would get the value that put 0.05 in one tail and 0.9 in the central area. We want 0.025 in each tail, so we need to use 0.975 in <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code>.</p>
 <div id="fig-qnorm-is-one-tail" class="quarto-float quarto-figure quarto-figure-center anchored">

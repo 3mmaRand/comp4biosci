@@ -7,6 +7,10 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.height = 4)
 
+options(
+  scipen = 999,
+  digits = 4
+)
 
 
 # book notes --------------------------------------------------------------

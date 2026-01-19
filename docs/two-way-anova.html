@@ -1212,19 +1212,22 @@ Complete
 <p>These data are in tidy format <span class="citation" data-cites="Wickham2014-nl">(<a href="references.html#ref-Wickham2014-nl" role="doc-biblioref">Wickham 2014</a>)</span> - all the parasite load values are in one column (<code>para</code>) with the other columns indicating the <code>species</code> and the <code>season</code>. This means they are well formatted for analysis and plotting.</p>
 <p>In the first instance it is sensible to create a rough plot of our data. This is to give us an overview and help identify if there are any issues like missing or extreme values. It also gives us idea what we are expecting from the analysis which will make it easier for us to identify if we make some mistake in applying that analysis.</p>
 <p>Violin plots (<code>geom_violin()</code>, see <a href="#fig-periwinkle-rough" class="quarto-xref">Figure&nbsp;<span>17.2</span></a>), box plots (<code>geom_boxplot()</code>) or scatter plots (<code>geom_point()</code>) all make good choices for exploratory plotting and it does not matter which of these you choose.</p>
+<div id="fig-periwinkle-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, </span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>, y <span class="op">=</span> <span class="va">para</span>, fill <span class="op">=</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_violin</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-periwinkle-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="two-way-anova_files/figure-html/fig-periwinkle-rough-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;17.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean."><img src="two-way-anova_files/figure-html/fig-periwinkle-rough-1.png" class="img-fluid figure-img" width="576"></a>
+<div>
+<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-4-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;17.2: The parasite load for two species of Littorina indicated by season. The fill colour indicates the season (Spring and Summer). Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean. If the effect of season is different for the two species there is an interaction between species and season."><img src="two-way-anova_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.2: The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean.
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-periwinkle-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.2: <strong>The parasite load for two species of Littorina indicated by season.</strong> The fill colour indicates the season (Spring and Summer). Parasite load seems to be higher for both species in the summer and that effect looks bigger in <em>L.brevicula</em> - it has the lowest spring mean but the highest summer mean. If the effect of season is different for the two species there is an interaction between species and season.
 </figcaption></figure>
-</div>
-</div>
 </div>
 <p>R will order the groups alphabetically by default.</p>
 <p>The figure suggests that parasite load is higher for both species in the summer and that effect looks bigger in <em>L.brevicula</em> - it has the lowest spring mean but the highest summer mean.</p>
@@ -1249,7 +1252,7 @@ Complete
 <span><span class="co">## 3 Summer Littorina brevicula  73.5 11.2     25  2.24</span></span>
 <span><span class="co">## 4 Summer Littorina littorea   69.9 11.5     25  2.30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The summary confirms both species have a higher mean in the summer and that the difference between the species is reversed - <em>L.brevicula</em> minus <em>L.littorea</em> is -7.2588 in the spring but 3.6328 in summer.</p>
+<p>The summary confirms both species have a higher mean in the summer and that the difference between the species is reversed - <em>L.brevicula</em> minus <em>L.littorea</em> is -7.2 in the spring but 3.6 in summer.</p>
 </section><section id="apply-lm" class="level3" data-number="17.3.2"><h3 data-number="17.3.2" class="anchored" data-anchor-id="apply-lm">
 <span class="header-section-number">17.3.2</span> Apply <code>lm()</code>
 </h3>
@@ -1265,21 +1268,26 @@ Complete
 <span><span class="co">## lm(formula = para ~ species * season, data = periwinkle)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
-<span><span class="co">##     Min      1Q  Median      3Q     Max </span></span>
-<span><span class="co">## -20.711  -6.308  -1.120   8.085  28.269 </span></span>
+<span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
+<span><span class="co">## -20.71  -6.31  -1.12   8.09  28.27 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##                                        Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">## (Intercept)                              56.972      2.185  26.073  &lt; 2e-16 ***</span></span>
-<span><span class="co">## speciesLittorina littorea                 7.259      3.090   2.349   0.0209 *  </span></span>
-<span><span class="co">## seasonSummer                             16.568      3.090   5.362 5.68e-07 ***</span></span>
-<span><span class="co">## speciesLittorina littorea:seasonSummer  -10.892      4.370  -2.492   0.0144 *  </span></span>
+<span><span class="co">##                                        Estimate Std. Error t value</span></span>
+<span><span class="co">## (Intercept)                               56.97       2.19   26.07</span></span>
+<span><span class="co">## speciesLittorina littorea                  7.26       3.09    2.35</span></span>
+<span><span class="co">## seasonSummer                              16.57       3.09    5.36</span></span>
+<span><span class="co">## speciesLittorina littorea:seasonSummer   -10.89       4.37   -2.49</span></span>
+<span><span class="co">##                                                    Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)                            &lt; 0.0000000000000002 ***</span></span>
+<span><span class="co">## speciesLittorina littorea                             0.021 *  </span></span>
+<span><span class="co">## seasonSummer                                     0.00000057 ***</span></span>
+<span><span class="co">## speciesLittorina littorea:seasonSummer                0.014 *  </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 10.93 on 96 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.2547, Adjusted R-squared:  0.2314 </span></span>
-<span><span class="co">## F-statistic: 10.94 on 3 and 96 DF,  p-value: 3.043e-06</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 10.9 on 96 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.255,  Adjusted R-squared:  0.231 </span></span>
+<span><span class="co">## F-statistic: 10.9 on 3 and 96 DF,  p-value: 0.00000304</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Estimates in the Coefficients table give:</p>
 <ul>
@@ -1296,15 +1304,15 @@ Complete
 <span><span class="co">## Analysis of Variance Table</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Response: para</span></span>
-<span><span class="co">##                Df  Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
-<span><span class="co">## species         1    82.2   82.17  0.6884   0.40876    </span></span>
-<span><span class="co">## season          1  3092.8 3092.81 25.9108 1.778e-06 ***</span></span>
-<span><span class="co">## species:season  1   741.4  741.42  6.2114   0.01441 *  </span></span>
-<span><span class="co">## Residuals      96 11458.9  119.36                      </span></span>
+<span><span class="co">##                Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
+<span><span class="co">## species         1     82      82    0.69     0.409    </span></span>
+<span><span class="co">## season          1   3093    3093   25.91 0.0000018 ***</span></span>
+<span><span class="co">## species:season  1    741     741    6.21     0.014 *  </span></span>
+<span><span class="co">## Residuals      96  11459     119                      </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The parasite load is significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differs between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>.</p>
+<p>The parasite load is significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differs between species (<em>F</em> = 6.2; <em>d.f.</em> = 1, 96; <em>p</em> = 0.0144) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>.</p>
 <p>We need a post-hoc test to see which comparisons are significant and can again use then <strong><code>emmeans</code></strong> <span class="citation" data-cites="emmeans">(<a href="references.html#ref-emmeans" role="doc-biblioref">Lenth 2025</a>)</span> package.</p>
 <p>Load the package</p>
 <div class="cell">
@@ -1337,7 +1345,7 @@ Complete
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rvlenth.github.io/emmeans/reference/emmeans.html">emmeans</a></span><span class="op">(</span><span class="va">mod</span>, <span class="op">~</span> <span class="va">species</span> <span class="op">*</span> <span class="va">season</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="two-way-anova_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="576"></a></p>
+<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="two-way-anova_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
@@ -1345,44 +1353,47 @@ Complete
 <p>We have significant differences between:</p>
 <ul>
 <li>
-<em>L.brevicula</em> in the Spring and Summer <code>p &lt;.0001</code>
-</li>
+<em>L.brevicula</em> in the Spring and Summer &lt; 0.0001</li>
 <li>
-<em>L.brevicula</em> in the Spring and <em>L.littorea</em> in the Summer <code>p = 0.0004</code>
-</li>
+<em>L.brevicula</em> in the Spring and <em>L.littorea</em> in the Summer 0.0004</li>
 <li>
-<em>L.littorea</em> in the Spring <em>L.brevicula</em> in the Summer <code>p = 0.0172</code>
-</li>
+<em>L.littorea</em> in the Spring <em>L.brevicula</em> in the Summer 0.0172</li>
 </ul></section><section id="check-assumptions" class="level3" data-number="17.3.3"><h3 data-number="17.3.3" class="anchored" data-anchor-id="check-assumptions">
 <span class="header-section-number">17.3.3</span> Check assumptions</h3>
 <p>Check the assumptions: All general linear models assume the “residuals” are normally distributed and have “homogeneity” of variance.</p>
 <p>Our first check of these assumptions is to use common sense: diameter is a continuous and we would expect it to be normally distributed thus we would expect the residuals to be normally distributed thus we would expect the residuals to be normally distributed</p>
 <p>We then proceed by plotting residuals. The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can be used to plot the residuals against the fitted values (See <a href="#fig-anova2-plot1" class="quarto-xref">Figure&nbsp;<span>17.3</span></a>). This is a good way to check for homogeneity of variance.</p>
+<div id="fig-anova2-plot1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-anova2-plot1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="two-way-anova_files/figure-html/fig-anova2-plot1-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;17.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean."><img src="two-way-anova_files/figure-html/fig-anova2-plot1-1.png" class="img-fluid figure-img" width="576"></a>
+<div>
+<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;17.3: Residuals against the fitted values. This plot shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean."><img src="two-way-anova_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.3: A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean.
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.3: <strong>Residuals against the fitted values.</strong> This plot shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean.
 </figcaption></figure>
 </div>
-</div>
-</div>
 <p>We can also use a histogram to check for normality (See <a href="#fig-anova2-plot2" class="quarto-xref">Figure&nbsp;<span>17.4</span></a>).</p>
+<div id="fig-anova2-plot2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-anova2-plot2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="two-way-anova_files/figure-html/fig-anova2-plot2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;17.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."><img src="two-way-anova_files/figure-html/fig-anova2-plot2-1.png" class="img-fluid figure-img" width="576"></a>
+<div>
+<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;17.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."><img src="two-way-anova_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.4: A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova2-plot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.4: <strong>A histogram of residuals</strong> is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals.
 </figcaption></figure>
-</div>
-</div>
 </div>
 <p>Finally, we can use the Shapiro-Wilk test to test for normality.</p>
 <div class="cell">
@@ -1391,14 +1402,14 @@ Complete
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.98424, p-value = 0.2798</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.98, p-value = 0.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The p-value is greater than 0.05 so this test of the normality assumption is not significant.</p>
 <p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are probably not violated.</p>
 </section><section id="report" class="level3" data-number="17.3.4"><h3 data-number="17.3.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">17.3.4</span> Report</h3>
 <p>We might report this result as:</p>
-<p>The parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> (from <span class="math inline">\(\bar{x} \pm s.e\)</span>: 57.0 <span class="math inline">\(\pm\)</span> 1.77 units to 73.5 <span class="math inline">\(\pm\)</span> 2.24 units) than in <em>L.littorea</em> (from 64.2 <span class="math inline">\(\pm\)</span> 2.38 units to 69.9 <span class="math inline">\(\pm\)</span> 2.30 units). See <a href="#fig-para" class="quarto-xref">Figure&nbsp;<span>17.5</span></a>.</p>
+<p>The parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1, 96; <em>p</em> = 0.0144) with a greater increase in parasite load in <em>L.brevicula</em> (from <span class="math inline">\(\bar{x} \pm s.e\)</span>: 57 <span class="math inline">\(\pm\)</span> 1.77 units to 73.5 <span class="math inline">\(\pm\)</span> 2.24 units) than in <em>L.littorea</em> (from 64.2 <span class="math inline">\(\pm\)</span> 2.38 units to 69.9 <span class="math inline">\(\pm\)</span> 2.3 units). See <a href="#fig-para" class="quarto-xref">Figure&nbsp;<span>17.5</span></a>.</p>
 <details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">periwinkle</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">season</span>,</span>
 <span>                                    y <span class="op">=</span> <span class="va">para</span>,</span>
@@ -1426,28 +1437,31 @@ Complete
 <span>                     name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                     labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="st">"L.brevicula"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                <span class="fu"><a href="https://rdrr.io/r/base/bquote.html">bquote</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="st">"L.littorea"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="co"># *L.brevicula* in the Spring and Summer `p &lt;0.0001`</span></span>
+<span>  <span class="co"># *L.brevicula* in the Spring and Summer `p &lt; 0.0001`</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>,</span>
 <span>           x <span class="op">=</span> <span class="fl">0.75</span>, xend <span class="op">=</span> <span class="fl">1.75</span>,</span>
 <span>           y <span class="op">=</span> <span class="fl">115</span>, yend <span class="op">=</span> <span class="fl">115</span>,</span>
 <span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>,</span>
 <span>           x <span class="op">=</span> <span class="fl">1.25</span>,  y <span class="op">=</span> <span class="fl">119</span>,</span>
-<span>           label <span class="op">=</span> <span class="st">"p &lt; 0.0001"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>           label <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"italic(p) {p_brev_spring_summer}"</span><span class="op">)</span>,</span>
+<span>           parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># # *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>,</span>
 <span>           x <span class="op">=</span> <span class="fl">0.75</span>, xend <span class="op">=</span> <span class="fl">2.25</span>,</span>
 <span>           y <span class="op">=</span> <span class="fl">125</span>, yend <span class="op">=</span> <span class="fl">125</span>,</span>
 <span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">129</span>,</span>
-<span>           label <span class="op">=</span> <span class="st">"p = 0.0004"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>           label <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"italic(p) == {p_brev_spring_litt_summer}"</span><span class="op">)</span>,</span>
+<span>           parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="co"># *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"segment"</span>,</span>
 <span>           x <span class="op">=</span> <span class="fl">1.25</span>, xend <span class="op">=</span> <span class="fl">1.75</span>,</span>
 <span>           y <span class="op">=</span> <span class="fl">105</span>, yend <span class="op">=</span> <span class="fl">105</span>,</span>
 <span>           colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1.5</span>,  y <span class="op">=</span> <span class="fl">109</span>,</span>
-<span>           label <span class="op">=</span> <span class="st">"p = 0.0172"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>           label <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"italic(p) == {p_litt_spring_brev_summer}"</span><span class="op">)</span>,</span>
+<span>           parse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"inside"</span>,</span>
 <span>        legend.position.inside <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.9</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
@@ -1457,13 +1471,13 @@ Complete
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;17.5: Parasite load is greater in Summer especially for L.brevicula. Live specimens of two species of periwinkle, L.brevicula and L.littorea were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means \pm 1 standard error. Parasite load was significantly greater in Summer (F = 25.9; d.f. = 1, 96; p < 0.0001) but this effect differed between species (F = 6.2; d.f. = 1,96; p = 0.014) with a greater increase in parasite load in L.brevicula than in L.littorea. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test [@tukey1949]."><img src="two-way-anova_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="576"></a></p>
+<figure class="figure"><p><a href="two-way-anova_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;17.5: Parasite load is greater in Summer especially for L.brevicula. Live specimens of two species of periwinkle, L.brevicula and L.littorea were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means \pm 1 standard error. Parasite load was significantly greater in Summer (F = 25.9; d.f. = 1, 96; p < 0.0001) but this effect differed between species (F = 6.2; d.f. = 1, 96; p = 0.0144) with a greater increase in parasite load in L.brevicula than in L.littorea. Data analysis was conducted in R [@R-core] with tidyverse packages [@tidyverse]. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test [@tukey1949]."><img src="two-way-anova_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="576"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.5: <strong>Parasite load is greater in Summer especially for <em>L.brevicula</em>.</strong> Live specimens of two species of periwinkle, <em>L.brevicula</em> and <em>L.littorea</em> were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. Parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1,96; <em>p</em> = 0.014) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-para-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;17.5: <strong>Parasite load is greater in Summer especially for <em>L.brevicula</em>.</strong> Live specimens of two species of periwinkle, <em>L.brevicula</em> and <em>L.littorea</em> were collected from sites in northern England in the Spring and Summer and gut parasite load was determined. Error bars are means <span class="math inline">\(\pm\)</span> 1 standard error. Parasite load was significantly greater in Summer (<em>F</em> = 25.9; <em>d.f.</em> = 1, 96; <em>p</em> &lt; 0.0001) but this effect differed between species (<em>F</em> = 6.2; <em>d.f.</em> = 1, 96; <em>p</em> = 0.0144) with a greater increase in parasite load in <em>L.brevicula</em> than in <em>L.littorea</em>. Data analysis was conducted in R <span class="citation" data-cites="R-core">(<a href="references.html#ref-R-core" role="doc-biblioref">R Core Team 2025</a>)</span> with tidyverse packages <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>. Post-hoc analysis was carried out with Tukey’s Honestly Significant Difference test <span class="citation" data-cites="tukey1949">(<a href="references.html#ref-tukey1949" role="doc-biblioref">Tukey 1949</a>)</span>.
 </figcaption></figure>
 </div>
 </section></section><section id="summary" class="level2" data-number="17.4"><h2 data-number="17.4" class="anchored" data-anchor-id="summary">
@@ -2087,20 +2101,20 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a><span class="fu">#### When residuals are not normally distributed and/or variance is unequal</span></span>
 <span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>There are some rank-based tests, such as the Friedman test and the </span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>Scheirer-Ray-Hare test, that apply to specific situations. However, </span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>there is no non-parametric alternative that directly corresponds to </span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>two-way ANOVA in the same way that the Kruskal-Wallis test does for </span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>There are some rank-based tests, such as the Friedman test and the</span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a>Scheirer-Ray-Hare test, that apply to specific situations. However,</span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>there is no non-parametric alternative that directly corresponds to</span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a>two-way ANOVA in the same way that the Kruskal-Wallis test does for</span>
 <span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>one-way ANOVA.</span>
 <span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>In these cases you have other good options.</span>
 <span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Use two-way ANOVA carefully**. Using the two-way ANOVA test </span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>    and interpreting the results with caution is one valid approach. </span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>    ANOVA is actually quite robust to violating the normality assumption</span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>    (it performs quite well anyway) depending on how much the residuals </span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Use two-way ANOVA carefully**. Using the two-way ANOVA test and</span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>    interpreting the results with caution is one valid approach. ANOVA</span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>    is actually quite robust to violating the normality assumption (it</span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>    performs quite well anyway) depending on how much the residuals</span>
 <span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>    deviate.</span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Using non-parametric one-way tests**. Divide the dataset according</span>
 <span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a>    to the groups in one factor, then carry out a Wilcoxon rank-sum test</span>
 <span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>    (also known as the Mann-Whitney test) or a Kruskal-Wallis test on</span>
@@ -2119,413 +2133,553 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a>    the other.</span>
 <span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- 2.  **Using a Permutation Test**. A permutation test checks if an  --&gt;</span></span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     observed difference is real or just due to chance by shuffling  --&gt;</span></span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     the data many times and seeing how often a difference as big as  --&gt;</span></span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     the original one appears. Instead of using formulas based on  --&gt;</span></span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     assumptions, it creates a null distribution from the shuffled  --&gt;</span></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     data and calculates a p-value based on how rare the observed  --&gt;</span></span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     result is. This makes it useful when normal statistical methods  --&gt;</span></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     don’t apply. --&gt;</span></span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     observed difference is real or just due to chance by shuffling  --&gt;</span></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     the data many times and seeing how often a difference as big as  --&gt;</span></span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     the original one appears. Instead of using formulas based on  --&gt;</span></span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     assumptions, it creates a null distribution from the shuffled  --&gt;</span></span>
 <span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a>We will explore all of these ideas with some examples.</span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎬 Your turn!</span></span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>If you want to code along you will need to start a new RStudio Project</span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>(see <span class="co">[</span><span class="ot">@sec-workflow-rstudio-creating-rsp</span><span class="co">]</span>), add a <span class="in">`data-raw`</span></span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a>folder and open a new script. You will also need to load the</span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a>**`tidyverse`** package <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     data and calculates a p-value based on how rare the observed  --&gt;</span></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     result is. This makes it useful when normal statistical methods  --&gt;</span></span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--     don’t apply. --&gt;</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>We will explore all of these ideas with some examples.</span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎬 Your turn!</span></span>
 <span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two-way ANOVA</span></span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>Researchers have collected live specimens of two species of periwinkle</span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>(See @fig-periwinkles) from sites in northern England in the Spring and</span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a>Summer. They took a measure of the gut parasite load by examining a</span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>slide of gut contents. The data are in</span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">periwinkle.txt</span><span class="co">](data-raw/periwinkle.txt)</span>. The data were collected to</span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a>determine whether there was an effect of season or species on parasite</span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>load and whether these effects were independent.</span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a>![Periwinkles are marine gastropod molluscs (slugs and snails). A)</span>
-<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a>*Littorina brevicula* (PD files - Public Domain,</span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a>https://commons.wikimedia.org/w/index.php?curid=30577419) B) *Littorina</span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>littorea*. (photographed by Guttorm Flatabø (user:dittaeva). -</span>
-<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a>Photograph taken with an Olympus Camedia C-70 Zoom digital camera.</span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a>Metainformation edited with Irfanview, possibly cropped with jpegcrop.,</span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a>CC BY-SA 3.0,</span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>https://commons.wikimedia.org/w/index.php?curid=324769](images/Littorina.jpg){#fig-periwinkles</span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a>fig-alt=""}</span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import and explore</span></span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a>Import the data:</span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a>periwinkle <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data-raw/periwinkle.txt"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a>If you want to code along you will need to start a new RStudio Project</span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a>(see <span class="co">[</span><span class="ot">@sec-workflow-rstudio-creating-rsp</span><span class="co">]</span>), add a <span class="in">`data-raw`</span> folder and</span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a>open a new script. You will also need to load the **`tidyverse`**</span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a>package <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two-way ANOVA</span></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a>Researchers have collected live specimens of two species of periwinkle</span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>(See @fig-periwinkles) from sites in northern England in the Spring and</span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a>Summer. They took a measure of the gut parasite load by examining a</span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a>slide of gut contents. The data are in</span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">periwinkle.txt</span><span class="co">](data-raw/periwinkle.txt)</span>. The data were collected to</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a>determine whether there was an effect of season or species on parasite</span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>load and whether these effects were independent.</span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a>![Periwinkles are marine gastropod molluscs (slugs and snails). A)</span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a>*Littorina brevicula* (PD files - Public Domain,</span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>https://commons.wikimedia.org/w/index.php?curid=30577419) B) *Littorina</span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a>littorea*. (photographed by Guttorm Flatabø (user:dittaeva). -</span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a>Photograph taken with an Olympus Camedia C-70 Zoom digital camera.</span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a>Metainformation edited with Irfanview, possibly cropped with jpegcrop.,</span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a>CC BY-SA 3.0,</span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a>https://commons.wikimedia.org/w/index.php?curid=324769](images/Littorina.jpg){#fig-periwinkles</span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a>fig-alt=""}</span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a><span class="fu">### Import and explore</span></span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a>Import the data:</span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a>periwinkle <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"data-raw/periwinkle.txt"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(periwinkle) <span class="sc">|&gt;</span> </span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"200px"</span>)</span>
-<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>The Response variable is parasite load and it appears to be continuous.</span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>The Explanatory variables are species and season and each has two</span>
-<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a>levels. It is known “two-way ANOVA” or “two-factor ANOVA” because there</span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>are two explanatory variables.</span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(periwinkle) <span class="sc">|&gt;</span> </span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"200px"</span>)</span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>These data are in tidy format <span class="co">[</span><span class="ot">@Wickham2014-nl</span><span class="co">]</span> - all the parasite load</span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>values are in one column (<span class="in">`para`</span>) with the other columns indicating the</span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a><span class="in">`species`</span> and the <span class="in">`season`</span>. This means they are well formatted for</span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>analysis and plotting.</span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>The Response variable is parasite load and it appears to be continuous.</span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>The Explanatory variables are species and season and each has two</span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a>levels. It is known “two-way ANOVA” or “two-factor ANOVA” because there</span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>are two explanatory variables.</span>
 <span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>In the first instance it is sensible to create a rough plot of our data.</span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>This is to give us an overview and help identify if there are any issues</span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a>like missing or extreme values. It also gives us idea what we are</span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>expecting from the analysis which will make it easier for us to identify</span>
-<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a>if we make some mistake in applying that analysis.</span>
-<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a>Violin plots (<span class="in">`geom_violin()`</span>, see @fig-periwinkle-rough), box plots</span>
-<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a>(<span class="in">`geom_boxplot()`</span>) or scatter plots (<span class="in">`geom_point()`</span>) all make good</span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>choices for exploratory plotting and it does not matter which of these</span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>you choose.</span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>These data are in tidy format <span class="co">[</span><span class="ot">@Wickham2014-nl</span><span class="co">]</span> - all the parasite load</span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>values are in one column (<span class="in">`para`</span>) with the other columns indicating the</span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a><span class="in">`species`</span> and the <span class="in">`season`</span>. This means they are well formatted for</span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>analysis and plotting.</span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a>In the first instance it is sensible to create a rough plot of our data.</span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a>This is to give us an overview and help identify if there are any issues</span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a>like missing or extreme values. It also gives us idea what we are</span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>expecting from the analysis which will make it easier for us to identify</span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>if we make some mistake in applying that analysis.</span>
 <span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-periwinkle-rough</span></span>
-<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean."</span></span>
-<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> periwinkle, </span>
-<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> para, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
-<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span>
-<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a>R will order the groups alphabetically by default.</span>
-<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a>The figure suggests that parasite load is higher for both species in the</span>
-<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a>summer and that effect looks bigger in *L.brevicula* - it has the lowest</span>
-<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a>spring mean but the highest summer mean.</span>
-<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a>Summarising the data for each species-season combination is the next</span>
-<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a>sensible step. The most useful summary statistics are the means,</span>
-<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a>standard deviations, sample sizes and standard errors. I recommend the</span>
-<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="in">`group_by()`</span> and <span class="in">`summarise()`</span> approach:</span>
+<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a>Violin plots (<span class="in">`geom_violin()`</span>, see @fig-periwinkle-rough), box plots</span>
+<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a>(<span class="in">`geom_boxplot()`</span>) or scatter plots (<span class="in">`geom_point()`</span>) all make good</span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a>choices for exploratory plotting and it does not matter which of these</span>
+<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a>you choose.</span>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a>::: {#fig-periwinkle-rough}</span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> periwinkle, </span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> para, <span class="at">fill =</span> species)) <span class="sc">+</span></span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>()</span>
+<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a>**The parasite load for two species of Littorina indicated by season.**</span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a>The fill colour indicates the season (Spring and Summer). Parasite load</span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a>seems to be higher for both species in the summer and that effect looks</span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a>bigger in *L.brevicula* - it has the lowest spring mean but the highest</span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a>summer mean. If the effect of season is different for the two species</span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a>there is an interaction between species and season.</span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a>peri_summary <span class="ot">&lt;-</span> periwinkle <span class="sc">|&gt;</span>  </span>
-<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season, species) <span class="sc">|&gt;</span>  </span>
-<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(para),</span>
-<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(para),</span>
-<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(para),</span>
-<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
-<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a>R will order the groups alphabetically by default.</span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a>The figure suggests that parasite load is higher for both species in the</span>
+<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a>summer and that effect looks bigger in *L.brevicula* - it has the lowest</span>
+<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a>spring mean but the highest summer mean.</span>
+<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a>Summarising the data for each species-season combination is the next</span>
+<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a>sensible step. The most useful summary statistics are the means,</span>
+<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a>standard deviations, sample sizes and standard errors. I recommend the</span>
+<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a><span class="in">`group_by()`</span> and <span class="in">`summarise()`</span> approach:</span>
 <span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a>We have save the results to <span class="in">`peri_summary`</span> so that we can use the means</span>
-<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a>and standard errors in our plot later.</span>
-<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a>peri_summary</span>
-<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a>The summary confirms both species have a higher mean in the summer and</span>
-<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a>that the difference between the species is reversed - *L.brevicula*</span>
-<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a>minus *L.littorea* is <span class="in">`r peri_summary$mean[1]-peri_summary$mean[2]`</span> in</span>
-<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a>the spring but <span class="in">`r peri_summary$mean[3]-peri_summary$mean[4]`</span> in summer.</span>
+<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a>peri_summary <span class="ot">&lt;-</span> periwinkle <span class="sc">|&gt;</span>  </span>
+<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season, species) <span class="sc">|&gt;</span>  </span>
+<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(para),</span>
+<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd =</span> <span class="fu">sd</span>(para),</span>
+<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(para),</span>
+<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> sd <span class="sc">/</span> <span class="fu">sqrt</span>(n))</span>
+<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a>We have save the results to <span class="in">`peri_summary`</span> so that we can use the means</span>
+<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a>and standard errors in our plot later.</span>
 <span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Apply `lm()`</span></span>
-<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a>We can create a two-way ANOVA model like this:</span>
-<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> periwinkle, para <span class="sc">~</span> species <span class="sc">*</span> season)</span>
-<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a><span class="co"># extract values for inline reporting</span></span>
+<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a>brev_spring_m <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina brevicula"</span>, season <span class="sc">==</span> <span class="st">"Spring"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean) <span class="sc">|&gt;</span> </span>
+<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span>
 <span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>And examine the model with:</span>
-<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
-<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>The Estimates in the Coefficients table give:</span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>brev_spring_se <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina brevicula"</span>, season <span class="sc">==</span> <span class="st">"Spring"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(se) <span class="sc">|&gt;</span> </span>
+<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a>brev_summer_m <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina brevicula"</span>, season <span class="sc">==</span> <span class="st">"Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean) <span class="sc">|&gt;</span> </span>
+<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span>
 <span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`(Intercept)`</span> known as $\beta_0$. This the mean of the group with</span>
-<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a>    the first level of *both* explanatory variables, *i.e.*, the mean of</span>
-<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a>    *L.brevicula* group in Spring. Just as the intercept is the value of</span>
-<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a>    *y* (the response) when the value of *x* (the explanatory) is zero</span>
-<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a>    in a simple linear regression, this is the value of <span class="in">`para`</span> when both</span>
-<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a>    <span class="in">`season`</span> and <span class="in">`species`</span> are at their first levels. The order of the</span>
-<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a>    levels is alphabetical by default.</span>
-<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`speciesLittorina littorea`</span> known as $\beta_1$. This is what needs</span>
-<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a>    to be added to the *L.brevicula* Spring mean (the intercept) when</span>
-<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a>    the <span class="in">`species`</span> goes from its first level to its second. That is, it</span>
-<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a>    is the difference between the *L.brevicula* and *L.littorea* means</span>
-<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a>    in Spring. The <span class="in">`speciesLittorina littorea`</span> estimate is positive so</span>
-<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a>    the the *L.littorea* mean is higher than the *L.brevicula* mean in</span>
-<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a>    Spring. If we had more species we would have more estimates</span>
-<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a>    beginning <span class="in">`species...`</span> and all would be comparisons to the</span>
-<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a>    intercept.</span>
-<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`seasonSummer`</span> known as $\beta_2$. This is what needs to be added to</span>
-<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a>    the *L.brevicula* Spring mean (the intercept) when the <span class="in">`season`</span> goes</span>
-<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a>    from its first level to its second. That is, it is the difference</span>
-<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a>    between the Spring and Summer means for *L.brevicula*. The</span>
-<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a>    <span class="in">`seasonSummer`</span> estimate is positive so the the Summer mean is higher</span>
-<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a>    than the Spring mean. If we had more seasons we would have more</span>
-<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a>    estimates beginning <span class="in">`season...`</span> and all would be comparisons to the</span>
-<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a>    intercept.</span>
+<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a>brev_summer_se <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina brevicula"</span>, season <span class="sc">==</span> <span class="st">"Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(se) <span class="sc">|&gt;</span> </span>
+<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a>litt_spring_m <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina littorea"</span>, season <span class="sc">==</span> <span class="st">"Spring"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean) <span class="sc">|&gt;</span> </span>
+<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a>litt_spring_se <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina littorea"</span>, season <span class="sc">==</span> <span class="st">"Spring"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(se) <span class="sc">|&gt;</span> </span>
+<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a>litt_summer_m <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina littorea"</span>, season <span class="sc">==</span> <span class="st">"Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean) <span class="sc">|&gt;</span> </span>
+<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a>litt_summer_se <span class="ot">&lt;-</span> peri_summary <span class="sc">|&gt;</span> </span>
+<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">==</span> <span class="st">"Littorina littorea"</span>, season <span class="sc">==</span> <span class="st">"Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(se) <span class="sc">|&gt;</span> </span>
+<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`speciesLittorina littorea:seasonSummer`</span> known as $\beta_3$. This is</span>
-<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a>    interaction effect. It is an additional effect. Going from</span>
-<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a>    *L.brevicula* to *L.littorea* adds $\beta_1$ to the intercept. Going</span>
-<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a>    from Spring to Summer adds $\beta_2$ to the intercept. Going from</span>
-<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a>    *L.brevicula* in Spring to *L.littorea* in Summer adds</span>
-<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a>    $\beta_1 + \beta_2 + \beta_3$ to the intercept. If $\beta_3$ is zero</span>
-<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a>    then the effect of <span class="in">`species`</span> is the same in both <span class="in">`season`</span>s. If</span>
-<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a>    $\beta_3$ is not zero then the effect of <span class="in">`species`</span> is different in</span>
-<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>    the two <span class="in">`season`</span>s.</span>
-<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a>The *p*-values on each line are tests of whether that coefficient is</span>
-<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a>different from zero.</span>
+<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a>peri_summary</span>
+<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a>The summary confirms both species have a higher mean in the summer and</span>
+<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a>that the difference between the species is reversed - *L.brevicula*</span>
+<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>minus *L.littorea* is <span class="in">`r brev_spring_m - litt_spring_m`</span> in the spring</span>
+<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>but <span class="in">`r brev_summer_m - litt_summer_m`</span> in summer.</span>
+<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### Apply `lm()`</span></span>
 <span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a>The *F* value and *p*-value in the last line are a test of whether the</span>
-<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a>model as a whole explains a significant amount of variation in the</span>
-<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a>response variable. The model of season and species overall explains a</span>
-<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a>significant amount of the variation in parasite load</span>
-<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a>(<span class="in">`p-value: 3.043e-06`</span>). To see which of the three effects are</span>
-<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a>significant we can use the <span class="in">`anova()`</span> function on our model.</span>
-<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a>Determine which effects are significant:</span>
-<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span>
-<span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a>The parasite load is significantly greater in Summer (*F* = 25.9; *d.f.*</span>
-<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a>= 1, 96; *p* \&lt; 0.0001) but this effect differs between species (*F* =</span>
-<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a>6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite</span>
-<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a>load in *L.brevicula* than in *L.littorea*.</span>
-<span id="cb15-339"><a href="#cb15-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a>We need a post-hoc test to see which comparisons are significant and can</span>
-<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a>again use then **`emmeans`** <span class="co">[</span><span class="ot">@emmeans</span><span class="co">]</span> package.</span>
-<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a>Load the package</span>
-<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
-<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a>Carry out the post-hoc test</span>
-<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(mod, <span class="sc">~</span> species <span class="sc">*</span> season) <span class="sc">|&gt;</span> <span class="fu">pairs</span>()</span>
-<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a>Each row is a comparison between the two means in the 'contrast' column.</span>
-<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a>The 'estimate' column is the difference between those means and the</span>
-<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a>'p.value' indicates whether that difference is significant.</span>
-<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a>A plot can be used to visualise the result of the post hoc which can be</span>
-<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a>especially useful when there are very many comparisons.</span>
-<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a>Plot the results of the post-hoc test:</span>
-<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(mod, <span class="sc">~</span> species <span class="sc">*</span> season) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
-<span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a>We can create a two-way ANOVA model like this:</span>
+<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> periwinkle, para <span class="sc">~</span> species <span class="sc">*</span> season)</span>
+<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a>And examine the model with:</span>
+<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a>The Estimates in the Coefficients table give:</span>
+<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`(Intercept)`</span> known as $\beta_0$. This the mean of the group with</span>
+<span id="cb15-339"><a href="#cb15-339" aria-hidden="true" tabindex="-1"></a>    the first level of *both* explanatory variables, *i.e.*, the mean of</span>
+<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a>    *L.brevicula* group in Spring. Just as the intercept is the value of</span>
+<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a>    *y* (the response) when the value of *x* (the explanatory) is zero</span>
+<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a>    in a simple linear regression, this is the value of <span class="in">`para`</span> when both</span>
+<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a>    <span class="in">`season`</span> and <span class="in">`species`</span> are at their first levels. The order of the</span>
+<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a>    levels is alphabetical by default.</span>
+<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`speciesLittorina littorea`</span> known as $\beta_1$. This is what needs</span>
+<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a>    to be added to the *L.brevicula* Spring mean (the intercept) when</span>
+<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a>    the <span class="in">`species`</span> goes from its first level to its second. That is, it</span>
+<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a>    is the difference between the *L.brevicula* and *L.littorea* means</span>
+<span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a>    in Spring. The <span class="in">`speciesLittorina littorea`</span> estimate is positive so</span>
+<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a>    the the *L.littorea* mean is higher than the *L.brevicula* mean in</span>
+<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a>    Spring. If we had more species we would have more estimates</span>
+<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a>    beginning <span class="in">`species...`</span> and all would be comparisons to the</span>
+<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a>    intercept.</span>
+<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`seasonSummer`</span> known as $\beta_2$. This is what needs to be added to</span>
+<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a>    the *L.brevicula* Spring mean (the intercept) when the <span class="in">`season`</span> goes</span>
+<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a>    from its first level to its second. That is, it is the difference</span>
+<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a>    between the Spring and Summer means for *L.brevicula*. The</span>
+<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a>    <span class="in">`seasonSummer`</span> estimate is positive so the the Summer mean is higher</span>
+<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a>    than the Spring mean. If we had more seasons we would have more</span>
+<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a>    estimates beginning <span class="in">`season...`</span> and all would be comparisons to the</span>
+<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a>    intercept.</span>
+<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`speciesLittorina littorea:seasonSummer`</span> known as $\beta_3$. This is</span>
+<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a>    interaction effect. It is an additional effect. Going from</span>
+<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a>    *L.brevicula* to *L.littorea* adds $\beta_1$ to the intercept. Going</span>
+<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a>    from Spring to Summer adds $\beta_2$ to the intercept. Going from</span>
+<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a>    *L.brevicula* in Spring to *L.littorea* in Summer adds</span>
+<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a>    $\beta_1 + \beta_2 + \beta_3$ to the intercept. If $\beta_3$ is zero</span>
+<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a>    then the effect of <span class="in">`species`</span> is the same in both <span class="in">`season`</span>s. If</span>
+<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a>    $\beta_3$ is not zero then the effect of <span class="in">`species`</span> is different in</span>
+<span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a>    the two <span class="in">`season`</span>s.</span>
 <span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a>We have significant differences between:</span>
-<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*L.brevicula* in the Spring and Summer <span class="in">`p &lt;.0001`</span></span>
-<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*L.brevicula* in the Spring and *L.littorea* in the Summer</span>
-<span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a>    <span class="in">`p = 0.0004`</span></span>
-<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*L.littorea* in the Spring *L.brevicula* in the Summer <span class="in">`p = 0.0172`</span></span>
-<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a><span class="fu">### Check assumptions</span></span>
-<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a>Check the assumptions: All general linear models assume the "residuals"</span>
-<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a>are normally distributed and have "homogeneity" of variance.</span>
+<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a>The *p*-values on each line are tests of whether that coefficient is</span>
+<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a>different from zero.</span>
+<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a>The *F* value and *p*-value in the last line are a test of whether the</span>
+<span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a>model as a whole explains a significant amount of variation in the</span>
+<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a>response variable. The model of season and species overall explains a</span>
+<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a>significant amount of the variation in parasite load</span>
+<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a>(<span class="in">`p-value: 3.043e-06`</span>). To see which of the three effects are</span>
+<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a>significant we can use the <span class="in">`anova()`</span> function on our model.</span>
+<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a>Determine which effects are significant:</span>
 <span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a>Our first check of these assumptions is to use common sense: diameter is</span>
-<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a>a continuous and we would expect it to be normally distributed thus we</span>
-<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a>would expect the residuals to be normally distributed thus we would</span>
-<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a>expect the residuals to be normally distributed</span>
-<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a>We then proceed by plotting residuals. The <span class="in">`plot()`</span> function can be used</span>
-<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a>to plot the residuals against the fitted values (See @fig-anova2-plot1).</span>
-<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a>This is a good way to check for homogeneity of variance.</span>
-<span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-anova2-plot1</span></span>
-<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean."</span></span>
-<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">1</span>)</span>
-<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod)</span>
+<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb15-397"><a href="#cb15-397" aria-hidden="true" tabindex="-1"></a><span class="co"># extract values from anova for ease of reporting</span></span>
+<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a>anova_results <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="fu">anova</span>(mod))</span>
+<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a>season_f <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"season"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(statistic) <span class="sc">|&gt;</span> </span>
+<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span>
 <span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a>We can also use a histogram to check for normality (See</span>
-<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a>@fig-anova2-plot2).</span>
-<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-anova2-plot2</span></span>
-<span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."</span></span>
-<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mod<span class="sc">$</span>residuals)) <span class="sc">+</span> </span>
-<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)</span>
-<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a>Finally, we can use the Shapiro-Wilk test to test for normality.</span>
+<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a>season_df1 <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"season"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(df) </span>
+<span id="cb15-408"><a href="#cb15-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a>season_p <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"season"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="fl">0.0001</span>, <span class="st">"&lt; 0.0001"</span>, <span class="fu">round</span>(x, <span class="dv">4</span>)))()</span>
+<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a>interaction_f <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"species:season"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(statistic) <span class="sc">|&gt;</span> </span>
+<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">1</span>)</span>
 <span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mod<span class="sc">$</span>residuals)</span>
-<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a>The p-value is greater than 0.05 so this test of the normality</span>
-<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a>assumption is not significant.</span>
+<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a>interaction_df1 <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"species:season"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(df) </span>
+<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a>interaction_p <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"species:season"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="fl">0.0001</span>, <span class="st">"&lt; 0.0001"</span>, <span class="fu">round</span>(x, <span class="dv">4</span>)))()</span>
 <span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a>Taken together, these results suggest that the assumptions of normality</span>
-<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a>and homogeneity of variance are probably not violated.</span>
-<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a><span class="co"># get residual df</span></span>
+<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a>residual_df <span class="ot">&lt;-</span> anova_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">==</span> <span class="st">"Residuals"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(df) </span>
 <span id="cb15-432"><a href="#cb15-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a>We might report this result as:</span>
+<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb15-434"><a href="#cb15-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a>The parasite load was significantly greater in Summer (*F* = 25.9;</span>
-<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a>*d.f.* = 1, 96; *p* <span class="sc">\&lt;</span> 0.0001) but this effect differed between species</span>
-<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a>(*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in</span>
-<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a>parasite load in *L.brevicula* (from $\bar{x} \pm s.e$: 57.0 $\pm$ 1.77</span>
-<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a>units to 73.5 $\pm$ 2.24 units) than in *L.littorea* (from 64.2 $\pm$</span>
-<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a>2.38 units to 69.9 $\pm$ 2.30 units). See @fig-para.</span>
+<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a>The parasite load is significantly greater in Summer (*F* =</span>
+<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a><span class="in">`r season_f`</span>; *d.f.* = `r season_df1`, `r residual_df`; *p*</span>
+<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a><span class="in">`r season_p`</span>) but this effect differs between species (*F* =</span>
+<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a><span class="in">`r interaction_f`</span>; *d.f.* = `r interaction_df1`, `r residual_df`; *p* =</span>
+<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a><span class="in">`r interaction_p`</span>) with a greater increase in parasite load in</span>
+<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a>*L.brevicula* than in *L.littorea*.</span>
 <span id="cb15-441"><a href="#cb15-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a>::: {#fig-para}</span>
-<span id="cb15-445"><a href="#cb15-445" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb15-447"><a href="#cb15-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-448"><a href="#cb15-448" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> periwinkle, <span class="fu">aes</span>(<span class="at">x =</span> season,</span>
-<span id="cb15-450"><a href="#cb15-450" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">y =</span> para,</span>
-<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">shape =</span> species),</span>
-<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">dodge.width =</span> <span class="dv">1</span>,</span>
-<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">jitter.width =</span> <span class="fl">0.3</span>,</span>
-<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">jitter.height =</span> <span class="dv">0</span>),</span>
-<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
-<span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> peri_summary, </span>
-<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se, <span class="at">group =</span> species),</span>
-<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.5</span>,</span>
-<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> peri_summary, </span>
-<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean, <span class="at">group =</span> species),</span>
-<span id="cb15-464"><a href="#cb15-464" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.4</span>,</span>
-<span id="cb15-465"><a href="#cb15-465" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb15-466"><a href="#cb15-466" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>) ) <span class="sc">+</span></span>
-<span id="cb15-467"><a href="#cb15-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Season"</span>) <span class="sc">+</span></span>
-<span id="cb15-468"><a href="#cb15-468" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Number of parasites"</span>,</span>
-<span id="cb15-469"><a href="#cb15-469" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb15-470"><a href="#cb15-470" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">140</span>)) <span class="sc">+</span></span>
-<span id="cb15-471"><a href="#cb15-471" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">1</span>),</span>
-<span id="cb15-472"><a href="#cb15-472" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb15-473"><a href="#cb15-473" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">"L.brevicula"</span>)),</span>
-<span id="cb15-474"><a href="#cb15-474" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">"L.littorea"</span>)))) <span class="sc">+</span></span>
-<span id="cb15-475"><a href="#cb15-475" aria-hidden="true" tabindex="-1"></a>  <span class="co"># *L.brevicula* in the Spring and Summer `p &lt;0.0001`</span></span>
-<span id="cb15-476"><a href="#cb15-476" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
-<span id="cb15-477"><a href="#cb15-477" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.75</span>, <span class="at">xend =</span> <span class="fl">1.75</span>,</span>
-<span id="cb15-478"><a href="#cb15-478" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">115</span>, <span class="at">yend =</span> <span class="dv">115</span>,</span>
-<span id="cb15-479"><a href="#cb15-479" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb15-480"><a href="#cb15-480" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
-<span id="cb15-481"><a href="#cb15-481" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">1.25</span>,  <span class="at">y =</span> <span class="dv">119</span>,</span>
-<span id="cb15-482"><a href="#cb15-482" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"p &lt; 0.0001"</span>) <span class="sc">+</span></span>
-<span id="cb15-483"><a href="#cb15-483" aria-hidden="true" tabindex="-1"></a>  <span class="co"># # *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`</span></span>
-<span id="cb15-484"><a href="#cb15-484" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
-<span id="cb15-485"><a href="#cb15-485" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.75</span>, <span class="at">xend =</span> <span class="fl">2.25</span>,</span>
-<span id="cb15-486"><a href="#cb15-486" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">125</span>, <span class="at">yend =</span> <span class="dv">125</span>,</span>
-<span id="cb15-487"><a href="#cb15-487" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb15-488"><a href="#cb15-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">129</span>,</span>
-<span id="cb15-489"><a href="#cb15-489" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"p = 0.0004"</span>) <span class="sc">+</span></span>
-<span id="cb15-490"><a href="#cb15-490" aria-hidden="true" tabindex="-1"></a>  <span class="co"># *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`</span></span>
-<span id="cb15-491"><a href="#cb15-491" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
-<span id="cb15-492"><a href="#cb15-492" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">1.25</span>, <span class="at">xend =</span> <span class="fl">1.75</span>,</span>
-<span id="cb15-493"><a href="#cb15-493" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">105</span>, <span class="at">yend =</span> <span class="dv">105</span>,</span>
-<span id="cb15-494"><a href="#cb15-494" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb15-495"><a href="#cb15-495" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">109</span>,</span>
-<span id="cb15-496"><a href="#cb15-496" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"p = 0.0172"</span>) <span class="sc">+</span></span>
-<span id="cb15-497"><a href="#cb15-497" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb15-498"><a href="#cb15-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"inside"</span>,</span>
-<span id="cb15-499"><a href="#cb15-499" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>),</span>
-<span id="cb15-500"><a href="#cb15-500" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">colour =</span> <span class="st">"black"</span>))</span>
-<span id="cb15-501"><a href="#cb15-501" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-502"><a href="#cb15-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-503"><a href="#cb15-503" aria-hidden="true" tabindex="-1"></a>**Parasite load is greater in Summer especially for *L.brevicula*.**</span>
-<span id="cb15-504"><a href="#cb15-504" aria-hidden="true" tabindex="-1"></a>Live specimens of two species of periwinkle, *L.brevicula* and</span>
-<span id="cb15-505"><a href="#cb15-505" aria-hidden="true" tabindex="-1"></a>*L.littorea* were collected from sites in northern England in the Spring</span>
-<span id="cb15-506"><a href="#cb15-506" aria-hidden="true" tabindex="-1"></a>and Summer and gut parasite load was determined. Error bars are means</span>
-<span id="cb15-507"><a href="#cb15-507" aria-hidden="true" tabindex="-1"></a>$\pm$ 1 standard error. Parasite load was significantly greater in</span>
-<span id="cb15-508"><a href="#cb15-508" aria-hidden="true" tabindex="-1"></a>Summer (*F* = 25.9; *d.f.* = 1, 96; *p* <span class="sc">\&lt;</span> 0.0001) but this effect</span>
-<span id="cb15-509"><a href="#cb15-509" aria-hidden="true" tabindex="-1"></a>differed between species (*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a</span>
-<span id="cb15-510"><a href="#cb15-510" aria-hidden="true" tabindex="-1"></a>greater increase in parasite load in *L.brevicula* than in *L.littorea*.</span>
-<span id="cb15-511"><a href="#cb15-511" aria-hidden="true" tabindex="-1"></a>Data analysis was conducted in R <span class="co">[</span><span class="ot">@R-core</span><span class="co">]</span> with tidyverse packages</span>
-<span id="cb15-512"><a href="#cb15-512" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>. Post-hoc analysis was carried out with Tukey's Honestly</span>
-<span id="cb15-513"><a href="#cb15-513" aria-hidden="true" tabindex="-1"></a>Significant Difference test <span class="co">[</span><span class="ot">@tukey1949</span><span class="co">]</span>.</span>
-<span id="cb15-514"><a href="#cb15-514" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-515"><a href="#cb15-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-516"><a href="#cb15-516" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
-<span id="cb15-517"><a href="#cb15-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-518"><a href="#cb15-518" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>A linear model with two explanatory variable with two or more groups</span>
-<span id="cb15-519"><a href="#cb15-519" aria-hidden="true" tabindex="-1"></a>    each is also known as a **two-way ANOVA**.</span>
-<span id="cb15-520"><a href="#cb15-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-521"><a href="#cb15-521" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>We estimate the **coefficients** (also called the **parameters**) of</span>
-<span id="cb15-522"><a href="#cb15-522" aria-hidden="true" tabindex="-1"></a>    the model. For a two-way ANOVA with two groups in each explanatory</span>
-<span id="cb15-523"><a href="#cb15-523" aria-hidden="true" tabindex="-1"></a>    variable these are</span>
-<span id="cb15-524"><a href="#cb15-524" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-525"><a href="#cb15-525" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>the mean of the group with the first level of both explanatory</span>
-<span id="cb15-526"><a href="#cb15-526" aria-hidden="true" tabindex="-1"></a>        variables $\beta_0$,</span>
-<span id="cb15-527"><a href="#cb15-527" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>what needs to be added to $\beta_0$ when one of the explanatory</span>
-<span id="cb15-528"><a href="#cb15-528" aria-hidden="true" tabindex="-1"></a>        variables goes from its first level to its second, $\beta_1$</span>
-<span id="cb15-529"><a href="#cb15-529" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>what needs to be added to $\beta_0$ when the other of the</span>
-<span id="cb15-530"><a href="#cb15-530" aria-hidden="true" tabindex="-1"></a>        explanatory variables goes from its first level to its second,</span>
-<span id="cb15-531"><a href="#cb15-531" aria-hidden="true" tabindex="-1"></a>        $\beta_2$</span>
-<span id="cb15-532"><a href="#cb15-532" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>$\beta_3$, the interaction effect: what additionally needs to be</span>
-<span id="cb15-533"><a href="#cb15-533" aria-hidden="true" tabindex="-1"></a>        added to $\beta_0$ + $\beta_1$ + $\beta_2$ when both of the</span>
-<span id="cb15-534"><a href="#cb15-534" aria-hidden="true" tabindex="-1"></a>        explanatory variables go from their first level to their second</span>
-<span id="cb15-535"><a href="#cb15-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-536"><a href="#cb15-536" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>We can use <span class="in">`lm()`</span> to two-way ANOVA in R.</span>
+<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a>We need a post-hoc test to see which comparisons are significant and can</span>
+<span id="cb15-443"><a href="#cb15-443" aria-hidden="true" tabindex="-1"></a>again use then **`emmeans`** <span class="co">[</span><span class="ot">@emmeans</span><span class="co">]</span> package.</span>
+<span id="cb15-444"><a href="#cb15-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-445"><a href="#cb15-445" aria-hidden="true" tabindex="-1"></a>Load the package</span>
+<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-450"><a href="#cb15-450" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a>Carry out the post-hoc test</span>
+<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(mod, <span class="sc">~</span> species <span class="sc">*</span> season) <span class="sc">|&gt;</span> <span class="fu">pairs</span>()</span>
+<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a>Each row is a comparison between the two means in the 'contrast' column.</span>
+<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a>The 'estimate' column is the difference between those means and the</span>
+<span id="cb15-464"><a href="#cb15-464" aria-hidden="true" tabindex="-1"></a>'p.value' indicates whether that difference is significant.</span>
+<span id="cb15-465"><a href="#cb15-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-466"><a href="#cb15-466" aria-hidden="true" tabindex="-1"></a>A plot can be used to visualise the result of the post hoc which can be</span>
+<span id="cb15-467"><a href="#cb15-467" aria-hidden="true" tabindex="-1"></a>especially useful when there are very many comparisons.</span>
+<span id="cb15-468"><a href="#cb15-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-469"><a href="#cb15-469" aria-hidden="true" tabindex="-1"></a>Plot the results of the post-hoc test:</span>
+<span id="cb15-470"><a href="#cb15-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-473"><a href="#cb15-473" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-474"><a href="#cb15-474" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(mod, <span class="sc">~</span> species <span class="sc">*</span> season) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span>
+<span id="cb15-475"><a href="#cb15-475" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-476"><a href="#cb15-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-479"><a href="#cb15-479" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-480"><a href="#cb15-480" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb15-481"><a href="#cb15-481" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb15-482"><a href="#cb15-482" aria-hidden="true" tabindex="-1"></a><span class="co"># extract post-hoc p-values for ease of reporting</span></span>
+<span id="cb15-483"><a href="#cb15-483" aria-hidden="true" tabindex="-1"></a>posthoc_results <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(mod, <span class="sc">~</span> species <span class="sc">*</span> season) <span class="sc">|&gt;</span> </span>
+<span id="cb15-484"><a href="#cb15-484" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairs</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb15-485"><a href="#cb15-485" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb15-486"><a href="#cb15-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-487"><a href="#cb15-487" aria-hidden="true" tabindex="-1"></a>p_brev_spring_summer <span class="ot">&lt;-</span> posthoc_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-488"><a href="#cb15-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(contrast <span class="sc">==</span> <span class="st">"Littorina brevicula Spring - Littorina brevicula Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-489"><a href="#cb15-489" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-490"><a href="#cb15-490" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="fl">0.0001</span>, <span class="st">"&lt; 0.0001"</span>, <span class="fu">round</span>(x, <span class="dv">4</span>)))()</span>
+<span id="cb15-491"><a href="#cb15-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-492"><a href="#cb15-492" aria-hidden="true" tabindex="-1"></a>p_brev_spring_litt_summer <span class="ot">&lt;-</span> posthoc_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-493"><a href="#cb15-493" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(contrast <span class="sc">==</span> <span class="st">"Littorina brevicula Spring - Littorina littorea Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-494"><a href="#cb15-494" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-495"><a href="#cb15-495" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="fl">0.0001</span>, <span class="st">"&lt; 0.0001"</span>, <span class="fu">round</span>(x, <span class="dv">4</span>)))()</span>
+<span id="cb15-496"><a href="#cb15-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-497"><a href="#cb15-497" aria-hidden="true" tabindex="-1"></a>p_litt_spring_brev_summer <span class="ot">&lt;-</span> posthoc_results <span class="sc">|&gt;</span> </span>
+<span id="cb15-498"><a href="#cb15-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(contrast <span class="sc">==</span> <span class="st">"Littorina littorea Spring - Littorina brevicula Summer"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-499"><a href="#cb15-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-500"><a href="#cb15-500" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="fl">0.0001</span>, <span class="st">"&lt; 0.0001"</span>, <span class="fu">round</span>(x, <span class="dv">4</span>)))()</span>
+<span id="cb15-501"><a href="#cb15-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-502"><a href="#cb15-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-503"><a href="#cb15-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-504"><a href="#cb15-504" aria-hidden="true" tabindex="-1"></a>We have significant differences between:</span>
+<span id="cb15-505"><a href="#cb15-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-506"><a href="#cb15-506" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*L.brevicula* in the Spring and Summer <span class="in">`r p_brev_spring_summer`</span></span>
+<span id="cb15-507"><a href="#cb15-507" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*L.brevicula* in the Spring and *L.littorea* in the Summer</span>
+<span id="cb15-508"><a href="#cb15-508" aria-hidden="true" tabindex="-1"></a>    <span class="in">`r p_brev_spring_litt_summer`</span></span>
+<span id="cb15-509"><a href="#cb15-509" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*L.littorea* in the Spring *L.brevicula* in the Summer</span>
+<span id="cb15-510"><a href="#cb15-510" aria-hidden="true" tabindex="-1"></a>    <span class="in">`r p_litt_spring_brev_summer`</span></span>
+<span id="cb15-511"><a href="#cb15-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-512"><a href="#cb15-512" aria-hidden="true" tabindex="-1"></a><span class="fu">### Check assumptions</span></span>
+<span id="cb15-513"><a href="#cb15-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-514"><a href="#cb15-514" aria-hidden="true" tabindex="-1"></a>Check the assumptions: All general linear models assume the "residuals"</span>
+<span id="cb15-515"><a href="#cb15-515" aria-hidden="true" tabindex="-1"></a>are normally distributed and have "homogeneity" of variance.</span>
+<span id="cb15-516"><a href="#cb15-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-517"><a href="#cb15-517" aria-hidden="true" tabindex="-1"></a>Our first check of these assumptions is to use common sense: diameter is</span>
+<span id="cb15-518"><a href="#cb15-518" aria-hidden="true" tabindex="-1"></a>a continuous and we would expect it to be normally distributed thus we</span>
+<span id="cb15-519"><a href="#cb15-519" aria-hidden="true" tabindex="-1"></a>would expect the residuals to be normally distributed thus we would</span>
+<span id="cb15-520"><a href="#cb15-520" aria-hidden="true" tabindex="-1"></a>expect the residuals to be normally distributed</span>
+<span id="cb15-521"><a href="#cb15-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-522"><a href="#cb15-522" aria-hidden="true" tabindex="-1"></a>We then proceed by plotting residuals. The <span class="in">`plot()`</span> function can be used</span>
+<span id="cb15-523"><a href="#cb15-523" aria-hidden="true" tabindex="-1"></a>to plot the residuals against the fitted values (See @fig-anova2-plot1).</span>
+<span id="cb15-524"><a href="#cb15-524" aria-hidden="true" tabindex="-1"></a>This is a good way to check for homogeneity of variance.</span>
+<span id="cb15-525"><a href="#cb15-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-526"><a href="#cb15-526" aria-hidden="true" tabindex="-1"></a>::: {#fig-anova2-plot1}</span>
+<span id="cb15-529"><a href="#cb15-529" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-530"><a href="#cb15-530" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb15-531"><a href="#cb15-531" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-532"><a href="#cb15-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-533"><a href="#cb15-533" aria-hidden="true" tabindex="-1"></a>**Residuals against the fitted values.** This plot shows whether the</span>
+<span id="cb15-534"><a href="#cb15-534" aria-hidden="true" tabindex="-1"></a>points are distributed similarly in each group. Any difference seems</span>
+<span id="cb15-535"><a href="#cb15-535" aria-hidden="true" tabindex="-1"></a>small but perhaps the residuals are less variable for the lowest mean.</span>
+<span id="cb15-536"><a href="#cb15-536" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-537"><a href="#cb15-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-538"><a href="#cb15-538" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>In the output of <span class="in">`lm()`</span> the coefficients are listed in a table in</span>
-<span id="cb15-539"><a href="#cb15-539" aria-hidden="true" tabindex="-1"></a>    the Estimates column. The *p*-value for each coefficient is in the</span>
-<span id="cb15-540"><a href="#cb15-540" aria-hidden="true" tabindex="-1"></a>    test of whether it differs from zero. At the bottom of the output</span>
-<span id="cb15-541"><a href="#cb15-541" aria-hidden="true" tabindex="-1"></a>    there is an $F$ test of the model *overall*. The R-squared value is</span>
-<span id="cb15-542"><a href="#cb15-542" aria-hidden="true" tabindex="-1"></a>    the proportion of the variance in the response variable that is</span>
-<span id="cb15-543"><a href="#cb15-543" aria-hidden="true" tabindex="-1"></a>    explained by the model.</span>
-<span id="cb15-544"><a href="#cb15-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-545"><a href="#cb15-545" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>To see which of the three effects are significant we can use the</span>
-<span id="cb15-546"><a href="#cb15-546" aria-hidden="true" tabindex="-1"></a>    <span class="in">`anova()`</span> function on our model.</span>
-<span id="cb15-547"><a href="#cb15-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-548"><a href="#cb15-548" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>To find out which means differ, we need a **post-hoc** test. Here we</span>
-<span id="cb15-549"><a href="#cb15-549" aria-hidden="true" tabindex="-1"></a>    use Tukey’s HSD applied with the <span class="in">`emmeans()`</span> and <span class="in">`pairs()`</span> functions</span>
-<span id="cb15-550"><a href="#cb15-550" aria-hidden="true" tabindex="-1"></a>    from the **`emmeans`** package. Post-hoc tests make adjustments to</span>
-<span id="cb15-551"><a href="#cb15-551" aria-hidden="true" tabindex="-1"></a>    the *p*-values to account for the fact that we are doing multiple</span>
-<span id="cb15-552"><a href="#cb15-552" aria-hidden="true" tabindex="-1"></a>    tests.</span>
+<span id="cb15-538"><a href="#cb15-538" aria-hidden="true" tabindex="-1"></a>We can also use a histogram to check for normality (See</span>
+<span id="cb15-539"><a href="#cb15-539" aria-hidden="true" tabindex="-1"></a>@fig-anova2-plot2).</span>
+<span id="cb15-540"><a href="#cb15-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-541"><a href="#cb15-541" aria-hidden="true" tabindex="-1"></a>::: {#fig-anova2-plot2}</span>
+<span id="cb15-544"><a href="#cb15-544" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-545"><a href="#cb15-545" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mod<span class="sc">$</span>residuals)) <span class="sc">+</span> </span>
+<span id="cb15-546"><a href="#cb15-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)</span>
+<span id="cb15-547"><a href="#cb15-547" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-548"><a href="#cb15-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-549"><a href="#cb15-549" aria-hidden="true" tabindex="-1"></a>**A histogram of residuals** is symetrical and seems consistent with a</span>
+<span id="cb15-550"><a href="#cb15-550" aria-hidden="true" tabindex="-1"></a>normal distribution. This is a good sign for the assumption of normally</span>
+<span id="cb15-551"><a href="#cb15-551" aria-hidden="true" tabindex="-1"></a>distributed residuals.</span>
+<span id="cb15-552"><a href="#cb15-552" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb15-553"><a href="#cb15-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-554"><a href="#cb15-554" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>The assumptions of the general linear model are that the residuals</span>
-<span id="cb15-555"><a href="#cb15-555" aria-hidden="true" tabindex="-1"></a>    are normally distributed and have homogeneity of variance. A</span>
-<span id="cb15-556"><a href="#cb15-556" aria-hidden="true" tabindex="-1"></a>    residual is the difference between the predicted value and the</span>
-<span id="cb15-557"><a href="#cb15-557" aria-hidden="true" tabindex="-1"></a>    observed value.</span>
-<span id="cb15-558"><a href="#cb15-558" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-559"><a href="#cb15-559" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>We examine a histogram of the residuals and use the Shapiro-Wilk</span>
-<span id="cb15-560"><a href="#cb15-560" aria-hidden="true" tabindex="-1"></a>    normality test to check the normality assumption. We check the</span>
-<span id="cb15-561"><a href="#cb15-561" aria-hidden="true" tabindex="-1"></a>    variance of the residuals is the same for all fitted values with a</span>
-<span id="cb15-562"><a href="#cb15-562" aria-hidden="true" tabindex="-1"></a>    residuals vs fitted plot.</span>
-<span id="cb15-563"><a href="#cb15-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-564"><a href="#cb15-564" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>When reporting the results of a test we give the significance,</span>
-<span id="cb15-565"><a href="#cb15-565" aria-hidden="true" tabindex="-1"></a>    direction and size of the effect. We use means and standard errors</span>
-<span id="cb15-566"><a href="#cb15-566" aria-hidden="true" tabindex="-1"></a>    for parametric tests like two-way ANOVA. We also give the test</span>
-<span id="cb15-567"><a href="#cb15-567" aria-hidden="true" tabindex="-1"></a>    statistic, the degrees of freedom (parametric) or sample size</span>
-<span id="cb15-568"><a href="#cb15-568" aria-hidden="true" tabindex="-1"></a>    (non-parametric) and the p-value. We annotate our figures with the</span>
-<span id="cb15-569"><a href="#cb15-569" aria-hidden="true" tabindex="-1"></a>    p-value, making clear which comparison it applies to.</span>
+<span id="cb15-554"><a href="#cb15-554" aria-hidden="true" tabindex="-1"></a>Finally, we can use the Shapiro-Wilk test to test for normality.</span>
+<span id="cb15-555"><a href="#cb15-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-558"><a href="#cb15-558" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-559"><a href="#cb15-559" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mod<span class="sc">$</span>residuals)</span>
+<span id="cb15-560"><a href="#cb15-560" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-561"><a href="#cb15-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-562"><a href="#cb15-562" aria-hidden="true" tabindex="-1"></a>The p-value is greater than 0.05 so this test of the normality</span>
+<span id="cb15-563"><a href="#cb15-563" aria-hidden="true" tabindex="-1"></a>assumption is not significant.</span>
+<span id="cb15-564"><a href="#cb15-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-565"><a href="#cb15-565" aria-hidden="true" tabindex="-1"></a>Taken together, these results suggest that the assumptions of normality</span>
+<span id="cb15-566"><a href="#cb15-566" aria-hidden="true" tabindex="-1"></a>and homogeneity of variance are probably not violated.</span>
+<span id="cb15-567"><a href="#cb15-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-568"><a href="#cb15-568" aria-hidden="true" tabindex="-1"></a><span class="fu">### Report</span></span>
+<span id="cb15-569"><a href="#cb15-569" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-570"><a href="#cb15-570" aria-hidden="true" tabindex="-1"></a>We might report this result as:</span>
+<span id="cb15-571"><a href="#cb15-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-572"><a href="#cb15-572" aria-hidden="true" tabindex="-1"></a>The parasite load was significantly greater in Summer (*F* =</span>
+<span id="cb15-573"><a href="#cb15-573" aria-hidden="true" tabindex="-1"></a><span class="in">`r season_f`</span>; *d.f.* = `r season_df1`, `r residual_df`; *p*</span>
+<span id="cb15-574"><a href="#cb15-574" aria-hidden="true" tabindex="-1"></a><span class="in">`r season_p`</span>) but this effect differed between species (*F* =</span>
+<span id="cb15-575"><a href="#cb15-575" aria-hidden="true" tabindex="-1"></a><span class="in">`r interaction_f`</span>; *d.f.* = `r interaction_df1`, `r residual_df`; *p* =</span>
+<span id="cb15-576"><a href="#cb15-576" aria-hidden="true" tabindex="-1"></a><span class="in">`r interaction_p`</span>) with a greater increase in parasite load in</span>
+<span id="cb15-577"><a href="#cb15-577" aria-hidden="true" tabindex="-1"></a>*L.brevicula* (from $\bar{x} \pm s.e$: <span class="in">`r brev_spring_m`</span> $\pm$</span>
+<span id="cb15-578"><a href="#cb15-578" aria-hidden="true" tabindex="-1"></a><span class="in">`r brev_spring_se`</span> units to <span class="in">`r brev_summer_m`</span> $\pm$ <span class="in">`r brev_summer_se`</span></span>
+<span id="cb15-579"><a href="#cb15-579" aria-hidden="true" tabindex="-1"></a>units) than in *L.littorea* (from <span class="in">`r litt_spring_m`</span> $\pm$</span>
+<span id="cb15-580"><a href="#cb15-580" aria-hidden="true" tabindex="-1"></a><span class="in">`r litt_spring_se`</span> units to <span class="in">`r litt_summer_m`</span> $\pm$ <span class="in">`r litt_summer_se`</span></span>
+<span id="cb15-581"><a href="#cb15-581" aria-hidden="true" tabindex="-1"></a>units). See @fig-para.</span>
+<span id="cb15-582"><a href="#cb15-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-583"><a href="#cb15-583" aria-hidden="true" tabindex="-1"></a>::: {#fig-para}</span>
+<span id="cb15-586"><a href="#cb15-586" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-587"><a href="#cb15-587" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb15-588"><a href="#cb15-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-589"><a href="#cb15-589" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-590"><a href="#cb15-590" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> periwinkle, <span class="fu">aes</span>(<span class="at">x =</span> season,</span>
+<span id="cb15-591"><a href="#cb15-591" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">y =</span> para,</span>
+<span id="cb15-592"><a href="#cb15-592" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">shape =</span> species),</span>
+<span id="cb15-593"><a href="#cb15-593" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">dodge.width =</span> <span class="dv">1</span>,</span>
+<span id="cb15-594"><a href="#cb15-594" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">jitter.width =</span> <span class="fl">0.3</span>,</span>
+<span id="cb15-595"><a href="#cb15-595" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">jitter.height =</span> <span class="dv">0</span>),</span>
+<span id="cb15-596"><a href="#cb15-596" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb15-597"><a href="#cb15-597" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb15-598"><a href="#cb15-598" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> peri_summary, </span>
+<span id="cb15-599"><a href="#cb15-599" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se, <span class="at">group =</span> species),</span>
+<span id="cb15-600"><a href="#cb15-600" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.5</span>,</span>
+<span id="cb15-601"><a href="#cb15-601" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb15-602"><a href="#cb15-602" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb15-603"><a href="#cb15-603" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> peri_summary, </span>
+<span id="cb15-604"><a href="#cb15-604" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean, <span class="at">group =</span> species),</span>
+<span id="cb15-605"><a href="#cb15-605" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.4</span>,</span>
+<span id="cb15-606"><a href="#cb15-606" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb15-607"><a href="#cb15-607" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="dv">1</span>) ) <span class="sc">+</span></span>
+<span id="cb15-608"><a href="#cb15-608" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Season"</span>) <span class="sc">+</span></span>
+<span id="cb15-609"><a href="#cb15-609" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Number of parasites"</span>,</span>
+<span id="cb15-610"><a href="#cb15-610" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb15-611"><a href="#cb15-611" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">140</span>)) <span class="sc">+</span></span>
+<span id="cb15-612"><a href="#cb15-612" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">1</span>),</span>
+<span id="cb15-613"><a href="#cb15-613" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb15-614"><a href="#cb15-614" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">"L.brevicula"</span>)),</span>
+<span id="cb15-615"><a href="#cb15-615" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">bquote</span>(<span class="fu">italic</span>(<span class="st">"L.littorea"</span>)))) <span class="sc">+</span></span>
+<span id="cb15-616"><a href="#cb15-616" aria-hidden="true" tabindex="-1"></a>  <span class="co"># *L.brevicula* in the Spring and Summer `p &lt; 0.0001`</span></span>
+<span id="cb15-617"><a href="#cb15-617" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb15-618"><a href="#cb15-618" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.75</span>, <span class="at">xend =</span> <span class="fl">1.75</span>,</span>
+<span id="cb15-619"><a href="#cb15-619" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">115</span>, <span class="at">yend =</span> <span class="dv">115</span>,</span>
+<span id="cb15-620"><a href="#cb15-620" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-621"><a href="#cb15-621" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb15-622"><a href="#cb15-622" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">1.25</span>,  <span class="at">y =</span> <span class="dv">119</span>,</span>
+<span id="cb15-623"><a href="#cb15-623" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"italic(p) {p_brev_spring_summer}"</span>),</span>
+<span id="cb15-624"><a href="#cb15-624" aria-hidden="true" tabindex="-1"></a>           <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb15-625"><a href="#cb15-625" aria-hidden="true" tabindex="-1"></a>  <span class="co"># # *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`</span></span>
+<span id="cb15-626"><a href="#cb15-626" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb15-627"><a href="#cb15-627" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">0.75</span>, <span class="at">xend =</span> <span class="fl">2.25</span>,</span>
+<span id="cb15-628"><a href="#cb15-628" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">125</span>, <span class="at">yend =</span> <span class="dv">125</span>,</span>
+<span id="cb15-629"><a href="#cb15-629" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-630"><a href="#cb15-630" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">129</span>,</span>
+<span id="cb15-631"><a href="#cb15-631" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"italic(p) == {p_brev_spring_litt_summer}"</span>),</span>
+<span id="cb15-632"><a href="#cb15-632" aria-hidden="true" tabindex="-1"></a>           <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb15-633"><a href="#cb15-633" aria-hidden="true" tabindex="-1"></a>  <span class="co"># *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`</span></span>
+<span id="cb15-634"><a href="#cb15-634" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"segment"</span>,</span>
+<span id="cb15-635"><a href="#cb15-635" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="fl">1.25</span>, <span class="at">xend =</span> <span class="fl">1.75</span>,</span>
+<span id="cb15-636"><a href="#cb15-636" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="dv">105</span>, <span class="at">yend =</span> <span class="dv">105</span>,</span>
+<span id="cb15-637"><a href="#cb15-637" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-638"><a href="#cb15-638" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.5</span>,  <span class="at">y =</span> <span class="dv">109</span>,</span>
+<span id="cb15-639"><a href="#cb15-639" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"italic(p) == {p_litt_spring_brev_summer}"</span>),</span>
+<span id="cb15-640"><a href="#cb15-640" aria-hidden="true" tabindex="-1"></a>           <span class="at">parse =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb15-641"><a href="#cb15-641" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb15-642"><a href="#cb15-642" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"inside"</span>,</span>
+<span id="cb15-643"><a href="#cb15-643" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>),</span>
+<span id="cb15-644"><a href="#cb15-644" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">colour =</span> <span class="st">"black"</span>))</span>
+<span id="cb15-645"><a href="#cb15-645" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-646"><a href="#cb15-646" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-647"><a href="#cb15-647" aria-hidden="true" tabindex="-1"></a>**Parasite load is greater in Summer especially for *L.brevicula*.**</span>
+<span id="cb15-648"><a href="#cb15-648" aria-hidden="true" tabindex="-1"></a>Live specimens of two species of periwinkle, *L.brevicula* and</span>
+<span id="cb15-649"><a href="#cb15-649" aria-hidden="true" tabindex="-1"></a>*L.littorea* were collected from sites in northern England in the Spring</span>
+<span id="cb15-650"><a href="#cb15-650" aria-hidden="true" tabindex="-1"></a>and Summer and gut parasite load was determined. Error bars are means</span>
+<span id="cb15-651"><a href="#cb15-651" aria-hidden="true" tabindex="-1"></a>$\pm$ 1 standard error. Parasite load was significantly greater in</span>
+<span id="cb15-652"><a href="#cb15-652" aria-hidden="true" tabindex="-1"></a>Summer (*F* = `r season_f`; *d.f.* = <span class="in">`r season_df1`</span>, <span class="in">`r residual_df`</span>;</span>
+<span id="cb15-653"><a href="#cb15-653" aria-hidden="true" tabindex="-1"></a>*p* <span class="in">`r p_brev_spring_summer`</span>) but this effect differed between species</span>
+<span id="cb15-654"><a href="#cb15-654" aria-hidden="true" tabindex="-1"></a>(*F* = `r interaction_f`; *d.f.* = <span class="in">`r interaction_df1`</span>, <span class="in">`r residual_df`</span>;</span>
+<span id="cb15-655"><a href="#cb15-655" aria-hidden="true" tabindex="-1"></a>*p* = <span class="in">`r interaction_p`</span>) with a greater increase in parasite load in</span>
+<span id="cb15-656"><a href="#cb15-656" aria-hidden="true" tabindex="-1"></a>*L.brevicula* than in *L.littorea*. Data analysis was conducted in R</span>
+<span id="cb15-657"><a href="#cb15-657" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@R-core</span><span class="co">]</span> with tidyverse packages <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>. Post-hoc analysis was</span>
+<span id="cb15-658"><a href="#cb15-658" aria-hidden="true" tabindex="-1"></a>carried out with Tukey's Honestly Significant Difference test</span>
+<span id="cb15-659"><a href="#cb15-659" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">@tukey1949</span><span class="co">]</span>.</span>
+<span id="cb15-660"><a href="#cb15-660" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb15-661"><a href="#cb15-661" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-662"><a href="#cb15-662" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb15-663"><a href="#cb15-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-664"><a href="#cb15-664" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>A linear model with two explanatory variable with two or more groups</span>
+<span id="cb15-665"><a href="#cb15-665" aria-hidden="true" tabindex="-1"></a>    each is also known as a **two-way ANOVA**.</span>
+<span id="cb15-666"><a href="#cb15-666" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-667"><a href="#cb15-667" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>We estimate the **coefficients** (also called the **parameters**) of</span>
+<span id="cb15-668"><a href="#cb15-668" aria-hidden="true" tabindex="-1"></a>    the model. For a two-way ANOVA with two groups in each explanatory</span>
+<span id="cb15-669"><a href="#cb15-669" aria-hidden="true" tabindex="-1"></a>    variable these are</span>
+<span id="cb15-670"><a href="#cb15-670" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-671"><a href="#cb15-671" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>the mean of the group with the first level of both explanatory</span>
+<span id="cb15-672"><a href="#cb15-672" aria-hidden="true" tabindex="-1"></a>        variables $\beta_0$,</span>
+<span id="cb15-673"><a href="#cb15-673" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>what needs to be added to $\beta_0$ when one of the explanatory</span>
+<span id="cb15-674"><a href="#cb15-674" aria-hidden="true" tabindex="-1"></a>        variables goes from its first level to its second, $\beta_1$</span>
+<span id="cb15-675"><a href="#cb15-675" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>what needs to be added to $\beta_0$ when the other of the</span>
+<span id="cb15-676"><a href="#cb15-676" aria-hidden="true" tabindex="-1"></a>        explanatory variables goes from its first level to its second,</span>
+<span id="cb15-677"><a href="#cb15-677" aria-hidden="true" tabindex="-1"></a>        $\beta_2$</span>
+<span id="cb15-678"><a href="#cb15-678" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>$\beta_3$, the interaction effect: what additionally needs to be</span>
+<span id="cb15-679"><a href="#cb15-679" aria-hidden="true" tabindex="-1"></a>        added to $\beta_0$ + $\beta_1$ + $\beta_2$ when both of the</span>
+<span id="cb15-680"><a href="#cb15-680" aria-hidden="true" tabindex="-1"></a>        explanatory variables go from their first level to their second</span>
+<span id="cb15-681"><a href="#cb15-681" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-682"><a href="#cb15-682" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>We can use <span class="in">`lm()`</span> to two-way ANOVA in R.</span>
+<span id="cb15-683"><a href="#cb15-683" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-684"><a href="#cb15-684" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>In the output of <span class="in">`lm()`</span> the coefficients are listed in a table in</span>
+<span id="cb15-685"><a href="#cb15-685" aria-hidden="true" tabindex="-1"></a>    the Estimates column. The *p*-value for each coefficient is in the</span>
+<span id="cb15-686"><a href="#cb15-686" aria-hidden="true" tabindex="-1"></a>    test of whether it differs from zero. At the bottom of the output</span>
+<span id="cb15-687"><a href="#cb15-687" aria-hidden="true" tabindex="-1"></a>    there is an $F$ test of the model *overall*. The R-squared value is</span>
+<span id="cb15-688"><a href="#cb15-688" aria-hidden="true" tabindex="-1"></a>    the proportion of the variance in the response variable that is</span>
+<span id="cb15-689"><a href="#cb15-689" aria-hidden="true" tabindex="-1"></a>    explained by the model.</span>
+<span id="cb15-690"><a href="#cb15-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-691"><a href="#cb15-691" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>To see which of the three effects are significant we can use the</span>
+<span id="cb15-692"><a href="#cb15-692" aria-hidden="true" tabindex="-1"></a>    <span class="in">`anova()`</span> function on our model.</span>
+<span id="cb15-693"><a href="#cb15-693" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-694"><a href="#cb15-694" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>To find out which means differ, we need a **post-hoc** test. Here we</span>
+<span id="cb15-695"><a href="#cb15-695" aria-hidden="true" tabindex="-1"></a>    use Tukey’s HSD applied with the <span class="in">`emmeans()`</span> and <span class="in">`pairs()`</span> functions</span>
+<span id="cb15-696"><a href="#cb15-696" aria-hidden="true" tabindex="-1"></a>    from the **`emmeans`** package. Post-hoc tests make adjustments to</span>
+<span id="cb15-697"><a href="#cb15-697" aria-hidden="true" tabindex="-1"></a>    the *p*-values to account for the fact that we are doing multiple</span>
+<span id="cb15-698"><a href="#cb15-698" aria-hidden="true" tabindex="-1"></a>    tests.</span>
+<span id="cb15-699"><a href="#cb15-699" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-700"><a href="#cb15-700" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>The assumptions of the general linear model are that the residuals</span>
+<span id="cb15-701"><a href="#cb15-701" aria-hidden="true" tabindex="-1"></a>    are normally distributed and have homogeneity of variance. A</span>
+<span id="cb15-702"><a href="#cb15-702" aria-hidden="true" tabindex="-1"></a>    residual is the difference between the predicted value and the</span>
+<span id="cb15-703"><a href="#cb15-703" aria-hidden="true" tabindex="-1"></a>    observed value.</span>
+<span id="cb15-704"><a href="#cb15-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-705"><a href="#cb15-705" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>We examine a histogram of the residuals and use the Shapiro-Wilk</span>
+<span id="cb15-706"><a href="#cb15-706" aria-hidden="true" tabindex="-1"></a>    normality test to check the normality assumption. We check the</span>
+<span id="cb15-707"><a href="#cb15-707" aria-hidden="true" tabindex="-1"></a>    variance of the residuals is the same for all fitted values with a</span>
+<span id="cb15-708"><a href="#cb15-708" aria-hidden="true" tabindex="-1"></a>    residuals vs fitted plot.</span>
+<span id="cb15-709"><a href="#cb15-709" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-710"><a href="#cb15-710" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>When reporting the results of a test we give the significance,</span>
+<span id="cb15-711"><a href="#cb15-711" aria-hidden="true" tabindex="-1"></a>    direction and size of the effect. We use means and standard errors</span>
+<span id="cb15-712"><a href="#cb15-712" aria-hidden="true" tabindex="-1"></a>    for parametric tests like two-way ANOVA. We also give the test</span>
+<span id="cb15-713"><a href="#cb15-713" aria-hidden="true" tabindex="-1"></a>    statistic, the degrees of freedom (parametric) or sample size</span>
+<span id="cb15-714"><a href="#cb15-714" aria-hidden="true" tabindex="-1"></a>    (non-parametric) and the p-value. We annotate our figures with the</span>
+<span id="cb15-715"><a href="#cb15-715" aria-hidden="true" tabindex="-1"></a>    p-value, making clear which comparison it applies to.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -904,16 +904,20 @@ Complete
 <span><span class="co">## -1.541 -0.700 -0.080  0.424  1.949 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##                                   Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">## (Intercept)                        10.0700     0.2930  34.370  &lt; 2e-16 ***</span></span>
-<span><span class="co">## mediumsugar added                   0.1700     0.4143   0.410  0.68483    </span></span>
-<span><span class="co">## mediumsugar and amino acids added   1.3310     0.4143   3.212  0.00339 ** </span></span>
+<span><span class="co">##                                   Estimate Std. Error t value</span></span>
+<span><span class="co">## (Intercept)                         10.070      0.293   34.37</span></span>
+<span><span class="co">## mediumsugar added                    0.170      0.414    0.41</span></span>
+<span><span class="co">## mediumsugar and amino acids added    1.331      0.414    3.21</span></span>
+<span><span class="co">##                                              Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)                       &lt;0.0000000000000002 ***</span></span>
+<span><span class="co">## mediumsugar added                              0.6848    </span></span>
+<span><span class="co">## mediumsugar and amino acids added              0.0034 ** </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 0.9265 on 27 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.3117, Adjusted R-squared:  0.2607 </span></span>
-<span><span class="co">## F-statistic: 6.113 on 2 and 27 DF,  p-value: 0.00646</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 0.927 on 27 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.312,  Adjusted R-squared:  0.261 </span></span>
+<span><span class="co">## F-statistic: 6.11 on 2 and 27 DF,  p-value: 0.00646</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Estimates in the Coefficients table give:</p>
 <ul>
@@ -953,9 +957,9 @@ Complete
 <span><span class="co">## Analysis of Variance Table</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Response: diameter</span></span>
-<span><span class="co">##           Df Sum Sq Mean Sq F value  Pr(&gt;F)   </span></span>
-<span><span class="co">## medium     2 10.495  5.2473  6.1129 0.00646 **</span></span>
-<span><span class="co">## Residuals 27 23.177  0.8584                   </span></span>
+<span><span class="co">##           Df Sum Sq Mean Sq F value Pr(&gt;F)   </span></span>
+<span><span class="co">## medium     2   10.5    5.25    6.11 0.0065 **</span></span>
+<span><span class="co">## Residuals 27   23.2    0.86                  </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1031,7 +1035,7 @@ Complete
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.96423, p-value = 0.3953</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.96, p-value = 0.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The p-value is greater than 0.05 so this test of the normality assumption is not significant.</p>
 <p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are probably not violated.</p>
@@ -1119,7 +1123,7 @@ Complete
 <span><span class="co">##  Kruskal-Wallis rank sum test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  diameter by medium</span></span>
-<span><span class="co">## Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Kruskal-Wallis chi-squared = 8.1, df = 2, p-value = 0.02</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result of the test is given on this line: <code>Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742</code>. <code>Chi-squared</code> is the test statistic. The <em>p</em>-value is less than 0.05 meaning there is a significant effect of medium on diameter.</p>
 <p>Notice that the <em>p</em>-value is a little larger than for the ANOVA. This is because non-parametric tests are generally more conservative (less powerful) than their parametric equivalents.</p>
@@ -1131,10 +1135,10 @@ Complete
 <p>Then run the post-hoc test with:</p>
 <div class="cell">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://fishr-core-team.github.io/FSA/reference/dunnTest.html">dunnTest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">culture</span>, <span class="va">diameter</span> <span class="op">~</span> <span class="va">medium</span><span class="op">)</span></span>
-<span><span class="co">##                                  Comparison          Z    P.unadj      P.adj</span></span>
-<span><span class="co">## 1                     control - sugar added -0.2159242 0.82904681 0.82904681</span></span>
-<span><span class="co">## 2     control - sugar and amino acids added -2.5656880 0.01029714 0.03089142</span></span>
-<span><span class="co">## 3 sugar added - sugar and amino acids added -2.3497637 0.01878533 0.03757066</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">##                                  Comparison       Z P.unadj   P.adj</span></span>
+<span><span class="co">## 1                     control - sugar added -0.2159 0.82905 0.82905</span></span>
+<span><span class="co">## 2     control - sugar and amino acids added -2.5657 0.01030 0.03089</span></span>
+<span><span class="co">## 3 sugar added - sugar and amino acids added -2.3498 0.01879 0.03757</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>P.adj</code> column gives <em>p</em>-value for the comparison listed in the first column. <code>Z</code> is the test statistic. The <em>p</em>-values are a little larger for the <code>control - sugar and amino acids added</code> comparison and the <code>sugar added - sugar and amino acids added</code> comparison but they are still less than 0.05. This means our conclusions are the same as for the ANOVA.</p>
 </section><section id="report-1" class="level3" data-number="17.0.2"><h3 data-number="17.0.2" class="anchored" data-anchor-id="report-1">

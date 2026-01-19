@@ -691,32 +691,37 @@ Enter '1' to start a new auth process or select a pre-authorized account.
 <span><span class="co">## lm(formula = log_counts ~ soil * temp, data = class_data)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
-<span><span class="co">##     Min      1Q  Median      3Q     Max </span></span>
-<span><span class="co">## -7.5791 -0.3205  0.1573  0.6250  4.6301 </span></span>
+<span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
+<span><span class="co">## -7.579 -0.321  0.157  0.625  4.630 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##                                  Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">## (Intercept)                        7.5791     0.1851  40.943   &lt;2e-16 ***</span></span>
-<span><span class="co">## soiluncontaminated                 0.0897     0.2618   0.343    0.732    </span></span>
-<span><span class="co">## temp4 degrees                     -2.4686     0.2618  -9.430   &lt;2e-16 ***</span></span>
-<span><span class="co">## soiluncontaminated:temp4 degrees  -0.1270     0.3702  -0.343    0.732    </span></span>
+<span><span class="co">##                                  Estimate Std. Error t value</span></span>
+<span><span class="co">## (Intercept)                        7.5791     0.1851   40.94</span></span>
+<span><span class="co">## soiluncontaminated                 0.0897     0.2618    0.34</span></span>
+<span><span class="co">## temp4 degrees                     -2.4686     0.2618   -9.43</span></span>
+<span><span class="co">## soiluncontaminated:temp4 degrees  -0.1270     0.3702   -0.34</span></span>
+<span><span class="co">##                                             Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)                      &lt;0.0000000000000002 ***</span></span>
+<span><span class="co">## soiluncontaminated                              0.73    </span></span>
+<span><span class="co">## temp4 degrees                    &lt;0.0000000000000002 ***</span></span>
+<span><span class="co">## soiluncontaminated:temp4 degrees                0.73    </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 1.571 on 284 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.3973, Adjusted R-squared:  0.391 </span></span>
-<span><span class="co">## F-statistic: 62.41 on 3 and 284 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 1.57 on 284 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.397,  Adjusted R-squared:  0.391 </span></span>
+<span><span class="co">## F-statistic: 62.4 on 3 and 284 DF,  p-value: &lt;0.0000000000000002</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
 <span><span class="co">## Analysis of Variance Table</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Response: log_counts</span></span>
-<span><span class="co">##            Df Sum Sq Mean Sq  F value Pr(&gt;F)    </span></span>
-<span><span class="co">## soil        1   0.05    0.05   0.0200 0.8876    </span></span>
-<span><span class="co">## temp        1 461.62  461.62 187.1022 &lt;2e-16 ***</span></span>
-<span><span class="co">## soil:temp   1   0.29    0.29   0.1177 0.7318    </span></span>
-<span><span class="co">## Residuals 284 700.69    2.47                    </span></span>
+<span><span class="co">##            Df Sum Sq Mean Sq F value              Pr(&gt;F)    </span></span>
+<span><span class="co">## soil        1      0       0    0.02                0.89    </span></span>
+<span><span class="co">## temp        1    462     462  187.10 &lt;0.0000000000000002 ***</span></span>
+<span><span class="co">## soil:temp   1      0       0    0.12                0.73    </span></span>
+<span><span class="co">## Residuals 284    701       2                                </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -739,7 +744,7 @@ Enter '1' to start a new auth process or select a pre-authorized account.
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.83366, p-value &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.83, p-value &lt;0.0000000000000002</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Significantly different from a normal distribution.</p>
 <div class="cell">

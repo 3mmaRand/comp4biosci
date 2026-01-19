@@ -969,19 +969,19 @@ Complete
 <span><span class="co">## lm(formula = mass ~ subspecies, data = chaff)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
-<span><span class="co">##     Min      1Q  Median      3Q     Max </span></span>
-<span><span class="co">## -5.2750 -1.7000 -0.3775  1.6200  4.1250 </span></span>
+<span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
+<span><span class="co">## -5.275 -1.700 -0.377  1.620  4.125 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##                   Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">## (Intercept)        22.2750     0.4795  46.456   &lt;2e-16 ***</span></span>
-<span><span class="co">## subspeciescoelebs  -1.7950     0.6781  -2.647   0.0118 *  </span></span>
+<span><span class="co">##                   Estimate Std. Error t value            Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)         22.275      0.479   46.46 &lt;0.0000000000000002 ***</span></span>
+<span><span class="co">## subspeciescoelebs   -1.795      0.678   -2.65               0.012 *  </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 2.144 on 38 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.1557, Adjusted R-squared:  0.1335 </span></span>
-<span><span class="co">## F-statistic: 7.007 on 1 and 38 DF,  p-value: 0.01175</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 2.14 on 38 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.156,  Adjusted R-squared:  0.133 </span></span>
+<span><span class="co">## F-statistic: 7.01 on 1 and 38 DF,  p-value: 0.0118</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Estimates in the Coefficients table give:</p>
 <ul>
@@ -1051,7 +1051,7 @@ Complete
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.98046, p-value = 0.7067</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.98, p-value = 0.7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The p-value is greater than 0.05 so this test of the normality assumption is not significant.</p>
 <p>Taken together, these results suggest that the assumptions of normality and homogeneity of variance are not violated.</p>
@@ -1158,7 +1158,7 @@ Complete
 <span><span class="co">##  Wilcoxon rank sum test with continuity correction</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  leaves by type</span></span>
-<span><span class="co">## W = 5, p-value = 0.005051</span></span>
+<span><span class="co">## W = 5, p-value = 0.005</span></span>
 <span><span class="co">## alternative hypothesis: true location shift is not equal to 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The warning message “Warning: cannot compute exact p-value with ties” is not something to worry about too much. It is a warning rather than an indication that your results are incorrect. It means the <em>p</em> -value is based on an approximation rather than being exact because there are ties (some values are the same).</p>
@@ -1257,24 +1257,24 @@ Complete
 <span><span class="co">##   -6.5   -3.5    0.0    3.5    6.5 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
-<span><span class="co">##                     Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">## (Intercept)           89.500      4.697  19.055 1.39e-08 ***</span></span>
-<span><span class="co">## subjectDataAnalysis    7.000      2.832   2.471 0.035486 *  </span></span>
-<span><span class="co">## factor(student)2     -39.500      6.333  -6.237 0.000152 ***</span></span>
-<span><span class="co">## factor(student)3     -26.500      6.333  -4.184 0.002361 ** </span></span>
-<span><span class="co">## factor(student)4     -25.500      6.333  -4.026 0.002990 ** </span></span>
-<span><span class="co">## factor(student)5     -16.000      6.333  -2.526 0.032431 *  </span></span>
-<span><span class="co">## factor(student)6     -54.000      6.333  -8.526 1.33e-05 ***</span></span>
-<span><span class="co">## factor(student)7      -9.000      6.333  -1.421 0.189010    </span></span>
-<span><span class="co">## factor(student)8     -27.000      6.333  -4.263 0.002101 ** </span></span>
-<span><span class="co">## factor(student)9     -44.000      6.333  -6.947 6.70e-05 ***</span></span>
-<span><span class="co">## factor(student)10     -1.500      6.333  -0.237 0.818082    </span></span>
+<span><span class="co">##                     Estimate Std. Error t value    Pr(&gt;|t|)    </span></span>
+<span><span class="co">## (Intercept)            89.50       4.70   19.06 0.000000014 ***</span></span>
+<span><span class="co">## subjectDataAnalysis     7.00       2.83    2.47     0.03549 *  </span></span>
+<span><span class="co">## factor(student)2      -39.50       6.33   -6.24     0.00015 ***</span></span>
+<span><span class="co">## factor(student)3      -26.50       6.33   -4.18     0.00236 ** </span></span>
+<span><span class="co">## factor(student)4      -25.50       6.33   -4.03     0.00299 ** </span></span>
+<span><span class="co">## factor(student)5      -16.00       6.33   -2.53     0.03243 *  </span></span>
+<span><span class="co">## factor(student)6      -54.00       6.33   -8.53 0.000013258 ***</span></span>
+<span><span class="co">## factor(student)7       -9.00       6.33   -1.42     0.18901    </span></span>
+<span><span class="co">## factor(student)8      -27.00       6.33   -4.26     0.00210 ** </span></span>
+<span><span class="co">## factor(student)9      -44.00       6.33   -6.95 0.000067042 ***</span></span>
+<span><span class="co">## factor(student)10      -1.50       6.33   -0.24     0.81808    </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 6.333 on 9 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.9441, Adjusted R-squared:  0.8821 </span></span>
-<span><span class="co">## F-statistic: 15.21 on 10 and 9 DF,  p-value: 0.0001814</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 6.33 on 9 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:  0.944,  Adjusted R-squared:  0.882 </span></span>
+<span><span class="co">## F-statistic: 15.2 on 10 and 9 DF,  p-value: 0.000181</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The coefficient for <code>(Intercept)</code> gives the mean Biology mark and that for <code>subjectDataAnalysis</code> is amount that the Data Analysis mark are above Biology marks in general. The <em>p</em>-value tests whether this difference is significantly different from zero. The rest of the output considers how students differ. You can ignore this here.</p>
 <p>If you find this a bit overwhelming to read you can use the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function on the model object to get a simpler output:</p>
@@ -1283,10 +1283,10 @@ Complete
 <span><span class="co">## Analysis of Variance Table</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Response: mark</span></span>
-<span><span class="co">##                 Df Sum Sq Mean Sq F value   Pr(&gt;F)    </span></span>
-<span><span class="co">## subject          1  245.0  245.00   6.108 0.035486 *  </span></span>
-<span><span class="co">## factor(student)  9 5856.2  650.69  16.222 0.000153 ***</span></span>
-<span><span class="co">## Residuals        9  361.0   40.11                     </span></span>
+<span><span class="co">##                 Df Sum Sq Mean Sq F value  Pr(&gt;F)    </span></span>
+<span><span class="co">## subject          1    245     245    6.11 0.03549 *  </span></span>
+<span><span class="co">## factor(student)  9   5856     651   16.22 0.00015 ***</span></span>
+<span><span class="co">## Residuals        9    361      40                    </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1318,7 +1318,7 @@ Complete
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  mod$residuals</span></span>
-<span><span class="co">## W = 0.92894, p-value = 0.1473</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.93, p-value = 0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="report-2" class="level3" data-number="15.5.4"><h3 data-number="15.5.4" class="anchored" data-anchor-id="report-2">
 <span class="header-section-number">15.5.4</span> Report</h3>
@@ -1385,7 +1385,7 @@ Complete
 <span><span class="co">##  Wilcoxon signed rank test with continuity correction</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  marks_wide$Biology and marks_wide$DataAnalysis</span></span>
-<span><span class="co">## V = 6.5, p-value = 0.03641</span></span>
+<span><span class="co">## V = 6.5, p-value = 0.04</span></span>
 <span><span class="co">## alternative hypothesis: true location shift is not equal to 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="report-3" class="level3" data-number="15.6.3"><h3 data-number="15.6.3" class="anchored" data-anchor-id="report-3">

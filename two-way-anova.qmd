@@ -96,20 +96,20 @@ can help.
 
 #### When residuals are not normally distributed and/or variance is unequal
 
-There are some rank-based tests, such as the Friedman test and the 
-Scheirer-Ray-Hare test, that apply to specific situations. However, 
-there is no non-parametric alternative that directly corresponds to 
-two-way ANOVA in the same way that the Kruskal-Wallis test does for 
+There are some rank-based tests, such as the Friedman test and the
+Scheirer-Ray-Hare test, that apply to specific situations. However,
+there is no non-parametric alternative that directly corresponds to
+two-way ANOVA in the same way that the Kruskal-Wallis test does for
 one-way ANOVA.
 
 In these cases you have other good options.
 
-1.  **Use two-way ANOVA carefully**. Using the two-way ANOVA test 
-    and interpreting the results with caution is one valid approach. 
-    ANOVA is actually quite robust to violating the normality assumption
-    (it performs quite well anyway) depending on how much the residuals 
+1.  **Use two-way ANOVA carefully**. Using the two-way ANOVA test and
+    interpreting the results with caution is one valid approach. ANOVA
+    is actually quite robust to violating the normality assumption (it
+    performs quite well anyway) depending on how much the residuals
     deviate.
-    
+
 2.  **Using non-parametric one-way tests**. Divide the dataset according
     to the groups in one factor, then carry out a Wilcoxon rank-sum test
     (also known as the Mann-Whitney test) or a Kruskal-Wallis test on
@@ -128,24 +128,29 @@ In these cases you have other good options.
     the other.
 
 <!-- 2.  **Using a Permutation Test**. A permutation test checks if an  -->
+
 <!--     observed difference is real or just due to chance by shuffling  -->
+
 <!--     the data many times and seeing how often a difference as big as  -->
+
 <!--     the original one appears. Instead of using formulas based on  -->
+
 <!--     assumptions, it creates a null distribution from the shuffled  -->
+
 <!--     data and calculates a p-value based on how rare the observed  -->
+
 <!--     result is. This makes it useful when normal statistical methods  -->
+
 <!--     don’t apply. -->
-
-
 
 We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
 If you want to code along you will need to start a new RStudio Project
-(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw`
-folder and open a new script. You will also need to load the
-**`tidyverse`** package [@tidyverse].
+(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw` folder and
+open a new script. You will also need to load the **`tidyverse`**
+package [@tidyverse].
 
 ## Two-way ANOVA
 
@@ -204,14 +209,20 @@ Violin plots (`geom_violin()`, see @fig-periwinkle-rough), box plots
 choices for exploratory plotting and it does not matter which of these
 you choose.
 
+::: {#fig-periwinkle-rough}
 ```{r}
-#| label: fig-periwinkle-rough
-#| fig-cap: "The parasite load for two species of Littorina indicated by the fill colour, in the Spring and Summer. Parasite load seems to be higher for both species in the summer and that effect looks bigger in L.brevicula - it has the lowest spring mean but the highest summer mean."
-
 ggplot(data = periwinkle, 
        aes(x = season, y = para, fill = species)) +
   geom_violin()
 ```
+
+**The parasite load for two species of Littorina indicated by season.**
+The fill colour indicates the season (Spring and Summer). Parasite load
+seems to be higher for both species in the summer and that effect looks
+bigger in *L.brevicula* - it has the lowest spring mean but the highest
+summer mean. If the effect of season is different for the two species
+there is an interaction between species and season.
+:::
 
 R will order the groups alphabetically by default.
 
@@ -237,13 +248,58 @@ We have save the results to `peri_summary` so that we can use the means
 and standard errors in our plot later.
 
 ```{r}
+#| echo: false
+# extract values for inline reporting
+brev_spring_m <- peri_summary |> 
+  filter(species == "Littorina brevicula", season == "Spring") |> 
+  pull(mean) |> 
+  round(1)
+
+brev_spring_se <- peri_summary |> 
+  filter(species == "Littorina brevicula", season == "Spring") |> 
+  pull(se) |> 
+  round(2)
+
+brev_summer_m <- peri_summary |> 
+  filter(species == "Littorina brevicula", season == "Summer") |> 
+  pull(mean) |> 
+  round(1)
+
+brev_summer_se <- peri_summary |> 
+  filter(species == "Littorina brevicula", season == "Summer") |> 
+  pull(se) |> 
+  round(2)
+
+litt_spring_m <- peri_summary |> 
+  filter(species == "Littorina littorea", season == "Spring") |> 
+  pull(mean) |> 
+  round(1)
+
+litt_spring_se <- peri_summary |> 
+  filter(species == "Littorina littorea", season == "Spring") |> 
+  pull(se) |> 
+  round(2)
+
+litt_summer_m <- peri_summary |> 
+  filter(species == "Littorina littorea", season == "Summer") |> 
+  pull(mean) |> 
+  round(1)
+
+litt_summer_se <- peri_summary |> 
+  filter(species == "Littorina littorea", season == "Summer") |> 
+  pull(se) |> 
+  round(2)
+
+```
+
+```{r}
 peri_summary
 ```
 
 The summary confirms both species have a higher mean in the summer and
 that the difference between the species is reversed - *L.brevicula*
-minus *L.littorea* is `r peri_summary$mean[1]-peri_summary$mean[2]` in
-the spring but `r peri_summary$mean[3]-peri_summary$mean[4]` in summer.
+minus *L.littorea* is `r brev_spring_m - litt_spring_m` in the spring
+but `r brev_summer_m - litt_summer_m` in summer.
 
 ### Apply `lm()`
 
@@ -314,10 +370,52 @@ Determine which effects are significant:
 anova(mod)
 ```
 
-The parasite load is significantly greater in Summer (*F* = 25.9; *d.f.*
-= 1, 96; *p* \< 0.0001) but this effect differs between species (*F* =
-6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in parasite
-load in *L.brevicula* than in *L.littorea*.
+```{r}
+#| echo: false
+# extract values from anova for ease of reporting
+anova_results <- broom::tidy(anova(mod))
+
+season_f <- anova_results |> 
+  filter(term == "season") |> 
+  pull(statistic) |> 
+  round(1)
+
+season_df1 <- anova_results |> 
+  filter(term == "season") |> 
+  pull(df) 
+
+season_p <- anova_results |> 
+  filter(term == "season") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+interaction_f <- anova_results |> 
+  filter(term == "species:season") |> 
+  pull(statistic) |> 
+  round(1)
+
+interaction_df1 <- anova_results |> 
+  filter(term == "species:season") |> 
+  pull(df) 
+
+interaction_p <- anova_results |> 
+  filter(term == "species:season") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+# get residual df
+residual_df <- anova_results |> 
+  filter(term == "Residuals") |> 
+  pull(df) 
+
+```
+
+The parasite load is significantly greater in Summer (*F* =
+`r season_f`; *d.f.* = `r season_df1`, `r residual_df`; *p*
+`r season_p`) but this effect differs between species (*F* =
+`r interaction_f`; *d.f.* = `r interaction_df1`, `r residual_df`; *p* =
+`r interaction_p`) with a greater increase in parasite load in
+*L.brevicula* than in *L.littorea*.
 
 We need a post-hoc test to see which comparisons are significant and can
 again use then **`emmeans`** [@emmeans] package.
@@ -348,12 +446,38 @@ Plot the results of the post-hoc test:
 emmeans(mod, ~ species * season) |> plot()
 ```
 
+```{r}
+#| echo: false
+#| warning: false
+# extract post-hoc p-values for ease of reporting
+posthoc_results <- emmeans(mod, ~ species * season) |> 
+  pairs() |> 
+  as.data.frame()
+
+p_brev_spring_summer <- posthoc_results |> 
+  filter(contrast == "Littorina brevicula Spring - Littorina brevicula Summer") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+p_brev_spring_litt_summer <- posthoc_results |> 
+  filter(contrast == "Littorina brevicula Spring - Littorina littorea Summer") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+p_litt_spring_brev_summer <- posthoc_results |> 
+  filter(contrast == "Littorina littorea Spring - Littorina brevicula Summer") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+```
+
 We have significant differences between:
 
--   *L.brevicula* in the Spring and Summer `p <.0001`
+-   *L.brevicula* in the Spring and Summer `r p_brev_spring_summer`
 -   *L.brevicula* in the Spring and *L.littorea* in the Summer
-    `p = 0.0004`
--   *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`
+    `r p_brev_spring_litt_summer`
+-   *L.littorea* in the Spring *L.brevicula* in the Summer
+    `r p_litt_spring_brev_summer`
 
 ### Check assumptions
 
@@ -369,22 +493,29 @@ We then proceed by plotting residuals. The `plot()` function can be used
 to plot the residuals against the fitted values (See @fig-anova2-plot1).
 This is a good way to check for homogeneity of variance.
 
+::: {#fig-anova2-plot1}
 ```{r}
-#| label: fig-anova2-plot1
-#| fig-cap: "A plot of the residuals against the fitted values shows whether the points are distributed similarly in each group. Any difference seems small but perhaps the residuals are less variable for the lowest mean."
-
 plot(mod, which = 1)
 ```
+
+**Residuals against the fitted values.** This plot shows whether the
+points are distributed similarly in each group. Any difference seems
+small but perhaps the residuals are less variable for the lowest mean.
+:::
 
 We can also use a histogram to check for normality (See
 @fig-anova2-plot2).
 
+::: {#fig-anova2-plot2}
 ```{r}
-#| label: fig-anova2-plot2
-#| fig-cap: "A histogram of residuals is symetrical and seems consistent with a normal distribution. This is a good sign for the assumption of normally distributed residuals."
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 10)
 ```
+
+**A histogram of residuals** is symetrical and seems consistent with a
+normal distribution. This is a good sign for the assumption of normally
+distributed residuals.
+:::
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
 
@@ -402,12 +533,16 @@ and homogeneity of variance are probably not violated.
 
 We might report this result as:
 
-The parasite load was significantly greater in Summer (*F* = 25.9;
-*d.f.* = 1, 96; *p* \< 0.0001) but this effect differed between species
-(*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a greater increase in
-parasite load in *L.brevicula* (from $\bar{x} \pm s.e$: 57.0 $\pm$ 1.77
-units to 73.5 $\pm$ 2.24 units) than in *L.littorea* (from 64.2 $\pm$
-2.38 units to 69.9 $\pm$ 2.30 units). See @fig-para.
+The parasite load was significantly greater in Summer (*F* =
+`r season_f`; *d.f.* = `r season_df1`, `r residual_df`; *p*
+`r season_p`) but this effect differed between species (*F* =
+`r interaction_f`; *d.f.* = `r interaction_df1`, `r residual_df`; *p* =
+`r interaction_p`) with a greater increase in parasite load in
+*L.brevicula* (from $\bar{x} \pm s.e$: `r brev_spring_m` $\pm$
+`r brev_spring_se` units to `r brev_summer_m` $\pm$ `r brev_summer_se`
+units) than in *L.littorea* (from `r litt_spring_m` $\pm$
+`r litt_spring_se` units to `r litt_summer_m` $\pm$ `r litt_summer_se`
+units). See @fig-para.
 
 ::: {#fig-para}
 ```{r}
@@ -440,28 +575,31 @@ ggplot() +
                      name = NULL,
                      labels = c(bquote(italic("L.brevicula")),
                                 bquote(italic("L.littorea")))) +
-  # *L.brevicula* in the Spring and Summer `p <0.0001`
+  # *L.brevicula* in the Spring and Summer `p < 0.0001`
   annotate("segment",
            x = 0.75, xend = 1.75,
            y = 115, yend = 115,
            colour = "black") +
   annotate("text",
            x = 1.25,  y = 119,
-           label = "p < 0.0001") +
+           label = glue::glue("italic(p) {p_brev_spring_summer}"),
+           parse = TRUE) +
   # # *L.brevicula* in the Spring and  *L.littorea* in the Summer `p = 0.0004`
   annotate("segment",
            x = 0.75, xend = 2.25,
            y = 125, yend = 125,
            colour = "black") +
   annotate("text", x = 1.5,  y = 129,
-           label = "p = 0.0004") +
+           label = glue::glue("italic(p) == {p_brev_spring_litt_summer}"),
+           parse = TRUE) +
   # *L.littorea* in the Spring *L.brevicula* in the Summer `p = 0.0172`
   annotate("segment",
            x = 1.25, xend = 1.75,
            y = 105, yend = 105,
            colour = "black") +
   annotate("text", x = 1.5,  y = 109,
-           label = "p = 0.0172") +
+           label = glue::glue("italic(p) == {p_litt_spring_brev_summer}"),
+           parse = TRUE) +
   theme_classic() +
   theme(legend.position = "inside",
         legend.position.inside = c(0.9, 0.1),
@@ -473,12 +611,14 @@ Live specimens of two species of periwinkle, *L.brevicula* and
 *L.littorea* were collected from sites in northern England in the Spring
 and Summer and gut parasite load was determined. Error bars are means
 $\pm$ 1 standard error. Parasite load was significantly greater in
-Summer (*F* = 25.9; *d.f.* = 1, 96; *p* \< 0.0001) but this effect
-differed between species (*F* = 6.2; *d.f.* = 1,96; *p* = 0.014) with a
-greater increase in parasite load in *L.brevicula* than in *L.littorea*.
-Data analysis was conducted in R [@R-core] with tidyverse packages
-[@tidyverse]. Post-hoc analysis was carried out with Tukey's Honestly
-Significant Difference test [@tukey1949].
+Summer (*F* = `r season_f`; *d.f.* = `r season_df1`, `r residual_df`;
+*p* `r p_brev_spring_summer`) but this effect differed between species
+(*F* = `r interaction_f`; *d.f.* = `r interaction_df1`, `r residual_df`;
+*p* = `r interaction_p`) with a greater increase in parasite load in
+*L.brevicula* than in *L.littorea*. Data analysis was conducted in R
+[@R-core] with tidyverse packages [@tidyverse]. Post-hoc analysis was
+carried out with Tukey's Honestly Significant Difference test
+[@tukey1949].
 :::
 
 ## Summary
