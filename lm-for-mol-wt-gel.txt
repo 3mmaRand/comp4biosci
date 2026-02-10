@@ -1,0 +1,459 @@
+## Linear Regression for estimating molecular weights from gels
+
+In this section we will use a linear regression to estimate the
+molecular weights of proteins from a gel. Gels are run with a marker
+lane containing proteins of known molecular weights. The positions of
+these marker proteins are used to create a standard curve that allows us
+to estimate the molecular weights of other proteins in the gel.
+
+This is a different use for linear regression than the previous example
+where we wanted to statistically test whether the an *x*-variable
+explained the variation in a *y*-variable.
+
+Here we already know there is a very tight linear relationship between
+the position of the marker proteins on the gel and their molecular
+weights. We are using the linear regression to find the equation of the
+line that describes this relationship so we can use it to estimate the
+molecular weights of other proteins in the gel.
+
+We will use this gel image (@fig-gel) as an example:
+[sds-page-gel.jpg](data-image/sds-page-gel.jpg). This gel has two sets
+of results (one each side) -- since only 4 lanes were for each practical
+group, we put two groups on one gel.
+
+-   Lane 1 (and 10) is the protein ladder which are the proteins of
+    known molecular weights.
+
+-   Lane 2 (and 9) is Uninduced E. coli lysate
+
+-   Lane 3 (and 8) is Induced E. coli lysate
+
+-   Lane 4 (and 7) is ShPatB
+
+You don't need worry about the details of the gel, only that our aim is
+to estimate the molecule weight of the ShPatB protein in lane 4 from its
+position on the gel and the standard curve created from the marker
+proteins in lane 1. @fig-gel illustrates the measurements needed from
+the gel image.
+
+```{r}
+#| echo: false
+#| message: false
+
+# import gel
+library(imager)
+gel <- load.image("data-image/sds-page-gel.jpg")
+gel_cropped <- crop.borders(gel, nx = 300, ny = 150)
+gel_top <- 180
+gel_bottom <- 990
+pos_patB <- 394
+```
+
+::: {#fig-gel}
+```{r}
+#| echo: false
+#| message: false
+
+plot(gel_cropped, axes = FALSE)
+# add a line to plot 
+abline(h = gel_top, col = "red")
+abline(h = gel_bottom, col = "red")
+# draw vertical double-headed arrow between top and bottom
+segments(x0 = 50, y0 = gel_top, 
+       x1 = 50, y1 = gel_bottom, 
+       lty = 2)
+text(x = 20, y = (gel_top + gel_bottom) / 2, 
+     labels = "L", 
+     cex = 1.2)
+arrows(x0 = 220, y0 = gel_top, 
+       x1 = 220, y1 = gel_top + 138,
+       col = "blue",
+       code = 3, 
+       length = 0.1)
+arrows(x0 = 510, y0 = gel_top, 
+       x1 = 510, y1 = gel_top + pos_patB,
+       col = "blue",
+       code = 3, 
+       length = 0.1)
+```
+
+**SDS-PAGE gel provided as a sample in the BCH strand of 26C practicals
+with annotation.** Lane 1 (and 10) is the protein ladder, Lane 2 (and 9)
+is Uninduced E. coli lysate, Lane 3 (and 8) is Induced E. coli lysate
+and Lane 4 (and 7) is ShPatB. The horizontal red lines indicate the top
+and bottom of the gel. The vertical black dashed line indicates the
+length of the gel, $L$. The distance of one marker protein -- the
+heaviest -- and that ShPatB from the top of the gel are indicated by
+vertical solid blue lines. Distance to all the marker proteins need to
+be measured from the top of the gel. These distances and the molecular
+weights of the marker proteins are used to create a standard curve that
+allows us to estimate the molecular weight of ShPatB from its position
+on the gel.
+:::
+
+We will cover two options:
+
+1.  Where you have measured the length of the gel, the positions of
+    ShPatB and the marker proteins on the gel manually -- by opening the
+    gel image in Powerpoint for example -- and have a file containing
+    the molecular weights and positions of the marker proteins. The
+    measures can be in centimetres or pixels, it does not matter as long
+    as they are all in the same units.
+
+2.  Where you have a file containing the molecular weights of the marker
+    proteins and use R to measure the length of the gel, the positions
+    of ShPatB and the marker proteins by importing the gel image. This
+    method relies on the `locator()` which stores the coordinate
+    positions when you click on a plot! Magic!
+
+![](images/do_in_R.png) Make a new script then save it with a name like
+`mw-from-gel-regression.R` to carry out the rest of the work.
+
+### Option 1: Manual measurements
+
+You have measured the positions of the marker proteins and added them to
+a file containing the molecular weights. Your file is:
+[standard-mw-with-positions.csv](data-raw/standard-mw-with-positions.csv).
+The molecular weights of the marker proteins are in kilodaltons (kDa)
+and the positions of the marker proteins are in pixels. The length of
+the gel is 810 pixels and ShPatB is at 394 pixels from the top of the
+gel.
+
+![](images/do_in_R.png) Save
+[standard-mw-with-positions.csv](data-raw/standard-mw-with-positions.csv)
+to `data-raw/` and import it.
+
+```{r}
+mw_positions <- read_csv("data-raw/standard-mw-with-positions.csv")
+```
+
+![](images/do_in_R.png) Assign the position of ShPatB and the length of
+the gel to variables:
+
+```{r}
+gel_length <- 810
+pos_patB <- 394
+```
+
+We need to calculate $R_f$ values for the marker proteins:
+
+$$R_f = \frac{L - d}{L}$$
+
+where $L$ is the length of the gel and $d$ is the distance to the band.
+
+We also need to log the molecular weights of the marker proteins to make
+a linear relationship. We can add these two new variables to the data
+frame using the `mutate()`.
+
+![](images/do_in_R.png) Calculate Rf values for the marker proteins:
+
+```{r}
+mw_positions <- mw_positions |>
+  mutate(Rf = (gel_length - dist_to_band) / gel_length,
+         log_kda = log(kda))
+```
+
+![](images/do_in_R.png) Plot the data with `geom_point()` and add a
+linear regression line with `geom_smooth(method = "lm")`:
+
+```{r}
+ggplot(mw_positions, aes(x = Rf, y = log_kda)) +
+  geom_point() +
+  geom_smooth(method = "lm", 
+              se = FALSE) +
+  theme_classic()
+```
+
+![](images/do_in_R.png) Fit a linear model so we have the equation of
+the line
+
+```{r}
+mod <- lm(log_kda ~ Rf, data = mw_positions)
+```
+
+![](images/do_in_R.png) Print the model:
+
+```{r}
+mod
+```
+
+We only need to print the coefficients -- we don't care about the
+statistical tests here. You can tell from the plot that the relationship
+is very tight and linear. The equation of the line is: $MW$=
+`r mod$coef[2] |> round(3)` \* $R_f$ + `r mod$coef[1] |> round(3)`
+
+You can substitute the values of the coefficients and the $R_f$ of
+ShpatB to find the log molecular weight of ShPatB. Or you can use the
+`predict()` function to do this for you.
+
+![](images/do_in_R.png) Calculate the $R_f$ of ShPatB:
+
+```{r}
+patB_Rf = (gel_length - pos_patB) / gel_length
+
+```
+
+![](images/do_in_R.png) Predict the molecular weight ShPatB:
+
+```{r}
+patB_kda <- predict(mod, newdata = data.frame(Rf = patB_Rf)) |> 
+  exp()
+patB_kda
+```
+
+### Option 2: Measurements in R
+
+You have a file containing the molecular weights of the marker proteins
+[standard-mw.txt](data-image/standard-mw.txt) and the image of the gel
+[sds-page-gel.jpg](data-image/sds-page-gel.jpg). The molecular weights
+of the marker proteins are in kilodaltons (kDa)
+
+![](images/do_in_R.png) Make a folder call `data-image` and save
+[standard-mw.txt](data-image/standard-mw.txt) and
+[sds-page-gel.jpg](data-image/sds-page-gel.jpg) to it
+
+![](images/do_in_R.png) Imort the molecular weights of the marker
+proteins from [standard-mw.txt](data-image/standard-mw.txt)
+
+```{r}
+mw <- read_csv("data-image/standard-mw.txt")
+```
+
+![](images/do_in_R.png) Load the `imager` package
+
+```{r}
+library(imager)
+```
+
+![](images/do_in_R.png) Import the gel image:
+
+```{r}
+gel <- load.image("data-image/sds-page-gel.jpg")
+```
+
+Base R's generic `plot()` function can handle image files and plot axes
+default. These are in pixels and will help us mark the top and bottom of
+the gel.
+
+![](images/do_in_R.png) Plot the gel image:
+
+```{r}
+plot(gel)
+```
+
+The **`imager`** package has a function that will crop the edges of the
+image. This is certainly not essential but can have two benefits:
+
+-   the image is smaller which means plotting is quicker -- this is
+    especially useful when your images are many pixels
+-   it makes it a little easier determine where the axes numbers are on
+    the gel
+
+![](images/do_in_R.png) Crop the image:
+
+```{r}
+# crop
+gel_cropped <- crop.borders(gel, nx = 300, ny = 150)
+```
+
+`crop.borders()` removes `ny` from the top and the bottom and `nx` from
+each side. You may wish to adjust the numbers.
+
+![](images/do_in_R.png) Plot the cropped image:
+
+```{r}
+plot(gel_cropped)
+```
+
+To make sure we measure distances from the same place we need to add
+lines to mark the top and the bottom of the gel. Notice that the
+*y*-axis is 0 at the top. I think the top is at about 180 and the bottom
+is about 990. We will assign these values to variables because they will
+be needed in calculations later. We will also need the gel length
+(bottom position - top position).
+
+![](images/do_in_R.png) Assign values for the top and bottom of the gel
+to variables and calculate the length of the gel:
+
+```{r}
+gel_top <- 180
+gel_bottom <- 990
+gel_length <- gel_bottom - gel_top
+```
+
+![](images/do_in_R.png) Plot the cropped gel with lines marking the top
+and bottom of the gel:
+
+```{r}
+# plot gel
+plot(gel_cropped)
+# add a horizontal lines for the top and bottom of the gel 
+abline(h = gel_top, col = "red")
+abline(h = gel_bottom, col = "red")
+```
+
+Make sure you run all theses commands. The base plotting system works a
+little differently that `ggplot`. We do not use `+` but we have to make
+sure we have recently run the `plot()` command before the `abline()`
+(and other functions that modify plots) will work. You will get
+`Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...) :`
+`plot.new has not been called yet`
+
+At this point you have check that you are happy with the numbers used
+for the top and bottom of the gel. Adjust and replot if needed.
+
+I like to add a vertical line in the marker lane to help guide my later
+measures.
+
+![](images/do_in_R.png) Add a vertical line in the marker lane. Again,
+make sure you run all of the plotting code:
+
+```{r}
+# plot gel
+plot(gel_cropped)
+# add a horizontal lines for the top and bottom of the gel
+abline(h = gel_top, col = "red")
+abline(h = gel_bottom, col = "red")
+# add a vertical line in the marker lane as a guide to help with locator
+abline(v = 220, col = "red")
+```
+
+We are now ready to measure the band positions using the `locator()`
+function. We need to measure the position of shPatB and the all the
+marker proteins. We will start with shPatB:
+
+![](images/do_in_R.png) Run the `locator()` command and click on the
+shPatB in lane 4:
+
+```{r}
+#| eval: false
+dist_to_patB <- locator(n = 1)
+```
+
+```{r}
+#| echo: false
+dist_to_patB <- 394 + gel_top
+```
+
+The (*x*,*y*) position of shPatB is now stored in an R object called
+`pos_patB`.
+
+The distance between the shPatB band and the top of the gel will be the
+*y*0value in `dist_to_patB` minus the distance to the top of the gel.
+
+![](images/do_in_R.png) Calculate the distance from the top of the gel
+to shPatB:
+
+```{r}
+#| eval: false
+pos_patB <- dist_to_patB$y - gel_top
+```
+
+```{r}
+#| echo: false
+pos_patB <- 394
+```
+
+We have 9 bands so pass the argument `n = 9` to the function. This means
+you will need to click on the graph 9 times. Start at the top -- the
+heaviest band -- and work your way down. You only need to click once on
+each band. The R cursor will disappear until you have clicked 9 times.
+Don't worry if you make a mistake, just click until the cursor is
+returned and run the locator command again to start afresh.
+
+![](images/do_in_R.png) Run the `locator()` command and click on the 9
+bands in order from top to bottom:
+
+```{r}
+#| eval: false
+# Number of bands in your marker lane
+# click from the top or gel to the bottom 
+# i.e., high MW to low
+marker_positions <- locator(n = 9)  
+```
+
+```{r}
+#| echo: false
+temp <- read_csv("data-raw/standard-mw-with-positions.csv")
+marker_positions <- list(x = rep(220, 9), y = temp$dist_to_band + gel_top)
+```
+
+Magic! The (*x*,*y*) position of each band is now stored in an R object
+called `marker_positions`.
+
+We need to
+
+-   combine the *y* positions with molecular weights in `mw`
+-   calculate the distance to each band by substracting `gel_top`
+-   calculate $R_f$ values for the marker proteins using
+    $R_f = \frac{L - d}{L}$ where $L$ is the length of the gel and $d$
+    is the distance to the band.
+-   log the molecular weights of the marker proteins to make a linear
+    relationship.
+
+We can put all these new columns in a dataframe called `mw_positions`
+frame using the `mutate()`.
+
+![](images/do_in_R.png) Create `mw_positions` from `mw` and the *y*
+positions in `marker_positions`:
+
+```{r}
+mw_positions <- mw |>
+  mutate(y = marker_positions$y,
+         dist_to_band = y - gel_top,
+         Rf = (gel_length - dist_to_band) / gel_length,
+         log_kda = log(kda)) 
+```
+
+The process is now exactly the same as it was for Option 1.
+
+![](images/do_in_R.png) Plot the data with `geom_point()` and add a
+linear regression line with `geom_smooth(method = "lm")`:
+
+```{r}
+ggplot(mw_positions, aes(x = Rf, y = log_kda)) +
+  geom_point() +
+  geom_smooth(method = "lm", 
+              se = FALSE) +
+  theme_classic()
+```
+
+![](images/do_in_R.png) Fit a linear model so we have the equation of
+the line
+
+```{r}
+mod <- lm(log_kda ~ Rf, data = mw_positions)
+```
+
+![](images/do_in_R.png) Print the model:
+
+```{r}
+mod
+```
+
+We only need to print the coefficients -- we don't care about the
+statistical tests here. You can tell from the plot that the relationship
+is very tight and linear. The equation of the line is: $MW$=
+`r mod$coef[2] |> round(3)` \* $R_f$ + `r mod$coef[1] |> round(3)`
+
+You can substitute the values of the coefficients and the $R_f$ of
+ShpatB to find the log molecular weight of ShPatB. Or you can use the
+`predict()` function to do this for you.
+
+![](images/do_in_R.png) Calculate the $R_f$ of ShPatB:
+
+```{r}
+patB_Rf = (gel_length - pos_patB) / gel_length
+
+```
+
+![](images/do_in_R.png) Predict the molecular weight ShPatB:
+
+```{r}
+patB_kda <- predict(mod, newdata = data.frame(Rf = patB_Rf)) |> 
+  exp()
+patB_kda
+```
+
+If you would like to practice Option 2 again, you could repeat the the
+steps using the set of results on the other side of the gel.

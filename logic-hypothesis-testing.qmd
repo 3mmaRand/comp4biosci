@@ -12,8 +12,8 @@ status("complete")
 
 Hypothesis testing is a statistical method that helps us draw
 conclusions about a population based on a sample. Since we usually can’t
-measure every individual in a population, we instead take a smaller sample and
-make inferences about the population.
+measure every individual in a population, we instead take a smaller
+sample and make inferences about the population.
 
 For example, suppose we want to know if knocking out **gene X** in
 cultured cells changes the expression level of **protein Y** compared to
@@ -30,12 +30,12 @@ terms:
 
 -   A population is the entire group we are interested in studying
     (e.g., all possible knockout cells cultures).
--   A sample is a smaller group selected from the population (e.g., a
-    10 samples of cells cultured for the study).
+-   A sample is a smaller group selected from the population (e.g., a 10
+    samples of cells cultured for the study).
 
 We use samples because studying an entire population is often
-impractical. This means making sure our sample accurately
-represents the population.
+impractical. This means making sure our sample accurately represents the
+population.
 
 ## Logic of hypothesis testing
 
@@ -47,7 +47,7 @@ The logic behind hypothesis testing follows these general steps:
     between variables. In our case, $H_0$ is that the mean expression of
     protein Y in the knockout cells equals that of the wild‑type. In
     contrast, the "Alternative Hypothesis" ($H_1$) states that there is
-    a significant difference between the knockout mean and wild-type 
+    a significant difference between the knockout mean and wild-type
     reference
 2.  Designing an experiment and collecting data to test the null
     hypothesis.
@@ -61,13 +61,15 @@ The logic behind hypothesis testing follows these general steps:
 If the null hypothesis is rejected it means we have evidence that $H_0$
 is untrue and support for $H_1$. If the null hypothesis is not rejected,
 it means there is insufficient evidence to support the alternative
-hypothesis. It is important to recognise that not rejecting $H_0$ does not 
-mean it is definitely true -- it just indicates that $H_0$ cannot be discounted.
+hypothesis. It is important to recognise that not rejecting $H_0$ does
+not mean it is definitely true -- it just indicates that $H_0$ cannot be
+discounted.
 
-Whatever our test result, there is a real state to $H_0$, that is, $H_0$ is
-either true or it is not true. The statistical test has us decide whether
-to reject or not reject $H_0$ based on the *p*-value. This means we can make 
-mistakes when testing a hypothesis. These are called Type I and Type II errors.
+Whatever our test result, there is a real state to $H_0$, that is, $H_0$
+is either true or it is not true. The statistical test has us decide
+whether to reject or not reject $H_0$ based on the *p*-value. This means
+we can make mistakes when testing a hypothesis. These are called Type I
+and Type II errors.
 
 ### Type I and type II errors
 
@@ -77,13 +79,13 @@ approach rather than mistakes you can prevent.
 
 -   A type I error occurs when we reject a null hypothesis that is true.
     This can be thought of as a false positive. It is a real error in
-    that we conclude there is a real difference or effect when there is not. 
-    Since we use a probability of 0.05 to reject the null hypothesis, 
-    we will make a type I error 5% of the time.
+    that we conclude there is a real difference or effect when there is
+    not. Since we use a probability of 0.05 to reject the null
+    hypothesis, we will make a type I error 5% of the time.
 -   A type II error occurs when we do not reject a null hypothesis that
-    is false -- a false negative. It is not a real error in the
-    sense that we only conclude we do not have enough evidence to reject
-    the null hypothesis. We do not claim the null hypothesis is true.
+    is false -- a false negative. It is not a real error in the sense
+    that we only conclude we do not have enough evidence to reject the
+    null hypothesis. We do not claim the null hypothesis is true.
 -   If we reject a null hypothesis that is false we have not made an
     error.
 -   If we do not reject a null hypothesis that is true we have not made
@@ -93,11 +95,11 @@ approach rather than mistakes you can prevent.
 ![](images/type-1-2-errors.png)
 
 **Tabular representation of Type I and Type II errors**. A null
-hypothesis has a true state -- which is unknown -- it is either True or False.
-We make the decision to reject H0 or not reject it. If we reject a true
-H0 we have made a type I error; if we do not reject a true H0 we have
-not made an error. If we do not reject a false H0 we have not made an
-error; if we do reject a false H0 we have made a type II error
+hypothesis has a true state -- which is unknown -- it is either True or
+False. We make the decision to reject H0 or not reject it. If we reject
+a true H0 we have made a type I error; if we do not reject a true H0 we
+have not made an error. If we do not reject a false H0 we have not made
+an error; if we do reject a false H0 we have made a type II error
 :::
 
 We can decrease our chance of making a type I error by reducing the the
@@ -132,12 +134,11 @@ The key characteristics of the sampling distribution of the mean are:
     the sample size decreases the sampling distribution of the mean
     becomes wider and closer to the population distribution.
 
-💡 Why does this matter? It matters because when we calculate a *p*-value, 
-what we really want to know is: "How likely is it to get a sample mean like 
-this (or one as extreme or more extreme) if $H_0$ is true. That is, it is the 
-distribution of the sample means that we are interested in, not the 
-distribution of the values.
-
+💡 Why does this matter? It matters because when we calculate a
+*p*-value, what we really want to know is: "How likely is it to get a
+sample mean like this (or one as extreme or more extreme) if $H_0$ is
+true. That is, it is the distribution of the sample means that we are
+interested in, not the distribution of the values.
 
 ::: {#fig-sample-dist-means}
 ```{r}
@@ -192,18 +193,18 @@ mean <- 92
 diff <- mu - mean
 ```
 
-Question: The wild‑type mean expression of protein Y is `r mu` a.u. with 
-a standard deviation of `r sd` a.u. If we knock out gene X, does the 
+Question: The wild‑type mean expression of protein Y is `r mu` a.u. with
+a standard deviation of `r sd` a.u. If we knock out gene X, does the
 mean expression change?
 
 1.  Set up the null hypothesis. The null hypothesis is what we expect to
     happen if nothing interesting is happening. In this case, that there
     is no effect of knocking out gene X, *i.e.*, the mean of a sample of
     knockout cell cultures is equal to wild‑type mean of `r mu` a.u.
-    (@fig-null-example). This is written as $H_0: \bar{x} =$ `r mu`. The
+    (@fig-null-example). This is written as $H_0: \bar{x}$ = `r mu`. The
     alternative hypothesis is that the sample mean is not equal to
-    wild‑type mean of `r mu` a.u. This is written as $H_1: \bar{x}
-    \neq $ `r mu`.
+    wild‑type mean of `r mu` a.u. This is written as $H_1: \bar{x} \neq$
+    `r mu`.
 
 ::: {#fig-null-example}
 ```{r}
@@ -230,29 +231,27 @@ ggplot(data = data.frame(expr = c(mu - 3*sd, mu + 3*sd)),
 
 ```
 
-**Distribution of the population of protein Y expression in wild-type cells.**
-This has a mean of `r mu` a.u. and a standard deviation of `r sd` a.u.
-The null hypothesis is that mean of a sample of knockout cell cultures
-is equal to wild‑type mean of `r mu` a.u.
+**Distribution of the population of protein Y expression in wild-type
+cells.** This has a mean of `r mu` a.u. and a standard deviation of
+`r sd` a.u. The null hypothesis is that mean of a sample of knockout
+cell cultures is equal to wild‑type mean of `r mu` a.u.
 :::
 
 2.  Design an experiment that generates data to test the null
-    hypothesis. We take a sample of $n = $ `r n` knockout cell
-    cultures and determine the mean protein Y expression. Suppose we calculate
-    $\bar{x} = $ `r mean`. This *is* lower than the wild-type population
-    mean but might we get such a sample even if the null hypothesis
-    is true?
+    hypothesis. We take a sample of $n$ = `r n` knockout cell cultures
+    and determine the mean protein Y expression. Suppose we calculate
+    $\bar{x}$ = `r mean`. This *is* lower than the wild-type population
+    mean but might we get such a sample even if the null hypothesis is
+    true?
 
 3.  Determine the probability (the *p*-value) of getting our
-    experimental data , or data as extreme or more extreme, if $H_0$ is true. 
-    This would be a mean of `r mean` or *less*  
-    **OR** a mean of `r mu + diff` or *more* (@fig-sample-dist-means-example).
-    This is because `r mu + diff` a.u. is just as far away from the expected 
-    value as `r mean` a.u.
+    experimental data , or data as extreme or more extreme, if $H_0$ is
+    true. This would be a mean of `r mean` or *less*\
+    **OR** a mean of `r mu + diff` or *more*
+    (@fig-sample-dist-means-example). This is because `r mu + diff` a.u.
+    is just as far away from the expected value as `r mean` a.u.
 
 ::: {#fig-sample-dist-means-example layout-nrow="1"}
-
-
 ```{r}
 #| echo: false
 #| label: fig-sample-dist-means-onetail
@@ -283,8 +282,6 @@ ggplot(data = data.frame(expr = c(mu - 3 * sd, mu + 3 * sd)),
   theme_classic() +
   theme(axis.line.y = element_blank())
 ```
-
-
 
 ```{r}
 #| echo: false
@@ -317,43 +314,44 @@ ggplot(data = data.frame(expr = c(mu - 3 * sd, mu + 3 * sd)),
   theme(axis.line.y = element_blank())
 ```
 
-**The probability of getting our data or data as extreme or more extreme is 
-determined from the the sampling distribution of the mean**. @fig-sample-dist-means-onetail The probability of getting a mean of `r mean` or
-less is the area under the sampling distribution of the mean to the left 
-of `r mean`. @fig-sample-dist-means-twotail The probability of getting 
-a mean of `r mean + diff` or more is the area under the sampling 
-distribution of the mean to the right of `r mean + diff`. Thus, the probability
-of getting a sample mean of `r mean` or one as extreme or more extreme is
-the area under the curve to the left of `r mean` **PLUS** the area under the 
-curve to the to the right of `r mu + diff`. 
+**The probability of getting our data or data as extreme or more extreme
+is determined from the the sampling distribution of the mean**.
+@fig-sample-dist-means-onetail The probability of getting a mean of
+`r mean` or less is the area under the sampling distribution of the mean
+to the left of `r mean`. @fig-sample-dist-means-twotail The probability
+of getting a mean of `r mean + diff` or more is the area under the
+sampling distribution of the mean to the right of `r mean + diff`. Thus,
+the probability of getting a sample mean of `r mean` or one as extreme
+or more extreme is the area under the curve to the left of `r mean`
+**PLUS** the area under the curve to the to the right of `r mu + diff`.
 :::
 
 4.  Decide whether to reject or not reject the $H_0$ based on that
     probability. If the shaded area is less than 0.05 we reject the null
-    hypothesis and conclude there is a difference in the birth weights
-    between the two groups. If the shaded area is more than 0.05 we do
-    not reject the null hypothesis.
-
+    hypothesis and conclude there is a difference between the mean of
+    the knockout cell cultures and the wild‑type cultures. If the shaded
+    area is more than 0.05 we do not reject the null hypothesis.
 
 ## Summary
 
-1.   Hypothesis testing is a statistical method that helps us draw
+1.  Hypothesis testing is a statistical method that helps us draw
     conclusions about a population based on a sample.
 
-2. A population is the full set of entities possible; a sample is a random
-    subset of the population.
+2.  A population is the full set of entities possible; a sample is a
+    random subset of the population.
 
-3.   The logic of hypothesis testing involves formulating a null hypothesis,
-    designing an experiment, calculating the probability of obtaining the
-    observed data if the null hypothesis is true, and deciding whether to
-    reject or not reject the null hypothesis based on that probability.
+3.  The logic of hypothesis testing involves formulating a null
+    hypothesis, designing an experiment, calculating the probability of
+    obtaining the observed data if the null hypothesis is true, and
+    deciding whether to reject or not reject the null hypothesis based
+    on that probability.
 
-4.  That probability is determined by the sampling distribution of the mean. 
-    This is a theoretical distribution that describes the distribution of 
-    sample means if an infinite number of samples were taken. It has a mean 
-    equal to the population mean and a
-    standard deviation known as the standard error of the mean.
+4.  That probability is determined by the sampling distribution of the
+    mean. This is a theoretical distribution that describes the
+    distribution of sample means if an infinite number of samples were
+    taken. It has a mean equal to the population mean and a standard
+    deviation known as the standard error of the mean.
 
-5. A type I error occurs when we reject a null hypothesis that is true, 
-   while a type II error occurs when we do not reject a null hypothesis 
-   that is false.
+5.  A type I error occurs when we reject a null hypothesis that is true,
+    while a type II error occurs when we do not reject a null hypothesis
+    that is false.
