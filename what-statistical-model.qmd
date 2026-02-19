@@ -44,16 +44,16 @@ Where:
 
 This model is a linear model because the relationship between the
 response variable, height, and the explanatory variable, time, is linear
-(See @fig-model-linear). In a linear model, the gradient of the line is the
-same no matter what the value of $t$. In this case, it is fixed at 2 cm
-per day.
+(See @fig-model-linear). In a linear model, the gradient of the line is
+the same no matter what the value of $t$. In this case, it is fixed at 2
+cm per day.
 
 One alternative is a simple exponential model. In an exponential model,
 the height might increase by 12% each day and the gradient of the line
 would increase over time. This model is written as:
 
 $$
-h_{(t)} = h_{(0)}1.2^t
+h_{(t)} = h_{(0)}1.12^t
 $$
 
 Where:
@@ -62,12 +62,10 @@ Where:
 -   $h_{(t)}$ is the height of the plant at time $t$
 -   $h_{(0)}$ is the height of the plant at $t=0$, *i.e.*, at two weeks
 
-This model is not a straight line (See @fig-model-exponential). The gradient of
-the line increase as time goes on.
+This model is not a straight line (See @fig-model-exponential). The
+gradient of the line increase as time goes on.
 
-
-::: {#fig-model layout-ncol=2}
-
+::: {#fig-model layout-ncol="2"}
 ```{r}
 #| echo: false
 #| label: fig-model-linear
@@ -87,7 +85,6 @@ ggplot(df, aes(x = days, y = height)) +
   ggtitle(expression(h[(t)]~"="~h[(0)]~+~2*t)) +
   theme_classic()
 ```
-
 
 ```{r}
 #| echo: false
@@ -109,21 +106,21 @@ ggplot(df, aes(x = days, y = height)) +
 
 ```
 
-**Two possible models of plant growth.** -@fig-model-linear shows a linear
-model of plant growth where the height increases by a fixed amount each
-day. -@fig-model-exponential shows an exponential model of plant growth
-where the height increases by a fixed percentage each day. The linear model
-has a constant gradient, while the exponential model has a gradient that
-increases over time.
+**Two possible models of plant growth.** [-@fig-model-linear] shows a
+linear model of plant growth where the height increases by a fixed
+amount each day. [-@fig-model-exponential] shows an exponential model of
+plant growth where the height increases by a fixed percentage each day.
+The linear model has a constant gradient, while the exponential model
+has a gradient that increases over time.
 :::
 
 ## Statistical Models and Hypothesis Testing
 
-When we conduct statistical analysis, we are using a statistical
-model —a mathematical framework that describes the relationship between
-explanatory and response variables. Every model makes some assumptions about
-this relationship. We estimate the parameters of the model from the
-data. For example, in a simple linear model of plant growth, the key
+When we conduct statistical analysis, we are using a statistical model
+—a mathematical framework that describes the relationship between
+explanatory and response variables. Every model makes some assumptions
+about this relationship. We estimate the parameters of the model from
+the data. For example, in a simple linear model of plant growth, the key
 parameters are the intercept and the slope.
 
 Statistical hypothesis testing is directly tied to these models. When we
@@ -146,19 +143,18 @@ probability is the *p*-value.
 ### Assumptions and Model Fit
 
 Because hypothesis tests depend on probability calculations, they also
-depend on certain assumptions about the data. A key assumption is
-that the estimated parameter follows a normal distribution, which
-allows us to use standard probability models to determine significance.
-This assumption is reasonable in many cases, but if it is violated, the
+depend on certain assumptions about the data. A key assumption is that
+the estimated parameter follows a normal distribution, which allows us
+to use standard probability models to determine significance. This
+assumption is reasonable in many cases, but if it is violated, the
 *p*-values may be misleading.
 
 For this reason, checking model assumptions is crucial. If the
-assumptions are not met, we might need to transform the data, choose
-a different model, or use **non-parametric tests**, which make fewer
+assumptions are not met, we might need to transform the data, choose a
+different model, or use **non-parametric tests**, which make fewer
 assumptions about data distribution. Non-parametric methods do not
-estimate parameters (like an intercept and slope), which makes them useful
-when standard parametric assumptions are questionable.
-
+estimate parameters (like an intercept and slope), which makes them
+useful when standard parametric assumptions are questionable.
 
 ## Using a linear model in practice.
 
@@ -184,8 +180,7 @@ b1 <- mod$coefficients[2] |> round(2)
 
 ```
 
-::: {#fig-linear-bact layout-ncol=2}
-
+::: {#fig-linear-bact layout-ncol="2"}
 ```{r}
 #| echo: false
 #| label: fig-linear-bact-without
@@ -217,9 +212,9 @@ ggplot(df1, aes(x = Nutrient, y = Diameter)) +
 
 ```
 
-**The effect of nutrient level on bacterial colony diameters**. 
--@fig-linear-bact-without Data plotted without and 
--@fig-linear-bact-with with a linear model.
+**The effect of nutrient level on bacterial colony diameters**.
+[-@fig-linear-bact-without] Data plotted without and
+[-@fig-linear-bact-with] with a linear model.
 :::
 
 The equation of this line is a statistical model that allows us to make
@@ -251,13 +246,14 @@ Linear models are amongst the most commonly used statistics. Regression,
 
 ## Model fitting
 
-Fitting a linear model is the process of estimating the parameters 
-$\beta_{0}$ and $\beta_{1}$ from data. The line gives the
-values of $y$ which the model predicts. For any value of $x$, the actual 
-measured value of $y$ will differ from the predicted value and this difference 
-is called a *residual* or an *error*. The line is a best fit in the sense 
-that $\beta_{0}$ and $\beta_{1}$ minimises the *sum of the squared residuals*. 
-The sum of the squared residuals is usually abbreviated $SSE$.
+Fitting a linear model is the process of estimating the parameters
+$\beta_{0}$ and $\beta_{1}$ from data. The line gives the values of $y$
+which the model predicts. For any value of $x$, the actual measured
+value of $y$ will differ from the predicted value and this difference is
+called a *residual* or an *error*. The line is a best fit in the sense
+that $\beta_{0}$ and $\beta_{1}$ minimises the *sum of the squared
+residuals*. The sum of the squared residuals is usually abbreviated
+$SSE$.
 
 $$
 SSE = \sum(y_{i}-\hat{y})^2
@@ -273,8 +269,8 @@ Since $\beta_{0}$ and $\beta_{1}$ are those that minimise the $SSE$,
 they are described as *least squares estimates*. You do not need to
 worry about this too much but it is a useful piece of statistical jargon
 to have heard of because it pops up often. The mean of a sample is also
-a least squares estimate because the sum of the squared differences between
-each value and the mean is smaller than the sum of the squared
+a least squares estimate because the sum of the squared differences
+between each value and the mean is smaller than the sum of the squared
 differences between each value and any other value.
 
 The role played by $SSE$ in estimating our parameters means that it is
@@ -310,7 +306,6 @@ It ranges from zero (the model is no better than the mean) to 1 (the
 predictions are perfect). See @fig-lm-fit
 
 ::: {#fig-lm-fit}
-
 ![](images/lm_fit.svg)
 
 **A linear model with different fits**. A) the model is a poor fit - the
@@ -321,7 +316,6 @@ is a perfect fit - the response can be predicted perfectly from the
 explanatory variable. Measured response values are in pink, the
 predictions are in green and the dashed blue line gives the mean of the
 response.
-
 :::
 
 Since the distribution of the responses for a given $x$ is assumed to be
@@ -333,8 +327,7 @@ met.
 See @fig-lm-annotated for a graphical representation of linear modelling
 terms introduced so far.
 
-:::{#fig-lm-annotated}
-
+::: {#fig-lm-annotated}
 ![](images/generic_lm.svg)
 
 **A linear model annotated with the terms used in modelling**. Measured
@@ -366,16 +359,17 @@ residuals and test them against the normal distribution
 
 ## Choice of model
 
-Choosing a statistical model is usually iterative. We first consider whether
-a model is appropriate to answer the research and whether the type of 
-relationship between variables could be expected to be captured by that type of
-model. We then fit the model to the data and check the assumptions. If the
-assumptions are met, we can proceed with the model. If the assumptions
-are not met, we may need to consider a different model or a 
-non-parametric test. 
+Choosing a statistical model is usually iterative. We first consider
+whether a model is appropriate to answer the research and whether the
+type of relationship between variables could be expected to be captured
+by that type of model. We then fit the model to the data and check the
+assumptions. If the assumptions are met, we can proceed with the model.
+If the assumptions are not met, we may need to consider a different
+model or a non-parametric test.
 
-The consequence of using the wrong model is that your research question is not
-answered and *p*-values are not accurate. This can lead to false conclusions.
+The consequence of using the wrong model is that your research question
+is not answered and *p*-values are not accurate. This can lead to false
+conclusions.
 
 ## General linear models in R
 
@@ -583,12 +577,12 @@ papers](https://bioturing.medium.com/how-to-craft-a-figure-legend-for-scientific
     residuals.
 
 7.  We use the `lm()` function to fit a linear model in R. The
-    `summary()` function gives us the test statistic, *p*-values 
-    and *R*-squared value and the `plot()` function gives us diagnostic
+    `summary()` function gives us the test statistic, *p*-values and
+    *R*-squared value and the `plot()` function gives us diagnostic
     plots to check the assumptions.
-    
-8.  If the assumptions are not met we apply a non-parametric test
-    using `wilcox.test` or `kruskal.test()`. These also give us a test
+
+8.  If the assumptions are not met we apply a non-parametric test using
+    `wilcox.test` or `kruskal.test()`. These also give us a test
     statistic and a *p*-value.
 
 9.  When reporting the results of statistical tests give the
