@@ -692,25 +692,25 @@ Enter '1' to start a new auth process or select a pre-authorized account.
 <span><span class="co">## </span></span>
 <span><span class="co">## Residuals:</span></span>
 <span><span class="co">##    Min     1Q Median     3Q    Max </span></span>
-<span><span class="co">## -7.579 -0.321  0.157  0.625  4.630 </span></span>
+<span><span class="co">## -7.597 -0.295  0.195  0.676  4.668 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Coefficients:</span></span>
 <span><span class="co">##                                  Estimate Std. Error t value</span></span>
-<span><span class="co">## (Intercept)                        7.5791     0.1851   40.94</span></span>
-<span><span class="co">## soiluncontaminated                 0.0897     0.2618    0.34</span></span>
-<span><span class="co">## temp4 degrees                     -2.4686     0.2618   -9.43</span></span>
-<span><span class="co">## soiluncontaminated:temp4 degrees  -0.1270     0.3702   -0.34</span></span>
+<span><span class="co">## (Intercept)                       7.56576    0.16843   44.92</span></span>
+<span><span class="co">## soiluncontaminated                0.03105    0.23820    0.13</span></span>
+<span><span class="co">## temp4 degrees                    -2.56836    0.23820  -10.78</span></span>
+<span><span class="co">## soiluncontaminated:temp4 degrees  0.00694    0.33686    0.02</span></span>
 <span><span class="co">##                                             Pr(&gt;|t|)    </span></span>
 <span><span class="co">## (Intercept)                      &lt;0.0000000000000002 ***</span></span>
-<span><span class="co">## soiluncontaminated                              0.73    </span></span>
+<span><span class="co">## soiluncontaminated                              0.90    </span></span>
 <span><span class="co">## temp4 degrees                    &lt;0.0000000000000002 ***</span></span>
-<span><span class="co">## soiluncontaminated:temp4 degrees                0.73    </span></span>
+<span><span class="co">## soiluncontaminated:temp4 degrees                0.98    </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Residual standard error: 1.57 on 284 degrees of freedom</span></span>
-<span><span class="co">## Multiple R-squared:  0.397,  Adjusted R-squared:  0.391 </span></span>
-<span><span class="co">## F-statistic: 62.4 on 3 and 284 DF,  p-value: &lt;0.0000000000000002</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## Residual standard error: 1.58 on 348 degrees of freedom</span></span>
+<span><span class="co">## Multiple R-squared:   0.4,   Adjusted R-squared:  0.395 </span></span>
+<span><span class="co">## F-statistic: 77.3 on 3 and 348 DF,  p-value: &lt;0.0000000000000002</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
@@ -718,10 +718,10 @@ Enter '1' to start a new auth process or select a pre-authorized account.
 <span><span class="co">## </span></span>
 <span><span class="co">## Response: log_counts</span></span>
 <span><span class="co">##            Df Sum Sq Mean Sq F value              Pr(&gt;F)    </span></span>
-<span><span class="co">## soil        1      0       0    0.02                0.89    </span></span>
-<span><span class="co">## temp        1    462     462  187.10 &lt;0.0000000000000002 ***</span></span>
-<span><span class="co">## soil:temp   1      0       0    0.12                0.73    </span></span>
-<span><span class="co">## Residuals 284    701       2                                </span></span>
+<span><span class="co">## soil        1      0       0    0.04                0.84    </span></span>
+<span><span class="co">## temp        1    579     579  231.89 &lt;0.0000000000000002 ***</span></span>
+<span><span class="co">## soil:temp   1      0       0    0.00                0.98    </span></span>
+<span><span class="co">## Residuals 348    869       2                                </span></span>
 <span><span class="co">## ---</span></span>
 <span><span class="co">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -769,12 +769,12 @@ Enter '1' to start a new auth process or select a pre-authorized account.
 <span><span class="co">##  uncontaminated 25 degrees - uncontaminated 4 degrees                  </span></span>
 <span><span class="co">##  hexadecane contaminated 4 degrees - uncontaminated 4 degrees          </span></span>
 <span><span class="co">##  estimate    SE  df t.ratio p.value</span></span>
-<span><span class="co">##   -0.0897 0.262 284  -0.343  0.9861</span></span>
-<span><span class="co">##    2.4686 0.262 284   9.430  &lt;.0001</span></span>
-<span><span class="co">##    2.5059 0.262 284   9.572  &lt;.0001</span></span>
-<span><span class="co">##    2.5583 0.262 284   9.772  &lt;.0001</span></span>
-<span><span class="co">##    2.5956 0.262 284   9.915  &lt;.0001</span></span>
-<span><span class="co">##    0.0373 0.262 284   0.143  0.9990</span></span>
+<span><span class="co">##   -0.0311 0.238 348  -0.130  0.9992</span></span>
+<span><span class="co">##    2.5684 0.238 348  10.782  &lt;.0001</span></span>
+<span><span class="co">##    2.5304 0.238 348  10.623  &lt;.0001</span></span>
+<span><span class="co">##    2.5994 0.238 348  10.913  &lt;.0001</span></span>
+<span><span class="co">##    2.5614 0.238 348  10.753  &lt;.0001</span></span>
+<span><span class="co">##   -0.0380 0.238 348  -0.160  0.9986</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## P value adjustment: tukey method for comparing a family of 4 estimates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
