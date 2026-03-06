@@ -70,9 +70,9 @@ with `lm()` and *then* check the assumptions, however, we can sometimes
 tell when a non-parametric test would be more appropriate before that:
 
 -   Use common sense - the response should be continuous (or nearly
-    continuous, see Ideas about data: Theory and
-    practice (see @sec-ideas-about-data-theory-practice). Consider
-    whether you would expect the response to be continuous
+    continuous, see Ideas about data: Theory and practice (see
+    @sec-ideas-about-data-theory-practice). Consider whether you would
+    expect the response to be continuous
 -   There should decimal places and few repeated values.
 
 To examine the assumptions after fitting the linear model, we plot the
@@ -112,9 +112,9 @@ We will explore all of these ideas with some examples.
 ## 🎬 Your turn!
 
 If you want to code along you will need to start a new RStudio Project
-(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw`
-folder and open a new script. You will also need to load the
-**`tidyverse`** package [@tidyverse].
+(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw` folder and
+open a new script. You will also need to load the **`tidyverse`**
+package [@tidyverse].
 
 ## One-way ANOVA
 
@@ -146,25 +146,23 @@ $H_0$ is true, the variance between groups is no greater than the
 variance within groups. That is, *F*, $\frac{Var(between)}{Var(within)}$
 equals 1. This is written as: $H_0: F = 1$
 
-Both versions of the null hypothesis describe the same idea: that 
-here is **no real difference** between the groups.
+Both versions of the null hypothesis describe the same idea: that here
+is **no real difference** between the groups.
 
--   **Using $\beta$ coefficients:** This version focuses on the 
-    **linear model**. It says that the group variable has no 
-    effect, meaning all groups have the same average value. 
-    If the coefficients ($\beta_1$, $\beta_2$, etc.) are **zero**, 
-    then the model isn’t capturing any meaningful differences between 
-    groups.
+-   **Using** $\beta$ coefficients: This version focuses on the **linear
+    model**. It says that the group variable has no effect, meaning all
+    groups have the same average value. If the coefficients ($\beta_1$,
+    $\beta_2$, etc.) are **zero**, then the model isn’t capturing any
+    meaningful differences between groups.
 
--   **Using the F-statistic:** This version looks at **variance**. It 
-    compares the variation **between groups** to the variation 
-    **within groups**. If the F-value is **close to 1**, it means the 
-    differences between groups are about the same as random variation 
-    within groups, so there’s no real effect.
+-   **Using the F-statistic:** This version looks at **variance**. It
+    compares the variation **between groups** to the variation **within
+    groups**. If the F-value is **close to 1**, it means the differences
+    between groups are about the same as random variation within groups,
+    so there’s no real effect.
 
-Both approaches test the same hypothesis—if we reject the null, 
-we conclude that at least one group is different from the others.
-
+Both approaches test the same hypothesis—if we reject the null, we
+conclude that at least one group is different from the others.
 
 ### Import and explore
 
@@ -185,7 +183,8 @@ The Response variable is colony diameters in millimetres and we would
 expect it to be continuous. The Explanatory variable is type of media
 and is categorical with 3 groups. It is known “one-way ANOVA” or
 “one-factor ANOVA” because there is only one explanatory variable. It
-would still be one-way ANOVA if we had 4, 20 or 100 different types of media.
+would still be one-way ANOVA if we had 4, 20 or 100 different types of
+media.
 
 These data are in tidy format [@Wickham2014-nl] - all the diameter
 values are in one column with another column indicating the media. This
@@ -202,8 +201,7 @@ Violin plots (`geom_violin()`, see @fig-culture-rough), box plots
 choices for exploratory plotting and it does not matter which of these
 you choose.
 
-:::{#fig-culture-rough}
-
+::: {#fig-culture-rough}
 ```{r}
 
 ggplot(data = culture,
@@ -211,13 +209,12 @@ ggplot(data = culture,
   geom_violin()
 ```
 
-**The diameters of bacterial colonies when grown in one of three media**. 
-A violin plot is an alternative to a boxplot for getting an overview of our data
-before we begin analysis. Quick graphical overviews help us identify any 
-issues such as missing or extreme values. It also tells us what to expect from 
-the analysis. Adding both sugar and amino acids to the medium seems to
-increase the colony diameter.
-
+**The diameters of bacterial colonies when grown in one of three
+media**. A violin plot is an alternative to a boxplot for getting an
+overview of our data before we begin analysis. Quick graphical overviews
+help us identify any issues such as missing or extreme values. It also
+tells us what to expect from the analysis. Adding both sugar and amino
+acids to the medium seems to increase the colony diameter.
 :::
 
 R will order the groups alphabetically by default.
@@ -239,7 +236,6 @@ culture_summary <- culture |>
             se = std/sqrt(n))
 
 ```
-
 
 ```{r}
 #| echo: false
@@ -356,8 +352,7 @@ The *F* value and *p*-value in the last line are a test of whether the
 model as a whole explains a significant amount of variation in the
 response variable.
 
-:::{#fig-two-sample-lm-model}
-
+::: {#fig-two-sample-lm-model}
 ```{r}
 #| echo: false
 
@@ -427,16 +422,15 @@ theme_classic()
 
 ```
 
-
-**The a linear model fitted to the relationship between media and diameter**.
-In an one-way ANOVA model with three groups, the model has three coefficients
-(parameters) estimated from the data. The first estimate is the intercept 
-which is the mean of the first group. The second estimate is the 'slope' 
-to the second group which is what has to added to the intercept to get 
-the second group mean. The third estimate is the 'slope' to the third group
-which is what has to added to the intercept to get the third group mean. 
-Note that y axis starts at 15 to create more space for the annotations.
-
+**The a linear model fitted to the relationship between media and
+diameter**. In an one-way ANOVA model with three groups, the model has
+three coefficients (parameters) estimated from the data. The first
+estimate is the intercept which is the mean of the first group. The
+second estimate is the 'slope' to the second group which is what has to
+added to the intercept to get the second group mean. The third estimate
+is the 'slope' to the third group which is what has to added to the
+intercept to get the third group mean. Note that y axis starts at 15 to
+create more space for the annotations.
 :::
 
 If you find this a bit overwhelming to read you can use the `anova()`
@@ -445,7 +439,6 @@ function on the model object to get a simpler output:
 ```{r}
 anova(mod)
 ```
-
 
 ```{r}
 #| echo: false
@@ -473,11 +466,11 @@ means differ, we need a post-hoc test.
 
 ### Post-hoc testing
 
-A post-hoc ("after this") test is done after a significant ANOVA test. If the 
-ANOVA is *not* significant, no post-hoc is needed.
+A post-hoc ("after this") test is done after a significant ANOVA test.
+If the ANOVA is *not* significant, no post-hoc is needed.
 
-There are several possible post-hoc tests and we will be using Tukey's HSD
-(honestly significant difference) test [@tukey1949] implemented in 
+There are several possible post-hoc tests and we will be using Tukey's
+HSD (honestly significant difference) test [@tukey1949] implemented in
 the **`emmeans`** [@emmeans] package.
 
 We need to load the package:
@@ -511,16 +504,14 @@ p_suga_v_suaa <- ph_tidy |>
 
 ```
 
-
 Each row is a comparison between the two means in the 'contrast' column.
 The 'estimate' column is the difference between those means and the
-'p.value' indicates whether that difference is significant. In this case,
-two of the comparisons are significant: 
+'p.value' indicates whether that difference is significant. In this
+case, two of the comparisons are significant:
 
--  control - sugar and amino acids added with *p* = `r p_cont_v_suaa`
--  sugar added - sugar and amino acids added with *p* = `r p_suga_v_suaa`
-
-
+-   control - sugar and amino acids added with *p* = `r p_cont_v_suaa`
+-   sugar added - sugar and amino acids added with *p* =
+    `r p_suga_v_suaa`
 
 We have found that colony diameters are significantly greater when sugar
 and amino acids are added but that adding sugar alone does not
@@ -540,18 +531,17 @@ We then proceed by plotting residuals. The `plot()` function can be used
 to plot the residuals against the fitted values (See @fig-anova1-plot1).
 This is a good way to check for homogeneity of variance.
 
-:::{#fig-anova1-plot1}
-
+::: {#fig-anova1-plot1}
 ```{r}
 
 plot(mod, which = 1)
 ```
 
-**Residuals against fitted values.** A plot of the residuals against the 
+**Residuals against fitted values.** A plot of the residuals against the
 fitted values allows us to check the homogeneity of variance assumption.
-Here, the points are distributed similarly in each group. Any difference 
-seems small but perhaps the residuals are more variable for the highest mean.
-
+Here, the points are distributed similarly in each group. Any difference
+seems small but perhaps the residuals are more variable for the highest
+mean.
 :::
 
 Perhaps the variance is higher for the highest mean?
@@ -559,18 +549,17 @@ Perhaps the variance is higher for the highest mean?
 We can also use a histogram to check for normality (See
 @fig-anova1-plot2).
 
-:::{#fig-anova1-plot2}
-
+::: {#fig-anova1-plot2}
 ```{r}
 
 ggplot(mapping = aes(x = mod$residuals)) + 
   geom_histogram(bins = 8)
 ```
 
-**Distribution of the residuals**. A histogram of the residuals allows us to 
-check the normality assumption. Here, the distribution fairly is symmetrical
-and seems consistent with a normal distribution. This is a good sign for 
-the assumption of normally distributed residuals.
+**Distribution of the residuals**. A histogram of the residuals allows
+us to check the normality assumption. Here, the distribution fairly is
+symmetrical and seems consistent with a normal distribution. This is a
+good sign for the assumption of normally distributed residuals.
 :::
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
@@ -588,14 +577,28 @@ and homogeneity of variance are probably not violated.
 ### Report
 
 There was a significant effect of media on the diameter of bacterial
-colonies (*F* = `r F_value`; *d.f.* = `r df_effect`, `r df_residuals`; 
-*p* = `r p_value`). Post-hoc testing
-with Tukey's Honestly Significant Difference test [@tukey1949] revealed
-the colony diameters were significantly larger when grown with both
-sugar and amino acids ($\bar{x} \pm s.e$: `r suaa_m` $\pm$ `r suaa_se` mm) 
-than with neither (`r cont_m` $\pm$ `r cont_se` mm; *p* = `r p_cont_v_suaa`) or 
-just sugar (`r suga_m` $\pm$ `r suga_se` mm; *p* = `r p_suga_v_suaa`). 
-See @fig-culture.
+colonies (*F* = `r F_value`; *d.f.* = `r df_effect`, `r df_residuals`;
+*p* = `r p_value`). Post-hoc testing with Tukey's Honestly Significant
+Difference test [@tukey1949] revealed the colony diameters were
+significantly larger when grown with both sugar and amino acids
+($\bar{x} \pm s.e$: `r suaa_m` $\pm$ `r suaa_se` mm) than with neither
+(`r cont_m` $\pm$ `r cont_se` mm; *p* = `r p_cont_v_suaa`) or just sugar
+(`r suga_m` $\pm$ `r suga_se` mm; *p* = `r p_suga_v_suaa`). See
+@fig-culture.
+
+```{r}
+#| code-fold: true
+#| warning: false
+# extract pvalues from emmeans using broom for ease of reporting
+ph_tidy <- emmeans(mod, ~ medium) |> pairs() |> broom::tidy()
+
+p_cont_v_suaa <- ph_tidy |> 
+  filter(contrast == "control - sugar and amino acids added") |> 
+  pull(adj.p.value) |> round(4)
+p_suga_v_suaa <- ph_tidy |> 
+  filter(contrast == "sugar added - sugar and amino acids added") |> 
+  pull(adj.p.value) |> round(4)
+```
 
 ::: {#fig-culture}
 ```{r}
@@ -636,13 +639,12 @@ ggplot() +
 were grown on three types of media: control, with sugar added and with
 both sugar and amino acids added. Error bars are means $\pm$ 1 standard
 error. There was a significant effect of media on the diameter of
-bacterial colonies (*F* = `r F_value`; *d.f.* = `r df_effect`, 
-`r df_residuals`; *p* = `r p_value`)). Post-hoc
-testing with Tukey's Honestly Significant Difference test [@tukey1949]
-revealed the colony diameters were significantly larger when grown with
-both sugar and amino acids than with neither or just sugar. Data
-analysis was conducted in R [@R-core] with tidyverse packages
-[@tidyverse].
+bacterial colonies (*F* = `r F_value`; *d.f.* = `r df_effect`,
+`r df_residuals`; *p* = `r p_value`)). Post-hoc testing with Tukey's
+Honestly Significant Difference test [@tukey1949] revealed the colony
+diameters were significantly larger when grown with both sugar and amino
+acids than with neither or just sugar. Data analysis was conducted in R
+[@R-core] with tidyverse packages [@tidyverse].
 :::
 
 # Kruskal-Wallis
@@ -705,7 +707,6 @@ suaa_n <- culture_summary |>
 
 ```
 
-
 View the results:
 
 ```{r}
@@ -735,7 +736,6 @@ df <- krus_tidy |> pull(parameter)
 
 ```
 
-
 The result of the test is given on this line:
 `Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742`.
 `Chi-squared` is the test statistic. The *p*-value is less than 0.05
@@ -745,8 +745,8 @@ Notice that the *p*-value is a little larger than for the ANOVA. This is
 because non-parametric tests are generally more conservative (less
 powerful) than their parametric equivalents.
 
-A significant Kruskal-Wallis tells us *at least two* of the groups differ
-but where do the differences lie? The Dunn test [@dunn1964] is a
+A significant Kruskal-Wallis tells us *at least two* of the groups
+differ but where do the differences lie? The Dunn test [@dunn1964] is a
 post-hoc multiple comparison test for a significant Kruskal-Wallis. It
 is available in the package **`FSA`** [@FSA]
 
@@ -787,20 +787,31 @@ p_suga_v_suaa <- dunn_tidy |>
 
 ```
 
-
-
-
 ### Report
 
 There is a significant effect of media on the diameter of bacterial
-colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; 
-*df* = `r df`; *p*-value = `r p_value`) with colonies growing 
-significantly better when both sugar and amino acids are added to the medium. 
-Post-hoc testing with the Dunn test [@dunn1964] revealed the colony diameters 
-were significantly larger when grown with both sugar and amino acids 
-(median = `r suaa_m` mm) than with neither (median = `r cont_m` mm; 
-*p* = `r p_cont_v_suaa`) or just sugar (median = `r suga_m` mm;
-*p* = `r p_suga_v_suaa`). See @fig-culture-kw.
+colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; *df* =
+`r df`; *p*-value = `r p_value`) with colonies growing significantly
+better when both sugar and amino acids are added to the medium. Post-hoc
+testing with the Dunn test [@dunn1964] revealed the colony diameters
+were significantly larger when grown with both sugar and amino acids
+(median = `r suaa_m` mm) than with neither (median = `r cont_m` mm; *p*
+= `r p_cont_v_suaa`) or just sugar (median = `r suga_m` mm; *p* =
+`r p_suga_v_suaa`). See @fig-culture-kw.
+
+```{r}
+#| code-fold: true
+#| warning: false
+# extract values from dunn for ease of reporting
+dunn_tidy <- dunnTest(data = culture, diameter ~ medium)$res
+
+p_cont_v_suaa <- dunn_tidy |> 
+  filter(Comparison == "control - sugar and amino acids added") |> 
+  pull(P.adj) |> round(4)
+p_suga_v_suaa <- dunn_tidy |> 
+  filter(Comparison == "sugar added - sugar and amino acids added") |> 
+  pull(P.adj) |> round(4)
+```
 
 ::: {#fig-culture-kw}
 ```{r}
@@ -835,12 +846,12 @@ were grown on three types of media: control, with sugar added and with
 both sugar and amino acids added. The heavy lines indicate median
 diameter, boxes indicate the interquartile range and whiskers the range.
 There was a significant effect of media on the diameter of bacterial
-colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; 
-*df* = `r df`; *p*-value = `r p_value`). Post-hoc testing with the Dunn test 
+colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; *df* =
+`r df`; *p*-value = `r p_value`). Post-hoc testing with the Dunn test
 [@dunn1964] revealed the colony diameters were significantly larger when
-grown with both sugar
-and amino acids than with neither or just sugar. Data analysis was
-conducted in R [@R-core] with tidyverse packages [@tidyverse].
+grown with both sugar and amino acids than with neither or just sugar.
+Data analysis was conducted in R [@R-core] with tidyverse packages
+[@tidyverse].
 :::
 
 # Summary

@@ -544,6 +544,31 @@ units) than in *L.littorea* (from `r litt_spring_m` $\pm$
 `r litt_spring_se` units to `r litt_summer_m` $\pm$ `r litt_summer_se`
 units). See @fig-para.
 
+```{r}
+#| code-fold: true
+#| warning: false
+# extract post-hoc p-values for ease of reporting
+posthoc_results <- emmeans(mod, ~ species * season) |> 
+  pairs() |> 
+  as.data.frame()
+
+p_brev_spring_summer <- posthoc_results |> 
+  filter(contrast == "Littorina brevicula Spring - Littorina brevicula Summer") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+p_brev_spring_litt_summer <- posthoc_results |> 
+  filter(contrast == "Littorina brevicula Spring - Littorina littorea Summer") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+p_litt_spring_brev_summer <- posthoc_results |> 
+  filter(contrast == "Littorina littorea Spring - Littorina brevicula Summer") |> 
+  pull(p.value) |> 
+  (\(x) ifelse(x < 0.0001, "< 0.0001", round(x, 4)))()
+
+```
+
 ::: {#fig-para}
 ```{r}
 #| code-fold: true
