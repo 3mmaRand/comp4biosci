@@ -8,8 +8,6 @@ source("_common.R")
 status("drafting")
 ```
 
-
-
 ## What this section covers
 
 This chapter focuses on the digital interpretation, annotation, and
@@ -21,38 +19,39 @@ quantifiable results suitable for research reporting and publication.
 ### What is gel data?
 
 Gel data refers to the visual representation of molecular separation
-achieved through gel electrophoresis. The molecules can be DNA,
-RNA, or proteins, and the gel serves as a medium to separate them based 
-on size, charge, or other properties. 
+achieved through gel electrophoresis. The molecules can be DNA, RNA, or
+proteins, and the gel serves as a medium to separate them based on size,
+charge, or other properties.
 
-This data is typically captured as digital images of gels. A gels can 
+This data is typically captured as digital images of gels. A gels can
 tells:
 
 -   whether a molecule is present or absent
--   the size of the molecule using molecular weight 
-    or DNA ladders as references
+-   the size of the molecule using molecular weight or DNA ladders as
+    references
 -   the relative abundance of the molecule
-
 
 Agarose gel electrophoresis is used to separate DNA fragments by size.
 It is commonly to verify whether a PCR product is present.
 
-SDS-PAGE using a polyacrylamide gel separates proteins based on size. 
-By comparing to ladder of known sizes, the size of the proteins can be 
-estimated. An SDS-PAGE will shows all the proteins in the sample. 
- 
-Western blotting is used to identify specific proteins in an SDS-PAGE 
-gel using antibodies. The proteins are transferred from the gel to a
-membrane, where they can be probed with antibodies that bind to the 
-target protein.
+SDS-PAGE using a polyacrylamide gel separates proteins based on size. By
+comparing to ladder of known sizes, the size of the proteins can be
+estimated. An SDS-PAGE will shows all the proteins in the sample. It
+tells you the size and relative abundance of proteins in a sample, but
+not their identity
 
+Western blotting is a multi-step technique that uses SDS-PAGE as its
+first step, then goes further to identify a specific protein using
+antibodies. The proteins are transferred from the gel to a membrane,
+where they can be probed with antibodies that bind to the target
+protein.
 
 ### What methods will we cover?
 
 Importing gel images
 
-Cropping, contrast adjustment, and rotation (without 
-altering data integrity)
+Cropping, contrast adjustment, and rotation (without altering data
+integrity)
 
 Manual and automated band detection
 
@@ -60,11 +59,11 @@ Measuring migration distances
 
 Calculating Rf values and estimating molecular weights
 
-Band intensity measurement 
+Band intensity measurement
 
 Annotation to label lanes, bands, and markers for publication
 
 If you want to code along you will need to start a new RStudio Project
-(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw`
-folder and open a new script. You will also need to load the
-**`tidyverse`** package [@tidyverse].
+(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw` folder and
+open a new script. You will also need to load the **`tidyverse`**
+package [@tidyverse].

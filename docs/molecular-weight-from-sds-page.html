@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.30">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>20&nbsp; Molecular weight from SDS-PAGE.qmd – Computational Analysis for Bioscientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./PCR-product-verification.html" rel="next">
+<link href="./working-with-gel-data.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7a3e59189d9f0ecca6f4f741a2329820.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working-with-gel-data.html">Working with Gel data in R</a></li><li class="breadcrumb-item"><a href="./molecular-weight-from-sds-page.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Computational Analysis for Bioscientists</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/3mmaRand/comp4biosci" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./what-they-forgot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What they forgot to teach you about computers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./machine-and-os.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./file-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./organising-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./getting-started-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started with data analysis in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ideas-about-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about-R-and-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./first-steps-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import-to-report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recording-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./statistical-analysis-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Analysis in R - Part 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logic-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The logic of hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./what-statistical-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./single-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two-sample-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./one-way-anova-and-kw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two-way-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./goodness-of-fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./working-with-gel-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Gel data in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./molecular-weight-from-sds-page.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PCR-product-verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./molecular-weight-from-western-blot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Molecular weight of proteins on a western blot</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./in-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In development</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./26C-food-fuel-prac2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./keyboard-shortcuts-tips.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">20.1</span> Overview</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn"><span class="header-section-number">20.2</span> 🎬 Your turn!</a></li>
+  <li>
+<a href="#linear-regression-for-estimating-molecular-weights-from-gels" id="toc-linear-regression-for-estimating-molecular-weights-from-gels" class="nav-link" data-scroll-target="#linear-regression-for-estimating-molecular-weights-from-gels"><span class="header-section-number">20.3</span> Linear Regression for estimating molecular weights from gels</a>
+  <ul class="collapse">
+<li><a href="#option-1-manual-measurements" id="toc-option-1-manual-measurements" class="nav-link" data-scroll-target="#option-1-manual-measurements"><span class="header-section-number">20.3.1</span> Option 1: Manual measurements</a></li>
+  <li><a href="#option-2-measurements-in-r" id="toc-option-2-measurements-in-r" class="nav-link" data-scroll-target="#option-2-measurements-in-r"><span class="header-section-number">20.3.2</span> Option 2: Measurements in R</a></li>
+  </ul>
+</li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">20.4</span> Summary</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/molecular-weight-from-sds-page.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-chat-left-dots"></i>Make a suggestion</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working-with-gel-data.html">Working with Gel data in R</a></li><li class="breadcrumb-item"><a href="./molecular-weight-from-sds-page.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="mol-wt-sds-page" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Draft
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are reading a live document. This page is a draft but is mainly complete should be readable.</p>
+</div>
+</div>
+<section id="overview" class="level2" data-number="20.1"><h2 data-number="20.1" class="anchored" data-anchor-id="overview">
+<span class="header-section-number">20.1</span> Overview</h2>
+<p>Sodium Dodecyl Sulfate-Polyacrylamide Gel Electrophoresis (SDS-PAGE) is a method to separate proteins by size.</p>
+<p>Proteins are denatured and coated with SDS (a detergent), giving them a uniform negative charge. They migrate through a polyacrylamide gel when an electric current is applied. The lower the molecular weight of the protein, the faster, and therefore further, it migrates through the gel. Gels are run with a “marker lane” containing proteins of known molecular weights. The positions of these marker proteins are used to create a “standard curve” that allows us to estimate the molecular weights of other proteins in the gel. The proteins are made visible by staining (e.g.&nbsp;with Coomassie Blue). SDS-PAGE can tell you the size of proteins in a sample, but not their identity. It can also be used to find the relative abundances of the proteins.</p>
+<p>this section we will use a linear regression to estimate the molecular weights of proteins from an SDS-PAGE gel.</p>
+<p>This is a different use for linear regression than the single linear regression we covered in <a href="single-linear-regression.html" class="quarto-xref"><span>Chapter 14</span></a>. In that section we wanted to statistically test whether an <em>x</em>-variable explained the variation in a <em>y</em>-variable.</p>
+<p>Here we already know there is a very tight linear relationship between the position of the marker proteins on the gel and their molecular weights. But here we are using the linear regression to find the equation of the line that describes this relationship so we can use it to estimate the molecular weights of other proteins in the gel.</p>
+<p>We will explore all of these ideas with an example.</p>
+</section><section id="your-turn" class="level2" data-number="20.2"><h2 data-number="20.2" class="anchored" data-anchor-id="your-turn">
+<span class="header-section-number">20.2</span> 🎬 Your turn!</h2>
+<p>If you want to code along you will need to start a new RStudio Project (see <a href="workflow-rstudio.html#sec-workflow-rstudio-creating-rsp" class="quarto-xref"><span>Section 8.1.2</span></a>), add a <code>data-image</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
+</section><section id="linear-regression-for-estimating-molecular-weights-from-gels" class="level2" data-number="20.3"><h2 data-number="20.3" class="anchored" data-anchor-id="linear-regression-for-estimating-molecular-weights-from-gels">
+<span class="header-section-number">20.3</span> Linear Regression for estimating molecular weights from gels</h2>
+<p>We will use this gel image (<a href="#fig-gel" class="quarto-xref">Figure&nbsp;<span>20.1</span></a>) as an example: <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a>. This gel has two sets of results (one each side) - since only 4 lanes were for each experiment, we put two experiments on one gel.</p>
+<ul>
+<li><p>Lane 1 (and 10) is the protein ladder which are the proteins of known molecular weights.</p></li>
+<li><p>Lane 2 (and 9) is Uninduced E. coli lysate</p></li>
+<li><p>Lane 3 (and 8) is Induced E. coli lysate</p></li>
+<li><p>Lane 4 (and 7) is ShPatB</p></li>
+</ul>
+<p>You don’t need worry about the details of the gel, only that our aim is to estimate the molecule weight of the ShPatB protein in lane 4 from its position on the gel and the standard curve created from the marker proteins in lane 1. <a href="#fig-gel" class="quarto-xref">Figure&nbsp;<span>20.1</span></a> illustrates the measurements needed from the gel image.</p>
+<div id="fig-gel" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-gel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;20.1: SDS-PAGE gel provided as a sample in the BCH strand of 26C practicals with annotation. Lane 1 (and 10) is the protein ladder, Lane 2 (and 9) is Uninduced E. coli lysate, Lane 3 (and 8) is Induced E. coli lysate and Lane 4 (and 7) is ShPatB. The horizontal red lines indicate the top and bottom of the gel. The vertical black dashed line indicates the length of the gel, L. The distance of one marker protein - the heaviest - and that ShPatB from the top of the gel are indicated by vertical solid blue lines. Distance to all the marker proteins need to be measured from the top of the gel. These distances and the molecular weights of the marker proteins are used to create a standard curve that allows us to estimate the molecular weight of ShPatB from its position on the gel."><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;20.1: <strong>SDS-PAGE gel provided as a sample in the BCH strand of 26C practicals with annotation.</strong> Lane 1 (and 10) is the protein ladder, Lane 2 (and 9) is Uninduced E. coli lysate, Lane 3 (and 8) is Induced E. coli lysate and Lane 4 (and 7) is ShPatB. The horizontal red lines indicate the top and bottom of the gel. The vertical black dashed line indicates the length of the gel, <span class="math inline">\(L\)</span>. The distance of one marker protein - the heaviest - and that ShPatB from the top of the gel are indicated by vertical solid blue lines. Distance to all the marker proteins need to be measured from the top of the gel. These distances and the molecular weights of the marker proteins are used to create a standard curve that allows us to estimate the molecular weight of ShPatB from its position on the gel.
+</figcaption></figure>
+</div>
+<p>We will cover two options:</p>
+<ol type="1">
+<li><p>Where you have measured the length of the gel, the positions of ShPatB and the marker proteins on the gel manually - by opening the gel image in Powerpoint for example – and have a file containing the molecular weights and positions of the marker proteins. The measures can be in centimetres or pixels, it does not matter as long as they are all in the same units.</p></li>
+<li><p>Where you have a file containing the molecular weights of the marker proteins and use R to measure the length of the gel, the positions of ShPatB and the marker proteins by importing the gel image. This method relies on the <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> which stores the coordinate positions when you click on a plot! Magic!</p></li>
+</ol>
+<section id="option-1-manual-measurements" class="level3" data-number="20.3.1"><h3 data-number="20.3.1" class="anchored" data-anchor-id="option-1-manual-measurements">
+<span class="header-section-number">20.3.1</span> Option 1: Manual measurements</h3>
+<p>You have measured the positions of the marker proteins and added them to a file containing the molecular weights. Your file is: <a href="data-raw/standard-mw-with-positions.csv">standard-mw-with-positions.csv</a>. The molecular weights of the marker proteins are in kilodaltons (kDa) and the positions of the marker proteins are in pixels. The length of the gel is 810 pixels and ShPatB is at 394 pixels from the top of the gel.</p>
+<p>Save <a href="data-raw/standard-mw-with-positions.csv">standard-mw-with-positions.csv</a> to <code>data-raw/</code> and import it.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mw_positions</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/standard-mw-with-positions.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Assign the position of ShPatB and the length of the gel to variables:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gel_length</span> <span class="op">&lt;-</span> <span class="fl">810</span></span>
+<span><span class="va">pos_patB</span> <span class="op">&lt;-</span> <span class="fl">394</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We need to calculate <span class="math inline">\(R_f\)</span> values for the marker proteins:</p>
+<p><span class="math display">\[R_f = \frac{L - d}{L}\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the length of the gel and <span class="math inline">\(d\)</span> is the distance to the band.</p>
+<p>We also need to log the molecular weights of the marker proteins to make a linear relationship. We can add these two new variables to the data frame using the <code>mutate()</code>.</p>
+<p>Calculate <span class="math inline">\(R_f\)</span> values for the marker proteins:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mw_positions</span> <span class="op">&lt;-</span> <span class="va">mw_positions</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>Rf <span class="op">=</span> <span class="op">(</span><span class="va">gel_length</span> <span class="op">-</span> <span class="va">dist_to_band</span><span class="op">)</span> <span class="op">/</span> <span class="va">gel_length</span>,</span>
+<span>         log_kda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">kda</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot the data with <code>geom_point()</code> and add a linear regression line with <code>geom_smooth(method = "lm")</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mw_positions</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Rf</span>, y <span class="op">=</span> <span class="va">log_kda</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, </span>
+<span>              se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Fit a linear model so we have the equation of the line</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">log_kda</span> <span class="op">~</span> <span class="va">Rf</span>, data <span class="op">=</span> <span class="va">mw_positions</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Print the model:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:</span></span>
+<span><span class="co">## lm(formula = log_kda ~ Rf, data = mw_positions)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">## (Intercept)           Rf  </span></span>
+<span><span class="co">##        1.09         5.23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We only need to print the coefficients - we don’t care about the statistical tests here. You can tell from the plot that the relationship is very tight and linear. The equation of the line is: <span class="math inline">\(MW\)</span>= 5.231 <span class="math inline">\(\times R_f\)</span> + 1.091</p>
+<p>You can substitute the values of the coefficients and the <span class="math inline">\(R_f\)</span> of ShpatB to find the log molecular weight of ShPatB. Or you can use the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function to do this for you.</p>
+<p>Calculate the <span class="math inline">\(R_f\)</span> of ShPatB:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">patB_Rf</span> <span class="op">=</span> <span class="op">(</span><span class="va">gel_length</span> <span class="op">-</span> <span class="va">pos_patB</span><span class="op">)</span> <span class="op">/</span> <span class="va">gel_length</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Predict the molecular weight ShPatB:</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">patB_kda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Rf <span class="op">=</span> <span class="va">patB_Rf</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">patB_kda</span></span>
+<span><span class="co">##     1 </span></span>
+<span><span class="co">## 43.69</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="option-2-measurements-in-r" class="level3" data-number="20.3.2"><h3 data-number="20.3.2" class="anchored" data-anchor-id="option-2-measurements-in-r">
+<span class="header-section-number">20.3.2</span> Option 2: Measurements in R</h3>
+<p>You have a file containing the molecular weights of the marker proteins <a href="data-raw/standard-mw.txt">standard-mw.txt</a> and the image of the gel <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a>. The molecular weights of the marker proteins are in kilodaltons (kDa)</p>
+<p>Make a folder call <code>data-image</code> and save <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a> to it. Save <a href="data-image/standard-mw.txt">standard-mw.txt</a> to <code>data-raw</code>.</p>
+<p>Import the molecular weights of the marker proteins from <a href="data-raw/standard-mw.txt">standard-mw.txt</a></p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mw</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/standard-mw.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Load the <code>imager</code> package</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://asgr.github.io/imager/">imager</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Import the gel image:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/imager/man/load.image.html">load.image</a></span><span class="op">(</span><span class="st">"data-image/sds-page-gel.jpg"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Base R’s generic <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function can handle image files and plot axes default. These are in pixels and will help us mark the top and bottom of the gel.</p>
+<p>Plot the gel image:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gel</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <strong><code>imager</code></strong> package has a function that will crop the edges of the image. This is certainly not essential but can have two benefits:</p>
+<ul>
+<li>the image is smaller which means plotting is quicker – this is especially useful when your images are many pixels</li>
+<li>it makes it a little easier determine where the axes numbers are on the gel</li>
+</ul>
+<p>Crop the image:</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># crop</span></span>
+<span><span class="va">gel_cropped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/imager/man/crop.borders.html">crop.borders</a></span><span class="op">(</span><span class="va">gel</span>, nx <span class="op">=</span> <span class="fl">300</span>, ny <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code><a href="https://rdrr.io/pkg/imager/man/crop.borders.html">crop.borders()</a></code> removes <code>ny</code> pixels from the top and the bottom and <code>nx</code> pixels from each side. You may wish to adjust the numbers.</p>
+<p>Plot the cropped image:</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gel_cropped</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To make sure we measure distances from the same place we need to add lines to mark the top and the bottom of the gel. Notice that the <em>y</em>-axis is 0 at the top. I think the top is at about 180 and the bottom is about 990. We will assign these values to variables because they will be needed in calculations later. We will also need the gel length (bottom position - top position).</p>
+<p>Assign values for the top and bottom of the gel to variables and calculate the length of the gel:</p>
+<div class="cell">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gel_top</span> <span class="op">&lt;-</span> <span class="fl">180</span></span>
+<span><span class="va">gel_bottom</span> <span class="op">&lt;-</span> <span class="fl">990</span></span>
+<span><span class="va">gel_length</span> <span class="op">&lt;-</span> <span class="va">gel_bottom</span> <span class="op">-</span> <span class="va">gel_top</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot the cropped gel with lines marking the top and bottom of the gel:</p>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plot gel</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gel_cropped</span><span class="op">)</span></span>
+<span><span class="co"># add a horizontal lines for the top and bottom of the gel </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">gel_top</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">gel_bottom</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-19-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Make sure you run all these commands. The base plotting system works a little differently than <code>ggplot</code>. We do not use <code>+</code> but we have to make sure we have recently run the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> command before the <code><a href="https://rdrr.io/r/graphics/abline.html">abline()</a></code> (and other functions that modify plots) will work. You will get <code>Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...) :</code> <code>plot.new has not been called yet</code> if you have not recently run the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> command.</p>
+<p>At this point you have check that you are happy with the numbers used for the top and bottom of the gel. Adjust and replot if needed.</p>
+<p>I like to add a vertical line in the marker lane to help guide my later measures.</p>
+<p>Add a vertical line in the marker lane. Again, make sure you run all of the plotting code:</p>
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># plot gel</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gel_cropped</span><span class="op">)</span></span>
+<span><span class="co"># add a horizontal lines for the top and bottom of the gel</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">gel_top</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="va">gel_bottom</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span><span class="co"># add a vertical line in the marker lane as a guide to help with locator</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">220</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-20-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We are now ready to measure the band positions using the <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> function. We need to measure the position of shPatB and the all the marker proteins. We will start with shPatB:</p>
+<p>Run the <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> command and click on the shPatB in lane 4:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dist_to_patB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/locator.html">locator</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The (<em>x</em>,<em>y</em>) position of shPatB is now stored in an R object called <code>pos_patB</code>.</p>
+<p>The distance between the shPatB band and the top of the gel will be the <em>y</em> value in <code>dist_to_patB</code> minus the distance to the top of the gel.</p>
+<p>Calculate the distance from the top of the gel to shPatB:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pos_patB</span> <span class="op">&lt;-</span> <span class="va">dist_to_patB</span><span class="op">$</span><span class="va">y</span> <span class="op">-</span> <span class="va">gel_top</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have 9 bands so pass the argument <code>n = 9</code> to the function. This means you will need to click on the graph 9 times. Start at the top - the heaviest band - and work your way down. You only need to click once on each band. The R cursor will disappear until you have clicked 9 times. Don’t worry if you make a mistake, just click until the cursor is returned and run the locator command again to start afresh.</p>
+<p>Run the <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> command and click on the 9 bands in order from top to bottom:</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Number of bands in your marker lane</span></span>
+<span><span class="co"># click from the top or gel to the bottom </span></span>
+<span><span class="co"># i.e., high MW to low</span></span>
+<span><span class="va">marker_positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/locator.html">locator</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Magic! The (<em>x</em>,<em>y</em>) position of each band is now stored in an R object called <code>marker_positions</code>.</p>
+<p>We need to</p>
+<ul>
+<li>combine the <em>y</em> positions with molecular weights in <code>mw</code>
+</li>
+<li>calculate the distance to each band by subtracting <code>gel_top</code>
+</li>
+<li>calculate <span class="math inline">\(R_f\)</span> values for the marker proteins using <span class="math inline">\(R_f = \frac{L - d}{L}\)</span> where <span class="math inline">\(L\)</span> is the length of the gel and <span class="math inline">\(d\)</span> is the distance to the band.</li>
+<li>log the molecular weights of the marker proteins to make a linear relationship.</li>
+</ul>
+<p>We can put all these new columns in a dataframe called <code>mw_positions</code> frame using the <code>mutate()</code>.</p>
+<p>Create <code>mw_positions</code> from <code>mw</code> and the <em>y</em> positions in <code>marker_positions</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mw_positions</span> <span class="op">&lt;-</span> <span class="va">mw</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>y <span class="op">=</span> <span class="va">marker_positions</span><span class="op">$</span><span class="va">y</span>,</span>
+<span>         dist_to_band <span class="op">=</span> <span class="va">y</span> <span class="op">-</span> <span class="va">gel_top</span>,</span>
+<span>         Rf <span class="op">=</span> <span class="op">(</span><span class="va">gel_length</span> <span class="op">-</span> <span class="va">dist_to_band</span><span class="op">)</span> <span class="op">/</span> <span class="va">gel_length</span>,</span>
+<span>         log_kda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">kda</span><span class="op">)</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The process is now exactly the same as it was for Option 1.</p>
+<p>Plot the data with <code>geom_point()</code> and add a linear regression line with <code>geom_smooth(method = "lm")</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mw_positions</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Rf</span>, y <span class="op">=</span> <span class="va">log_kda</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, </span>
+<span>              se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-28-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="molecular-weight-from-sds-page_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Fit a linear model so we have the equation of the line</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">log_kda</span> <span class="op">~</span> <span class="va">Rf</span>, data <span class="op">=</span> <span class="va">mw_positions</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Print the model:</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mod</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:</span></span>
+<span><span class="co">## lm(formula = log_kda ~ Rf, data = mw_positions)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">## (Intercept)           Rf  </span></span>
+<span><span class="co">##        1.09         5.23</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We only need to print the coefficients - we don’t care about the statistical tests here. You can tell from the plot that the relationship is very tight and linear. The equation of the line is: <span class="math inline">\(MW\)</span>= 5.231 <span class="math inline">\(\times R_f\)</span> + 1.091</p>
+<p>You can substitute the values of the coefficients and the <span class="math inline">\(R_f\)</span> of ShpatB to find the log molecular weight of ShPatB. Or you can use the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function to do this for you.</p>
+<p>Calculate the <span class="math inline">\(R_f\)</span> of ShPatB:</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">patB_Rf</span> <span class="op">=</span> <span class="op">(</span><span class="va">gel_length</span> <span class="op">-</span> <span class="va">pos_patB</span><span class="op">)</span> <span class="op">/</span> <span class="va">gel_length</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Predict the molecular weight ShPatB:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">patB_kda</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">mod</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Rf <span class="op">=</span> <span class="va">patB_Rf</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">patB_kda</span></span>
+<span><span class="co">##     1 </span></span>
+<span><span class="co">## 43.69</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you would like to practice Option 2 again, you could repeat the the steps using the set of results on the other side of the gel.</p>
+</section></section><section id="summary" class="level2" data-number="20.4"><h2 data-number="20.4" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">20.4</span> Summary</h2>
+<p>TO DO</p>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./working-with-gel-data.html" class="pagination-link" aria-label="Working with Gel data in R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Working with Gel data in R</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./PCR-product-verification.html" class="pagination-link" aria-label="Agarose gels for PCR product verfication">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Agarose gels for PCR product verfication</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb27" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Molecular weight from SDS-PAGE.qmd {#mol-wt-sds-page}</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: "asis"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"_common.R"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span>(<span class="st">"polishing"</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>Sodium Dodecyl Sulfate-Polyacrylamide Gel Electrophoresis (SDS-PAGE) is</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>a method to separate proteins by size.</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>Proteins are denatured and coated with SDS (a detergent), giving them a</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>uniform negative charge. They migrate through a polyacrylamide gel when</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>an electric current is applied. The lower the molecular weight of the</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>protein, the faster, and therefore further, it migrates through the gel.</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>Gels are run with a "marker lane" containing proteins of known molecular</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>weights. The positions of these marker proteins are used to create a</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>"standard curve" that allows us to estimate the molecular weights of</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>other proteins in the gel. The proteins are made visible by staining</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>(e.g. with Coomassie Blue). SDS-PAGE can tell you the size of proteins</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>in a sample, but not their identity. It can also be used to find the</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>relative abundances of the proteins.</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>this section we will use a linear regression to estimate the molecular</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>weights of proteins from an SDS-PAGE gel.</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>This is a different use for linear regression than the single linear</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>regression we covered in @sec-single-linear-regression. In that section</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>we wanted to statistically test whether an *x*-variable explained the</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>variation in a *y*-variable.</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>Here we already know there is a very tight linear relationship between</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>the position of the marker proteins on the gel and their molecular</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>weights. But here we are using the linear regression to find the</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>equation of the line that describes this relationship so we can use it</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>to estimate the molecular weights of other proteins in the gel.</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>We will explore all of these ideas with an example.</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## 🎬 Your turn!</span></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>If you want to code along you will need to start a new RStudio Project</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>(see <span class="co">[</span><span class="ot">@sec-workflow-rstudio-creating-rsp</span><span class="co">]</span>), add a <span class="in">`data-image`</span> folder</span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>and open a new script. You will also need to load the **`tidyverse`**</span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>package <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span>.</span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear Regression for estimating molecular weights from gels</span></span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>We will use this gel image (@fig-gel) as an example:</span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">sds-page-gel.jpg</span><span class="co">](data-image/sds-page-gel.jpg)</span>. This gel has two sets</span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>of results (one each side) - since only 4 lanes were for each</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>experiment, we put two experiments on one gel.</span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Lane 1 (and 10) is the protein ladder which are the proteins of</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>    known molecular weights.</span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Lane 2 (and 9) is Uninduced E. coli lysate</span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Lane 3 (and 8) is Induced E. coli lysate</span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Lane 4 (and 7) is ShPatB</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>You don't need worry about the details of the gel, only that our aim is</span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>to estimate the molecule weight of the ShPatB protein in lane 4 from its</span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>position on the gel and the standard curve created from the marker</span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>proteins in lane 1. @fig-gel illustrates the measurements needed from</span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>the gel image.</span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a><span class="co"># import gel</span></span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imager)</span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a>gel <span class="ot">&lt;-</span> <span class="fu">load.image</span>(<span class="st">"data-image/sds-page-gel.jpg"</span>)</span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a>gel_cropped <span class="ot">&lt;-</span> <span class="fu">crop.borders</span>(gel, <span class="at">nx =</span> <span class="dv">300</span>, <span class="at">ny =</span> <span class="dv">150</span>)</span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a>gel_top <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a>gel_bottom <span class="ot">&lt;-</span> <span class="dv">990</span></span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a>pos_patB <span class="ot">&lt;-</span> <span class="dv">394</span></span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a>::: {#fig-gel}</span>
+<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gel_cropped, <span class="at">axes =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb27-98"><a href="#cb27-98" aria-hidden="true" tabindex="-1"></a><span class="co"># add a line to plot </span></span>
+<span id="cb27-99"><a href="#cb27-99" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> gel_top, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-100"><a href="#cb27-100" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> gel_bottom, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-101"><a href="#cb27-101" aria-hidden="true" tabindex="-1"></a><span class="co"># draw vertical double-headed arrow between top and bottom</span></span>
+<span id="cb27-102"><a href="#cb27-102" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0 =</span> <span class="dv">50</span>, <span class="at">y0 =</span> gel_top, </span>
+<span id="cb27-103"><a href="#cb27-103" aria-hidden="true" tabindex="-1"></a>       <span class="at">x1 =</span> <span class="dv">50</span>, <span class="at">y1 =</span> gel_bottom, </span>
+<span id="cb27-104"><a href="#cb27-104" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb27-105"><a href="#cb27-105" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">20</span>, <span class="at">y =</span> (gel_top <span class="sc">+</span> gel_bottom) <span class="sc">/</span> <span class="dv">2</span>, </span>
+<span id="cb27-106"><a href="#cb27-106" aria-hidden="true" tabindex="-1"></a>     <span class="at">labels =</span> <span class="st">"L"</span>, </span>
+<span id="cb27-107"><a href="#cb27-107" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb27-108"><a href="#cb27-108" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="dv">220</span>, <span class="at">y0 =</span> gel_top, </span>
+<span id="cb27-109"><a href="#cb27-109" aria-hidden="true" tabindex="-1"></a>       <span class="at">x1 =</span> <span class="dv">220</span>, <span class="at">y1 =</span> gel_top <span class="sc">+</span> <span class="dv">138</span>,</span>
+<span id="cb27-110"><a href="#cb27-110" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb27-111"><a href="#cb27-111" aria-hidden="true" tabindex="-1"></a>       <span class="at">code =</span> <span class="dv">3</span>, </span>
+<span id="cb27-112"><a href="#cb27-112" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb27-113"><a href="#cb27-113" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="at">x0 =</span> <span class="dv">510</span>, <span class="at">y0 =</span> gel_top, </span>
+<span id="cb27-114"><a href="#cb27-114" aria-hidden="true" tabindex="-1"></a>       <span class="at">x1 =</span> <span class="dv">510</span>, <span class="at">y1 =</span> gel_top <span class="sc">+</span> pos_patB,</span>
+<span id="cb27-115"><a href="#cb27-115" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"blue"</span>,</span>
+<span id="cb27-116"><a href="#cb27-116" aria-hidden="true" tabindex="-1"></a>       <span class="at">code =</span> <span class="dv">3</span>, </span>
+<span id="cb27-117"><a href="#cb27-117" aria-hidden="true" tabindex="-1"></a>       <span class="at">length =</span> <span class="fl">0.1</span>)</span>
+<span id="cb27-118"><a href="#cb27-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-119"><a href="#cb27-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-120"><a href="#cb27-120" aria-hidden="true" tabindex="-1"></a>**SDS-PAGE gel provided as a sample in the BCH strand of 26C practicals</span>
+<span id="cb27-121"><a href="#cb27-121" aria-hidden="true" tabindex="-1"></a>with annotation.** Lane 1 (and 10) is the protein ladder, Lane 2 (and 9)</span>
+<span id="cb27-122"><a href="#cb27-122" aria-hidden="true" tabindex="-1"></a>is Uninduced E. coli lysate, Lane 3 (and 8) is Induced E. coli lysate</span>
+<span id="cb27-123"><a href="#cb27-123" aria-hidden="true" tabindex="-1"></a>and Lane 4 (and 7) is ShPatB. The horizontal red lines indicate the top</span>
+<span id="cb27-124"><a href="#cb27-124" aria-hidden="true" tabindex="-1"></a>and bottom of the gel. The vertical black dashed line indicates the</span>
+<span id="cb27-125"><a href="#cb27-125" aria-hidden="true" tabindex="-1"></a>length of the gel, $L$. The distance of one marker protein - the</span>
+<span id="cb27-126"><a href="#cb27-126" aria-hidden="true" tabindex="-1"></a>heaviest - and that ShPatB from the top of the gel are indicated by</span>
+<span id="cb27-127"><a href="#cb27-127" aria-hidden="true" tabindex="-1"></a>vertical solid blue lines. Distance to all the marker proteins need to</span>
+<span id="cb27-128"><a href="#cb27-128" aria-hidden="true" tabindex="-1"></a>be measured from the top of the gel. These distances and the molecular</span>
+<span id="cb27-129"><a href="#cb27-129" aria-hidden="true" tabindex="-1"></a>weights of the marker proteins are used to create a standard curve that</span>
+<span id="cb27-130"><a href="#cb27-130" aria-hidden="true" tabindex="-1"></a>allows us to estimate the molecular weight of ShPatB from its position</span>
+<span id="cb27-131"><a href="#cb27-131" aria-hidden="true" tabindex="-1"></a>on the gel.</span>
+<span id="cb27-132"><a href="#cb27-132" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb27-133"><a href="#cb27-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-134"><a href="#cb27-134" aria-hidden="true" tabindex="-1"></a>We will cover two options:</span>
+<span id="cb27-135"><a href="#cb27-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-136"><a href="#cb27-136" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Where you have measured the length of the gel, the positions of</span>
+<span id="cb27-137"><a href="#cb27-137" aria-hidden="true" tabindex="-1"></a>    ShPatB and the marker proteins on the gel manually - by opening the</span>
+<span id="cb27-138"><a href="#cb27-138" aria-hidden="true" tabindex="-1"></a>    gel image in Powerpoint for example -- and have a file containing</span>
+<span id="cb27-139"><a href="#cb27-139" aria-hidden="true" tabindex="-1"></a>    the molecular weights and positions of the marker proteins. The</span>
+<span id="cb27-140"><a href="#cb27-140" aria-hidden="true" tabindex="-1"></a>    measures can be in centimetres or pixels, it does not matter as long</span>
+<span id="cb27-141"><a href="#cb27-141" aria-hidden="true" tabindex="-1"></a>    as they are all in the same units.</span>
+<span id="cb27-142"><a href="#cb27-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-143"><a href="#cb27-143" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Where you have a file containing the molecular weights of the marker</span>
+<span id="cb27-144"><a href="#cb27-144" aria-hidden="true" tabindex="-1"></a>    proteins and use R to measure the length of the gel, the positions</span>
+<span id="cb27-145"><a href="#cb27-145" aria-hidden="true" tabindex="-1"></a>    of ShPatB and the marker proteins by importing the gel image. This</span>
+<span id="cb27-146"><a href="#cb27-146" aria-hidden="true" tabindex="-1"></a>    method relies on the <span class="in">`locator()`</span> which stores the coordinate</span>
+<span id="cb27-147"><a href="#cb27-147" aria-hidden="true" tabindex="-1"></a>    positions when you click on a plot! Magic!</span>
+<span id="cb27-148"><a href="#cb27-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-149"><a href="#cb27-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 1: Manual measurements</span></span>
+<span id="cb27-150"><a href="#cb27-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-151"><a href="#cb27-151" aria-hidden="true" tabindex="-1"></a>You have measured the positions of the marker proteins and added them to</span>
+<span id="cb27-152"><a href="#cb27-152" aria-hidden="true" tabindex="-1"></a>a file containing the molecular weights. Your file is:</span>
+<span id="cb27-153"><a href="#cb27-153" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw-with-positions.csv</span><span class="co">](data-raw/standard-mw-with-positions.csv)</span>.</span>
+<span id="cb27-154"><a href="#cb27-154" aria-hidden="true" tabindex="-1"></a>The molecular weights of the marker proteins are in kilodaltons (kDa)</span>
+<span id="cb27-155"><a href="#cb27-155" aria-hidden="true" tabindex="-1"></a>and the positions of the marker proteins are in pixels. The length of</span>
+<span id="cb27-156"><a href="#cb27-156" aria-hidden="true" tabindex="-1"></a>the gel is 810 pixels and ShPatB is at 394 pixels from the top of the</span>
+<span id="cb27-157"><a href="#cb27-157" aria-hidden="true" tabindex="-1"></a>gel.</span>
+<span id="cb27-158"><a href="#cb27-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-159"><a href="#cb27-159" aria-hidden="true" tabindex="-1"></a>Save</span>
+<span id="cb27-160"><a href="#cb27-160" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw-with-positions.csv</span><span class="co">](data-raw/standard-mw-with-positions.csv)</span></span>
+<span id="cb27-161"><a href="#cb27-161" aria-hidden="true" tabindex="-1"></a>to <span class="in">`data-raw/`</span> and import it.</span>
+<span id="cb27-162"><a href="#cb27-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-165"><a href="#cb27-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-166"><a href="#cb27-166" aria-hidden="true" tabindex="-1"></a>mw_positions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/standard-mw-with-positions.csv"</span>)</span>
+<span id="cb27-167"><a href="#cb27-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-168"><a href="#cb27-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-169"><a href="#cb27-169" aria-hidden="true" tabindex="-1"></a>Assign the position of ShPatB and the length of the gel to variables:</span>
+<span id="cb27-170"><a href="#cb27-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-173"><a href="#cb27-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-174"><a href="#cb27-174" aria-hidden="true" tabindex="-1"></a>gel_length <span class="ot">&lt;-</span> <span class="dv">810</span></span>
+<span id="cb27-175"><a href="#cb27-175" aria-hidden="true" tabindex="-1"></a>pos_patB <span class="ot">&lt;-</span> <span class="dv">394</span></span>
+<span id="cb27-176"><a href="#cb27-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-177"><a href="#cb27-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-178"><a href="#cb27-178" aria-hidden="true" tabindex="-1"></a>We need to calculate $R_f$ values for the marker proteins:</span>
+<span id="cb27-179"><a href="#cb27-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-180"><a href="#cb27-180" aria-hidden="true" tabindex="-1"></a>$$R_f = \frac{L - d}{L}$$</span>
+<span id="cb27-181"><a href="#cb27-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-182"><a href="#cb27-182" aria-hidden="true" tabindex="-1"></a>where $L$ is the length of the gel and $d$ is the distance to the band.</span>
+<span id="cb27-183"><a href="#cb27-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-184"><a href="#cb27-184" aria-hidden="true" tabindex="-1"></a>We also need to log the molecular weights of the marker proteins to make</span>
+<span id="cb27-185"><a href="#cb27-185" aria-hidden="true" tabindex="-1"></a>a linear relationship. We can add these two new variables to the data</span>
+<span id="cb27-186"><a href="#cb27-186" aria-hidden="true" tabindex="-1"></a>frame using the <span class="in">`mutate()`</span>.</span>
+<span id="cb27-187"><a href="#cb27-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-188"><a href="#cb27-188" aria-hidden="true" tabindex="-1"></a>Calculate $R_f$ values for the marker proteins:</span>
+<span id="cb27-189"><a href="#cb27-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-192"><a href="#cb27-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-193"><a href="#cb27-193" aria-hidden="true" tabindex="-1"></a>mw_positions <span class="ot">&lt;-</span> mw_positions <span class="sc">|&gt;</span></span>
+<span id="cb27-194"><a href="#cb27-194" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rf =</span> (gel_length <span class="sc">-</span> dist_to_band) <span class="sc">/</span> gel_length,</span>
+<span id="cb27-195"><a href="#cb27-195" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_kda =</span> <span class="fu">log</span>(kda))</span>
+<span id="cb27-196"><a href="#cb27-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-197"><a href="#cb27-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-198"><a href="#cb27-198" aria-hidden="true" tabindex="-1"></a>Plot the data with <span class="in">`geom_point()`</span> and add a linear regression line with</span>
+<span id="cb27-199"><a href="#cb27-199" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_smooth(method = "lm")`</span>:</span>
+<span id="cb27-200"><a href="#cb27-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-203"><a href="#cb27-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-204"><a href="#cb27-204" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mw_positions, <span class="fu">aes</span>(<span class="at">x =</span> Rf, <span class="at">y =</span> log_kda)) <span class="sc">+</span></span>
+<span id="cb27-205"><a href="#cb27-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb27-206"><a href="#cb27-206" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb27-207"><a href="#cb27-207" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb27-208"><a href="#cb27-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb27-209"><a href="#cb27-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-210"><a href="#cb27-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-211"><a href="#cb27-211" aria-hidden="true" tabindex="-1"></a>Fit a linear model so we have the equation of the line</span>
+<span id="cb27-212"><a href="#cb27-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-215"><a href="#cb27-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-216"><a href="#cb27-216" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_kda <span class="sc">~</span> Rf, <span class="at">data =</span> mw_positions)</span>
+<span id="cb27-217"><a href="#cb27-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-218"><a href="#cb27-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-219"><a href="#cb27-219" aria-hidden="true" tabindex="-1"></a>Print the model:</span>
+<span id="cb27-220"><a href="#cb27-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-223"><a href="#cb27-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-224"><a href="#cb27-224" aria-hidden="true" tabindex="-1"></a>mod</span>
+<span id="cb27-225"><a href="#cb27-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-226"><a href="#cb27-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-227"><a href="#cb27-227" aria-hidden="true" tabindex="-1"></a>We only need to print the coefficients - we don't care about the</span>
+<span id="cb27-228"><a href="#cb27-228" aria-hidden="true" tabindex="-1"></a>statistical tests here. You can tell from the plot that the relationship</span>
+<span id="cb27-229"><a href="#cb27-229" aria-hidden="true" tabindex="-1"></a>is very tight and linear. The equation of the line is: $MW$=</span>
+<span id="cb27-230"><a href="#cb27-230" aria-hidden="true" tabindex="-1"></a><span class="in">`r mod$coef[2] |&gt; round(3)`</span> $\times R_f$ + <span class="in">`r mod$coef[1] |&gt; round(3)`</span></span>
+<span id="cb27-231"><a href="#cb27-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-232"><a href="#cb27-232" aria-hidden="true" tabindex="-1"></a>You can substitute the values of the coefficients and the $R_f$ of</span>
+<span id="cb27-233"><a href="#cb27-233" aria-hidden="true" tabindex="-1"></a>ShpatB to find the log molecular weight of ShPatB. Or you can use the</span>
+<span id="cb27-234"><a href="#cb27-234" aria-hidden="true" tabindex="-1"></a><span class="in">`predict()`</span> function to do this for you.</span>
+<span id="cb27-235"><a href="#cb27-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-236"><a href="#cb27-236" aria-hidden="true" tabindex="-1"></a>Calculate the $R_f$ of ShPatB:</span>
+<span id="cb27-237"><a href="#cb27-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-240"><a href="#cb27-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-241"><a href="#cb27-241" aria-hidden="true" tabindex="-1"></a>patB_Rf <span class="ot">=</span> (gel_length <span class="sc">-</span> pos_patB) <span class="sc">/</span> gel_length</span>
+<span id="cb27-242"><a href="#cb27-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-243"><a href="#cb27-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-244"><a href="#cb27-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-245"><a href="#cb27-245" aria-hidden="true" tabindex="-1"></a>Predict the molecular weight ShPatB:</span>
+<span id="cb27-246"><a href="#cb27-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-249"><a href="#cb27-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-250"><a href="#cb27-250" aria-hidden="true" tabindex="-1"></a>patB_kda <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Rf =</span> patB_Rf)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-251"><a href="#cb27-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exp</span>()</span>
+<span id="cb27-252"><a href="#cb27-252" aria-hidden="true" tabindex="-1"></a>patB_kda</span>
+<span id="cb27-253"><a href="#cb27-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-254"><a href="#cb27-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-255"><a href="#cb27-255" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 2: Measurements in R</span></span>
+<span id="cb27-256"><a href="#cb27-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-257"><a href="#cb27-257" aria-hidden="true" tabindex="-1"></a>You have a file containing the molecular weights of the marker proteins</span>
+<span id="cb27-258"><a href="#cb27-258" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw.txt</span><span class="co">](data-raw/standard-mw.txt)</span> and the image of the gel</span>
+<span id="cb27-259"><a href="#cb27-259" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">sds-page-gel.jpg</span><span class="co">](data-image/sds-page-gel.jpg)</span>. The molecular weights</span>
+<span id="cb27-260"><a href="#cb27-260" aria-hidden="true" tabindex="-1"></a>of the marker proteins are in kilodaltons (kDa)</span>
+<span id="cb27-261"><a href="#cb27-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-262"><a href="#cb27-262" aria-hidden="true" tabindex="-1"></a>Make a folder call <span class="in">`data-image`</span> and save</span>
+<span id="cb27-263"><a href="#cb27-263" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">sds-page-gel.jpg</span><span class="co">](data-image/sds-page-gel.jpg)</span> to it. Save</span>
+<span id="cb27-264"><a href="#cb27-264" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw.txt</span><span class="co">](data-image/standard-mw.txt)</span> to <span class="in">`data-raw`</span>.</span>
+<span id="cb27-265"><a href="#cb27-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-266"><a href="#cb27-266" aria-hidden="true" tabindex="-1"></a>Import the molecular weights of the marker proteins from</span>
+<span id="cb27-267"><a href="#cb27-267" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw.txt</span><span class="co">](data-raw/standard-mw.txt)</span></span>
+<span id="cb27-268"><a href="#cb27-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-271"><a href="#cb27-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-272"><a href="#cb27-272" aria-hidden="true" tabindex="-1"></a>mw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/standard-mw.txt"</span>)</span>
+<span id="cb27-273"><a href="#cb27-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-274"><a href="#cb27-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-275"><a href="#cb27-275" aria-hidden="true" tabindex="-1"></a>Load the <span class="in">`imager`</span> package</span>
+<span id="cb27-276"><a href="#cb27-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-279"><a href="#cb27-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-280"><a href="#cb27-280" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(imager)</span>
+<span id="cb27-281"><a href="#cb27-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-282"><a href="#cb27-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-283"><a href="#cb27-283" aria-hidden="true" tabindex="-1"></a>Import the gel image:</span>
+<span id="cb27-284"><a href="#cb27-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-287"><a href="#cb27-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-288"><a href="#cb27-288" aria-hidden="true" tabindex="-1"></a>gel <span class="ot">&lt;-</span> <span class="fu">load.image</span>(<span class="st">"data-image/sds-page-gel.jpg"</span>)</span>
+<span id="cb27-289"><a href="#cb27-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-290"><a href="#cb27-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-291"><a href="#cb27-291" aria-hidden="true" tabindex="-1"></a>Base R's generic <span class="in">`plot()`</span> function can handle image files and plot axes</span>
+<span id="cb27-292"><a href="#cb27-292" aria-hidden="true" tabindex="-1"></a>default. These are in pixels and will help us mark the top and bottom of</span>
+<span id="cb27-293"><a href="#cb27-293" aria-hidden="true" tabindex="-1"></a>the gel.</span>
+<span id="cb27-294"><a href="#cb27-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-295"><a href="#cb27-295" aria-hidden="true" tabindex="-1"></a>Plot the gel image:</span>
+<span id="cb27-296"><a href="#cb27-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-299"><a href="#cb27-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-300"><a href="#cb27-300" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gel)</span>
+<span id="cb27-301"><a href="#cb27-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-302"><a href="#cb27-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-303"><a href="#cb27-303" aria-hidden="true" tabindex="-1"></a>The **`imager`** package has a function that will crop the edges of the</span>
+<span id="cb27-304"><a href="#cb27-304" aria-hidden="true" tabindex="-1"></a>image. This is certainly not essential but can have two benefits:</span>
+<span id="cb27-305"><a href="#cb27-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-306"><a href="#cb27-306" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the image is smaller which means plotting is quicker -- this is</span>
+<span id="cb27-307"><a href="#cb27-307" aria-hidden="true" tabindex="-1"></a>    especially useful when your images are many pixels</span>
+<span id="cb27-308"><a href="#cb27-308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>it makes it a little easier determine where the axes numbers are on</span>
+<span id="cb27-309"><a href="#cb27-309" aria-hidden="true" tabindex="-1"></a>    the gel</span>
+<span id="cb27-310"><a href="#cb27-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-311"><a href="#cb27-311" aria-hidden="true" tabindex="-1"></a>Crop the image:</span>
+<span id="cb27-312"><a href="#cb27-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-315"><a href="#cb27-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-316"><a href="#cb27-316" aria-hidden="true" tabindex="-1"></a><span class="co"># crop</span></span>
+<span id="cb27-317"><a href="#cb27-317" aria-hidden="true" tabindex="-1"></a>gel_cropped <span class="ot">&lt;-</span> <span class="fu">crop.borders</span>(gel, <span class="at">nx =</span> <span class="dv">300</span>, <span class="at">ny =</span> <span class="dv">150</span>)</span>
+<span id="cb27-318"><a href="#cb27-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-319"><a href="#cb27-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-320"><a href="#cb27-320" aria-hidden="true" tabindex="-1"></a><span class="in">`crop.borders()`</span> removes <span class="in">`ny`</span> pixels from the top and the bottom and</span>
+<span id="cb27-321"><a href="#cb27-321" aria-hidden="true" tabindex="-1"></a><span class="in">`nx`</span> pixels from each side. You may wish to adjust the numbers.</span>
+<span id="cb27-322"><a href="#cb27-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-323"><a href="#cb27-323" aria-hidden="true" tabindex="-1"></a>Plot the cropped image:</span>
+<span id="cb27-324"><a href="#cb27-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-327"><a href="#cb27-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-328"><a href="#cb27-328" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gel_cropped)</span>
+<span id="cb27-329"><a href="#cb27-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-330"><a href="#cb27-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-331"><a href="#cb27-331" aria-hidden="true" tabindex="-1"></a>To make sure we measure distances from the same place we need to add</span>
+<span id="cb27-332"><a href="#cb27-332" aria-hidden="true" tabindex="-1"></a>lines to mark the top and the bottom of the gel. Notice that the</span>
+<span id="cb27-333"><a href="#cb27-333" aria-hidden="true" tabindex="-1"></a>*y*-axis is 0 at the top. I think the top is at about 180 and the bottom</span>
+<span id="cb27-334"><a href="#cb27-334" aria-hidden="true" tabindex="-1"></a>is about 990. We will assign these values to variables because they will</span>
+<span id="cb27-335"><a href="#cb27-335" aria-hidden="true" tabindex="-1"></a>be needed in calculations later. We will also need the gel length</span>
+<span id="cb27-336"><a href="#cb27-336" aria-hidden="true" tabindex="-1"></a>(bottom position - top position).</span>
+<span id="cb27-337"><a href="#cb27-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-338"><a href="#cb27-338" aria-hidden="true" tabindex="-1"></a>Assign values for the top and bottom of the gel to variables and</span>
+<span id="cb27-339"><a href="#cb27-339" aria-hidden="true" tabindex="-1"></a>calculate the length of the gel:</span>
+<span id="cb27-340"><a href="#cb27-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-343"><a href="#cb27-343" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-344"><a href="#cb27-344" aria-hidden="true" tabindex="-1"></a>gel_top <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb27-345"><a href="#cb27-345" aria-hidden="true" tabindex="-1"></a>gel_bottom <span class="ot">&lt;-</span> <span class="dv">990</span></span>
+<span id="cb27-346"><a href="#cb27-346" aria-hidden="true" tabindex="-1"></a>gel_length <span class="ot">&lt;-</span> gel_bottom <span class="sc">-</span> gel_top</span>
+<span id="cb27-347"><a href="#cb27-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-348"><a href="#cb27-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-349"><a href="#cb27-349" aria-hidden="true" tabindex="-1"></a>Plot the cropped gel with lines marking the top and bottom of the gel:</span>
+<span id="cb27-350"><a href="#cb27-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-353"><a href="#cb27-353" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-354"><a href="#cb27-354" aria-hidden="true" tabindex="-1"></a><span class="co"># plot gel</span></span>
+<span id="cb27-355"><a href="#cb27-355" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gel_cropped)</span>
+<span id="cb27-356"><a href="#cb27-356" aria-hidden="true" tabindex="-1"></a><span class="co"># add a horizontal lines for the top and bottom of the gel </span></span>
+<span id="cb27-357"><a href="#cb27-357" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> gel_top, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-358"><a href="#cb27-358" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> gel_bottom, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-359"><a href="#cb27-359" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-360"><a href="#cb27-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-361"><a href="#cb27-361" aria-hidden="true" tabindex="-1"></a>Make sure you run all these commands. The base plotting system works a</span>
+<span id="cb27-362"><a href="#cb27-362" aria-hidden="true" tabindex="-1"></a>little differently than <span class="in">`ggplot`</span>. We do not use <span class="in">`+`</span> but we have to make</span>
+<span id="cb27-363"><a href="#cb27-363" aria-hidden="true" tabindex="-1"></a>sure we have recently run the <span class="in">`plot()`</span> command before the <span class="in">`abline()`</span></span>
+<span id="cb27-364"><a href="#cb27-364" aria-hidden="true" tabindex="-1"></a>(and other functions that modify plots) will work. You will get</span>
+<span id="cb27-365"><a href="#cb27-365" aria-hidden="true" tabindex="-1"></a><span class="in">`Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...) :`</span></span>
+<span id="cb27-366"><a href="#cb27-366" aria-hidden="true" tabindex="-1"></a><span class="in">`plot.new has not been called yet`</span> if you have not recently run the</span>
+<span id="cb27-367"><a href="#cb27-367" aria-hidden="true" tabindex="-1"></a><span class="in">`plot()`</span> command.</span>
+<span id="cb27-368"><a href="#cb27-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-369"><a href="#cb27-369" aria-hidden="true" tabindex="-1"></a>At this point you have check that you are happy with the numbers used</span>
+<span id="cb27-370"><a href="#cb27-370" aria-hidden="true" tabindex="-1"></a>for the top and bottom of the gel. Adjust and replot if needed.</span>
+<span id="cb27-371"><a href="#cb27-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-372"><a href="#cb27-372" aria-hidden="true" tabindex="-1"></a>I like to add a vertical line in the marker lane to help guide my later</span>
+<span id="cb27-373"><a href="#cb27-373" aria-hidden="true" tabindex="-1"></a>measures.</span>
+<span id="cb27-374"><a href="#cb27-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-375"><a href="#cb27-375" aria-hidden="true" tabindex="-1"></a>Add a vertical line in the marker lane. Again, make sure you run all of</span>
+<span id="cb27-376"><a href="#cb27-376" aria-hidden="true" tabindex="-1"></a>the plotting code:</span>
+<span id="cb27-377"><a href="#cb27-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-380"><a href="#cb27-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-381"><a href="#cb27-381" aria-hidden="true" tabindex="-1"></a><span class="co"># plot gel</span></span>
+<span id="cb27-382"><a href="#cb27-382" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gel_cropped)</span>
+<span id="cb27-383"><a href="#cb27-383" aria-hidden="true" tabindex="-1"></a><span class="co"># add a horizontal lines for the top and bottom of the gel</span></span>
+<span id="cb27-384"><a href="#cb27-384" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> gel_top, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-385"><a href="#cb27-385" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> gel_bottom, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-386"><a href="#cb27-386" aria-hidden="true" tabindex="-1"></a><span class="co"># add a vertical line in the marker lane as a guide to help with locator</span></span>
+<span id="cb27-387"><a href="#cb27-387" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">220</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb27-388"><a href="#cb27-388" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-389"><a href="#cb27-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-390"><a href="#cb27-390" aria-hidden="true" tabindex="-1"></a>We are now ready to measure the band positions using the <span class="in">`locator()`</span></span>
+<span id="cb27-391"><a href="#cb27-391" aria-hidden="true" tabindex="-1"></a>function. We need to measure the position of shPatB and the all the</span>
+<span id="cb27-392"><a href="#cb27-392" aria-hidden="true" tabindex="-1"></a>marker proteins. We will start with shPatB:</span>
+<span id="cb27-393"><a href="#cb27-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-394"><a href="#cb27-394" aria-hidden="true" tabindex="-1"></a>Run the <span class="in">`locator()`</span> command and click on the shPatB in lane 4:</span>
+<span id="cb27-395"><a href="#cb27-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-398"><a href="#cb27-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-399"><a href="#cb27-399" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb27-400"><a href="#cb27-400" aria-hidden="true" tabindex="-1"></a>dist_to_patB <span class="ot">&lt;-</span> <span class="fu">locator</span>(<span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb27-401"><a href="#cb27-401" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-402"><a href="#cb27-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-405"><a href="#cb27-405" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-406"><a href="#cb27-406" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-407"><a href="#cb27-407" aria-hidden="true" tabindex="-1"></a>dist_to_patB <span class="ot">&lt;-</span> <span class="dv">394</span> <span class="sc">+</span> gel_top</span>
+<span id="cb27-408"><a href="#cb27-408" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-409"><a href="#cb27-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-410"><a href="#cb27-410" aria-hidden="true" tabindex="-1"></a>The (*x*,*y*) position of shPatB is now stored in an R object called</span>
+<span id="cb27-411"><a href="#cb27-411" aria-hidden="true" tabindex="-1"></a><span class="in">`pos_patB`</span>.</span>
+<span id="cb27-412"><a href="#cb27-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-413"><a href="#cb27-413" aria-hidden="true" tabindex="-1"></a>The distance between the shPatB band and the top of the gel will be the</span>
+<span id="cb27-414"><a href="#cb27-414" aria-hidden="true" tabindex="-1"></a>*y* value in <span class="in">`dist_to_patB`</span> minus the distance to the top of the gel.</span>
+<span id="cb27-415"><a href="#cb27-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-416"><a href="#cb27-416" aria-hidden="true" tabindex="-1"></a>Calculate the distance from the top of the gel to shPatB:</span>
+<span id="cb27-417"><a href="#cb27-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-420"><a href="#cb27-420" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-421"><a href="#cb27-421" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb27-422"><a href="#cb27-422" aria-hidden="true" tabindex="-1"></a>pos_patB <span class="ot">&lt;-</span> dist_to_patB<span class="sc">$</span>y <span class="sc">-</span> gel_top</span>
+<span id="cb27-423"><a href="#cb27-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-424"><a href="#cb27-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-427"><a href="#cb27-427" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-428"><a href="#cb27-428" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-429"><a href="#cb27-429" aria-hidden="true" tabindex="-1"></a>pos_patB <span class="ot">&lt;-</span> <span class="dv">394</span></span>
+<span id="cb27-430"><a href="#cb27-430" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-431"><a href="#cb27-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-432"><a href="#cb27-432" aria-hidden="true" tabindex="-1"></a>We have 9 bands so pass the argument <span class="in">`n = 9`</span> to the function. This means</span>
+<span id="cb27-433"><a href="#cb27-433" aria-hidden="true" tabindex="-1"></a>you will need to click on the graph 9 times. Start at the top - the</span>
+<span id="cb27-434"><a href="#cb27-434" aria-hidden="true" tabindex="-1"></a>heaviest band - and work your way down. You only need to click once on</span>
+<span id="cb27-435"><a href="#cb27-435" aria-hidden="true" tabindex="-1"></a>each band. The R cursor will disappear until you have clicked 9 times.</span>
+<span id="cb27-436"><a href="#cb27-436" aria-hidden="true" tabindex="-1"></a>Don't worry if you make a mistake, just click until the cursor is</span>
+<span id="cb27-437"><a href="#cb27-437" aria-hidden="true" tabindex="-1"></a>returned and run the locator command again to start afresh.</span>
+<span id="cb27-438"><a href="#cb27-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-439"><a href="#cb27-439" aria-hidden="true" tabindex="-1"></a>Run the <span class="in">`locator()`</span> command and click on the 9 bands in order from top</span>
+<span id="cb27-440"><a href="#cb27-440" aria-hidden="true" tabindex="-1"></a>to bottom:</span>
+<span id="cb27-441"><a href="#cb27-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-444"><a href="#cb27-444" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-445"><a href="#cb27-445" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb27-446"><a href="#cb27-446" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of bands in your marker lane</span></span>
+<span id="cb27-447"><a href="#cb27-447" aria-hidden="true" tabindex="-1"></a><span class="co"># click from the top or gel to the bottom </span></span>
+<span id="cb27-448"><a href="#cb27-448" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e., high MW to low</span></span>
+<span id="cb27-449"><a href="#cb27-449" aria-hidden="true" tabindex="-1"></a>marker_positions <span class="ot">&lt;-</span> <span class="fu">locator</span>(<span class="at">n =</span> <span class="dv">9</span>)  </span>
+<span id="cb27-450"><a href="#cb27-450" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-451"><a href="#cb27-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-454"><a href="#cb27-454" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-455"><a href="#cb27-455" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb27-456"><a href="#cb27-456" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/standard-mw-with-positions.csv"</span>)</span>
+<span id="cb27-457"><a href="#cb27-457" aria-hidden="true" tabindex="-1"></a>marker_positions <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fu">rep</span>(<span class="dv">220</span>, <span class="dv">9</span>), <span class="at">y =</span> temp<span class="sc">$</span>dist_to_band <span class="sc">+</span> gel_top)</span>
+<span id="cb27-458"><a href="#cb27-458" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-459"><a href="#cb27-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-460"><a href="#cb27-460" aria-hidden="true" tabindex="-1"></a>Magic! The (*x*,*y*) position of each band is now stored in an R object</span>
+<span id="cb27-461"><a href="#cb27-461" aria-hidden="true" tabindex="-1"></a>called <span class="in">`marker_positions`</span>.</span>
+<span id="cb27-462"><a href="#cb27-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-463"><a href="#cb27-463" aria-hidden="true" tabindex="-1"></a>We need to</span>
+<span id="cb27-464"><a href="#cb27-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-465"><a href="#cb27-465" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>combine the *y* positions with molecular weights in <span class="in">`mw`</span></span>
+<span id="cb27-466"><a href="#cb27-466" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>calculate the distance to each band by subtracting <span class="in">`gel_top`</span></span>
+<span id="cb27-467"><a href="#cb27-467" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>calculate $R_f$ values for the marker proteins using</span>
+<span id="cb27-468"><a href="#cb27-468" aria-hidden="true" tabindex="-1"></a>    $R_f = \frac{L - d}{L}$ where $L$ is the length of the gel and $d$</span>
+<span id="cb27-469"><a href="#cb27-469" aria-hidden="true" tabindex="-1"></a>    is the distance to the band.</span>
+<span id="cb27-470"><a href="#cb27-470" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>log the molecular weights of the marker proteins to make a linear</span>
+<span id="cb27-471"><a href="#cb27-471" aria-hidden="true" tabindex="-1"></a>    relationship.</span>
+<span id="cb27-472"><a href="#cb27-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-473"><a href="#cb27-473" aria-hidden="true" tabindex="-1"></a>We can put all these new columns in a dataframe called <span class="in">`mw_positions`</span></span>
+<span id="cb27-474"><a href="#cb27-474" aria-hidden="true" tabindex="-1"></a>frame using the <span class="in">`mutate()`</span>.</span>
+<span id="cb27-475"><a href="#cb27-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-476"><a href="#cb27-476" aria-hidden="true" tabindex="-1"></a>Create <span class="in">`mw_positions`</span> from <span class="in">`mw`</span> and the *y* positions in</span>
+<span id="cb27-477"><a href="#cb27-477" aria-hidden="true" tabindex="-1"></a><span class="in">`marker_positions`</span>:</span>
+<span id="cb27-478"><a href="#cb27-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-481"><a href="#cb27-481" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-482"><a href="#cb27-482" aria-hidden="true" tabindex="-1"></a>mw_positions <span class="ot">&lt;-</span> mw <span class="sc">|&gt;</span></span>
+<span id="cb27-483"><a href="#cb27-483" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> marker_positions<span class="sc">$</span>y,</span>
+<span id="cb27-484"><a href="#cb27-484" aria-hidden="true" tabindex="-1"></a>         <span class="at">dist_to_band =</span> y <span class="sc">-</span> gel_top,</span>
+<span id="cb27-485"><a href="#cb27-485" aria-hidden="true" tabindex="-1"></a>         <span class="at">Rf =</span> (gel_length <span class="sc">-</span> dist_to_band) <span class="sc">/</span> gel_length,</span>
+<span id="cb27-486"><a href="#cb27-486" aria-hidden="true" tabindex="-1"></a>         <span class="at">log_kda =</span> <span class="fu">log</span>(kda)) </span>
+<span id="cb27-487"><a href="#cb27-487" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-488"><a href="#cb27-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-489"><a href="#cb27-489" aria-hidden="true" tabindex="-1"></a>The process is now exactly the same as it was for Option 1.</span>
+<span id="cb27-490"><a href="#cb27-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-491"><a href="#cb27-491" aria-hidden="true" tabindex="-1"></a>Plot the data with <span class="in">`geom_point()`</span> and add a linear regression line with</span>
+<span id="cb27-492"><a href="#cb27-492" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_smooth(method = "lm")`</span>:</span>
+<span id="cb27-493"><a href="#cb27-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-496"><a href="#cb27-496" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-497"><a href="#cb27-497" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mw_positions, <span class="fu">aes</span>(<span class="at">x =</span> Rf, <span class="at">y =</span> log_kda)) <span class="sc">+</span></span>
+<span id="cb27-498"><a href="#cb27-498" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb27-499"><a href="#cb27-499" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb27-500"><a href="#cb27-500" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb27-501"><a href="#cb27-501" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb27-502"><a href="#cb27-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-503"><a href="#cb27-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-504"><a href="#cb27-504" aria-hidden="true" tabindex="-1"></a>Fit a linear model so we have the equation of the line</span>
+<span id="cb27-505"><a href="#cb27-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-508"><a href="#cb27-508" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-509"><a href="#cb27-509" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_kda <span class="sc">~</span> Rf, <span class="at">data =</span> mw_positions)</span>
+<span id="cb27-510"><a href="#cb27-510" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-511"><a href="#cb27-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-512"><a href="#cb27-512" aria-hidden="true" tabindex="-1"></a>Print the model:</span>
+<span id="cb27-513"><a href="#cb27-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-516"><a href="#cb27-516" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-517"><a href="#cb27-517" aria-hidden="true" tabindex="-1"></a>mod</span>
+<span id="cb27-518"><a href="#cb27-518" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-519"><a href="#cb27-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-520"><a href="#cb27-520" aria-hidden="true" tabindex="-1"></a>We only need to print the coefficients - we don't care about the</span>
+<span id="cb27-521"><a href="#cb27-521" aria-hidden="true" tabindex="-1"></a>statistical tests here. You can tell from the plot that the relationship</span>
+<span id="cb27-522"><a href="#cb27-522" aria-hidden="true" tabindex="-1"></a>is very tight and linear. The equation of the line is: $MW$=</span>
+<span id="cb27-523"><a href="#cb27-523" aria-hidden="true" tabindex="-1"></a><span class="in">`r mod$coef[2] |&gt; round(3)`</span> $\times R_f$ + <span class="in">`r mod$coef[1] |&gt; round(3)`</span></span>
+<span id="cb27-524"><a href="#cb27-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-525"><a href="#cb27-525" aria-hidden="true" tabindex="-1"></a>You can substitute the values of the coefficients and the $R_f$ of</span>
+<span id="cb27-526"><a href="#cb27-526" aria-hidden="true" tabindex="-1"></a>ShpatB to find the log molecular weight of ShPatB. Or you can use the</span>
+<span id="cb27-527"><a href="#cb27-527" aria-hidden="true" tabindex="-1"></a><span class="in">`predict()`</span> function to do this for you.</span>
+<span id="cb27-528"><a href="#cb27-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-529"><a href="#cb27-529" aria-hidden="true" tabindex="-1"></a>Calculate the $R_f$ of ShPatB:</span>
+<span id="cb27-530"><a href="#cb27-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-533"><a href="#cb27-533" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-534"><a href="#cb27-534" aria-hidden="true" tabindex="-1"></a>patB_Rf <span class="ot">=</span> (gel_length <span class="sc">-</span> pos_patB) <span class="sc">/</span> gel_length</span>
+<span id="cb27-535"><a href="#cb27-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-536"><a href="#cb27-536" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-537"><a href="#cb27-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-538"><a href="#cb27-538" aria-hidden="true" tabindex="-1"></a>Predict the molecular weight ShPatB:</span>
+<span id="cb27-539"><a href="#cb27-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-542"><a href="#cb27-542" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-543"><a href="#cb27-543" aria-hidden="true" tabindex="-1"></a>patB_kda <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Rf =</span> patB_Rf)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-544"><a href="#cb27-544" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exp</span>()</span>
+<span id="cb27-545"><a href="#cb27-545" aria-hidden="true" tabindex="-1"></a>patB_kda</span>
+<span id="cb27-546"><a href="#cb27-546" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-547"><a href="#cb27-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-548"><a href="#cb27-548" aria-hidden="true" tabindex="-1"></a>If you would like to practice Option 2 again, you could repeat the the</span>
+<span id="cb27-549"><a href="#cb27-549" aria-hidden="true" tabindex="-1"></a>steps using the set of results on the other side of the gel.</span>
+<span id="cb27-550"><a href="#cb27-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-551"><a href="#cb27-551" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb27-552"><a href="#cb27-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-553"><a href="#cb27-553" aria-hidden="true" tabindex="-1"></a>TO DO</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Rand, E. (2025). Computational Analysis for Bioscientists<br>
+(Version 0.2) https://3mmarand.github.io/comp4biosci/</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/molecular-weight-from-sds-page.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer><script>
+document.addEventListener("DOMContentLoaded", function() {
+  // grab all links under “Other Links” in the right-hand TOC
+  const links = document.querySelectorAll('.quarto-other-links ul li a');
+  links.forEach(function(a) {
+    // find the one whose text is exactly “Make a suggestion”
+    if (a.textContent.trim() === 'Make a suggestion') {
+      const pageUrl   = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      a.href = 'https://github.com/3mmaRand/comp4biosci/issues/new'
+             + '?title=' + pageTitle
+             + '&body='  + pageUrl;
+      a.target = '_blank';
+    }
+  });
+});
+</script><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>

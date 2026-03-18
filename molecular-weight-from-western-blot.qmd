@@ -1,4 +1,4 @@
-# Finding the molecular weight of proteins migrated on a western blot {#sec-molecular-weight-from-western-blot}
+# Molecular weight of proteins on a western blot {#sec-molecular-weight-from-western-blot}
 
 ```{r}
 #| results: "asis"
@@ -11,21 +11,17 @@ status("drafting")
 ## What is a Western Blot?
 
 A Western blot is a laboratory technique used to detect specific
-proteins in a sample. Proteins are isolated from the sample, sorted
-by size using SDS-PAGE and then transferred to a membrane (usually
-nitrocellulose or PVDF). The membrane is incubated with a primary 
-antibody that binds to the target protein. A secondary antibody, 
-linked to a detectable enzyme or fluorophore, binds to the primary
-antibody so the protein of interested can be detected. The result is a 
-band on the membrane. The molecular weight of a protein can be estimated
-from the position of the band on the membrane because the distance 
-travelled by the protein is inversely proportional to the log of the 
-molecular weight. The intensity of the band can also be used to estimate
-the amount of protein present in the sample.
-
-
-
-
+proteins in a sample. Proteins are isolated from the sample, sorted by
+size using SDS-PAGE and then transferred to a membrane (usually
+nitrocellulose or PVDF). The membrane is incubated with a primary
+antibody that binds to the target protein. A secondary antibody, linked
+to a detectable enzyme or fluorophore, binds to the primary antibody so
+the protein of interested can be detected. The result is a band on the
+membrane. The molecular weight of a protein can be estimated from the
+position of the band on the membrane because the distance travelled by
+the protein is inversely proportional to the log of the molecular
+weight. The intensity of the band can also be used to estimate the
+amount of protein present in the sample.
 
 ## Scenario
 
@@ -35,18 +31,18 @@ bacterial infection. In this experiment, we are interested in the
 production of TNF-alpha, a pro-inflammatory cytokine, in response to
 bacterial infection. We will use a Western blot to determine the
 
-Macrophages are treated with one of three treatments: Media, LPS or 
+Macrophages are treated with one of three treatments: Media, LPS or
 NeonGreen fluorescent *E.coli* Macrophages produce TNF-α in response to
 bacterial infection
 
 ![Model western blot data containing protein weight markers (lane 1) and
 anti-TNFalpha stained samples for media (in lane 2), LPS-stimulated (in
 lane 3), and E.coli-stimulated (in lane 4)
-samples.](data-images/western-blot-anti-TNFalpha%20stained-macrophages.png){width="200"}
+samples.](data-image/western-blot-anti-TNFalpha%20stained-macrophages.png){width="200"}
 
 ![A picture of the protein weight markers used in the experiments with
 their associated weights in kilodaltons
-(kDa).](data-images/protein-weight-markers.png){width="200"}
+(kDa).](data-image/protein-weight-markers.png){width="200"}
 
 ```{r}
 library(tidyverse)
@@ -56,16 +52,15 @@ library(imager)
 Use the **`imager`** package to import your Western blot image.
 
 ```{r}
-blot <- load.image("data-images/western-blot-anti-TNFalpha stained-macrophages.png")
+blot <- load.image("data-image/western-blot-anti-TNFalpha stained-macrophages.png")
 ```
-
 
 ```{r}
 plot(blot)
 ```
 
-For a typical blot, y increases downwards, so smaller bands (higher kDa) are higher up.
-
+For a typical blot, y increases downwards, so smaller bands (higher kDa)
+are higher up.
 
 Annotate the Lanes and Marker Lane
 
@@ -76,7 +71,6 @@ Annotate the Lanes and Marker Lane
 # i.e., high MW to low
 marker_positions <- locator(n = 11)  
 ```
-
 
 ```{r}
 #| eval: false
@@ -92,12 +86,10 @@ marker_df <- tibble(
 )
 ```
 
-
 ```{r}
 #| eval: false
 migration_points <- locator(n = 2)
 ```
-
 
 ```{r}
 #| eval: false
@@ -107,14 +99,11 @@ front_y <- migration_points$y[2]
 total_migration <- abs(front_y - origin_y)
 ```
 
-
-
 ```{r}
 #| eval: false
 # band positions for each sample: LPS, E.coli
 tnf_positions <- locator(n = 2)  
 ```
-
 
 ```{r}
 #| eval: false
@@ -126,8 +115,6 @@ tnf_df <- tibble(
 )
 ```
 
-
-
 ```{r}
 #| eval: false
 marker_df <- marker_df  |> 
@@ -138,7 +125,6 @@ marker_df <- marker_df  |>
   )
 ```
 
-
 ```{r}
 #| eval: false
 ggplot(data = marker_df, aes(x = Rf, y = log_kda)) +
@@ -147,7 +133,6 @@ ggplot(data = marker_df, aes(x = Rf, y = log_kda)) +
 
 
 ```
-
 
 ```{r}
 #| eval: false
@@ -166,12 +151,11 @@ tnf_df <- tnf_df  |>
 
 ```
 
-
-TNF-alpha has a molecular weight of approximately 17 kDa for the 
-monomeric form and 52 kDa for the homotrimer. The 17 kDa monomer 
-is often observed on SDS-PAGE under reducing conditions, while 
-the trimer is the form typically secreted. The predicted molecular 
-weight of the precursor membrane-bound form is around 26 kDa. 
+TNF-alpha has a molecular weight of approximately 17 kDa for the
+monomeric form and 52 kDa for the homotrimer. The 17 kDa monomer is
+often observed on SDS-PAGE under reducing conditions, while the trimer
+is the form typically secreted. The predicted molecular weight of the
+precursor membrane-bound form is around 26 kDa.
 
 Thus, we have the precursor membrane-bound form.
 
@@ -191,7 +175,6 @@ ggplot(data = marker_df, aes(x = Rf, y = log_kda)) +
 
 ```
 
-
 ```{r}
 #| eval: false
 plot(blot, axes = FALSE)
@@ -201,7 +184,3 @@ text(20,
 text(c(140, 210, 275), 
      c(10,10, 10), labels = c("Media"), cex = 0.8)
 ```
-
-
-
-
