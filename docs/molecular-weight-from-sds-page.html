@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>20&nbsp; Molecular weight from SDS-PAGE.qmd – Computational Analysis for Bioscientists</title>
+<title>20&nbsp; Molecular weight from SDS-PAGE – Computational Analysis for Bioscientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -325,7 +325,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working-with-gel-data.html">Working with Gel data in R</a></li><li class="breadcrumb-item"><a href="./molecular-weight-from-sds-page.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working-with-gel-data.html">Working with Gel data in R</a></li><li class="breadcrumb-item"><a href="./molecular-weight-from-sds-page.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -515,7 +515,7 @@ window.Quarto = {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./molecular-weight-from-sds-page.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -588,8 +588,8 @@ window.Quarto = {
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/molecular-weight-from-sds-page.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-chat-left-dots"></i>Make a suggestion</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working-with-gel-data.html">Working with Gel data in R</a></li><li class="breadcrumb-item"><a href="./molecular-weight-from-sds-page.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></a></li></ol></nav><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="mol-wt-sds-page" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE.qmd</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./working-with-gel-data.html">Working with Gel data in R</a></li><li class="breadcrumb-item"><a href="./molecular-weight-from-sds-page.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="mol-wt-sds-page" class="quarto-section-identifier"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -629,7 +629,7 @@ Draft
 <p>If you want to code along you will need to start a new RStudio Project (see <a href="workflow-rstudio.html#sec-workflow-rstudio-creating-rsp" class="quarto-xref"><span>Section 8.1.2</span></a>), add a <code>data-image</code> folder and open a new script. You will also need to load the <strong><code>tidyverse</code></strong> package <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>.</p>
 </section><section id="linear-regression-for-estimating-molecular-weights-from-gels" class="level2" data-number="20.3"><h2 data-number="20.3" class="anchored" data-anchor-id="linear-regression-for-estimating-molecular-weights-from-gels">
 <span class="header-section-number">20.3</span> Linear Regression for estimating molecular weights from gels</h2>
-<p>We will use this gel image (<a href="#fig-gel" class="quarto-xref">Figure&nbsp;<span>20.1</span></a>) as an example: <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a>. This gel has two sets of results (one each side) - since only 4 lanes were for each experiment, we put two experiments on one gel.</p>
+<p>We will use this gel image (<a href="#fig-gel" class="quarto-xref">Figure&nbsp;<span>20.1</span></a>) as an example: <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a>. This gel has two sets of results (one each side) - since only 4 lanes were needed for each experiment, we put two experiments on one gel.</p>
 <ul>
 <li><p>Lane 1 (and 10) is the protein ladder which are the proteins of known molecular weights.</p></li>
 <li><p>Lane 2 (and 9) is Uninduced E. coli lysate</p></li>
@@ -654,7 +654,7 @@ Draft
 <p>We will cover two options:</p>
 <ol type="1">
 <li><p>Where you have measured the length of the gel, the positions of ShPatB and the marker proteins on the gel manually - by opening the gel image in Powerpoint for example – and have a file containing the molecular weights and positions of the marker proteins. The measures can be in centimetres or pixels, it does not matter as long as they are all in the same units.</p></li>
-<li><p>Where you have a file containing the molecular weights of the marker proteins and use R to measure the length of the gel, the positions of ShPatB and the marker proteins by importing the gel image. This method relies on the <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> which stores the coordinate positions when you click on a plot! Magic!</p></li>
+<li><p>Where you have a file containing the molecular weights of the marker proteins and use R to measure the length of the gel, the positions of ShPatB and the marker proteins by importing the gel image. This method relies on the <code><a href="https://rdrr.io/r/graphics/locator.html">locator()</a></code> function which stores the coordinate positions when you click on a plot! Magic!</p></li>
 </ol>
 <section id="option-1-manual-measurements" class="level3" data-number="20.3.1"><h3 data-number="20.3.1" class="anchored" data-anchor-id="option-1-manual-measurements">
 <span class="header-section-number">20.3.1</span> Option 1: Manual measurements</h3>
@@ -724,7 +724,7 @@ Draft
 </section><section id="option-2-measurements-in-r" class="level3" data-number="20.3.2"><h3 data-number="20.3.2" class="anchored" data-anchor-id="option-2-measurements-in-r">
 <span class="header-section-number">20.3.2</span> Option 2: Measurements in R</h3>
 <p>You have a file containing the molecular weights of the marker proteins <a href="data-raw/standard-mw.txt">standard-mw.txt</a> and the image of the gel <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a>. The molecular weights of the marker proteins are in kilodaltons (kDa)</p>
-<p>Make a folder call <code>data-image</code> and save <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a> to it. Save <a href="data-image/standard-mw.txt">standard-mw.txt</a> to <code>data-raw</code>.</p>
+<p>Make a folder call <code>data-image</code> and save <a href="data-image/sds-page-gel.jpg">sds-page-gel.jpg</a> to it. Save <a href="data-raw/standard-mw.txt">standard-mw.txt</a> to <code>data-raw</code>.</p>
 <p>Import the molecular weights of the marker proteins from <a href="data-raw/standard-mw.txt">standard-mw.txt</a></p>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mw</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/standard-mw.txt"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1382,7 +1382,7 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb27" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Molecular weight from SDS-PAGE.qmd {#mol-wt-sds-page}</span></span>
+<div class="sourceCode" id="cb27" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Molecular weight from SDS-PAGE {#mol-wt-sds-page}</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: "asis"</span></span>
@@ -1436,7 +1436,7 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>We will use this gel image (@fig-gel) as an example:</span>
 <span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">sds-page-gel.jpg</span><span class="co">](data-image/sds-page-gel.jpg)</span>. This gel has two sets</span>
-<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>of results (one each side) - since only 4 lanes were for each</span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>of results (one each side) - since only 4 lanes were needed for each</span>
 <span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>experiment, we put two experiments on one gel.</span>
 <span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Lane 1 (and 10) is the protein ladder which are the proteins of</span>
@@ -1521,8 +1521,8 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <span id="cb27-143"><a href="#cb27-143" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Where you have a file containing the molecular weights of the marker</span>
 <span id="cb27-144"><a href="#cb27-144" aria-hidden="true" tabindex="-1"></a>    proteins and use R to measure the length of the gel, the positions</span>
 <span id="cb27-145"><a href="#cb27-145" aria-hidden="true" tabindex="-1"></a>    of ShPatB and the marker proteins by importing the gel image. This</span>
-<span id="cb27-146"><a href="#cb27-146" aria-hidden="true" tabindex="-1"></a>    method relies on the <span class="in">`locator()`</span> which stores the coordinate</span>
-<span id="cb27-147"><a href="#cb27-147" aria-hidden="true" tabindex="-1"></a>    positions when you click on a plot! Magic!</span>
+<span id="cb27-146"><a href="#cb27-146" aria-hidden="true" tabindex="-1"></a>    method relies on the <span class="in">`locator()`</span> function which stores the</span>
+<span id="cb27-147"><a href="#cb27-147" aria-hidden="true" tabindex="-1"></a>    coordinate positions when you click on a plot! Magic!</span>
 <span id="cb27-148"><a href="#cb27-148" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-149"><a href="#cb27-149" aria-hidden="true" tabindex="-1"></a><span class="fu">### Option 1: Manual measurements</span></span>
 <span id="cb27-150"><a href="#cb27-150" aria-hidden="true" tabindex="-1"></a></span>
@@ -1623,7 +1623,7 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <span id="cb27-261"><a href="#cb27-261" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-262"><a href="#cb27-262" aria-hidden="true" tabindex="-1"></a>Make a folder call <span class="in">`data-image`</span> and save</span>
 <span id="cb27-263"><a href="#cb27-263" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">sds-page-gel.jpg</span><span class="co">](data-image/sds-page-gel.jpg)</span> to it. Save</span>
-<span id="cb27-264"><a href="#cb27-264" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw.txt</span><span class="co">](data-image/standard-mw.txt)</span> to <span class="in">`data-raw`</span>.</span>
+<span id="cb27-264"><a href="#cb27-264" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw.txt</span><span class="co">](data-raw/standard-mw.txt)</span> to <span class="in">`data-raw`</span>.</span>
 <span id="cb27-265"><a href="#cb27-265" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-266"><a href="#cb27-266" aria-hidden="true" tabindex="-1"></a>Import the molecular weights of the marker proteins from</span>
 <span id="cb27-267"><a href="#cb27-267" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">standard-mw.txt</span><span class="co">](data-raw/standard-mw.txt)</span></span>

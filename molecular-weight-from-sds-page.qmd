@@ -1,4 +1,4 @@
-# Molecular weight from SDS-PAGE.qmd {#mol-wt-sds-page}
+# Molecular weight from SDS-PAGE {#mol-wt-sds-page}
 
 ```{r}
 #| results: "asis"
@@ -52,7 +52,7 @@ package [@tidyverse].
 
 We will use this gel image (@fig-gel) as an example:
 [sds-page-gel.jpg](data-image/sds-page-gel.jpg). This gel has two sets
-of results (one each side) - since only 4 lanes were for each
+of results (one each side) - since only 4 lanes were needed for each
 experiment, we put two experiments on one gel.
 
 -   Lane 1 (and 10) is the protein ladder which are the proteins of
@@ -137,8 +137,8 @@ We will cover two options:
 2.  Where you have a file containing the molecular weights of the marker
     proteins and use R to measure the length of the gel, the positions
     of ShPatB and the marker proteins by importing the gel image. This
-    method relies on the `locator()` which stores the coordinate
-    positions when you click on a plot! Magic!
+    method relies on the `locator()` function which stores the
+    coordinate positions when you click on a plot! Magic!
 
 ### Option 1: Manual measurements
 
@@ -239,7 +239,7 @@ of the marker proteins are in kilodaltons (kDa)
 
 Make a folder call `data-image` and save
 [sds-page-gel.jpg](data-image/sds-page-gel.jpg) to it. Save
-[standard-mw.txt](data-image/standard-mw.txt) to `data-raw`.
+[standard-mw.txt](data-raw/standard-mw.txt) to `data-raw`.
 
 Import the molecular weights of the marker proteins from
 [standard-mw.txt](data-raw/standard-mw.txt)
