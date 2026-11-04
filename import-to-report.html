@@ -1,0 +1,2063 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>9&nbsp; From importing to reporting – Computational Analysis for Bioscientists</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./recording-data.html" rel="next">
+<link href="./workflow-rstudio.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a6bd9b1d87aa0ae02b978c5d45a3666.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-fcb2d27e7215aae36f726843a3d63993.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a6bd9b1d87aa0ae02b978c5d45a3666.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-185e137051f46828f8cafeff55c97b81.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-8086d1d3085e96b4c20956488afd56fb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-185e137051f46828f8cafeff55c97b81.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+</head>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./import-to-report.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Computational Analysis for Bioscientists</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/3mmaRand/comp4biosci" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">About this book</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./what-they-forgot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What they forgot to teach you about computers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./machine-and-os.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Machines and operating systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./file-systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Understanding file systems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./organising-work.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Organising your work</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./getting-started-with-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started with data analysis in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ideas-about-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ideas about data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about-R-and-RStudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">About R and RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./first-steps-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">First Steps in RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workflow-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import-to-report.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recording-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./statistical-analysis-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical Analysis in R - Part 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logic-hypothesis-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The logic of hypothesis testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./confidence-intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./what-statistical-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">What is a statistical model?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./single-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Single linear regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two-sample-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Two-Sample tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./one-way-anova-and-kw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">One-way ANOVA and Kruskal-Wallis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./two-way-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Two-way ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./association.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Association: Correlation and Contingency</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./goodness-of-fit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Goodness of fit</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./working-with-gel-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Gel data in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./molecular-weight-from-sds-page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Molecular weight from SDS-PAGE</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./in-development.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">In development</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./26C-food-fuel-prac2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title"><em>Pseudomonas putida</em> grown in two soil types at two temperatures</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./keyboard-shortcuts-tips.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Keyboard short cuts and other tips</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li>
+<a href="#importing-data-from-files" id="toc-importing-data-from-files" class="nav-link active" data-scroll-target="#importing-data-from-files"><span class="header-section-number">9.1</span> Importing data from files</a>
+  <ul class="collapse">
+<li><a href="#importing-data-from-.txt-file" id="toc-importing-data-from-.txt-file" class="nav-link" data-scroll-target="#importing-data-from-.txt-file"><span class="header-section-number">9.1.1</span> Importing data from <code>.txt</code> file</a></li>
+  <li><a href="#importing-a-from-a.csv-file" id="toc-importing-a-from-a.csv-file" class="nav-link" data-scroll-target="#importing-a-from-a.csv-file"><span class="header-section-number">9.1.2</span> Importing a from a<code>.csv</code> file</a></li>
+  <li><a href="#importing-a-from-a.xlsx-file" id="toc-importing-a-from-a.xlsx-file" class="nav-link" data-scroll-target="#importing-a-from-a.xlsx-file"><span class="header-section-number">9.1.3</span> Importing a from a<code>.xlsx</code> file</a></li>
+  <li><a href="#importing-data-from-a-file-not-in-your-working-directory" id="toc-importing-data-from-a-file-not-in-your-working-directory" class="nav-link" data-scroll-target="#importing-data-from-a-file-not-in-your-working-directory"><span class="header-section-number">9.1.4</span> Importing data from a file <em>not</em> in your working directory</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data"><span class="header-section-number">9.2</span> Summarising data</a>
+  <ul class="collapse">
+<li><a href="#visualise-data" id="toc-visualise-data" class="nav-link" data-scroll-target="#visualise-data"><span class="header-section-number">9.2.1</span> Visualise data</a></li>
+  </ul>
+</li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">9.3</span> Summary</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/import-to-report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div><div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="#"><i class="bi bi-chat-left-dots"></i>Make a suggestion</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started-with-data.html">Getting started with data analysis in R</a></li><li class="breadcrumb-item"><a href="./import-to-report.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></a></li></ol></nav><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-import-to-report" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">From importing to reporting</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Complete
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You are reading a live document. This page is compete but suggestions for improvements are welcome. Follow the link to ‘Make a suggestion’ to suggest improvements.</p>
+</div>
+</div>
+<p>In <a href="first-steps-rstudio.html" class="quarto-xref">Chapter&nbsp;<span>7</span></a> we typed data into R. This is not very practical when you have a lot of data! Instead, we much more commonly import data from a file. In this chapter we go through the workflow from importing, through summarising and plotting to saving a saving the figure.</p>
+<section id="importing-data-from-files" class="level2" data-number="9.1"><h2 data-number="9.1" class="anchored" data-anchor-id="importing-data-from-files">
+<span class="header-section-number">9.1</span> Importing data from files</h2>
+<p>There are two things you need to know before you can import data from a file.</p>
+<ol type="1">
+<li>
+<p>What format the data are in</p>
+<p>The format of the data determines what <em>function</em> you will use to import it. Often the file extension indicates format.</p>
+<ul>
+<li>
+<code>.txt</code> a plain text file<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, where the columns are often separated by a space but might also be separated by a tab, a backslash or forward slash, or some other character</li>
+<li>
+<code>.csv</code> a plain text file where the columns are separated by commas</li>
+<li>
+<code>.xlsx</code> an Excel file More detail on file types was covered in <a href="file-systems.html#sec-file-systems-files" class="quarto-xref"><span>Section 3.1</span></a>
+</li>
+</ul>
+<p>However, you should always check the file to make sure it is in the format you expect because there is little to force a match between a file’s contents and the extension in its name. You can check by opening the file in a text editor (e.g., Notepad on Windows, TextEdit on Mac) or in RStudio (see below).</p>
+</li>
+<li>
+<p>Where the file is relative to your working directory</p>
+<p><code>R</code> can only read in a file if you say where it is, <em>i.e.</em>, you give its <strong>relative path</strong>. More detail on relative file paths and working directories was covered in <a href="file-systems.html#sec-file-systems-files-working-directories" class="quarto-xref"><span>Section 3.8</span></a></p>
+</li>
+</ol>
+<p>🎬 Your turn! If you want to code along you will need to start a new (see <a href="workflow-rstudio.html#sec-workflow-rstudio-creating-rsp" class="quarto-xref"><span>Section 8.1.2</span></a>) then a new script.</p>
+<p>This chapter covers reading <code>.txt</code> files and <code>.csv</code> files using <strong><code>tidyverse</code></strong> <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span> functions and excel files using the <strong><code>readxl</code></strong> <span class="citation" data-cites="readxl">(<a href="references.html#ref-readxl" role="doc-biblioref">Wickham and Bryan 2025</a>)</span> package. We will demonstrate what needs to be done differently if the file is not in your working directory.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="importing-data-from-.txt-file" class="level3" data-number="9.1.1"><h3 data-number="9.1.1" class="anchored" data-anchor-id="importing-data-from-.txt-file">
+<span class="header-section-number">9.1.1</span> Importing data from <code>.txt</code> file</h3>
+<p>The data in <a href="data-raw/adipocytes.txt">adipocytes.txt</a> give the concentration of a hormone called adiponectin in some cells. There are two columns: the first gives the adiponectin concentration and the second, treatment, indicates whether the cells were treated with nicotinic acid or not. Save this file to the project folder.</p>
+<p>A <code>.txt</code> extension suggests this is plain text file with columns separated by spaces. However, before we attempt to read it in, when should take a look at it. We can do this from RStudio by clicking on the file in the Files pane. Any plain text file will open in the top left pane.</p>
+<div id="fig-text-data-file-open" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-text-data-file-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/text-data-file-open.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;9.1: A screenshot of RStudio showing the adipocytes.txt data file open over the script. We can see the columns are separated by spaces which means we can use the read_table() function to read it in."><img src="images/text-data-file-open.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-text-data-file-open-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;9.1: <strong>A screenshot of RStudio showing the adipocytes.txt data file open over the script.</strong> We can see the columns are separated by spaces which means we can use the <code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code> function to read it in.
+</figcaption></figure>
+</div>
+<p>The files are separated by spaces as we suspected. We use the <code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code> command to read in plain text files of single columns, or where the columns are separated by spaces:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_table.html">read_table</a></span><span class="op">(</span><span class="st">"adipocytes.txt"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The data from the file has been read into a dataframe called <code>adipo</code>. You will and you will be able to see it in the Environment window. Clicking on it in the Environment window will open a spreadsheet-like view of the dataframe.</p>
+</section><section id="importing-a-from-a.csv-file" class="level3" data-number="9.1.2"><h3 data-number="9.1.2" class="anchored" data-anchor-id="importing-a-from-a.csv-file">
+<span class="header-section-number">9.1.2</span> Importing a from a<code>.csv</code> file</h3>
+<p>The data <a href="data-raw/seal.csv">seal.csv</a> give the myoglobin concentration of skeletal muscle for three species of seal. There are two columns: the first gives the myoglobin concentration and the second indicates species.</p>
+<p>The <code>.csv</code> extension suggests this is plain text file with columns separated by commas. We will again check this before we attempt to read it in. Click on the file in the Files pane - a pop-up will appear for files ending <code>.csv</code> or <code>.xlsx</code>. Choose View File<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<div id="fig-csv-data-file-view" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-csv-data-file-view-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/csv-data-file-view.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;9.2: Screenshot of the Rstudio Files pane. When you click on a file in the Files pane a pop-up will appear for files ending .csv or .xlsx. Choose View File. .csv files, as plain text files, will open on the left over the script."><img src="images/csv-data-file-view.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-csv-data-file-view-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca"><strong>Figure</strong>&nbsp;9.2: <strong>Screenshot of the Rstudio Files pane</strong>. When you click on a file in the Files pane a pop-up will appear for files ending <code>.csv</code> or <code>.xlsx</code>. Choose <em>View File</em>. <code>.csv</code> files, as plain text files, will open on the left over the script.
+</figcaption></figure>
+</div>
+<p>CSV files will open in the top left pane (Excel files will launch Excel). You should be able to see that the file does contain comma separated values. There is a<code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> function which works very like `read_table():</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"seals.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="importing-a-from-a.xlsx-file" class="level3" data-number="9.1.3"><h3 data-number="9.1.3" class="anchored" data-anchor-id="importing-a-from-a.xlsx-file">
+<span class="header-section-number">9.1.3</span> Importing a from a<code>.xlsx</code> file</h3>
+<p>The data in <a href="data-raw/blood.xlsx">blood.xlsx</a> are measurements of several blood parameters from fifty people with Crohn’s disease, a lifelong condition where parts of the digestive system become inflamed. Twenty-five of people are in the early stages of diagnosis and 25 have started treatment.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">blood</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"blood.xlsx"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="importing-data-from-a-file-not-in-your-working-directory" class="level3" data-number="9.1.4"><h3 data-number="9.1.4" class="anchored" data-anchor-id="importing-data-from-a-file-not-in-your-working-directory">
+<span class="header-section-number">9.1.4</span> Importing data from a file <em>not</em> in your working directory</h3>
+<p>When using an RStudio project, your working directory is the project folder (the folder containing the <code>.Rproj</code> file. Suppose our file <a href="data-raw/adipocytes.txt">adipocytes.txt</a> is in a folder, <code>data-raw</code>, in an Rstudio project called <code>myproject</code>. The folder <code>myproject</code> will be our working directory.</p>
+<pre><code>-- myproject
+   |__myproject.Rproj
+   |__import.R
+   |__data-raw
+      |__adipocytes.txt
+      |__blood.xlsx
+      |__seal.csv</code></pre>
+<p>From <code>myproject/</code> we need to go first into <code>data-raw/</code> before finding <code>adipocytes.txt</code>. This means the <em>relative path</em> to <code>adipocytes.txt</code> is <code>data-raw/adipocytes.txt</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_table.html">read_table</a></span><span class="op">(</span><span class="st">"data-raw/adipocytes.txt"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <a href="file-systems.html#sec-file-systems-files-relative-paths" class="quarto-xref"><span>Section 3.10</span></a> for a file is the path from the working directory to the file. In this case, the working directory is <code>myproject</code> and the relative path is <code>data-raw/adipocytes.txt</code>.</p>
+<p>🎬 Your turn! Create a folder called <code>data-raw</code> inside the project folder and move the data files to it. Now modify the data import code to import seal.csv from <code>data-raw</code>.</p>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data-raw/seal.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section></section><section id="summarising-data" class="level2" data-number="9.2"><h2 data-number="9.2" class="anchored" data-anchor-id="summarising-data">
+<span class="header-section-number">9.2</span> Summarising data</h2>
+<p>We summarise data using the the <strong><code>dplyr</code></strong> <span class="citation" data-cites="dplyr">(<a href="references.html#ref-dplyr" role="doc-biblioref">Wickham et al. 2023</a>)</span> package, which provides a set of functions designed for efficient data manipulation. This is a <strong><code>tidyverse</code></strong> <span class="citation" data-cites="tidyverse">(<a href="references.html#ref-tidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span> package which means it was loaded when you used <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code>. The approach replies on the data being organised in a tidy format, meaning each column represents a variable, each row represents an observation, and each cell contains a single value. The pipeline to summarise data is:</p>
+<ul>
+<li><p>Group the data: If you want to summarize your data based on certain groups, you can use the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code></p></li>
+<li><p>Summarise: Once your data grouped (if necessary), you use <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> with functions like<code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>and <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> within it.</p></li>
+</ul>
+<p>We will demonstrate summarising using the <code>adipo</code> dataframe. <code>adiponectin</code> is the response and is continuous and <code>treatment</code> is an explanatory with categorical with two levels (groups).</p>
+<p>The most useful summary statistics for a continuous variable like <code>adiponectin</code> are the means, standard deviations, sample sizes and standard errors. We use the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> functions along with the functions that do the calculations.</p>
+<p>To create a data frame called <code>adipo_summary</code> that contains the means, standard deviations, sample sizes and standard errors for the control and nicotinic acid treated samples:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo_summary</span> <span class="op">&lt;-</span> <span class="va">adipo</span>  <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>            std <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>            n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>            se <span class="op">=</span> <span class="va">std</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To print the contents of <code>adipo_summary</code> you can type its name in the console:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">adipo_summary</span></span>
+<span><span class="co">## # A tibble: 2 × 5</span></span>
+<span><span class="co">##   treatment  mean   std     n    se</span></span>
+<span><span class="co">##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">## 1 control    5.55  1.48    15 0.381</span></span>
+<span><span class="co">## 2 nicotinic  7.51  1.79    15 0.463</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Or click on <code>adipo_summary</code> listed in the environment to open a spreadsheet-like view of the dataframe.</p>
+<section id="visualise-data" class="level3" data-number="9.2.1"><h3 data-number="9.2.1" class="anchored" data-anchor-id="visualise-data">
+<span class="header-section-number">9.2.1</span> Visualise data</h3>
+<p>Most commonly, we put the explanatory variable on the <em>x</em> axis and the response variable on the <em>y</em> axis. In my opinion, you should also show all the raw data points along with some summary values. A continuous response, particularly one that follows the normal distribution, is best summarised with the mean and the standard error.</p>
+<p>We are going to create a figure like this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="import-to-report_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each dots represents a single measurement of adiponectin in a standardised sample of cells – these are the raw data points. Within each treatment group, the data points have been <code>jittered</code> – this is adding a small amount of random noise in the <em>x</em> direction so points with the same <em>y</em>-value do not overlap. The error bars show the mean and standard error of the mean for each treatment group.</p>
+<section id="ggplot2" class="level4" data-number="9.2.1.1"><h4 data-number="9.2.1.1" class="anchored" data-anchor-id="ggplot2">
+<span class="header-section-number">9.2.1.1</span> <strong><code>ggplot2</code></strong>
+</h4>
+<p><strong><code>ggplot2</code></strong> <span class="citation" data-cites="ggplot2">(<a href="references.html#ref-ggplot2" role="doc-biblioref">Wickham 2016</a>)</span> is a powerful data visualisation package in R that is part of the tidyverse. It provides a flexible and layered approach to creating high-quality and customizable graphics.</p>
+<p>The core concept of <strong><code>ggplot2</code></strong> is to build a plot layer by layer. The basic structure consists of three main components:</p>
+<ol type="1">
+<li>
+<em>Data</em>: the data frame to be used for plotting.</li>
+<li>
+<em>Aesthetic mappings (aes)</em>: how variables in the dataset map to visual elements such as <em>x</em> and <em>y</em> positions, colours, shapes, etc.</li>
+<li>
+<em>Geometric objects (geoms)</em>: the actual graphical elements used to visualize the data, such as points, lines, bars, etc.</li>
+</ol>
+<p>To create a basic plot, you start with the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function and provide the data and aesthetic mappings.</p>
+<pre><code>ggplot(data = adipo, aes(x = treatment, y = adiponectin))</code></pre>
+<p>You can add geometric layers to the plot using specific functions such as <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code>, etc. These functions define the type of plot you want to create:</p>
+<pre><code>ggplot(data = adipo, aes(x = treatment, y = adiponectin)) +
+  geom_point()</code></pre>
+<p>In the figure we are aiming for, we are plotting two dataframes:</p>
+<ul>
+<li><p>the <code>adipo</code> dataframe which contains the data points themselves</p></li>
+<li><p>the <code>adipo_summary</code> dataframe containing and the means and standard errors.</p></li>
+</ul>
+<p>The dataframes and aesthetics for ggplot can be specified <em>within a <code>geom_xxxx</code></em> (rather than in the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>). This is very useful if the geom only applies to some of the data you want to plot.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Tip: <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You put the <code>data</code> argument and <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> inside <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> if you want all the <code>geoms</code> to use that dataframe and variables. If you want a <em>different</em> dataframe for a <code>geom</code>, put the <code>data</code> argument and <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> inside the <code>geom_xxxx()</code></p>
+</div>
+</div>
+<p>I will build the plot up in small steps. You do not need to repeat the code at each step - simply edit your <em>existing</em> <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> command as we go.</p>
+<p>We will plot the data points first. Notice that we have given the data argument and the aesthetics <em>inside</em> the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>. This is because it is only in this geom that we want to use the dataframe with the raw data. The variables <code>treatment</code> and <code>adiponectin</code> are in the <code>adipo</code> dataframe.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, </span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-12-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="import-to-report_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>So that the data points don’t overlap, we can add some random jitter in the <em>x</em> direction (edit your existing code):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, </span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-13-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="import-to-report_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that <code>position = position_jitter(width = 0.1, height = 0)</code> is inside the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> parentheses, after the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> and a comma.</p>
+<p>We’ve set the vertical jitter to 0 because, in contrast to the categorical <em>x</em>-axis, movement on the <em>y</em>-axis has meaning (the adiponectin levels).</p>
+<p>Let’s make the points a light grey (edit your existing code):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, </span>
+<span>             <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-14-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="import-to-report_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now to add the error bars. These go from one standard error <em>below</em> the mean to one standard error <em>above</em> the mean.</p>
+<p>Add a <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> for error bars (edit your existing code):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-15-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="import-to-report_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We have specified the <code>adipo_summary</code> dataframe and the variables three variables given –<code>treatment</code>, <code>mean</code> and <code>se</code> – are in that dataframe.</p>
+<p>There are several ways you could add the mean. You could use <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code>. I like to use <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> again with the <code>ymin</code> and <code>ymax</code> both set to the mean so that I just get a line at the mean.</p>
+<p>Add a <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code> for the mean (edit your existing code):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-16-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="import-to-report_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Alter the axis labels and limits using <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> (edit your existing code):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span>, </span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Treatment"</span>, </span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-17-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="import-to-report_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You only need to use <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> to use labels that are different from those in the dataset. Often this is to use proper terminology or to captialise.</p>
+<p>Format the figure in a way that is more suitable for including in a report using <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code> (edit your existing code):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"gray30"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span>, </span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Treatment"</span>, </span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><a href="import-to-report_files/figure-html/unnamed-chunk-18-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img src="import-to-report_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="576"></a></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function is used to save a <code>ggplot</code> object as an image file. It provides a convenient way to export your plots to various file formats, such as PNG, PDF, SVG, or JPEG.</p>
+<p>The basic syntax of <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> is as follows:</p>
+<pre><code>ggsave(filename,
+       plot,
+       device,
+       width,
+       height,
+       units,
+       dpi)</code></pre>
+<p>You <em>must</em> give a file name for the output file but all the other options have defaults.</p>
+<ul>
+<li>plot: The ggplot object you want to save. Defaults to the last created plot.</li>
+<li>device: one of “png”, “eps”, “ps”, “tex”, “pdf”, “jpeg”, “tiff”, “png”, “bmp”, “svg” or “wmf” (windows only). Defaults to the format given by the file extension in filename</li>
+<li>width, height units: Plot size in units (“in”, “cm”, “mm”, or “px”). Defaults to the size of the plot in the Plots window.</li>
+<li>dpi: Plot resolution.</li>
+</ul>
+<p>It is valuable to give explicit values even where there are defaults to ensure you can reproduce the figure.</p>
+<p>We can save the figure we just created as a 3 inch x 3 inch png file as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"adipocytes.png"</span>,</span>
+<span>       device <span class="op">=</span> <span class="st">"png"</span>,</span>
+<span>       width <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>       height <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>       units <span class="op">=</span> <span class="st">"in"</span>,</span>
+<span>       dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is often a good idea to explicitly assign the ggplot object to a variable and use that in the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fig1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">adiponectin</span><span class="op">)</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.1</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>             colour <span class="op">=</span> <span class="st">"gray30"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span> <span class="op">-</span> <span class="va">se</span>, ymax <span class="op">=</span> <span class="va">mean</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">adipo_summary</span>, </span>
+<span>                <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, ymin <span class="op">=</span> <span class="va">mean</span>, ymax <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                width <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span>                     limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span>, </span>
+<span>                     expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Treatment"</span>, </span>
+<span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"adipocytes.png"</span>,</span>
+<span>       plot <span class="op">=</span> <span class="va">fig1</span>,</span>
+<span>       device <span class="op">=</span> <span class="st">"png"</span>,</span>
+<span>       width <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>       height <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>       units <span class="op">=</span> <span class="st">"in"</span>,</span>
+<span>       dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section></section><section id="summary" class="level2" data-number="9.3"><h2 data-number="9.3" class="anchored" data-anchor-id="summary">
+<span class="header-section-number">9.3</span> Summary</h2>
+<ol type="1">
+<li>To import data you need to match the file format (e.g., <code>.txt</code>, <code>.csv</code>, <code>.xlsx</code>) to the appropriate import function (e.g., <code><a href="https://readr.tidyverse.org/reference/read_table.html">read_table()</a></code>, <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code>, or <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel()</a></code> and give the <em>relative path</em> to the file.</li>
+<li>Opening files in RStudio or Excel before trying to import will help you determine the format and delimiter used.</li>
+<li>To summarising data in more than one group, we use <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> then <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> with functions like <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code> and <code><a href="https://rdrr.io/r/base/length.html">length()</a></code>.</li>
+<li>We build plots using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> and add layers such as <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar()</a></code>. Axes can be customised axes using <code>scale_x_####()</code> or <code>scale_y_####()</code>and <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic()</a></code> makes the plot look more those in a scientific report.</li>
+<li>Save plots made with <strong><code>ggplot2</code></strong> with <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>.</li>
+</ol>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-ggplot2" class="csl-entry" role="listitem">
+Wickham, Hadley. 2016. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
+</div>
+<div id="ref-tidyverse" class="csl-entry" role="listitem">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-readxl" class="csl-entry" role="listitem">
+Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a href="https://doi.org/10.32614/CRAN.package.readxl">https://doi.org/10.32614/CRAN.package.readxl</a>.
+</div>
+<div id="ref-dplyr" class="csl-entry" role="listitem">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>Plain text files can be opened in notepad or other similar editor and still be readable.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There is also and option to import the dataset. <strong>Do not</strong>&nbsp;be tempted to import data this way! Unless you are careful and know what you are doing, your data import will not be scripted or will not be scripted correctly.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./workflow-rstudio.html" class="pagination-link" aria-label="Workflow in RStudio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Workflow in RStudio</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./recording-data.html" class="pagination-link" aria-label="Recording experiemental data">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Recording experiemental data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># From importing to reporting {#sec-import-to-report}</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: "asis"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"_common.R"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">status</span>(<span class="st">"complete"</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>In <span class="co">[</span><span class="ot">Chapter -@sec-first-steps-rstudio</span><span class="co">]</span> we typed data into R. This is not</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>very practical when you have a lot of data! Instead, we much more</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>commonly import data from a file. In this chapter we go through the</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>workflow from importing, through summarising and plotting to saving a</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>saving the figure.</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Importing data from files</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>There are two things you need to know before you can import data from a</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>file.</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What format the data are in</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    The format of the data determines what *function* you will use to</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    import it. Often the file extension indicates format.</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`.txt`</span> a plain text file<span class="ot">[^import-to-report-1]</span>, where the columns</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        are often separated by a space but might also be separated by a</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>        tab, a backslash or forward slash, or some other character</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`.csv`</span> a plain text file where the columns are separated by</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        commas</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`.xlsx`</span> an Excel file More detail on file types was covered in</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">[</span><span class="ot">@sec-file-systems-files</span><span class="co">]</span></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>    However, you should always check the file to make sure it is in the</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>    format you expect because there is little to force a match between a</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>    file's contents and the extension in its name. You can check by</span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>    opening the file in a text editor (e.g., Notepad on Windows,</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>    TextEdit on Mac) or in RStudio (see below).</span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Where the file is relative to your working directory</span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>    <span class="in">`R`</span> can only read in a file if you say where it is, *i.e.*, you give</span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>    its **relative path**. More detail on relative file paths and</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>    working directories was covered in</span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="ot">@sec-file-systems-files-working-directories</span><span class="co">]</span></span>
+<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a><span class="ot">[^import-to-report-1]: </span>Plain text files can be opened in notepad or</span>
+<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>    other similar editor and still be readable.</span>
+<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>🎬 Your turn! If you want to code along you will need to start a new</span>
+<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>(see <span class="co">[</span><span class="ot">@sec-workflow-rstudio-creating-rsp</span><span class="co">]</span>) then a new script.</span>
+<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>This chapter covers reading <span class="in">`.txt`</span> files and <span class="in">`.csv`</span> files using</span>
+<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>**`tidyverse`** <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span> functions and excel files using the</span>
+<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>**`readxl`** <span class="co">[</span><span class="ot">@readxl</span><span class="co">]</span> package. We will demonstrate what needs to be</span>
+<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a>done differently if the file is not in your working directory.</span>
+<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-67"><a href="#cb22-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-68"><a href="#cb22-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Importing data from `.txt` file</span></span>
+<span id="cb22-69"><a href="#cb22-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-70"><a href="#cb22-70" aria-hidden="true" tabindex="-1"></a>The data in <span class="co">[</span><span class="ot">adipocytes.txt</span><span class="co">](data-raw/adipocytes.txt)</span> give the</span>
+<span id="cb22-71"><a href="#cb22-71" aria-hidden="true" tabindex="-1"></a>concentration of a hormone called adiponectin in some cells. There are</span>
+<span id="cb22-72"><a href="#cb22-72" aria-hidden="true" tabindex="-1"></a>two columns: the first gives the adiponectin concentration and the</span>
+<span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a>second, treatment, indicates whether the cells were treated with</span>
+<span id="cb22-74"><a href="#cb22-74" aria-hidden="true" tabindex="-1"></a>nicotinic acid or not. Save this file to the project folder.</span>
+<span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a>A <span class="in">`.txt`</span> extension suggests this is plain text file with columns</span>
+<span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a>separated by spaces. However, before we attempt to read it in, when</span>
+<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a>should take a look at it. We can do this from RStudio by clicking on the</span>
+<span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a>file in the Files pane. Any plain text file will open in the top left</span>
+<span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a>pane.</span>
+<span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a>::: {#fig-text-data-file-open}</span>
+<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/text-data-file-open.png)</span></span>
+<span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a>**A screenshot of RStudio showing the adipocytes.txt data file open over</span>
+<span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a>the script.** We can see the columns are separated by spaces which means</span>
+<span id="cb22-87"><a href="#cb22-87" aria-hidden="true" tabindex="-1"></a>we can use the <span class="in">`read_table()`</span> function to read it in.</span>
+<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a>The files are separated by spaces as we suspected. We use the</span>
+<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a><span class="in">`read_table()`</span> command to read in plain text files of single columns, or</span>
+<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a>where the columns are separated by spaces:</span>
+<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a>adipo <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"adipocytes.txt"</span>)</span>
+<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a>The data from the file has been read into a dataframe called <span class="in">`adipo`</span>.</span>
+<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>You will and you will be able to see it in the Environment window.</span>
+<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a>Clicking on it in the Environment window will open a spreadsheet-like</span>
+<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a>view of the dataframe.</span>
+<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Importing a from a`.csv` file</span></span>
+<span id="cb22-107"><a href="#cb22-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-108"><a href="#cb22-108" aria-hidden="true" tabindex="-1"></a>The data <span class="co">[</span><span class="ot">seal.csv</span><span class="co">](data-raw/seal.csv)</span> give the myoglobin concentration</span>
+<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a>of skeletal muscle for three species of seal. There are two columns: the</span>
+<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a>first gives the myoglobin concentration and the second indicates</span>
+<span id="cb22-111"><a href="#cb22-111" aria-hidden="true" tabindex="-1"></a>species.</span>
+<span id="cb22-112"><a href="#cb22-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-113"><a href="#cb22-113" aria-hidden="true" tabindex="-1"></a>The <span class="in">`.csv`</span> extension suggests this is plain text file with columns</span>
+<span id="cb22-114"><a href="#cb22-114" aria-hidden="true" tabindex="-1"></a>separated by commas. We will again check this before we attempt to read</span>
+<span id="cb22-115"><a href="#cb22-115" aria-hidden="true" tabindex="-1"></a>it in. Click on the file in the Files pane - a pop-up will appear for</span>
+<span id="cb22-116"><a href="#cb22-116" aria-hidden="true" tabindex="-1"></a>files ending <span class="in">`.csv`</span> or <span class="in">`.xlsx`</span>. Choose View File<span class="ot">[^import-to-report-2]</span>.</span>
+<span id="cb22-117"><a href="#cb22-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-118"><a href="#cb22-118" aria-hidden="true" tabindex="-1"></a><span class="ot">[^import-to-report-2]: </span>There is also and option to import the dataset.</span>
+<span id="cb22-119"><a href="#cb22-119" aria-hidden="true" tabindex="-1"></a>    **Do not**&nbsp;be tempted to import data this way! Unless you are</span>
+<span id="cb22-120"><a href="#cb22-120" aria-hidden="true" tabindex="-1"></a>    careful and know what you are doing, your data import will not be</span>
+<span id="cb22-121"><a href="#cb22-121" aria-hidden="true" tabindex="-1"></a>    scripted or will not be scripted correctly.</span>
+<span id="cb22-122"><a href="#cb22-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-123"><a href="#cb22-123" aria-hidden="true" tabindex="-1"></a>::: {#fig-csv-data-file-view}</span>
+<span id="cb22-124"><a href="#cb22-124" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/csv-data-file-view.png)</span></span>
+<span id="cb22-125"><a href="#cb22-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-126"><a href="#cb22-126" aria-hidden="true" tabindex="-1"></a>**Screenshot of the Rstudio Files pane**. When you click on a file in</span>
+<span id="cb22-127"><a href="#cb22-127" aria-hidden="true" tabindex="-1"></a>the Files pane a pop-up will appear for files ending <span class="in">`.csv`</span> or <span class="in">`.xlsx`</span>.</span>
+<span id="cb22-128"><a href="#cb22-128" aria-hidden="true" tabindex="-1"></a>Choose *View File*. <span class="in">`.csv`</span> files, as plain text files, will open on the</span>
+<span id="cb22-129"><a href="#cb22-129" aria-hidden="true" tabindex="-1"></a>left over the script.</span>
+<span id="cb22-130"><a href="#cb22-130" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-131"><a href="#cb22-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a>CSV files will open in the top left pane (Excel files will launch</span>
+<span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a>Excel). You should be able to see that the file does contain comma</span>
+<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a>separated values. There is a<span class="in">`read_csv()`</span> function which works very like</span>
+<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a><span class="sc">\`</span>read_table():</span>
+<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a>seal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"seals.csv"</span>)</span>
+<span id="cb22-142"><a href="#cb22-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-143"><a href="#cb22-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-144"><a href="#cb22-144" aria-hidden="true" tabindex="-1"></a><span class="fu">### Importing a from a`.xlsx` file</span></span>
+<span id="cb22-145"><a href="#cb22-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-146"><a href="#cb22-146" aria-hidden="true" tabindex="-1"></a>The data in <span class="co">[</span><span class="ot">blood.xlsx</span><span class="co">](data-raw/blood.xlsx)</span> are measurements of</span>
+<span id="cb22-147"><a href="#cb22-147" aria-hidden="true" tabindex="-1"></a>several blood parameters from fifty people with Crohn's disease, a</span>
+<span id="cb22-148"><a href="#cb22-148" aria-hidden="true" tabindex="-1"></a>lifelong condition where parts of the digestive system become inflamed.</span>
+<span id="cb22-149"><a href="#cb22-149" aria-hidden="true" tabindex="-1"></a>Twenty-five of people are in the early stages of diagnosis and 25 have</span>
+<span id="cb22-150"><a href="#cb22-150" aria-hidden="true" tabindex="-1"></a>started treatment.</span>
+<span id="cb22-151"><a href="#cb22-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-154"><a href="#cb22-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-155"><a href="#cb22-155" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb22-156"><a href="#cb22-156" aria-hidden="true" tabindex="-1"></a>blood <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"blood.xlsx"</span>)</span>
+<span id="cb22-157"><a href="#cb22-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-158"><a href="#cb22-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-159"><a href="#cb22-159" aria-hidden="true" tabindex="-1"></a><span class="fu">### Importing data from a file *not* in your working directory</span></span>
+<span id="cb22-160"><a href="#cb22-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-161"><a href="#cb22-161" aria-hidden="true" tabindex="-1"></a>When using an RStudio project, your working directory is the project</span>
+<span id="cb22-162"><a href="#cb22-162" aria-hidden="true" tabindex="-1"></a>folder (the folder containing the <span class="in">`.Rproj`</span> file. Suppose our file</span>
+<span id="cb22-163"><a href="#cb22-163" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">adipocytes.txt</span><span class="co">](data-raw/adipocytes.txt)</span> is in a folder, <span class="in">`data-raw`</span>, in</span>
+<span id="cb22-164"><a href="#cb22-164" aria-hidden="true" tabindex="-1"></a>an Rstudio project called <span class="in">`myproject`</span>. The folder <span class="in">`myproject`</span> will be</span>
+<span id="cb22-165"><a href="#cb22-165" aria-hidden="true" tabindex="-1"></a>our working directory.</span>
+<span id="cb22-166"><a href="#cb22-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-167"><a href="#cb22-167" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb22-168"><a href="#cb22-168" aria-hidden="true" tabindex="-1"></a><span class="in">-- myproject</span></span>
+<span id="cb22-169"><a href="#cb22-169" aria-hidden="true" tabindex="-1"></a><span class="in">   |__myproject.Rproj</span></span>
+<span id="cb22-170"><a href="#cb22-170" aria-hidden="true" tabindex="-1"></a><span class="in">   |__import.R</span></span>
+<span id="cb22-171"><a href="#cb22-171" aria-hidden="true" tabindex="-1"></a><span class="in">   |__data-raw</span></span>
+<span id="cb22-172"><a href="#cb22-172" aria-hidden="true" tabindex="-1"></a><span class="in">      |__adipocytes.txt</span></span>
+<span id="cb22-173"><a href="#cb22-173" aria-hidden="true" tabindex="-1"></a><span class="in">      |__blood.xlsx</span></span>
+<span id="cb22-174"><a href="#cb22-174" aria-hidden="true" tabindex="-1"></a><span class="in">      |__seal.csv</span></span>
+<span id="cb22-175"><a href="#cb22-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-176"><a href="#cb22-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-177"><a href="#cb22-177" aria-hidden="true" tabindex="-1"></a>From <span class="in">`myproject/`</span> we need to go first into <span class="in">`data-raw/`</span> before finding</span>
+<span id="cb22-178"><a href="#cb22-178" aria-hidden="true" tabindex="-1"></a><span class="in">`adipocytes.txt`</span>. This means the *relative path* to <span class="in">`adipocytes.txt`</span> is</span>
+<span id="cb22-179"><a href="#cb22-179" aria-hidden="true" tabindex="-1"></a><span class="in">`data-raw/adipocytes.txt`</span>:</span>
+<span id="cb22-180"><a href="#cb22-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-183"><a href="#cb22-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-184"><a href="#cb22-184" aria-hidden="true" tabindex="-1"></a>adipo <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"data-raw/adipocytes.txt"</span>)</span>
+<span id="cb22-185"><a href="#cb22-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-186"><a href="#cb22-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-187"><a href="#cb22-187" aria-hidden="true" tabindex="-1"></a>The <span class="co">[</span><span class="ot">@sec-file-systems-files-relative-paths</span><span class="co">]</span> for a file is the path from</span>
+<span id="cb22-188"><a href="#cb22-188" aria-hidden="true" tabindex="-1"></a>the working directory to the file. In this case, the working directory</span>
+<span id="cb22-189"><a href="#cb22-189" aria-hidden="true" tabindex="-1"></a>is <span class="in">`myproject`</span> and the relative path is <span class="in">`data-raw/adipocytes.txt`</span>.</span>
+<span id="cb22-190"><a href="#cb22-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-191"><a href="#cb22-191" aria-hidden="true" tabindex="-1"></a>🎬 Your turn! Create a folder called <span class="in">`data-raw`</span> inside the project</span>
+<span id="cb22-192"><a href="#cb22-192" aria-hidden="true" tabindex="-1"></a>folder and move the data files to it. Now modify the data import code to</span>
+<span id="cb22-193"><a href="#cb22-193" aria-hidden="true" tabindex="-1"></a>import seal.csv from <span class="in">`data-raw`</span>.</span>
+<span id="cb22-194"><a href="#cb22-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-197"><a href="#cb22-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-198"><a href="#cb22-198" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb22-199"><a href="#cb22-199" aria-hidden="true" tabindex="-1"></a>seal <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data-raw/seal.csv"</span>)</span>
+<span id="cb22-200"><a href="#cb22-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-201"><a href="#cb22-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-202"><a href="#cb22-202" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summarising data</span></span>
+<span id="cb22-203"><a href="#cb22-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-204"><a href="#cb22-204" aria-hidden="true" tabindex="-1"></a>We summarise data using the the **`dplyr`** <span class="co">[</span><span class="ot">@dplyr</span><span class="co">]</span> package, which</span>
+<span id="cb22-205"><a href="#cb22-205" aria-hidden="true" tabindex="-1"></a>provides a set of functions designed for efficient data manipulation.</span>
+<span id="cb22-206"><a href="#cb22-206" aria-hidden="true" tabindex="-1"></a>This is a **`tidyverse`** <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span> package which means it was loaded</span>
+<span id="cb22-207"><a href="#cb22-207" aria-hidden="true" tabindex="-1"></a>when you used <span class="in">`library(tidyverse)`</span>. The approach replies on the data</span>
+<span id="cb22-208"><a href="#cb22-208" aria-hidden="true" tabindex="-1"></a>being organised in a tidy format, meaning each column represents a</span>
+<span id="cb22-209"><a href="#cb22-209" aria-hidden="true" tabindex="-1"></a>variable, each row represents an observation, and each cell contains a</span>
+<span id="cb22-210"><a href="#cb22-210" aria-hidden="true" tabindex="-1"></a>single value. The pipeline to summarise data is:</span>
+<span id="cb22-211"><a href="#cb22-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-212"><a href="#cb22-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Group the data: If you want to summarize your data based on certain</span>
+<span id="cb22-213"><a href="#cb22-213" aria-hidden="true" tabindex="-1"></a>    groups, you can use the <span class="in">`group_by()`</span></span>
+<span id="cb22-214"><a href="#cb22-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-215"><a href="#cb22-215" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Summarise: Once your data grouped (if necessary), you use</span>
+<span id="cb22-216"><a href="#cb22-216" aria-hidden="true" tabindex="-1"></a>    <span class="in">`summarise()`</span> with functions like<span class="in">`mean()`</span>, <span class="in">`median()`</span>, <span class="in">`sd()`</span>,</span>
+<span id="cb22-217"><a href="#cb22-217" aria-hidden="true" tabindex="-1"></a>    <span class="in">`min()`</span>and <span class="in">`max()`</span> within it.</span>
+<span id="cb22-218"><a href="#cb22-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-219"><a href="#cb22-219" aria-hidden="true" tabindex="-1"></a>We will demonstrate summarising using the <span class="in">`adipo`</span> dataframe.</span>
+<span id="cb22-220"><a href="#cb22-220" aria-hidden="true" tabindex="-1"></a><span class="in">`adiponectin`</span> is the response and is continuous and <span class="in">`treatment`</span> is an</span>
+<span id="cb22-221"><a href="#cb22-221" aria-hidden="true" tabindex="-1"></a>explanatory with categorical with two levels (groups).</span>
+<span id="cb22-222"><a href="#cb22-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-223"><a href="#cb22-223" aria-hidden="true" tabindex="-1"></a>The most useful summary statistics for a continuous variable like</span>
+<span id="cb22-224"><a href="#cb22-224" aria-hidden="true" tabindex="-1"></a><span class="in">`adiponectin`</span> are the means, standard deviations, sample sizes and</span>
+<span id="cb22-225"><a href="#cb22-225" aria-hidden="true" tabindex="-1"></a>standard errors. We use the <span class="in">`group_by()`</span> and <span class="in">`summarise()`</span> functions</span>
+<span id="cb22-226"><a href="#cb22-226" aria-hidden="true" tabindex="-1"></a>along with the functions that do the calculations.</span>
+<span id="cb22-227"><a href="#cb22-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-228"><a href="#cb22-228" aria-hidden="true" tabindex="-1"></a>To create a data frame called <span class="in">`adipo_summary`</span> that contains the means,</span>
+<span id="cb22-229"><a href="#cb22-229" aria-hidden="true" tabindex="-1"></a>standard deviations, sample sizes and standard errors for the control</span>
+<span id="cb22-230"><a href="#cb22-230" aria-hidden="true" tabindex="-1"></a>and nicotinic acid treated samples:</span>
+<span id="cb22-231"><a href="#cb22-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-234"><a href="#cb22-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-235"><a href="#cb22-235" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb22-236"><a href="#cb22-236" aria-hidden="true" tabindex="-1"></a>adipo <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"data-raw/adipocytes.txt"</span>)</span>
+<span id="cb22-237"><a href="#cb22-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-238"><a href="#cb22-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-241"><a href="#cb22-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-242"><a href="#cb22-242" aria-hidden="true" tabindex="-1"></a>adipo_summary <span class="ot">&lt;-</span> adipo  <span class="sc">|&gt;</span> </span>
+<span id="cb22-243"><a href="#cb22-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">|&gt;</span></span>
+<span id="cb22-244"><a href="#cb22-244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(adiponectin),</span>
+<span id="cb22-245"><a href="#cb22-245" aria-hidden="true" tabindex="-1"></a>            <span class="at">std =</span> <span class="fu">sd</span>(adiponectin),</span>
+<span id="cb22-246"><a href="#cb22-246" aria-hidden="true" tabindex="-1"></a>            <span class="at">n =</span> <span class="fu">length</span>(adiponectin),</span>
+<span id="cb22-247"><a href="#cb22-247" aria-hidden="true" tabindex="-1"></a>            <span class="at">se =</span> std<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb22-248"><a href="#cb22-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-249"><a href="#cb22-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-250"><a href="#cb22-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-251"><a href="#cb22-251" aria-hidden="true" tabindex="-1"></a>To print the contents of <span class="in">`adipo_summary`</span> you can type its name in the</span>
+<span id="cb22-252"><a href="#cb22-252" aria-hidden="true" tabindex="-1"></a>console:</span>
+<span id="cb22-253"><a href="#cb22-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-256"><a href="#cb22-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-257"><a href="#cb22-257" aria-hidden="true" tabindex="-1"></a>adipo_summary</span>
+<span id="cb22-258"><a href="#cb22-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-259"><a href="#cb22-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-260"><a href="#cb22-260" aria-hidden="true" tabindex="-1"></a>Or click on <span class="in">`adipo_summary`</span> listed in the environment to open a</span>
+<span id="cb22-261"><a href="#cb22-261" aria-hidden="true" tabindex="-1"></a>spreadsheet-like view of the dataframe.</span>
+<span id="cb22-262"><a href="#cb22-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-263"><a href="#cb22-263" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualise data</span></span>
+<span id="cb22-264"><a href="#cb22-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-265"><a href="#cb22-265" aria-hidden="true" tabindex="-1"></a>Most commonly, we put the explanatory variable on the *x* axis and the</span>
+<span id="cb22-266"><a href="#cb22-266" aria-hidden="true" tabindex="-1"></a>response variable on the *y* axis. In my opinion, you should also show</span>
+<span id="cb22-267"><a href="#cb22-267" aria-hidden="true" tabindex="-1"></a>all the raw data points along with some summary values. A continuous</span>
+<span id="cb22-268"><a href="#cb22-268" aria-hidden="true" tabindex="-1"></a>response, particularly one that follows the normal distribution, is best</span>
+<span id="cb22-269"><a href="#cb22-269" aria-hidden="true" tabindex="-1"></a>summarised with the mean and the standard error.</span>
+<span id="cb22-270"><a href="#cb22-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-271"><a href="#cb22-271" aria-hidden="true" tabindex="-1"></a>We are going to create a figure like this:</span>
+<span id="cb22-272"><a href="#cb22-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-275"><a href="#cb22-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-276"><a href="#cb22-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb22-277"><a href="#cb22-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-278"><a href="#cb22-278" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-279"><a href="#cb22-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-280"><a href="#cb22-280" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-281"><a href="#cb22-281" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb22-282"><a href="#cb22-282" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-283"><a href="#cb22-283" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb22-284"><a href="#cb22-284" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb22-285"><a href="#cb22-285" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-286"><a href="#cb22-286" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean),</span>
+<span id="cb22-287"><a href="#cb22-287" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb22-288"><a href="#cb22-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span id="cb22-289"><a href="#cb22-289" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>), </span>
+<span id="cb22-290"><a href="#cb22-290" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb22-291"><a href="#cb22-291" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Treatment"</span>, </span>
+<span id="cb22-292"><a href="#cb22-292" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span>)) <span class="sc">+</span></span>
+<span id="cb22-293"><a href="#cb22-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb22-294"><a href="#cb22-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-295"><a href="#cb22-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-296"><a href="#cb22-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-297"><a href="#cb22-297" aria-hidden="true" tabindex="-1"></a>Each dots represents a single measurement of adiponectin in a</span>
+<span id="cb22-298"><a href="#cb22-298" aria-hidden="true" tabindex="-1"></a>standardised sample of cells -- these are the raw data points. Within</span>
+<span id="cb22-299"><a href="#cb22-299" aria-hidden="true" tabindex="-1"></a>each treatment group, the data points have been <span class="in">`jittered`</span> -- this is</span>
+<span id="cb22-300"><a href="#cb22-300" aria-hidden="true" tabindex="-1"></a>adding a small amount of random noise in the *x* direction so points</span>
+<span id="cb22-301"><a href="#cb22-301" aria-hidden="true" tabindex="-1"></a>with the same *y*-value do not overlap. The error bars show the mean and</span>
+<span id="cb22-302"><a href="#cb22-302" aria-hidden="true" tabindex="-1"></a>standard error of the mean for each treatment group.</span>
+<span id="cb22-303"><a href="#cb22-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-304"><a href="#cb22-304" aria-hidden="true" tabindex="-1"></a><span class="fu">#### **`ggplot2`**</span></span>
+<span id="cb22-305"><a href="#cb22-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-306"><a href="#cb22-306" aria-hidden="true" tabindex="-1"></a>**`ggplot2`** <span class="co">[</span><span class="ot">@ggplot2</span><span class="co">]</span> is a powerful data visualisation package in R</span>
+<span id="cb22-307"><a href="#cb22-307" aria-hidden="true" tabindex="-1"></a>that is part of the tidyverse. It provides a flexible and layered</span>
+<span id="cb22-308"><a href="#cb22-308" aria-hidden="true" tabindex="-1"></a>approach to creating high-quality and customizable graphics.</span>
+<span id="cb22-309"><a href="#cb22-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-310"><a href="#cb22-310" aria-hidden="true" tabindex="-1"></a>The core concept of **`ggplot2`** is to build a plot layer by layer. The</span>
+<span id="cb22-311"><a href="#cb22-311" aria-hidden="true" tabindex="-1"></a>basic structure consists of three main components:</span>
+<span id="cb22-312"><a href="#cb22-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-313"><a href="#cb22-313" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>*Data*: the data frame to be used for plotting.</span>
+<span id="cb22-314"><a href="#cb22-314" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>*Aesthetic mappings (aes)*: how variables in the dataset map to</span>
+<span id="cb22-315"><a href="#cb22-315" aria-hidden="true" tabindex="-1"></a>    visual elements such as *x* and *y* positions, colours, shapes, etc.</span>
+<span id="cb22-316"><a href="#cb22-316" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>*Geometric objects (geoms)*: the actual graphical elements used to</span>
+<span id="cb22-317"><a href="#cb22-317" aria-hidden="true" tabindex="-1"></a>    visualize the data, such as points, lines, bars, etc.</span>
+<span id="cb22-318"><a href="#cb22-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-319"><a href="#cb22-319" aria-hidden="true" tabindex="-1"></a>To create a basic plot, you start with the <span class="in">`ggplot()`</span> function and</span>
+<span id="cb22-320"><a href="#cb22-320" aria-hidden="true" tabindex="-1"></a>provide the data and aesthetic mappings.</span>
+<span id="cb22-321"><a href="#cb22-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-322"><a href="#cb22-322" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb22-323"><a href="#cb22-323" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot(data = adipo, aes(x = treatment, y = adiponectin))</span></span>
+<span id="cb22-324"><a href="#cb22-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-325"><a href="#cb22-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-326"><a href="#cb22-326" aria-hidden="true" tabindex="-1"></a>You can add geometric layers to the plot using specific functions such</span>
+<span id="cb22-327"><a href="#cb22-327" aria-hidden="true" tabindex="-1"></a>as <span class="in">`geom_point()`</span>, <span class="in">`geom_line()`</span>, <span class="in">`geom_bar()`</span>, etc. These functions</span>
+<span id="cb22-328"><a href="#cb22-328" aria-hidden="true" tabindex="-1"></a>define the type of plot you want to create:</span>
+<span id="cb22-329"><a href="#cb22-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-330"><a href="#cb22-330" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb22-331"><a href="#cb22-331" aria-hidden="true" tabindex="-1"></a><span class="in">ggplot(data = adipo, aes(x = treatment, y = adiponectin)) +</span></span>
+<span id="cb22-332"><a href="#cb22-332" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point()</span></span>
+<span id="cb22-333"><a href="#cb22-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-334"><a href="#cb22-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-335"><a href="#cb22-335" aria-hidden="true" tabindex="-1"></a>In the figure we are aiming for, we are plotting two dataframes:</span>
+<span id="cb22-336"><a href="#cb22-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-337"><a href="#cb22-337" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the <span class="in">`adipo`</span> dataframe which contains the data points themselves</span>
+<span id="cb22-338"><a href="#cb22-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-339"><a href="#cb22-339" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the <span class="in">`adipo_summary`</span> dataframe containing and the means and standard</span>
+<span id="cb22-340"><a href="#cb22-340" aria-hidden="true" tabindex="-1"></a>    errors.</span>
+<span id="cb22-341"><a href="#cb22-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-342"><a href="#cb22-342" aria-hidden="true" tabindex="-1"></a>The dataframes and aesthetics for ggplot can be specified *within a</span>
+<span id="cb22-343"><a href="#cb22-343" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_xxxx`</span>* (rather than in the <span class="in">`ggplot()`</span>). This is very useful if the</span>
+<span id="cb22-344"><a href="#cb22-344" aria-hidden="true" tabindex="-1"></a>geom only applies to some of the data you want to plot.</span>
+<span id="cb22-345"><a href="#cb22-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-346"><a href="#cb22-346" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb22-347"><a href="#cb22-347" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tip: `ggplot()`</span></span>
+<span id="cb22-348"><a href="#cb22-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-349"><a href="#cb22-349" aria-hidden="true" tabindex="-1"></a>You put the <span class="in">`data`</span> argument and <span class="in">`aes()`</span> inside <span class="in">`ggplot()`</span> if you want</span>
+<span id="cb22-350"><a href="#cb22-350" aria-hidden="true" tabindex="-1"></a>all the <span class="in">`geoms`</span> to use that dataframe and variables. If you want a</span>
+<span id="cb22-351"><a href="#cb22-351" aria-hidden="true" tabindex="-1"></a>*different* dataframe for a <span class="in">`geom`</span>, put the <span class="in">`data`</span> argument and <span class="in">`aes()`</span></span>
+<span id="cb22-352"><a href="#cb22-352" aria-hidden="true" tabindex="-1"></a>inside the <span class="in">`geom_xxxx()`</span></span>
+<span id="cb22-353"><a href="#cb22-353" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb22-354"><a href="#cb22-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-355"><a href="#cb22-355" aria-hidden="true" tabindex="-1"></a>I will build the plot up in small steps. You do not need to repeat the</span>
+<span id="cb22-356"><a href="#cb22-356" aria-hidden="true" tabindex="-1"></a>code at each step - simply edit your *existing* <span class="in">`ggplot()`</span> command as we</span>
+<span id="cb22-357"><a href="#cb22-357" aria-hidden="true" tabindex="-1"></a>go.</span>
+<span id="cb22-358"><a href="#cb22-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-359"><a href="#cb22-359" aria-hidden="true" tabindex="-1"></a>We will plot the data points first. Notice that we have given the data</span>
+<span id="cb22-360"><a href="#cb22-360" aria-hidden="true" tabindex="-1"></a>argument and the aesthetics *inside* the <span class="in">`geom_point()`</span>. This is because</span>
+<span id="cb22-361"><a href="#cb22-361" aria-hidden="true" tabindex="-1"></a>it is only in this geom that we want to use the dataframe with the raw</span>
+<span id="cb22-362"><a href="#cb22-362" aria-hidden="true" tabindex="-1"></a>data. The variables <span class="in">`treatment`</span> and <span class="in">`adiponectin`</span> are in the <span class="in">`adipo`</span></span>
+<span id="cb22-363"><a href="#cb22-363" aria-hidden="true" tabindex="-1"></a>dataframe.</span>
+<span id="cb22-364"><a href="#cb22-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-367"><a href="#cb22-367" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-368"><a href="#cb22-368" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-369"><a href="#cb22-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, </span>
+<span id="cb22-370"><a href="#cb22-370" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin))</span>
+<span id="cb22-371"><a href="#cb22-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-372"><a href="#cb22-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-373"><a href="#cb22-373" aria-hidden="true" tabindex="-1"></a>So that the data points don't overlap, we can add some random jitter in</span>
+<span id="cb22-374"><a href="#cb22-374" aria-hidden="true" tabindex="-1"></a>the *x* direction (edit your existing code):</span>
+<span id="cb22-375"><a href="#cb22-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-378"><a href="#cb22-378" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-379"><a href="#cb22-379" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-380"><a href="#cb22-380" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, </span>
+<span id="cb22-381"><a href="#cb22-381" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-382"><a href="#cb22-382" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>))</span>
+<span id="cb22-383"><a href="#cb22-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-384"><a href="#cb22-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-385"><a href="#cb22-385" aria-hidden="true" tabindex="-1"></a>Note that <span class="in">`position = position_jitter(width = 0.1, height = 0)`</span> is</span>
+<span id="cb22-386"><a href="#cb22-386" aria-hidden="true" tabindex="-1"></a>inside the <span class="in">`geom_point()`</span> parentheses, after the <span class="in">`aes()`</span> and a comma.</span>
+<span id="cb22-387"><a href="#cb22-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-388"><a href="#cb22-388" aria-hidden="true" tabindex="-1"></a>We've set the vertical jitter to 0 because, in contrast to the</span>
+<span id="cb22-389"><a href="#cb22-389" aria-hidden="true" tabindex="-1"></a>categorical *x*-axis, movement on the *y*-axis has meaning (the</span>
+<span id="cb22-390"><a href="#cb22-390" aria-hidden="true" tabindex="-1"></a>adiponectin levels).</span>
+<span id="cb22-391"><a href="#cb22-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-392"><a href="#cb22-392" aria-hidden="true" tabindex="-1"></a>Let's make the points a light grey (edit your existing code):</span>
+<span id="cb22-393"><a href="#cb22-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-396"><a href="#cb22-396" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-397"><a href="#cb22-397" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-398"><a href="#cb22-398" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, </span>
+<span id="cb22-399"><a href="#cb22-399" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-400"><a href="#cb22-400" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-401"><a href="#cb22-401" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"grey30"</span>)</span>
+<span id="cb22-402"><a href="#cb22-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-403"><a href="#cb22-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-404"><a href="#cb22-404" aria-hidden="true" tabindex="-1"></a>Now to add the error bars. These go from one standard error *below* the</span>
+<span id="cb22-405"><a href="#cb22-405" aria-hidden="true" tabindex="-1"></a>mean to one standard error *above* the mean.</span>
+<span id="cb22-406"><a href="#cb22-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-407"><a href="#cb22-407" aria-hidden="true" tabindex="-1"></a>Add a <span class="in">`geom_errorbar()`</span> for error bars (edit your existing code):</span>
+<span id="cb22-408"><a href="#cb22-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-411"><a href="#cb22-411" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-412"><a href="#cb22-412" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-413"><a href="#cb22-413" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-414"><a href="#cb22-414" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-415"><a href="#cb22-415" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb22-416"><a href="#cb22-416" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-417"><a href="#cb22-417" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb22-418"><a href="#cb22-418" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) </span>
+<span id="cb22-419"><a href="#cb22-419" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-420"><a href="#cb22-420" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-421"><a href="#cb22-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-422"><a href="#cb22-422" aria-hidden="true" tabindex="-1"></a>We have specified the <span class="in">`adipo_summary`</span> dataframe and the variables three</span>
+<span id="cb22-423"><a href="#cb22-423" aria-hidden="true" tabindex="-1"></a>variables given –<span class="in">`treatment`</span>, <span class="in">`mean`</span> and <span class="in">`se`</span> – are in that dataframe.</span>
+<span id="cb22-424"><a href="#cb22-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-425"><a href="#cb22-425" aria-hidden="true" tabindex="-1"></a>There are several ways you could add the mean. You could use</span>
+<span id="cb22-426"><a href="#cb22-426" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_point()`</span>. I like to use <span class="in">`geom_errorbar()`</span> again with the <span class="in">`ymin`</span></span>
+<span id="cb22-427"><a href="#cb22-427" aria-hidden="true" tabindex="-1"></a>and <span class="in">`ymax`</span> both set to the mean so that I just get a line at the mean.</span>
+<span id="cb22-428"><a href="#cb22-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-429"><a href="#cb22-429" aria-hidden="true" tabindex="-1"></a>Add a <span class="in">`geom_errorbar()`</span> for the mean (edit your existing code):</span>
+<span id="cb22-430"><a href="#cb22-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-433"><a href="#cb22-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-434"><a href="#cb22-434" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-435"><a href="#cb22-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-436"><a href="#cb22-436" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-437"><a href="#cb22-437" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb22-438"><a href="#cb22-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-439"><a href="#cb22-439" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb22-440"><a href="#cb22-440" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb22-441"><a href="#cb22-441" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-442"><a href="#cb22-442" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean),</span>
+<span id="cb22-443"><a href="#cb22-443" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>)</span>
+<span id="cb22-444"><a href="#cb22-444" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-445"><a href="#cb22-445" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-446"><a href="#cb22-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-447"><a href="#cb22-447" aria-hidden="true" tabindex="-1"></a>Alter the axis labels and limits using <span class="in">`scale_y_continuous()`</span> and</span>
+<span id="cb22-448"><a href="#cb22-448" aria-hidden="true" tabindex="-1"></a><span class="in">`scale_x_discrete()`</span> (edit your existing code):</span>
+<span id="cb22-449"><a href="#cb22-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-452"><a href="#cb22-452" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-453"><a href="#cb22-453" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-454"><a href="#cb22-454" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-455"><a href="#cb22-455" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-456"><a href="#cb22-456" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb22-457"><a href="#cb22-457" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-458"><a href="#cb22-458" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb22-459"><a href="#cb22-459" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb22-460"><a href="#cb22-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-461"><a href="#cb22-461" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean),</span>
+<span id="cb22-462"><a href="#cb22-462" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb22-463"><a href="#cb22-463" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span id="cb22-464"><a href="#cb22-464" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>), </span>
+<span id="cb22-465"><a href="#cb22-465" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb22-466"><a href="#cb22-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Treatment"</span>, </span>
+<span id="cb22-467"><a href="#cb22-467" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span>))</span>
+<span id="cb22-468"><a href="#cb22-468" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-469"><a href="#cb22-469" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-470"><a href="#cb22-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-471"><a href="#cb22-471" aria-hidden="true" tabindex="-1"></a>You only need to use <span class="in">`scale_y_continuous()`</span> and <span class="in">`scale_x_discrete()`</span> to</span>
+<span id="cb22-472"><a href="#cb22-472" aria-hidden="true" tabindex="-1"></a>use labels that are different from those in the dataset. Often this is</span>
+<span id="cb22-473"><a href="#cb22-473" aria-hidden="true" tabindex="-1"></a>to use proper terminology or to captialise.</span>
+<span id="cb22-474"><a href="#cb22-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-475"><a href="#cb22-475" aria-hidden="true" tabindex="-1"></a>Format the figure in a way that is more suitable for including in a</span>
+<span id="cb22-476"><a href="#cb22-476" aria-hidden="true" tabindex="-1"></a>report using <span class="in">`theme_classic()`</span> (edit your existing code):</span>
+<span id="cb22-477"><a href="#cb22-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-480"><a href="#cb22-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-481"><a href="#cb22-481" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-482"><a href="#cb22-482" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-483"><a href="#cb22-483" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-484"><a href="#cb22-484" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"gray30"</span>) <span class="sc">+</span></span>
+<span id="cb22-485"><a href="#cb22-485" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-486"><a href="#cb22-486" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb22-487"><a href="#cb22-487" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb22-488"><a href="#cb22-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-489"><a href="#cb22-489" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean),</span>
+<span id="cb22-490"><a href="#cb22-490" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb22-491"><a href="#cb22-491" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span id="cb22-492"><a href="#cb22-492" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>), </span>
+<span id="cb22-493"><a href="#cb22-493" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb22-494"><a href="#cb22-494" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Treatment"</span>, </span>
+<span id="cb22-495"><a href="#cb22-495" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span>)) <span class="sc">+</span></span>
+<span id="cb22-496"><a href="#cb22-496" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb22-497"><a href="#cb22-497" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-498"><a href="#cb22-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-499"><a href="#cb22-499" aria-hidden="true" tabindex="-1"></a>The <span class="in">`ggsave()`</span> function is used to save a <span class="in">`ggplot`</span> object as an image</span>
+<span id="cb22-500"><a href="#cb22-500" aria-hidden="true" tabindex="-1"></a>file. It provides a convenient way to export your plots to various file</span>
+<span id="cb22-501"><a href="#cb22-501" aria-hidden="true" tabindex="-1"></a>formats, such as PNG, PDF, SVG, or JPEG.</span>
+<span id="cb22-502"><a href="#cb22-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-503"><a href="#cb22-503" aria-hidden="true" tabindex="-1"></a>The basic syntax of <span class="in">`ggsave()`</span> is as follows:</span>
+<span id="cb22-504"><a href="#cb22-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-505"><a href="#cb22-505" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb22-506"><a href="#cb22-506" aria-hidden="true" tabindex="-1"></a><span class="in">ggsave(filename,</span></span>
+<span id="cb22-507"><a href="#cb22-507" aria-hidden="true" tabindex="-1"></a><span class="in">       plot,</span></span>
+<span id="cb22-508"><a href="#cb22-508" aria-hidden="true" tabindex="-1"></a><span class="in">       device,</span></span>
+<span id="cb22-509"><a href="#cb22-509" aria-hidden="true" tabindex="-1"></a><span class="in">       width,</span></span>
+<span id="cb22-510"><a href="#cb22-510" aria-hidden="true" tabindex="-1"></a><span class="in">       height,</span></span>
+<span id="cb22-511"><a href="#cb22-511" aria-hidden="true" tabindex="-1"></a><span class="in">       units,</span></span>
+<span id="cb22-512"><a href="#cb22-512" aria-hidden="true" tabindex="-1"></a><span class="in">       dpi)</span></span>
+<span id="cb22-513"><a href="#cb22-513" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-514"><a href="#cb22-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-515"><a href="#cb22-515" aria-hidden="true" tabindex="-1"></a>You *must* give a file name for the output file but all the other</span>
+<span id="cb22-516"><a href="#cb22-516" aria-hidden="true" tabindex="-1"></a>options have defaults.</span>
+<span id="cb22-517"><a href="#cb22-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-518"><a href="#cb22-518" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>plot: The ggplot object you want to save. Defaults to the last</span>
+<span id="cb22-519"><a href="#cb22-519" aria-hidden="true" tabindex="-1"></a>    created plot.</span>
+<span id="cb22-520"><a href="#cb22-520" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>device: one of "png", "eps", "ps", "tex", "pdf", "jpeg", "tiff",</span>
+<span id="cb22-521"><a href="#cb22-521" aria-hidden="true" tabindex="-1"></a>    "png", "bmp", "svg" or "wmf" (windows only). Defaults to the format</span>
+<span id="cb22-522"><a href="#cb22-522" aria-hidden="true" tabindex="-1"></a>    given by the file extension in filename</span>
+<span id="cb22-523"><a href="#cb22-523" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>width, height units: Plot size in units ("in", "cm", "mm", or "px").</span>
+<span id="cb22-524"><a href="#cb22-524" aria-hidden="true" tabindex="-1"></a>    Defaults to the size of the plot in the Plots window.</span>
+<span id="cb22-525"><a href="#cb22-525" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>dpi: Plot resolution.</span>
+<span id="cb22-526"><a href="#cb22-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-527"><a href="#cb22-527" aria-hidden="true" tabindex="-1"></a>It is valuable to give explicit values even where there are defaults to</span>
+<span id="cb22-528"><a href="#cb22-528" aria-hidden="true" tabindex="-1"></a>ensure you can reproduce the figure.</span>
+<span id="cb22-529"><a href="#cb22-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-530"><a href="#cb22-530" aria-hidden="true" tabindex="-1"></a>We can save the figure we just created as a 3 inch x 3 inch png file as</span>
+<span id="cb22-531"><a href="#cb22-531" aria-hidden="true" tabindex="-1"></a>follows:</span>
+<span id="cb22-532"><a href="#cb22-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-535"><a href="#cb22-535" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-536"><a href="#cb22-536" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"adipocytes.png"</span>,</span>
+<span id="cb22-537"><a href="#cb22-537" aria-hidden="true" tabindex="-1"></a>       <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb22-538"><a href="#cb22-538" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb22-539"><a href="#cb22-539" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">3</span>,</span>
+<span id="cb22-540"><a href="#cb22-540" aria-hidden="true" tabindex="-1"></a>       <span class="at">units =</span> <span class="st">"in"</span>,</span>
+<span id="cb22-541"><a href="#cb22-541" aria-hidden="true" tabindex="-1"></a>       <span class="at">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb22-542"><a href="#cb22-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-543"><a href="#cb22-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-544"><a href="#cb22-544" aria-hidden="true" tabindex="-1"></a>It is often a good idea to explicitly assign the ggplot object to a</span>
+<span id="cb22-545"><a href="#cb22-545" aria-hidden="true" tabindex="-1"></a>variable and use that in the <span class="in">`ggsave()`</span>:</span>
+<span id="cb22-546"><a href="#cb22-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-549"><a href="#cb22-549" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb22-550"><a href="#cb22-550" aria-hidden="true" tabindex="-1"></a>fig1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb22-551"><a href="#cb22-551" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> adipo, <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> adiponectin),</span>
+<span id="cb22-552"><a href="#cb22-552" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>),</span>
+<span id="cb22-553"><a href="#cb22-553" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"gray30"</span>) <span class="sc">+</span></span>
+<span id="cb22-554"><a href="#cb22-554" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-555"><a href="#cb22-555" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean <span class="sc">-</span> se, <span class="at">ymax =</span> mean <span class="sc">+</span> se),</span>
+<span id="cb22-556"><a href="#cb22-556" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb22-557"><a href="#cb22-557" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">data =</span> adipo_summary, </span>
+<span id="cb22-558"><a href="#cb22-558" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">ymin =</span> mean, <span class="at">ymax =</span> mean),</span>
+<span id="cb22-559"><a href="#cb22-559" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb22-560"><a href="#cb22-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"Adiponectin (pg/mL)"</span>, </span>
+<span id="cb22-561"><a href="#cb22-561" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>), </span>
+<span id="cb22-562"><a href="#cb22-562" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb22-563"><a href="#cb22-563" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">name =</span> <span class="st">"Treatment"</span>, </span>
+<span id="cb22-564"><a href="#cb22-564" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Nicotinic acid"</span>)) <span class="sc">+</span></span>
+<span id="cb22-565"><a href="#cb22-565" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb22-566"><a href="#cb22-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-567"><a href="#cb22-567" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"adipocytes.png"</span>,</span>
+<span id="cb22-568"><a href="#cb22-568" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> fig1,</span>
+<span id="cb22-569"><a href="#cb22-569" aria-hidden="true" tabindex="-1"></a>       <span class="at">device =</span> <span class="st">"png"</span>,</span>
+<span id="cb22-570"><a href="#cb22-570" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">3</span>,</span>
+<span id="cb22-571"><a href="#cb22-571" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">3</span>,</span>
+<span id="cb22-572"><a href="#cb22-572" aria-hidden="true" tabindex="-1"></a>       <span class="at">units =</span> <span class="st">"in"</span>,</span>
+<span id="cb22-573"><a href="#cb22-573" aria-hidden="true" tabindex="-1"></a>       <span class="at">dpi =</span> <span class="dv">300</span>)</span>
+<span id="cb22-574"><a href="#cb22-574" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-575"><a href="#cb22-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-576"><a href="#cb22-576" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb22-577"><a href="#cb22-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-578"><a href="#cb22-578" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>To import data you need to match the file format (e.g., <span class="in">`.txt`</span>,</span>
+<span id="cb22-579"><a href="#cb22-579" aria-hidden="true" tabindex="-1"></a>    <span class="in">`.csv`</span>, <span class="in">`.xlsx`</span>) to the appropriate import function (e.g.,</span>
+<span id="cb22-580"><a href="#cb22-580" aria-hidden="true" tabindex="-1"></a>    <span class="in">`read_table()`</span>, <span class="in">`read_csv()`</span>, or <span class="in">`read_excel()`</span> and give the</span>
+<span id="cb22-581"><a href="#cb22-581" aria-hidden="true" tabindex="-1"></a>    *relative path* to the file.</span>
+<span id="cb22-582"><a href="#cb22-582" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Opening files in RStudio or Excel before trying to import will help</span>
+<span id="cb22-583"><a href="#cb22-583" aria-hidden="true" tabindex="-1"></a>    you determine the format and delimiter used.</span>
+<span id="cb22-584"><a href="#cb22-584" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>To summarising data in more than one group, we use <span class="in">`group_by()`</span> then</span>
+<span id="cb22-585"><a href="#cb22-585" aria-hidden="true" tabindex="-1"></a>    <span class="in">`summarise()`</span> with functions like <span class="in">`mean()`</span>, <span class="in">`sd()`</span> and <span class="in">`length()`</span>.</span>
+<span id="cb22-586"><a href="#cb22-586" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>We build plots using <span class="in">`ggplot()`</span> and add layers such as</span>
+<span id="cb22-587"><a href="#cb22-587" aria-hidden="true" tabindex="-1"></a>    <span class="in">`geom_point()`</span> and <span class="in">`geom_errorbar()`</span>. Axes can be customised axes</span>
+<span id="cb22-588"><a href="#cb22-588" aria-hidden="true" tabindex="-1"></a>    using <span class="in">`scale_x_####()`</span> or <span class="in">`scale_y_####()`</span>and <span class="in">`theme_classic()`</span></span>
+<span id="cb22-589"><a href="#cb22-589" aria-hidden="true" tabindex="-1"></a>    makes the plot look more those in a scientific report.</span>
+<span id="cb22-590"><a href="#cb22-590" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Save plots made with **`ggplot2`** with <span class="in">`ggsave()`</span>.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Rand, E. (2025). Computational Analysis for Bioscientists<br>
+(Version 0.2) https://3mmarand.github.io/comp4biosci/</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/3mmaRand/comp4biosci/edit/main/import-to-report.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer><script>
+document.addEventListener("DOMContentLoaded", function() {
+  // grab all links under “Other Links” in the right-hand TOC
+  const links = document.querySelectorAll('.quarto-other-links ul li a');
+  links.forEach(function(a) {
+    // find the one whose text is exactly “Make a suggestion”
+    if (a.textContent.trim() === 'Make a suggestion') {
+      const pageUrl   = encodeURIComponent(window.location.href);
+      const pageTitle = encodeURIComponent(document.title);
+      a.href = 'https://github.com/3mmaRand/comp4biosci/issues/new'
+             + '?title=' + pageTitle
+             + '&body='  + pageUrl;
+      a.target = '_blank';
+    }
+  });
+});
+</script><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+</body></html>
