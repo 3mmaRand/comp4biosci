@@ -2,10 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.30">
+<meta name="generator" content="quarto-1.9.38">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>18&nbsp; Association: Correlation and Contingency – Computational Analysis for Bioscientists</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -56,7 +59,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -89,14 +91,14 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-7a3e59189d9f0ecca6f4f741a2329820.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2ee26349945d0c4eadaece612797c059.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a6bd9b1d87aa0ae02b978c5d45a3666.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-fcb2d27e7215aae36f726843a3d63993.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2a6bd9b1d87aa0ae02b978c5d45a3666.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-45c5d498b08e9400af60c638f13658fe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-235ce19765b56125a6539188bd174cdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-185e137051f46828f8cafeff55c97b81.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-8086d1d3085e96b4c20956488afd56fb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-185e137051f46828f8cafeff55c97b81.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
@@ -130,7 +132,7 @@ div.csl-indent {
     document.body.classList.add('hypothesis-enabled');
   });
 </script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
     // MathJax Typeset
@@ -141,7 +143,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -622,7 +624,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Draft
+<span class="screen-reader-only">Note</span>Draft
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -711,24 +713,24 @@ Draft
 <p>The data are in an excel file so we will need the <strong><code>readxl</code></strong> <span class="citation" data-cites="readxl">(<a href="references.html#ref-readxl" role="doc-biblioref">Wickham and Bryan 2025</a>)</span> package.</p>
 <p>Load the package:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Find out the names of the sheets in the excel file:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html">excel_sheets</a></span><span class="op">(</span><span class="st">"data-raw/seeds-dataset.xlsx"</span><span class="op">)</span></span>
-<span><span class="co">## [1] "seeds_dataset"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html">excel_sheets</a></span><span class="op">(</span><span class="st">"data-raw/seeds-dataset.xlsx"</span><span class="op">)</span></span>
+<span><span class="co">## [1] "seeds_dataset"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There is only one sheet called <code>seeds_dataset</code>.</p>
 <p>Import the data:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seeds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"data-raw/seeds-dataset.xlsx"</span>,</span>
-<span>                    sheet <span class="op">=</span> <span class="st">"seeds_dataset"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">seeds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_excel</a></span><span class="op">(</span><span class="st">"data-raw/seeds-dataset.xlsx"</span>,</span>
+<span>                    sheet <span class="op">=</span> <span class="st">"seeds_dataset"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note that we could have omitted the <code>sheet</code> argument because there is only one sheet in the Excel file. However, it is good practice to be explicit.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table caption-top table-sm table-striped small">
 <thead><tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">area</th>
 <th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">perimeter</th>
@@ -1383,9 +1385,9 @@ Draft
 </ul>
 <p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span>, y <span class="op">=</span> <span class="va">kernel_width</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-seeds-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-seeds-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1401,11 +1403,11 @@ Draft
 <span class="header-section-number">18.4.2</span> Check assumptions</h3>
 <p>We can see from <a href="#fig-seeds-rough" class="quarto-xref">Figure&nbsp;<span>18.2</span></a> that the relationship between <code>compactness</code> and <code>kernel_width</code> is roughly linear. This is a good sign for using Pearson’s correlation coefficient.</p>
 <p>Our next check is to use common sense: both variables are continuous and we would expect them to be normally distributed. We can then plot histograms to examine the distributions (See <a href="#fig-hist" class="quarto-xref">Figure&nbsp;<span>18.3</span></a>).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">kernel_width</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">geom_histogram</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-hist" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
@@ -1437,20 +1439,20 @@ Draft
 <p>The distributions of the two variables are slightly skewed but do not seem too different from a normal distribution.</p>
 <p>Finally, we can use the Shapiro-Wilk test to test for normality.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">seeds</span><span class="op">$</span><span class="va">compactness</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">seeds</span><span class="op">$</span><span class="va">compactness</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  seeds$compactness</span></span>
-<span><span class="co">## W = 0.99, p-value = 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.99, p-value = 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">seeds</span><span class="op">$</span><span class="va">kernel_width</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="va">seeds</span><span class="op">$</span><span class="va">kernel_width</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Shapiro-Wilk normality test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  seeds$kernel_width</span></span>
-<span><span class="co">## W = 0.99, p-value = 0.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## W = 0.99, p-value = 0.8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <em>p</em>-values are greater than 0.05 so these tests of the normality assumption are not significant. Note that “not significant” means not significantly different from a normal distribution. It does not mean definitely normally distributed.</p>
 <p>It is not unreasonable to continue with the Pearson’s correlation coefficient. However, later we will also use the Spearman’s rank correlation coefficient, a non-parametric method which has fewer assumptions. Spearman’s rank correlation is a more conservative approach.</p>
@@ -1459,7 +1461,7 @@ Draft
 </h3>
 <p>We can carry out a Pearson’s correlation test with <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>, <span class="op">~</span> <span class="va">compactness</span> <span class="op">+</span> <span class="va">kernel_width</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>, <span class="op">~</span> <span class="va">compactness</span> <span class="op">+</span> <span class="va">kernel_width</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Pearson's product-moment correlation</span></span>
 <span><span class="co">## </span></span>
@@ -1470,7 +1472,7 @@ Draft
 <span><span class="co">##  0.5118 0.7795</span></span>
 <span><span class="co">## sample estimates:</span></span>
 <span><span class="co">##    cor </span></span>
-<span><span class="co">## 0.6666</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## 0.6666</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s is the default test so we do not need to specify it.</p>
 <p>What do all these results mean?</p>
@@ -1481,14 +1483,14 @@ Draft
 </section><section id="report" class="level3" data-number="18.4.4"><h3 data-number="18.4.4" class="anchored" data-anchor-id="report">
 <span class="header-section-number">18.4.4</span> Report</h3>
 <p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = 0.67) between compactness and kernel width (Pearson’s: <em>t</em> = 7.374; <em>df</em> = 68; <em>p</em>-value &lt; 0.0001). See <a href="#fig-correlation-pears" class="quarto-xref">Figure&nbsp;<span>18.4</span></a>.</p>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>,</span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">seeds</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">compactness</span>, y <span class="op">=</span> <span class="va">kernel_width</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Diameter (mm)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Compactness"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">0.85</span>,  y <span class="op">=</span> <span class="fl">3.6</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.67; "</span><span class="op">~</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"&lt; 0.001"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div id="fig-correlation-pears" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-correlation-pears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell">
@@ -1511,12 +1513,12 @@ Draft
 <span class="header-section-number">18.4.6</span> Import and explore</h3>
 <p>Import the data from a csv file:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bp_kidney</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/blood-pressure-kidney-function.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bp_kidney</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data-raw/blood-pressure-kidney-function.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; ">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table caption-top table-sm table-striped small">
 <thead><tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">SBP</th>
 <th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">eGFR</th>
@@ -1578,9 +1580,9 @@ Draft
 <p>These data are formatted usefully for analysis using correlation and plotting. We will create a rough plot of our data (See <a href="#fig-kidney-rough" class="quarto-xref">Figure&nbsp;<span>18.5</span></a>).</p>
 <p>Scatter plots (<code>geom_point()</code>) are a good choice for exploratory plotting with data like these.</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">SBP</span>, y <span class="op">=</span> <span class="va">eGFR</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fig-kidney-rough" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-kidney-rough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1598,7 +1600,7 @@ Draft
 </h3>
 <p>We can carry out a Spearman’s rank correlation test with <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>, <span class="op">~</span> <span class="va">SBP</span> <span class="op">+</span> <span class="va">eGFR</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>, <span class="op">~</span> <span class="va">SBP</span> <span class="op">+</span> <span class="va">eGFR</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Spearman's rank correlation rho</span></span>
 <span><span class="co">## </span></span>
@@ -1607,7 +1609,7 @@ Draft
 <span><span class="co">## alternative hypothesis: true rho is not equal to 0</span></span>
 <span><span class="co">## sample estimates:</span></span>
 <span><span class="co">##     rho </span></span>
-<span><span class="co">## -0.8392</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## -0.8392</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A variable is not being explained in this case so we do not need to include a response variable. Pearson’s is the default test so we need to specify <code>method = "spearman"</code>.</p>
 <p>What do all these results mean?</p>
@@ -1619,7 +1621,7 @@ Draft
 <span class="header-section-number">18.4.8</span> Report</h3>
 <p>. SBP is measured in mmHg and represents the force of blood against artery walls when the heart beats. eGFR is measured in</p>
 <p>There was a significant positive correlation (<span class="math inline">\(r\)</span> = -0.8) between systolic blood pressure and estimated glomerular filtration rate (Spearman’s rank correlation: <em>S</em> = 526; <em>n</em> = 12; <em>p</em>-value = 0.0012). See <a href="#fig-correlation-spears" class="quarto-xref">Figure&nbsp;<span>18.6</span></a>.</p>
-<details class="code-fold"><summary>Code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bp_kidney</span>,</span>
 <span>       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">SBP</span>, y <span class="op">=</span> <span class="va">eGFR</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Estimated GFR (mL/min/1.73m²)"</span>,</span>
@@ -1628,7 +1630,7 @@ Draft
 <span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Systolic blood pressure (mmHg)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">annotate</span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">120</span>,  y <span class="op">=</span> <span class="fl">10</span>, </span>
 <span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu">italic</span><span class="op">(</span><span class="va">r</span><span class="op">)</span><span class="op">~</span><span class="st">"= -0.8; "</span><span class="op">~</span><span class="fu">italic</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">~</span><span class="st">"= 0.0012"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div id="fig-correlation-spears" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-correlation-spears-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell">
@@ -1652,8 +1654,7 @@ Draft
 Table&nbsp;18.1: Food preferences of three pig breeds
 </figcaption><div aria-describedby="tbl-food-pref-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Food preferences of three pig breeds</caption>
+<table class="table cell caption-top table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th"></th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">welsh</th>
@@ -1690,7 +1691,7 @@ Table&nbsp;18.1: Food preferences of three pig breeds
 <p>For a contingency chi squared test, the inbuilt chi-squared test can be used but we need to to structure our data as a 3 x 3 table. The <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function is useful here and we can label the rows and columns to help us interpret the results.</p>
 <p>Put the data into a matrix:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create the data</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># create the data</span></span>
 <span><span class="va">food_pref</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">19</span>, <span class="fl">22</span>,</span>
 <span>                      <span class="fl">21</span>, <span class="fl">16</span>, <span class="fl">8</span>,</span>
 <span>                      <span class="fl">7</span>, <span class="fl">12</span>, <span class="fl">11</span><span class="op">)</span>,</span>
@@ -1700,50 +1701,50 @@ Table&nbsp;18.1: Food preferences of three pig breeds
 <span><span class="co">##      [,1] [,2] [,3]</span></span>
 <span><span class="co">## [1,]   11   19   22</span></span>
 <span><span class="co">## [2,]   21   16    8</span></span>
-<span><span class="co">## [3,]    7   12   11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## [3,]    7   12   11</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The <code>byrow</code> and <code>nrow</code> arguments allow us to lay out the data in the matrix as we need. To name the rows and columns we can use the <code><a href="https://rdrr.io/r/base/dimnames.html">dimnames()</a></code> function. We need to create a “list” object to hold the names of the rows and columns and then assign this to the matrix object. The names of rows are columns are called the “dimension names” in a matrix.</p>
 <p>Make a list for the two vectors of names:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># </span></span>
 <span></span>
 <span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>food <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cabbage"</span>,</span>
 <span>                      <span class="st">"sugarbeet"</span>,</span>
 <span>                      <span class="st">"swede"</span><span class="op">)</span>,</span>
 <span>             breed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"welsh"</span>,</span>
 <span>                       <span class="st">"tamworth"</span>,</span>
-<span>                       <span class="st">"essex"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>                       <span class="st">"essex"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The vectors can be of different lengths in a list which would be important if we had four breeds and only two foods, for example.</p>
 <p>Now assign the list to the dimension names in the matrix:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">vars</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">vars</span></span>
 <span></span>
 <span><span class="va">food_pref</span></span>
 <span><span class="co">##            breed</span></span>
 <span><span class="co">## food        welsh tamworth essex</span></span>
 <span><span class="co">##   cabbage      11       19    22</span></span>
 <span><span class="co">##   sugarbeet    21       16     8</span></span>
-<span><span class="co">##   swede         7       12    11</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">##   swede         7       12    11</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The data are now in a form that can be used in the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  Pearson's Chi-squared test</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## data:  food_pref</span></span>
-<span><span class="co">## X-squared = 11, df = 4, p-value = 0.03</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">## X-squared = 11, df = 4, p-value = 0.03</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The test is significant since the <em>p</em>-value is less than 0.05. We have evidence of a preference for particular foods by different breeds. But in what way? We need to know the “direction of the effect” <em>i.e.,</em> Who likes what?</p>
 <p>The <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function has a <code>residuals</code> argument that can be used to calculate the residuals. These are the differences between the observed and expected values. The expected values are the values that would be expected if there was no association between the rows and columns. The residuals are standardised.</p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span><span class="op">$</span><span class="va">residuals</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">food_pref</span><span class="op">)</span><span class="op">$</span><span class="va">residuals</span></span>
 <span><span class="co">##            breed</span></span>
 <span><span class="co">## food         welsh tamworth   essex</span></span>
 <span><span class="co">##   cabbage   -1.243 -0.05564  1.2722</span></span>
 <span><span class="co">##   sugarbeet  1.932 -0.16015 -1.7126</span></span>
-<span><span class="co">##   swede     -0.729  0.26940  0.4225</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">##   swede     -0.729  0.26940  0.4225</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Where the residuals are positive, the observed value is greater than the expected value and where they are negative, the observed value is less than the expected value. Our results show the Welsh pigs much prefer sugarbeet and strongly dislike cabbage. The Essex pigs prefer cabbage and dislike sugarbeet and the Essex pigs slightly prefer swede but have less strong likes and dislikes.</p>
 <p>The degrees of freedom are: (rows - 1)(cols - 1) = 2 * 2 = 4.</p>
@@ -1766,12 +1767,12 @@ Table&nbsp;18.1: Food preferences of three pig breeds
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-R-core" class="csl-entry" role="listitem">
-R Core Team. 2025. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+R Core Team. 2025. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
 <div id="ref-tidyverse" class="csl-entry" role="listitem">
-Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+Wickham, Hadley, Mara Averick, Jennifer Bryan, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
 </div>
 <div id="ref-readxl" class="csl-entry" role="listitem">
 Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a href="https://doi.org/10.32614/CRAN.package.readxl">https://doi.org/10.32614/CRAN.package.readxl</a>.
@@ -1841,13 +1842,14 @@ Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -2255,7 +2257,7 @@ Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb19" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Association: Correlation and Contingency {#sec-association}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Association: Correlation and Contingency {#sec-association}</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: "asis"</span></span>
@@ -2918,7 +2920,7 @@ Wickham, Hadley, and Jennifer Bryan. 2025. <em>Readxl: Read Excel Files</em>. <a
 <span id="cb19-709"><a href="#cb19-709" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>In R we use <span class="in">`cor.test()`</span> is used for correlation tests and</span>
 <span id="cb19-710"><a href="#cb19-710" aria-hidden="true" tabindex="-1"></a>    <span class="in">`chisq.test()`</span> for chi-squared contingency tests</span>
 <span id="cb19-711"><a href="#cb19-711" aria-hidden="true" tabindex="-1"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">

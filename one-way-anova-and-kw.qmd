@@ -10,159 +10,145 @@ status("complete")
 
 ## Overview
 
-In the last chapter, we learnt how to use and interpret the general
-linear model when the *x* variable was categorical with two groups. You
-will now extend that to situations when there are more than two groups.
-This is often known as the one-way ANOVA (**an**alysis **o**f
-**var**iance). We will also learn about the Kruskal-Wallis test
-[@kruskal1952], a non-parametric test that can be used when the
-assumptions of the general linear model are not met.
+In the last chapter, we learnt how to use and interpret the general linear model
+when the *x* variable was categorical with two groups. You will now extend that
+to situations when there are more than two groups. This is often known as the
+one-way ANOVA (**an**alysis **o**f **var**iance). We will also learn about the
+Kruskal-Wallis test [@kruskal1952], a non-parametric test that can be used when
+the assumptions of the general linear model are not met.
 
-We use `lm()` to carry out a one-way ANOVA. General linear models
-applied with `lm()` are based on the normal distribution and known as
-parametric tests because they use the parameters of the normal
-distribution (the mean and standard deviation) to determine if an effect
-is significant. Null hypotheses are about a mean or difference between
-means. The assumptions need to be met for the *p*-values generated to be
-accurate.
+We use `lm()` to carry out a one-way ANOVA. General linear models applied with
+`lm()` are based on the normal distribution and known as parametric tests
+because they use the parameters of the normal distribution (the mean and
+standard deviation) to determine if an effect is significant. Null hypotheses
+are about a mean or difference between means. The assumptions need to be met for
+the *p*-values generated to be accurate.
 
-If the assumptions are not met, we can use the non-parametric equivalent
-known as the Kruskal-Wallis test. Like other non-parametric tests, the
-Kruskal-Wallis test :
+If the assumptions are not met, we can use the non-parametric equivalent known
+as the Kruskal-Wallis test. Like other non-parametric tests, the Kruskal-Wallis
+test :
 
--   is based on the ranks of values rather than the actual values
-    themselves
--   has a null hypothesis about the mean rank rather than the mean
--   has fewer assumptions and can be used in more situations
--   tends to be less powerful than a parametric test when the
-    assumptions are met
+- is based on the ranks of values rather than the actual values themselves
+- has a null hypothesis about the mean rank rather than the mean
+- has fewer assumptions and can be used in more situations
+- tends to be less powerful than a parametric test when the assumptions are met
 
 <!-- Why not do several two-sample tests? ANOVA terminology and concepts -->
 
-The process of using `lm()` to conduct a one-way ANOVA is very similar
-to using `lm()` for a two-sample *t*-test, but with an important
-distinction. When we obtain a significant effect of our explanatory
-variable, it only indicates that at least two group means differ—it does
-not specify which ones. To determine where the differences lie, we need
-a **post-hoc test**.
+The process of using `lm()` to conduct a one-way ANOVA is very similar to using
+`lm()` for a two-sample *t*-test, but with an important distinction. When we
+obtain a significant effect of our explanatory variable, it only indicates that
+at least two group means differ—it does not specify which ones. To determine
+where the differences lie, we need a **post-hoc test**.
 
-A post-hoc ("after this") test is performed after a significant ANOVA
-result. There are several options for post-hoc tests, and we will use
-Tukey's HSD (honestly significant difference) test [@tukey1949],
-implemented in the **`emmeans`** [@emmeans] package.
+A post-hoc ("after this") test is performed after a significant ANOVA result.
+There are several options for post-hoc tests, and we will use Tukey's HSD
+(honestly significant difference) test [@tukey1949], implemented in the
+**`emmeans`** [@emmeans] package.
 
-Post-hoc tests adjust *p*-values to account for multiple comparisons. A
-Type I error occurs when we incorrectly reject a true null hypothesis,
-with a probability of 0.05. Conducting multiple comparisons increases
-the likelihood of obtaining a significant result by chance. The post-hoc
-test corrects for this increased risk, ensuring more reliable
-conclusions.
+Post-hoc tests adjust *p*-values to account for multiple comparisons. A Type I
+error occurs when we incorrectly reject a true null hypothesis, with a
+probability of 0.05. Conducting multiple comparisons increases the likelihood of
+obtaining a significant result by chance. The post-hoc test corrects for this
+increased risk, ensuring more reliable conclusions.
 
 ### Model assumptions
 
-The assumptions for a general linear model where the explanatory
-variable has two or more groups, are the same as for two groups: the
-residuals are normally distributed and have homogeneity of variance.
+The assumptions for a general linear model where the explanatory variable has
+two or more groups, are the same as for two groups: the residuals are normally
+distributed and have homogeneity of variance.
 
-If we have a continuous response and a categorical explanatory variable
-with three or more groups, we usually apply the general linear model
-with `lm()` and *then* check the assumptions, however, we can sometimes
-tell when a non-parametric test would be more appropriate before that:
+If we have a continuous response and a categorical explanatory variable with
+three or more groups, we usually apply the general linear model with `lm()` and
+*then* check the assumptions, however, we can sometimes tell when a
+non-parametric test would be more appropriate before that:
 
--   Use common sense - the response should be continuous (or nearly
-    continuous, see Ideas about data: Theory and practice (see
-    @sec-ideas-about-data-theory-practice). Consider whether you would
-    expect the response to be continuous
--   There should decimal places and few repeated values.
+- Use common sense - the response should be continuous (or nearly continuous,
+  see Ideas about data: Theory and practice (see
+  @sec-ideas-about-data-theory-practice). Consider whether you would expect the
+  response to be continuous
+- There should decimal places and few repeated values.
 
-To examine the assumptions after fitting the linear model, we plot the
-residuals and test them against the normal distribution in the same way
-as we did for single linear regression.
+To examine the assumptions after fitting the linear model, we plot the residuals
+and test them against the normal distribution in the same way as we did for
+single linear regression.
 
 ### Reporting
 
-In reporting the result of one-way ANOVA or Kruskal-Wallis test, we
-include:
+In reporting the result of one-way ANOVA or Kruskal-Wallis test, we include:
 
 1.  the significance of the effect
 
-    -   parametric (GLM): The *F*-statistic and *p*-value
-    -   non-parametric (Kruskal-Wallis): The Chi-squared statistic and
-        *p*-value
+    - parametric (GLM): The *F*-statistic and *p*-value
+    - non-parametric (Kruskal-Wallis): The Chi-squared statistic and *p*-value
 
-2.  the direction of effect - which mean/median is greater in a the
-    pairwise commparison
+2.  the direction of effect - which mean/median is greater in a the pairwise
+    commparison
 
-    -   Post-hoc test
+    - Post-hoc test
 
 3.  the magnitude of effect - how big is the difference between the
     means/medians
 
-    -   parametric: the means and standard errors for each group
-    -   non-parametric: the medians for each group
+    - parametric: the means and standard errors for each group
+    - non-parametric: the medians for each group
 
-Figures should reflect what you have said in the statements. Ideally
-they should show both the raw data and the statistical model:
+Figures should reflect what you have said in the statements. Ideally they should
+show both the raw data and the statistical model:
 
--   parametric: means and standard errors
--   non-parametric: boxplots with medians and interquartile range
+- parametric: means and standard errors
+- non-parametric: boxplots with medians and interquartile range
 
 We will explore all of these ideas with some examples.
 
 ## 🎬 Your turn!
 
-If you want to code along you will need to start a new RStudio Project
-(see [@sec-workflow-rstudio-creating-rsp]), add a `data-raw` folder and
-open a new script. You will also need to load the **`tidyverse`**
-package [@tidyverse].
+If you want to code along you will need to start a new RStudio Project (see
+[@sec-workflow-rstudio-creating-rsp]), add a `data-raw` folder and open a new
+script. You will also need to load the **`tidyverse`** package [@tidyverse].
 
 ## One-way ANOVA
 
-Researchers wanted the determine the best growth medium for growing
-bacterial cultures. They grew bacterial cultures on three different
-media formulations and measured the diameter of the colonies. The three
-formulations were:
+Researchers wanted the determine the best growth medium for growing bacterial
+cultures. They grew bacterial cultures on three different media formulations and
+measured the diameter of the colonies. The three formulations were:
 
--   Control - a generic medium as formulated by the manufacturer
--   sugar added - the generic medium with added sugar
--   sugar and amino acids added - the generic medium with added sugar
-    and amino acids
+- Control - a generic medium as formulated by the manufacturer
+- sugar added - the generic medium with added sugar
+- sugar and amino acids added - the generic medium with added sugar and amino
+  acids
 
 The data are in [culture.csv](data-raw/culture.csv).
 
-In this scenario, our null hypothesis, $H_0$, is that there is no
-difference in colony diameter between the three groups or that group
-membership has no effect on diameter. This is written as:
-$H_0: \beta_1 = \beta_2 = 0$
+In this scenario, our null hypothesis, $H_0$, is that there is no difference in
+colony diameter between the three groups or that group membership has no effect
+on diameter. This is written as: $H_0: \beta_1 = \beta_2 = 0$
 
-This means that none of the group means differ significantly from each
-other.
+This means that none of the group means differ significantly from each other.
 
-Another way of describing, $H_0$, is to say the variation caused by
-media is no greater than the the random background variation. This is
-expressed with the ***F*****-statistic**, a variance ratio that compares
-the variance explained by the model to the variance within groups. If
-$H_0$ is true, the variance between groups is no greater than the
-variance within groups. That is, *F*, $\frac{Var(between)}{Var(within)}$
-equals 1. This is written as: $H_0: F = 1$
+Another way of describing, $H_0$, is to say the variation caused by media is no
+greater than the the random background variation. This is expressed with the
+***F*****-statistic**, a variance ratio that compares the variance explained by
+the model to the variance within groups. If $H_0$ is true, the variance between
+groups is no greater than the variance within groups. That is, *F*,
+$\frac{Var(between)}{Var(within)}$ equals 1. This is written as: $H_0: F = 1$
 
-Both versions of the null hypothesis describe the same idea: that here
-is **no real difference** between the groups.
+Both versions of the null hypothesis describe the same idea: that here is **no
+real difference** between the groups.
 
--   **Using** $\beta$ coefficients: This version focuses on the **linear
-    model**. It says that the group variable has no effect, meaning all
-    groups have the same average value. If the coefficients ($\beta_1$,
-    $\beta_2$, etc.) are **zero**, then the model isn’t capturing any
-    meaningful differences between groups.
+- **Using** $\beta$ coefficients: This version focuses on the **linear model**.
+  It says that the group variable has no effect, meaning all groups have the
+  same average value. If the coefficients ($\beta_1$, $\beta_2$, etc.) are
+  **zero**, then the model isn’t capturing any meaningful differences between
+  groups.
 
--   **Using the F-statistic:** This version looks at **variance**. It
-    compares the variation **between groups** to the variation **within
-    groups**. If the F-value is **close to 1**, it means the differences
-    between groups are about the same as random variation within groups,
-    so there’s no real effect.
+- **Using the F-statistic:** This version looks at **variance**. It compares the
+  variation **between groups** to the variation **within groups**. If the
+  F-value is **close to 1**, it means the differences between groups are about
+  the same as random variation within groups, so there’s no real effect.
 
-Both approaches test the same hypothesis—if we reject the null, we
-conclude that at least one group is different from the others.
+Both approaches test the same hypothesis—if we reject the null, we conclude that
+at least one group is different from the others.
 
 ### Import and explore
 
@@ -179,27 +165,25 @@ knitr::kable(culture) |>
   kableExtra::scroll_box(height = "200px")
 ```
 
-The Response variable is colony diameters in millimetres and we would
-expect it to be continuous. The Explanatory variable is type of media
-and is categorical with 3 groups. It is known “one-way ANOVA” or
-“one-factor ANOVA” because there is only one explanatory variable. It
-would still be one-way ANOVA if we had 4, 20 or 100 different types of
-media.
+The Response variable is colony diameters in millimetres and we would expect it
+to be continuous. The Explanatory variable is type of media and is categorical
+with 3 groups. It is known “one-way ANOVA” or “one-factor ANOVA” because there
+is only one explanatory variable. It would still be one-way ANOVA if we had 4,
+20 or 100 different types of media.
 
-These data are in tidy format [@Wickham2014-nl] - all the diameter
-values are in one column with another column indicating the media. This
-means they are well formatted for analysis and plotting.
+These data are in tidy format [@Wickham2014-nl] - all the diameter values are in
+one column with another column indicating the media. This means they are well
+formatted for analysis and plotting.
 
-In the first instance it is sensible to create a rough plot of our data.
-This is to give us an overview and help identify if there are any issues
-like missing or extreme values. It also gives us idea what we are
-expecting from the analysis which will make it easier for us to identify
-if we make some mistake in applying that analysis.
+In the first instance it is sensible to create a rough plot of our data. This is
+to give us an overview and help identify if there are any issues like missing or
+extreme values. It also gives us idea what we are expecting from the analysis
+which will make it easier for us to identify if we make some mistake in applying
+that analysis.
 
 Violin plots (`geom_violin()`, see @fig-culture-rough), box plots
-(`geom_boxplot()`) or scatter plots (`geom_point()`) all make good
-choices for exploratory plotting and it does not matter which of these
-you choose.
+(`geom_boxplot()`) or scatter plots (`geom_point()`) all make good choices for
+exploratory plotting and it does not matter which of these you choose.
 
 ::: {#fig-culture-rough}
 ```{r}
@@ -209,23 +193,22 @@ ggplot(data = culture,
   geom_violin()
 ```
 
-**The diameters of bacterial colonies when grown in one of three
-media**. A violin plot is an alternative to a boxplot for getting an
-overview of our data before we begin analysis. Quick graphical overviews
-help us identify any issues such as missing or extreme values. It also
-tells us what to expect from the analysis. Adding both sugar and amino
-acids to the medium seems to increase the colony diameter.
+**The diameters of bacterial colonies when grown in one of three media**. A
+violin plot is an alternative to a boxplot for getting an overview of our data
+before we begin analysis. Quick graphical overviews help us identify any issues
+such as missing or extreme values. It also tells us what to expect from the
+analysis. Adding both sugar and amino acids to the medium seems to increase the
+colony diameter.
 :::
 
 R will order the groups alphabetically by default.
 
-The figure suggests that adding sugar and amino acids to the medium
-increases the diameter of the colonies.
+The figure suggests that adding sugar and amino acids to the medium increases
+the diameter of the colonies.
 
-Summarising the data for each medium is the next sensible step. The most
-useful summary statistics are the means, standard deviations, sample
-sizes and standard errors. I recommend the `group_by()` and
-`summarise()` approach:
+Summarising the data for each medium is the next sensible step. The most useful
+summary statistics are the means, standard deviations, sample sizes and standard
+errors. I recommend the `group_by()` and `summarise()` approach:
 
 ```{r}
 culture_summary <- culture |> 
@@ -278,8 +261,8 @@ suaa_n <- culture_summary |>
 
 ```
 
-We have saved the results to `culture_summary` so that we can use the
-means and standard errors in our plot later.
+We have saved the results to `culture_summary` so that we can use the means and
+standard errors in our plot later.
 
 ```{r}
 culture_summary
@@ -301,58 +284,53 @@ summary(mod)
 
 The Estimates in the Coefficients table give:
 
--   `(Intercept)` known as $\beta_0$. The mean of the control group
-    (@fig-one-way-anova-lm-model). Just as the intercept is the value of
-    the *y* (the response) when the value of *x* (the explanatory) is
-    zero in a simple linear regression, this is the value of `diameter`
-    when the `medium` is at its first level. The order of the levels is
-    alphabetical by default.
+- `(Intercept)` known as $\beta_0$. The mean of the control group
+  (@fig-one-way-anova-lm-model). Just as the intercept is the value of the *y*
+  (the response) when the value of *x* (the explanatory) is zero in a simple
+  linear regression, this is the value of `diameter` when the `medium` is at its
+  first level. The order of the levels is alphabetical by default.
 
--   `mediumsugar added` known as $\beta_1$. This is what needs to be
-    added to the mean of the control group to get the mean of the
-    'medium sugar added' group (@fig-two-sample-lm-model). Just as the
-    slope is amount of *y* that needs to be added for each unit of *x*
-    in a simple linear regression, this is the amount of `diameter` that
-    needs to be added when the `medium` goes from its first level to its
-    second level (*i.e.*, one unit). The `mediumsugar added` estimate is
-    positive so the the 'medium sugar added' group mean is higher than
-    the control group mean
+- `mediumsugar added` known as $\beta_1$. This is what needs to be added to the
+  mean of the control group to get the mean of the 'medium sugar added' group
+  (@fig-two-sample-lm-model). Just as the slope is amount of *y* that needs to
+  be added for each unit of *x* in a simple linear regression, this is the
+  amount of `diameter` that needs to be added when the `medium` goes from its
+  first level to its second level (*i.e.*, one unit). The `mediumsugar added`
+  estimate is positive so the the 'medium sugar added' group mean is higher than
+  the control group mean
 
--   `mediumsugar and amino acids added` known as $\beta_2$ is what needs
-    to be added to the mean of the control group to get the mean of the
-    'medium sugar and amino acids added' group
-    (@fig-two-sample-lm-model). Note that it is the amount added to the
-    *intercept* (the control in this case). The
-    `mediumsugar and amino acids added` estimate is positive so the the
-    'medium sugar and amino acids added' group mean is higher than the
-    control group mean
+- `mediumsugar and amino acids added` known as $\beta_2$ is what needs to be
+  added to the mean of the control group to get the mean of the 'medium sugar
+  and amino acids added' group (@fig-two-sample-lm-model). Note that it is the
+  amount added to the *intercept* (the control in this case). The
+  `mediumsugar and amino acids added` estimate is positive so the the 'medium
+  sugar and amino acids added' group mean is higher than the control group mean
 
-If we had more groups, we would have more estimates and all would be
-compared to the control group mean.
+If we had more groups, we would have more estimates and all would be compared to
+the control group mean.
 
-The *p*-values on each line are tests of whether that coefficient is
-different from zero.
+The *p*-values on each line are tests of whether that coefficient is different
+from zero.
 
--   `(Intercept)                     10.0700     0.2930  34.370  < 2e-16 ***`
-    tells us that the control group mean is significantly different from
-    zero. This is not a very interesting, it just means the control
-    colonies have a diameter.
--   `mediumsugar added                 0.1700     0.4143   0.410  0.68483`
-    tells us that the 'medium sugar added' group mean is not
-    significantly different from the control group mean.
--   `mediumsugar and amino acids added   1.3310     0.4143   3.212  0.00339 **`
-    tells us that the 'medium sugar and amino acids added' group mean
-    *is* significantly different from the control group mean.
+- `(Intercept)                     10.0700     0.2930  34.370  < 2e-16 ***`
+  tells us that the control group mean is significantly different from zero.
+  This is not a very interesting, it just means the control colonies have a
+  diameter.
+- `mediumsugar added                 0.1700     0.4143   0.410  0.68483` tells
+  us that the 'medium sugar added' group mean is not significantly different
+  from the control group mean.
+- `mediumsugar and amino acids added   1.3310     0.4143   3.212  0.00339 **`
+  tells us that the 'medium sugar and amino acids added' group mean *is*
+  significantly different from the control group mean.
 
-Note: none of this output tells us whether the medium sugar and amino
-acids added' group mean *is* significantly different from the 'medium
-sugar added' group mean. We need to do a post-hoc test for that.
+Note: none of this output tells us whether the medium sugar and amino acids
+added' group mean *is* significantly different from the 'medium sugar added'
+group mean. We need to do a post-hoc test for that.
 
-The *F* value and *p*-value in the last line are a test of whether the
-model as a whole explains a significant amount of variation in the
-response variable.
+The *F* value and *p*-value in the last line are a test of whether the model as
+a whole explains a significant amount of variation in the response variable.
 
-::: {#fig-two-sample-lm-model}
+::: {#fig-one-way-anova-lm-model}
 ```{r}
 #| echo: false
 
@@ -422,19 +400,18 @@ theme_classic()
 
 ```
 
-**The a linear model fitted to the relationship between media and
-diameter**. In an one-way ANOVA model with three groups, the model has
-three coefficients (parameters) estimated from the data. The first
-estimate is the intercept which is the mean of the first group. The
-second estimate is the 'slope' to the second group which is what has to
-added to the intercept to get the second group mean. The third estimate
-is the 'slope' to the third group which is what has to added to the
-intercept to get the third group mean. Note that y axis starts at 15 to
+**The a linear model fitted to the relationship between media and diameter**. In
+an one-way ANOVA model with three groups, the model has three coefficients
+(parameters) estimated from the data. The first estimate is the intercept which
+is the mean of the first group. The second estimate is the 'slope' to the second
+group which is what has to added to the intercept to get the second group mean.
+The third estimate is the 'slope' to the third group which is what has to added
+to the intercept to get the third group mean. Note that y axis starts at 15 to
 create more space for the annotations.
 :::
 
-If you find this a bit overwhelming to read you can use the `anova()`
-function on the model object to get a simpler output:
+If you find this a bit overwhelming to read you can use the `anova()` function
+on the model object to get a simpler output:
 
 ```{r}
 anova(mod)
@@ -460,18 +437,18 @@ df_residuals <- mod_tidy |>
 
 ```
 
-The ANOVA is significant but this only tells us that growth medium
-matters, meaning at least two of the means differ. To find out which
-means differ, we need a post-hoc test.
+The ANOVA is significant but this only tells us that growth medium matters,
+meaning at least two of the means differ. To find out which means differ, we
+need a post-hoc test.
 
 ### Post-hoc testing
 
-A post-hoc ("after this") test is done after a significant ANOVA test.
-If the ANOVA is *not* significant, no post-hoc is needed.
+A post-hoc ("after this") test is done after a significant ANOVA test. If the
+ANOVA is *not* significant, no post-hoc is needed.
 
-There are several possible post-hoc tests and we will be using Tukey's
-HSD (honestly significant difference) test [@tukey1949] implemented in
-the **`emmeans`** [@emmeans] package.
+There are several possible post-hoc tests and we will be using Tukey's HSD
+(honestly significant difference) test [@tukey1949] implemented in the
+**`emmeans`** [@emmeans] package.
 
 We need to load the package:
 
@@ -504,32 +481,31 @@ p_suga_v_suaa <- ph_tidy |>
 
 ```
 
-Each row is a comparison between the two means in the 'contrast' column.
-The 'estimate' column is the difference between those means and the
-'p.value' indicates whether that difference is significant. In this
-case, two of the comparisons are significant:
+Each row is a comparison between the two means in the 'contrast' column. The
+'estimate' column is the difference between those means and the 'p.value'
+indicates whether that difference is significant. In this case, two of the
+comparisons are significant:
 
--   control - sugar and amino acids added with *p* = `r p_cont_v_suaa`
--   sugar added - sugar and amino acids added with *p* =
-    `r p_suga_v_suaa`
+- control - sugar and amino acids added with *p* = `r p_cont_v_suaa`
+- sugar added - sugar and amino acids added with *p* = `r p_suga_v_suaa`
 
-We have found that colony diameters are significantly greater when sugar
-and amino acids are added but that adding sugar alone does not
-significantly increase colony diameter.
+We have found that colony diameters are significantly greater when sugar and
+amino acids are added but that adding sugar alone does not significantly
+increase colony diameter.
 
 ### Check assumptions
 
-Check the assumptions: All general linear models assume the "residuals"
-are normally distributed and have "homogeneity" of variance.
+Check the assumptions: All general linear models assume the "residuals" are
+normally distributed and have "homogeneity" of variance.
 
-Our first check of these assumptions is to use common sense: diameter is
-a continuous and we would expect it to be normally distributed thus we
-would expect the residuals to be normally distributed thus we would
-expect the residuals to be normally distributed
+Our first check of these assumptions is to use common sense: diameter is a
+continuous and we would expect it to be normally distributed thus we would
+expect the residuals to be normally distributed thus we would expect the
+residuals to be normally distributed
 
-We then proceed by plotting residuals. The `plot()` function can be used
-to plot the residuals against the fitted values (See @fig-anova1-plot1).
-This is a good way to check for homogeneity of variance.
+We then proceed by plotting residuals. The `plot()` function can be used to plot
+the residuals against the fitted values (See @fig-anova1-plot1). This is a good
+way to check for homogeneity of variance.
 
 ::: {#fig-anova1-plot1}
 ```{r}
@@ -537,17 +513,15 @@ This is a good way to check for homogeneity of variance.
 plot(mod, which = 1)
 ```
 
-**Residuals against fitted values.** A plot of the residuals against the
-fitted values allows us to check the homogeneity of variance assumption.
-Here, the points are distributed similarly in each group. Any difference
-seems small but perhaps the residuals are more variable for the highest
-mean.
+**Residuals against fitted values.** A plot of the residuals against the fitted
+values allows us to check the homogeneity of variance assumption. Here, the
+points are distributed similarly in each group. Any difference seems small but
+perhaps the residuals are more variable for the highest mean.
 :::
 
 Perhaps the variance is higher for the highest mean?
 
-We can also use a histogram to check for normality (See
-@fig-anova1-plot2).
+We can also use a histogram to check for normality (See @fig-anova1-plot2).
 
 ::: {#fig-anova1-plot2}
 ```{r}
@@ -556,10 +530,10 @@ ggplot(mapping = aes(x = mod$residuals)) +
   geom_histogram(bins = 8)
 ```
 
-**Distribution of the residuals**. A histogram of the residuals allows
-us to check the normality assumption. Here, the distribution fairly is
-symmetrical and seems consistent with a normal distribution. This is a
-good sign for the assumption of normally distributed residuals.
+**Distribution of the residuals**. A histogram of the residuals allows us to
+check the normality assumption. Here, the distribution fairly is symmetrical and
+seems consistent with a normal distribution. This is a good sign for the
+assumption of normally distributed residuals.
 :::
 
 Finally, we can use the Shapiro-Wilk test to test for normality.
@@ -568,22 +542,21 @@ Finally, we can use the Shapiro-Wilk test to test for normality.
 shapiro.test(mod$residuals)
 ```
 
-The p-value is greater than 0.05 so this test of the normality
-assumption is not significant.
+The p-value is greater than 0.05 so this test of the normality assumption is not
+significant.
 
-Taken together, these results suggest that the assumptions of normality
-and homogeneity of variance are probably not violated.
+Taken together, these results suggest that the assumptions of normality and
+homogeneity of variance are probably not violated.
 
 ### Report
 
-There was a significant effect of media on the diameter of bacterial
-colonies (*F* = `r F_value`; *d.f.* = `r df_effect`, `r df_residuals`;
-*p* = `r p_value`). Post-hoc testing with Tukey's Honestly Significant
-Difference test [@tukey1949] revealed the colony diameters were
-significantly larger when grown with both sugar and amino acids
-($\bar{x} \pm s.e$: `r suaa_m` $\pm$ `r suaa_se` mm) than with neither
-(`r cont_m` $\pm$ `r cont_se` mm; *p* = `r p_cont_v_suaa`) or just sugar
-(`r suga_m` $\pm$ `r suga_se` mm; *p* = `r p_suga_v_suaa`). See
+There was a significant effect of media on the diameter of bacterial colonies
+(*F* = `r F_value`; *d.f.* = `r df_effect`, `r df_residuals`; *p* =
+`r p_value`). Post-hoc testing with Tukey's Honestly Significant Difference test
+[@tukey1949] revealed the colony diameters were significantly larger when grown
+with both sugar and amino acids ($\bar{x} \pm s.e$: `r suaa_m` $\pm$ `r suaa_se`
+mm) than with neither (`r cont_m` $\pm$ `r cont_se` mm; *p* = `r p_cont_v_suaa`)
+or just sugar (`r suga_m` $\pm$ `r suga_se` mm; *p* = `r p_suga_v_suaa`). See
 @fig-culture.
 
 ```{r}
@@ -635,16 +608,15 @@ ggplot() +
   theme_classic()
 ```
 
-**Medium affects bacterial colony diameter**. Ten replicate colonies
-were grown on three types of media: control, with sugar added and with
-both sugar and amino acids added. Error bars are means $\pm$ 1 standard
-error. There was a significant effect of media on the diameter of
-bacterial colonies (*F* = `r F_value`; *d.f.* = `r df_effect`,
-`r df_residuals`; *p* = `r p_value`)). Post-hoc testing with Tukey's
-Honestly Significant Difference test [@tukey1949] revealed the colony
-diameters were significantly larger when grown with both sugar and amino
-acids than with neither or just sugar. Data analysis was conducted in R
-[@R-core] with tidyverse packages [@tidyverse].
+**Medium affects bacterial colony diameter**. Ten replicate colonies were grown
+on three types of media: control, with sugar added and with both sugar and amino
+acids added. Error bars are means $\pm$ 1 standard error. There was a
+significant effect of media on the diameter of bacterial colonies (*F* =
+`r F_value`; *d.f.* = `r df_effect`, `r df_residuals`; *p* = `r p_value`)).
+Post-hoc testing with Tukey's Honestly Significant Difference test [@tukey1949]
+revealed the colony diameters were significantly larger when grown with both
+sugar and amino acids than with neither or just sugar. Data analysis was
+conducted in R [@R-core] with tidyverse packages [@tidyverse].
 :::
 
 # Kruskal-Wallis
@@ -653,20 +625,18 @@ Our examination of the assumptions revealed a possible violation of the
 assumption of homogeneity of variance. We might reasonably apply a
 non-parametric test to this data instead.
 
-The Kruskal-Wallis [@kruskal1952] is non-parametric equivalent of a
-one-way ANOVA. The general question you have about your data - do these
-groups differ (or does the medium effect diameter) - is the same, but
-one of more of the following is true:
+The Kruskal-Wallis [@kruskal1952] is non-parametric equivalent of a one-way
+ANOVA. The general question you have about your data - do these groups differ
+(or does the medium effect diameter) - is the same, but one of more of the
+following is true:
 
--   the response variable is not continuous
--   the residuals are not normally distributed
--   the sample size is too small to tell if they are normally
-    distributed.
--   the variance is not homogeneous
+- the response variable is not continuous
+- the residuals are not normally distributed
+- the sample size is too small to tell if they are normally distributed.
+- the variance is not homogeneous
 
-Summarising the data using the median and interquartile range is more
-aligned to the type of analysis than using means and standard
-deviations:
+Summarising the data using the median and interquartile range is more aligned to
+the type of analysis than using means and standard deviations:
 
 ```{r}
 culture_summary <- culture |> 
@@ -715,9 +685,9 @@ culture_summary
 
 ### Apply `kruskal.test()`
 
-We pass the dataframe and variables to `kruskal.test()` in the same way
-as we did for `lm()`. We give the data argument and a "formula" which
-says `diameter ~ medium` meaning "explain diameter by medium".
+We pass the dataframe and variables to `kruskal.test()` in the same way as we
+did for `lm()`. We give the data argument and a "formula" which says
+`diameter ~ medium` meaning "explain diameter by medium".
 
 ```{r}
 kruskal.test(data = culture, diameter ~ medium)
@@ -737,18 +707,18 @@ df <- krus_tidy |> pull(parameter)
 ```
 
 The result of the test is given on this line:
-`Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742`.
-`Chi-squared` is the test statistic. The *p*-value is less than 0.05
-meaning there is a significant effect of medium on diameter.
+`Kruskal-Wallis chi-squared = 8.1005, df = 2, p-value = 0.01742`. `Chi-squared`
+is the test statistic. The *p*-value is less than 0.05 meaning there is a
+significant effect of medium on diameter.
 
-Notice that the *p*-value is a little larger than for the ANOVA. This is
-because non-parametric tests are generally more conservative (less
-powerful) than their parametric equivalents.
+Notice that the *p*-value is a little larger than for the ANOVA. This is because
+non-parametric tests are generally more conservative (less powerful) than their
+parametric equivalents.
 
-A significant Kruskal-Wallis tells us *at least two* of the groups
-differ but where do the differences lie? The Dunn test [@dunn1964] is a
-post-hoc multiple comparison test for a significant Kruskal-Wallis. It
-is available in the package **`FSA`** [@FSA]
+A significant Kruskal-Wallis tells us *at least two* of the groups differ but
+where do the differences lie? The Dunn test [@dunn1964] is a post-hoc multiple
+comparison test for a significant Kruskal-Wallis. It is available in the package
+**`FSA`** [@FSA]
 
 Load the package using:
 
@@ -762,12 +732,11 @@ Then run the post-hoc test with:
 dunnTest(data = culture, diameter ~ medium)
 ```
 
-The `P.adj` column gives *p*-value for the comparison listed in the
-first column. `Z` is the test statistic. The *p*-values are a little
-larger for the `control - sugar and amino acids added` comparison and
-the `sugar added - sugar and amino acids added` comparison but they are
-still less than 0.05. This means our conclusions are the same as for the
-ANOVA.
+The `P.adj` column gives *p*-value for the comparison listed in the first
+column. `Z` is the test statistic. The *p*-values are a little larger for the
+`control - sugar and amino acids added` comparison and the
+`sugar added - sugar and amino acids added` comparison but they are still less
+than 0.05. This means our conclusions are the same as for the ANOVA.
 
 ```{r}
 #| echo: false
@@ -789,15 +758,14 @@ p_suga_v_suaa <- dunn_tidy |>
 
 ### Report
 
-There is a significant effect of media on the diameter of bacterial
-colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; *df* =
-`r df`; *p*-value = `r p_value`) with colonies growing significantly
-better when both sugar and amino acids are added to the medium. Post-hoc
-testing with the Dunn test [@dunn1964] revealed the colony diameters
-were significantly larger when grown with both sugar and amino acids
-(median = `r suaa_m` mm) than with neither (median = `r cont_m` mm; *p*
-= `r p_cont_v_suaa`) or just sugar (median = `r suga_m` mm; *p* =
-`r p_suga_v_suaa`). See @fig-culture-kw.
+There is a significant effect of media on the diameter of bacterial colonies
+(Kruskal-Wallis: *chi-squared* = `r chisq_value`; *df* = `r df`; *p*-value =
+`r p_value`) with colonies growing significantly better when both sugar and
+amino acids are added to the medium. Post-hoc testing with the Dunn test
+[@dunn1964] revealed the colony diameters were significantly larger when grown
+with both sugar and amino acids (median = `r suaa_m` mm) than with neither
+(median = `r cont_m` mm; *p* = `r p_cont_v_suaa`) or just sugar (median =
+`r suga_m` mm; *p* = `r p_suga_v_suaa`). See @fig-culture-kw.
 
 ```{r}
 #| code-fold: true
@@ -841,69 +809,64 @@ ggplot(data = culture, aes(x = medium, y = diameter)) +
   theme_classic()
 ```
 
-**Medium affects bacterial colony diameter**. Ten replicate colonies
-were grown on three types of media: control, with sugar added and with
-both sugar and amino acids added. The heavy lines indicate median
-diameter, boxes indicate the interquartile range and whiskers the range.
-There was a significant effect of media on the diameter of bacterial
-colonies (Kruskal-Wallis: *chi-squared* = `r chisq_value`; *df* =
-`r df`; *p*-value = `r p_value`). Post-hoc testing with the Dunn test
-[@dunn1964] revealed the colony diameters were significantly larger when
-grown with both sugar and amino acids than with neither or just sugar.
-Data analysis was conducted in R [@R-core] with tidyverse packages
+**Medium affects bacterial colony diameter**. Ten replicate colonies were grown
+on three types of media: control, with sugar added and with both sugar and amino
+acids added. The heavy lines indicate median diameter, boxes indicate the
+interquartile range and whiskers the range. There was a significant effect of
+media on the diameter of bacterial colonies (Kruskal-Wallis: *chi-squared* =
+`r chisq_value`; *df* = `r df`; *p*-value = `r p_value`). Post-hoc testing with
+the Dunn test [@dunn1964] revealed the colony diameters were significantly
+larger when grown with both sugar and amino acids than with neither or just
+sugar. Data analysis was conducted in R [@R-core] with tidyverse packages
 [@tidyverse].
 :::
 
 # Summary
 
-1.  A linear model with one explanatory variable with two or more groups
-    is also known as a **one-way ANOVA**.
+1.  A linear model with one explanatory variable with two or more groups is also
+    known as a **one-way ANOVA**.
 
-2.  We estimate the **coefficients** (also called the **parameters**) of
-    the model. For a one-way ANOVA with three groups these are the mean
-    of the first group, $\beta_0$, the difference between the means of
-    the first and second groups, $\beta_1$, and the difference between
-    the means of the first and third groups, $\beta_2$. We test whether
-    the parameters differ significantly from zero
+2.  We estimate the **coefficients** (also called the **parameters**) of the
+    model. For a one-way ANOVA with three groups these are the mean of the first
+    group, $\beta_0$, the difference between the means of the first and second
+    groups, $\beta_1$, and the difference between the means of the first and
+    third groups, $\beta_2$. We test whether the parameters differ significantly
+    from zero
 
 3.  We can use `lm()` to one-way ANOVA in R.
 
-4.  In the output of `lm()` the coefficients are listed in a table in
-    the Estimates column. The *p*-value for each coefficient is in the
-    test of whether it differs from zero. At the bottom of the output
-    there is an $F$ test of the model *overall*. Now we have more than
-    two parameters, this is different from the test on any one
-    parameter. The R-squared value is the proportion of the variance in
-    the response variable that is explained by the model. It tells us is
-    the explanatory variable is useful in predicting the response
-    variable overall.
+4.  In the output of `lm()` the coefficients are listed in a table in the
+    Estimates column. The *p*-value for each coefficient is in the test of
+    whether it differs from zero. At the bottom of the output there is an $F$
+    test of the model *overall*. Now we have more than two parameters, this is
+    different from the test on any one parameter. The R-squared value is the
+    proportion of the variance in the response variable that is explained by the
+    model. It tells us is the explanatory variable is useful in predicting the
+    response variable overall.
 
-5.  When the $F$ test is significant there is a significant effect of
-    the explanatory variable on the response variable. To find out which
-    means differ, we need a **post-hoc** test. Here we use Tukey’s HSD
-    applied with the `emmeans()` and `pairs()` functions from the
-    **`emmeans`** package. Post-hoc tests make adjustments to the
-    *p*-values to account for the fact that we are doing multiple tests.
+5.  When the $F$ test is significant there is a significant effect of the
+    explanatory variable on the response variable. To find out which means
+    differ, we need a **post-hoc** test. Here we use Tukey’s HSD applied with
+    the `emmeans()` and `pairs()` functions from the **`emmeans`** package.
+    Post-hoc tests make adjustments to the *p*-values to account for the fact
+    that we are doing multiple tests.
 
-6.  The assumptions of the general linear model are that the residuals
-    are normally distributed and have homogeneity of variance. A
-    residual is the difference between the predicted value and the
-    observed value.
+6.  The assumptions of the general linear model are that the residuals are
+    normally distributed and have homogeneity of variance. A residual is the
+    difference between the predicted value and the observed value.
 
-7.  We examine a histogram of the residuals and use the Shapiro-Wilk
-    normality test to check the normality assumption. We check the
-    variance of the residuals is the same for all fitted values with a
-    residuals vs fitted plot.
+7.  We examine a histogram of the residuals and use the Shapiro-Wilk normality
+    test to check the normality assumption. We check the variance of the
+    residuals is the same for all fitted values with a residuals vs fitted plot.
 
-8.  If the assumptions are not met, we can use the Kruskal-Wallis test
-    applied with `kruskal.test()` in R and follow it with The Dunn test
-    applied with `dunnTest()` in the package **`FSA`**.
+8.  If the assumptions are not met, we can use the Kruskal-Wallis test applied
+    with `kruskal.test()` in R and follow it with The Dunn test applied with
+    `dunnTest()` in the package **`FSA`**.
 
-9.  When reporting the results of a test we give the significance,
-    direction and size of the effect. Our figures and the values we give
-    should reflect the type of test we have used. We use means and
-    standard errors for parametric tests and medians and interquartile
-    ranges for non-parametric tests. We also give the test statistic,
-    the degrees of freedom (parametric) or sample size (non-parametric)
-    and the p-value. We annotate our figures with the p-value, making
-    clear which comparison it applies to.
+9.  When reporting the results of a test we give the significance, direction and
+    size of the effect. Our figures and the values we give should reflect the
+    type of test we have used. We use means and standard errors for parametric
+    tests and medians and interquartile ranges for non-parametric tests. We also
+    give the test statistic, the degrees of freedom (parametric) or sample size
+    (non-parametric) and the p-value. We annotate our figures with the p-value,
+    making clear which comparison it applies to.
