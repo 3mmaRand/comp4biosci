@@ -805,7 +805,7 @@ div.csl-indent {
 </div>
 <p><code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> is a function I use a lot to check what sort of R object I have.</p>
 <p>We must give <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code> at least one argument, the object we want the structure of, but additional arguments are also possible. Later we will discover how to find out and use a function’s arguments.</p>
-<p>So far we our objects have consisted of a single thing but usually we have several bits of data that we want to collect together into a data structure.</p>
+<p>So far our objects have consisted of a single thing but usually we have several bits of data that we want to collect together into a data structure.</p>
 </section><section id="data-structures-vectors" class="level3" data-number="7.2.3"><h3 data-number="7.2.3" class="anchored" data-anchor-id="data-structures-vectors">
 <span class="header-section-number">7.2.3</span> Data structures: vectors</h3>
 <p>Imagine we have the ages of six people. Since all the numbers are ages, we would want to keep them together. The minimal data structure is called a vector. We can create a vector, which collects together several numbers using a function, <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. This is one of only a few functions in R with a single-letter name. Because it has a single letter, sometimes people get confused about it but we can tell it is a function because it has a set of parentheses.</p>
@@ -1780,300 +1780,307 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, et al. 2019. <span>“Welcome to 
 <span id="cb41-385"><a href="#cb41-385" aria-hidden="true" tabindex="-1"></a><span class="st">`TRUE` or `FALSE.`</span></span>
 <span id="cb41-386"><a href="#cb41-386" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-389"><a href="#cb41-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-390"><a href="#cb41-390" aria-hidden="true" tabindex="-1"></a><span class="st">c &lt;- TRUE</span></span>
-<span id="cb41-391"><a href="#cb41-391" aria-hidden="true" tabindex="-1"></a><span class="st">c</span></span>
-<span id="cb41-392"><a href="#cb41-392" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-390"><a href="#cb41-390" aria-hidden="true" tabindex="-1"></a><span class="st">#| eval: false</span></span>
+<span id="cb41-391"><a href="#cb41-391" aria-hidden="true" tabindex="-1"></a><span class="st">#| echo: false</span></span>
+<span id="cb41-392"><a href="#cb41-392" aria-hidden="true" tabindex="-1"></a><span class="st">"</span></span>
 <span id="cb41-393"><a href="#cb41-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-394"><a href="#cb41-394" aria-hidden="true" tabindex="-1"></a><span class="st">Although `TRUE` is a word, R recognises it as special word. It appears in a</span></span>
-<span id="cb41-395"><a href="#cb41-395" aria-hidden="true" tabindex="-1"></a><span class="st">different colour and no quotes are needed. This is the same for `FALSE`.</span></span>
-<span id="cb41-396"><a href="#cb41-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-399"><a href="#cb41-399" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-400"><a href="#cb41-400" aria-hidden="true" tabindex="-1"></a><span class="st">c &lt;- FALSE</span></span>
-<span id="cb41-401"><a href="#cb41-401" aria-hidden="true" tabindex="-1"></a><span class="st">c</span></span>
-<span id="cb41-402"><a href="#cb41-402" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-403"><a href="#cb41-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-404"><a href="#cb41-404" aria-hidden="true" tabindex="-1"></a><span class="st">As you type `FALSE`, the colour changes as it recognises the special word</span></span>
-<span id="cb41-405"><a href="#cb41-405" aria-hidden="true" tabindex="-1"></a><span class="st">`FALSE`. Try to pay attention to the editor theme's colouring - it is trying to</span></span>
-<span id="cb41-406"><a href="#cb41-406" aria-hidden="true" tabindex="-1"></a><span class="st">help you!</span></span>
-<span id="cb41-407"><a href="#cb41-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-408"><a href="#cb41-408" aria-hidden="true" tabindex="-1"></a><span class="st">### Functions</span></span>
-<span id="cb41-409"><a href="#cb41-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-410"><a href="#cb41-410" aria-hidden="true" tabindex="-1"></a><span class="st">The aim of this section is to help you understand the logic of using a function.</span></span>
-<span id="cb41-411"><a href="#cb41-411" aria-hidden="true" tabindex="-1"></a><span class="st">Functions have a name and then a set of parentheses. The function name minimally</span></span>
-<span id="cb41-412"><a href="#cb41-412" aria-hidden="true" tabindex="-1"></a><span class="st">explains what the function does. Inside the parentheses are 'arguments' - the</span></span>
-<span id="cb41-413"><a href="#cb41-413" aria-hidden="true" tabindex="-1"></a><span class="st">pieces of information you give to the function. When coding, we often talk about</span></span>
-<span id="cb41-414"><a href="#cb41-414" aria-hidden="true" tabindex="-1"></a><span class="st">passing arguments to functions and calling functions. A simple function call</span></span>
-<span id="cb41-415"><a href="#cb41-415" aria-hidden="true" tabindex="-1"></a><span class="st">looks like this:</span></span>
+<span id="cb41-394"><a href="#cb41-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-395"><a href="#cb41-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-398"><a href="#cb41-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-399"><a href="#cb41-399" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb41-400"><a href="#cb41-400" aria-hidden="true" tabindex="-1"></a>c</span>
+<span id="cb41-401"><a href="#cb41-401" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-402"><a href="#cb41-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-403"><a href="#cb41-403" aria-hidden="true" tabindex="-1"></a>Although <span class="in">`TRUE`</span> is a word, R recognises it as special word. It appears in a</span>
+<span id="cb41-404"><a href="#cb41-404" aria-hidden="true" tabindex="-1"></a>different colour and no quotes are needed. This is the same for <span class="in">`FALSE`</span>.</span>
+<span id="cb41-405"><a href="#cb41-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-408"><a href="#cb41-408" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-409"><a href="#cb41-409" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb41-410"><a href="#cb41-410" aria-hidden="true" tabindex="-1"></a>c</span>
+<span id="cb41-411"><a href="#cb41-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-412"><a href="#cb41-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-413"><a href="#cb41-413" aria-hidden="true" tabindex="-1"></a>As you type <span class="in">`FALSE`</span>, the colour changes as it recognises the special word</span>
+<span id="cb41-414"><a href="#cb41-414" aria-hidden="true" tabindex="-1"></a><span class="in">`FALSE`</span>. Try to pay attention to the editor theme's colouring - it is trying to</span>
+<span id="cb41-415"><a href="#cb41-415" aria-hidden="true" tabindex="-1"></a>help you!</span>
 <span id="cb41-416"><a href="#cb41-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-417"><a href="#cb41-417" aria-hidden="true" tabindex="-1"></a><span class="st">``` r</span></span>
-<span id="cb41-418"><a href="#cb41-418" aria-hidden="true" tabindex="-1"></a><span class="st">function_name(argument)</span></span>
-<span id="cb41-419"><a href="#cb41-419" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-420"><a href="#cb41-420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-421"><a href="#cb41-421" aria-hidden="true" tabindex="-1"></a><span class="st">A function can take zero to many arguments. Where you give several arguments,</span></span>
-<span id="cb41-422"><a href="#cb41-422" aria-hidden="true" tabindex="-1"></a><span class="st">they are separated by commas:</span></span>
-<span id="cb41-423"><a href="#cb41-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-424"><a href="#cb41-424" aria-hidden="true" tabindex="-1"></a><span class="st">``` r</span></span>
-<span id="cb41-425"><a href="#cb41-425" aria-hidden="true" tabindex="-1"></a><span class="st">function_name(argument1, argument2, argument3, ...)</span></span>
-<span id="cb41-426"><a href="#cb41-426" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-427"><a href="#cb41-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-428"><a href="#cb41-428" aria-hidden="true" tabindex="-1"></a><span class="st">The first function you are going to use is `str()` which gives the **str**ucture</span></span>
-<span id="cb41-429"><a href="#cb41-429" aria-hidden="true" tabindex="-1"></a><span class="st">of an object:</span></span>
-<span id="cb41-430"><a href="#cb41-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-433"><a href="#cb41-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-434"><a href="#cb41-434" aria-hidden="true" tabindex="-1"></a><span class="st">str(x)</span></span>
-<span id="cb41-435"><a href="#cb41-435" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-417"><a href="#cb41-417" aria-hidden="true" tabindex="-1"></a><span class="fu">### Functions</span></span>
+<span id="cb41-418"><a href="#cb41-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-419"><a href="#cb41-419" aria-hidden="true" tabindex="-1"></a>The aim of this section is to help you understand the logic of using a function.</span>
+<span id="cb41-420"><a href="#cb41-420" aria-hidden="true" tabindex="-1"></a>Functions have a name and then a set of parentheses. The function name minimally</span>
+<span id="cb41-421"><a href="#cb41-421" aria-hidden="true" tabindex="-1"></a>explains what the function does. Inside the parentheses are 'arguments' - the</span>
+<span id="cb41-422"><a href="#cb41-422" aria-hidden="true" tabindex="-1"></a>pieces of information you give to the function. When coding, we often talk about</span>
+<span id="cb41-423"><a href="#cb41-423" aria-hidden="true" tabindex="-1"></a>passing arguments to functions and calling functions. A simple function call</span>
+<span id="cb41-424"><a href="#cb41-424" aria-hidden="true" tabindex="-1"></a>looks like this:</span>
+<span id="cb41-425"><a href="#cb41-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-426"><a href="#cb41-426" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb41-427"><a href="#cb41-427" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(argument)</span>
+<span id="cb41-428"><a href="#cb41-428" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-429"><a href="#cb41-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-430"><a href="#cb41-430" aria-hidden="true" tabindex="-1"></a>A function can take zero to many arguments. Where you give several arguments,</span>
+<span id="cb41-431"><a href="#cb41-431" aria-hidden="true" tabindex="-1"></a>they are separated by commas:</span>
+<span id="cb41-432"><a href="#cb41-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-433"><a href="#cb41-433" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb41-434"><a href="#cb41-434" aria-hidden="true" tabindex="-1"></a><span class="fu">function_name</span>(argument1, argument2, argument3, ...)</span>
+<span id="cb41-435"><a href="#cb41-435" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-436"><a href="#cb41-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-437"><a href="#cb41-437" aria-hidden="true" tabindex="-1"></a><span class="st">It's telling me that `x` is a number and contains 23.</span></span>
-<span id="cb41-438"><a href="#cb41-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-439"><a href="#cb41-439" aria-hidden="true" tabindex="-1"></a><span class="st">Your turn! Use `str()` on `b`:</span></span>
-<span id="cb41-440"><a href="#cb41-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-443"><a href="#cb41-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-444"><a href="#cb41-444" aria-hidden="true" tabindex="-1"></a><span class="st">#| code-fold: true</span></span>
-<span id="cb41-445"><a href="#cb41-445" aria-hidden="true" tabindex="-1"></a><span class="st">str(b)</span></span>
-<span id="cb41-446"><a href="#cb41-446" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-437"><a href="#cb41-437" aria-hidden="true" tabindex="-1"></a>The first function you are going to use is <span class="in">`str()`</span> which gives the **str**ucture</span>
+<span id="cb41-438"><a href="#cb41-438" aria-hidden="true" tabindex="-1"></a>of an object:</span>
+<span id="cb41-439"><a href="#cb41-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-442"><a href="#cb41-442" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-443"><a href="#cb41-443" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x)</span>
+<span id="cb41-444"><a href="#cb41-444" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-445"><a href="#cb41-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-446"><a href="#cb41-446" aria-hidden="true" tabindex="-1"></a>It's telling me that <span class="in">`x`</span> is a number and contains 23.</span>
 <span id="cb41-447"><a href="#cb41-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-448"><a href="#cb41-448" aria-hidden="true" tabindex="-1"></a><span class="st">`str()` is a function I use a lot to check what sort of R object I have.</span></span>
+<span id="cb41-448"><a href="#cb41-448" aria-hidden="true" tabindex="-1"></a>Your turn! Use <span class="in">`str()`</span> on <span class="in">`b`</span>:</span>
 <span id="cb41-449"><a href="#cb41-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-450"><a href="#cb41-450" aria-hidden="true" tabindex="-1"></a><span class="st">We must give `str()` at least one argument, the object we want the structure of,</span></span>
-<span id="cb41-451"><a href="#cb41-451" aria-hidden="true" tabindex="-1"></a><span class="st">but additional arguments are also possible. Later we will discover how to find</span></span>
-<span id="cb41-452"><a href="#cb41-452" aria-hidden="true" tabindex="-1"></a><span class="st">out and use a function's arguments.</span></span>
-<span id="cb41-453"><a href="#cb41-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-454"><a href="#cb41-454" aria-hidden="true" tabindex="-1"></a><span class="st">So far we our objects have consisted of a single thing but usually we have</span></span>
-<span id="cb41-455"><a href="#cb41-455" aria-hidden="true" tabindex="-1"></a><span class="st">several bits of data that we want to collect together into a data structure.</span></span>
+<span id="cb41-452"><a href="#cb41-452" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-453"><a href="#cb41-453" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb41-454"><a href="#cb41-454" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(b)</span>
+<span id="cb41-455"><a href="#cb41-455" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-456"><a href="#cb41-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-457"><a href="#cb41-457" aria-hidden="true" tabindex="-1"></a><span class="st">### Data structures: vectors</span></span>
+<span id="cb41-457"><a href="#cb41-457" aria-hidden="true" tabindex="-1"></a><span class="in">`str()`</span> is a function I use a lot to check what sort of R object I have.</span>
 <span id="cb41-458"><a href="#cb41-458" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-459"><a href="#cb41-459" aria-hidden="true" tabindex="-1"></a><span class="st">Imagine we have the ages of six people. Since all the numbers are ages, we would</span></span>
-<span id="cb41-460"><a href="#cb41-460" aria-hidden="true" tabindex="-1"></a><span class="st">want to keep them together. The minimal data structure is called a vector. We</span></span>
-<span id="cb41-461"><a href="#cb41-461" aria-hidden="true" tabindex="-1"></a><span class="st">can create a vector, which collects together several numbers using a function,</span></span>
-<span id="cb41-462"><a href="#cb41-462" aria-hidden="true" tabindex="-1"></a><span class="st">`c()`. This is one of only a few functions in R with a single-letter name.</span></span>
-<span id="cb41-463"><a href="#cb41-463" aria-hidden="true" tabindex="-1"></a><span class="st">Because it has a single letter, sometimes people get confused about it but we</span></span>
-<span id="cb41-464"><a href="#cb41-464" aria-hidden="true" tabindex="-1"></a><span class="st">can tell it is a function because it has a set of parentheses.</span></span>
+<span id="cb41-459"><a href="#cb41-459" aria-hidden="true" tabindex="-1"></a>We must give <span class="in">`str()`</span> at least one argument, the object we want the structure of,</span>
+<span id="cb41-460"><a href="#cb41-460" aria-hidden="true" tabindex="-1"></a>but additional arguments are also possible. Later we will discover how to find</span>
+<span id="cb41-461"><a href="#cb41-461" aria-hidden="true" tabindex="-1"></a>out and use a function's arguments.</span>
+<span id="cb41-462"><a href="#cb41-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-463"><a href="#cb41-463" aria-hidden="true" tabindex="-1"></a>So far our objects have consisted of a single thing but usually we have several</span>
+<span id="cb41-464"><a href="#cb41-464" aria-hidden="true" tabindex="-1"></a>bits of data that we want to collect together into a data structure.</span>
 <span id="cb41-465"><a href="#cb41-465" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-466"><a href="#cb41-466" aria-hidden="true" tabindex="-1"></a><span class="st">To create a vector called `ages` of several numbers we use</span></span>
+<span id="cb41-466"><a href="#cb41-466" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data structures: vectors</span></span>
 <span id="cb41-467"><a href="#cb41-467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-470"><a href="#cb41-470" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-471"><a href="#cb41-471" aria-hidden="true" tabindex="-1"></a><span class="st">ages &lt;- c(23, 42, 7, 9, 54, 12)</span></span>
-<span id="cb41-472"><a href="#cb41-472" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-473"><a href="#cb41-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-474"><a href="#cb41-474" aria-hidden="true" tabindex="-1"></a><span class="st">Type `ages` and run if you want to print the contents to the console:</span></span>
-<span id="cb41-475"><a href="#cb41-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-478"><a href="#cb41-478" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-479"><a href="#cb41-479" aria-hidden="true" tabindex="-1"></a><span class="st">ages</span></span>
-<span id="cb41-480"><a href="#cb41-480" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-481"><a href="#cb41-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-482"><a href="#cb41-482" aria-hidden="true" tabindex="-1"></a><span class="st">Using `str()` on `ages`</span></span>
-<span id="cb41-483"><a href="#cb41-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-486"><a href="#cb41-486" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-487"><a href="#cb41-487" aria-hidden="true" tabindex="-1"></a><span class="st">str(ages)</span></span>
-<span id="cb41-488"><a href="#cb41-488" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-489"><a href="#cb41-489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-490"><a href="#cb41-490" aria-hidden="true" tabindex="-1"></a><span class="st">tells us we have numbers with the indices of 1 to 6.</span></span>
-<span id="cb41-491"><a href="#cb41-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-492"><a href="#cb41-492" aria-hidden="true" tabindex="-1"></a><span class="st">We can also create a vector of strings. Suppose we have names to go with the</span></span>
-<span id="cb41-493"><a href="#cb41-493" aria-hidden="true" tabindex="-1"></a><span class="st">ages.</span></span>
-<span id="cb41-494"><a href="#cb41-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-497"><a href="#cb41-497" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-498"><a href="#cb41-498" aria-hidden="true" tabindex="-1"></a><span class="st">names &lt;- c("</span>Rowan<span class="st">", "</span>Aang<span class="st">", "</span>Zain<span class="st">", "</span>Charlie<span class="st">", "</span>Jules<span class="st">", "</span>Efe<span class="st">")</span></span>
-<span id="cb41-499"><a href="#cb41-499" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-468"><a href="#cb41-468" aria-hidden="true" tabindex="-1"></a>Imagine we have the ages of six people. Since all the numbers are ages, we would</span>
+<span id="cb41-469"><a href="#cb41-469" aria-hidden="true" tabindex="-1"></a>want to keep them together. The minimal data structure is called a vector. We</span>
+<span id="cb41-470"><a href="#cb41-470" aria-hidden="true" tabindex="-1"></a>can create a vector, which collects together several numbers using a function,</span>
+<span id="cb41-471"><a href="#cb41-471" aria-hidden="true" tabindex="-1"></a><span class="in">`c()`</span>. This is one of only a few functions in R with a single-letter name.</span>
+<span id="cb41-472"><a href="#cb41-472" aria-hidden="true" tabindex="-1"></a>Because it has a single letter, sometimes people get confused about it but we</span>
+<span id="cb41-473"><a href="#cb41-473" aria-hidden="true" tabindex="-1"></a>can tell it is a function because it has a set of parentheses.</span>
+<span id="cb41-474"><a href="#cb41-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-475"><a href="#cb41-475" aria-hidden="true" tabindex="-1"></a>To create a vector called <span class="in">`ages`</span> of several numbers we use</span>
+<span id="cb41-476"><a href="#cb41-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-479"><a href="#cb41-479" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-480"><a href="#cb41-480" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">42</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">54</span>, <span class="dv">12</span>)</span>
+<span id="cb41-481"><a href="#cb41-481" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-482"><a href="#cb41-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-483"><a href="#cb41-483" aria-hidden="true" tabindex="-1"></a>Type <span class="in">`ages`</span> and run if you want to print the contents to the console:</span>
+<span id="cb41-484"><a href="#cb41-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-487"><a href="#cb41-487" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-488"><a href="#cb41-488" aria-hidden="true" tabindex="-1"></a>ages</span>
+<span id="cb41-489"><a href="#cb41-489" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-490"><a href="#cb41-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-491"><a href="#cb41-491" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`str()`</span> on <span class="in">`ages`</span></span>
+<span id="cb41-492"><a href="#cb41-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-495"><a href="#cb41-495" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-496"><a href="#cb41-496" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ages)</span>
+<span id="cb41-497"><a href="#cb41-497" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-498"><a href="#cb41-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-499"><a href="#cb41-499" aria-hidden="true" tabindex="-1"></a>tells us we have numbers with the indices of 1 to 6.</span>
 <span id="cb41-500"><a href="#cb41-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-501"><a href="#cb41-501" aria-hidden="true" tabindex="-1"></a><span class="st">RStudio has a super useful feature for putting items in quotes, brackets or</span></span>
-<span id="cb41-502"><a href="#cb41-502" aria-hidden="true" tabindex="-1"></a><span class="st">parentheses if you initially forget them: If you select something and type the</span></span>
-<span id="cb41-503"><a href="#cb41-503" aria-hidden="true" tabindex="-1"></a><span class="st">opening element, that thing will be surrounded rather than over written. For</span></span>
-<span id="cb41-504"><a href="#cb41-504" aria-hidden="true" tabindex="-1"></a><span class="st">example, if you had written:</span></span>
-<span id="cb41-505"><a href="#cb41-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-508"><a href="#cb41-508" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-509"><a href="#cb41-509" aria-hidden="true" tabindex="-1"></a><span class="st">#| eval: false</span></span>
-<span id="cb41-510"><a href="#cb41-510" aria-hidden="true" tabindex="-1"></a><span class="st">names &lt;- Rowan, Aang, Zain, Charlie, Jules, Efe</span></span>
-<span id="cb41-511"><a href="#cb41-511" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-512"><a href="#cb41-512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-513"><a href="#cb41-513" aria-hidden="true" tabindex="-1"></a><span class="st">Select one of the names and then type an opening quote - you should see the name</span></span>
-<span id="cb41-514"><a href="#cb41-514" aria-hidden="true" tabindex="-1"></a><span class="st">is then surrounded by quotes rather than overwritten. You can repeat this</span></span>
-<span id="cb41-515"><a href="#cb41-515" aria-hidden="true" tabindex="-1"></a><span class="st">process for all the names (note that double clicking on the name will select</span></span>
-<span id="cb41-516"><a href="#cb41-516" aria-hidden="true" tabindex="-1"></a><span class="st">it). Selecting the whole list and typing an opening parenthesis will put the</span></span>
-<span id="cb41-517"><a href="#cb41-517" aria-hidden="true" tabindex="-1"></a><span class="st">whole list in parentheses. This is a feature you get to love so much and use so</span></span>
-<span id="cb41-518"><a href="#cb41-518" aria-hidden="true" tabindex="-1"></a><span class="st">often that other programs will annoy you when you overwrite something you meant</span></span>
-<span id="cb41-519"><a href="#cb41-519" aria-hidden="true" tabindex="-1"></a><span class="st">to quote!</span></span>
-<span id="cb41-520"><a href="#cb41-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-521"><a href="#cb41-521" aria-hidden="true" tabindex="-1"></a><span class="st">So we can also have vectors of logical values. For example, we might have a</span></span>
-<span id="cb41-522"><a href="#cb41-522" aria-hidden="true" tabindex="-1"></a><span class="st">vector that indicates that Rowan, Aang and Charlie like chocolate, but Zain,</span></span>
-<span id="cb41-523"><a href="#cb41-523" aria-hidden="true" tabindex="-1"></a><span class="st">Jules and Efe do not:</span></span>
-<span id="cb41-524"><a href="#cb41-524" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-527"><a href="#cb41-527" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-528"><a href="#cb41-528" aria-hidden="true" tabindex="-1"></a><span class="st">chocolate &lt;- c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE)</span></span>
-<span id="cb41-529"><a href="#cb41-529" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-530"><a href="#cb41-530" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-531"><a href="#cb41-531" aria-hidden="true" tabindex="-1"></a><span class="st">Remember, because `TRUE` and `FALSE` are special words we do not need quote</span></span>
-<span id="cb41-532"><a href="#cb41-532" aria-hidden="true" tabindex="-1"></a><span class="st">them.</span></span>
+<span id="cb41-501"><a href="#cb41-501" aria-hidden="true" tabindex="-1"></a>We can also create a vector of strings. Suppose we have names to go with the</span>
+<span id="cb41-502"><a href="#cb41-502" aria-hidden="true" tabindex="-1"></a>ages.</span>
+<span id="cb41-503"><a href="#cb41-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-506"><a href="#cb41-506" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-507"><a href="#cb41-507" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Rowan"</span>, <span class="st">"Aang"</span>, <span class="st">"Zain"</span>, <span class="st">"Charlie"</span>, <span class="st">"Jules"</span>, <span class="st">"Efe"</span>)</span>
+<span id="cb41-508"><a href="#cb41-508" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-509"><a href="#cb41-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-510"><a href="#cb41-510" aria-hidden="true" tabindex="-1"></a>RStudio has a super useful feature for putting items in quotes, brackets or</span>
+<span id="cb41-511"><a href="#cb41-511" aria-hidden="true" tabindex="-1"></a>parentheses if you initially forget them: If you select something and type the</span>
+<span id="cb41-512"><a href="#cb41-512" aria-hidden="true" tabindex="-1"></a>opening element, that thing will be surrounded rather than over written. For</span>
+<span id="cb41-513"><a href="#cb41-513" aria-hidden="true" tabindex="-1"></a>example, if you had written:</span>
+<span id="cb41-514"><a href="#cb41-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-517"><a href="#cb41-517" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-518"><a href="#cb41-518" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb41-519"><a href="#cb41-519" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> Rowan, Aang, Zain, Charlie, Jules, Efe</span>
+<span id="cb41-520"><a href="#cb41-520" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-521"><a href="#cb41-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-522"><a href="#cb41-522" aria-hidden="true" tabindex="-1"></a>Select one of the names and then type an opening quote - you should see the name</span>
+<span id="cb41-523"><a href="#cb41-523" aria-hidden="true" tabindex="-1"></a>is then surrounded by quotes rather than overwritten. You can repeat this</span>
+<span id="cb41-524"><a href="#cb41-524" aria-hidden="true" tabindex="-1"></a>process for all the names (note that double clicking on the name will select</span>
+<span id="cb41-525"><a href="#cb41-525" aria-hidden="true" tabindex="-1"></a>it). Selecting the whole list and typing an opening parenthesis will put the</span>
+<span id="cb41-526"><a href="#cb41-526" aria-hidden="true" tabindex="-1"></a>whole list in parentheses. This is a feature you get to love so much and use so</span>
+<span id="cb41-527"><a href="#cb41-527" aria-hidden="true" tabindex="-1"></a>often that other programs will annoy you when you overwrite something you meant</span>
+<span id="cb41-528"><a href="#cb41-528" aria-hidden="true" tabindex="-1"></a>to quote!</span>
+<span id="cb41-529"><a href="#cb41-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-530"><a href="#cb41-530" aria-hidden="true" tabindex="-1"></a>So we can also have vectors of logical values. For example, we might have a</span>
+<span id="cb41-531"><a href="#cb41-531" aria-hidden="true" tabindex="-1"></a>vector that indicates that Rowan, Aang and Charlie like chocolate, but Zain,</span>
+<span id="cb41-532"><a href="#cb41-532" aria-hidden="true" tabindex="-1"></a>Jules and Efe do not:</span>
 <span id="cb41-533"><a href="#cb41-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-534"><a href="#cb41-534" aria-hidden="true" tabindex="-1"></a><span class="st">### Indexing vectors</span></span>
-<span id="cb41-535"><a href="#cb41-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-536"><a href="#cb41-536" aria-hidden="true" tabindex="-1"></a><span class="st">You might be wondering how to get a single element out of a vector if typing the</span></span>
-<span id="cb41-537"><a href="#cb41-537" aria-hidden="true" tabindex="-1"></a><span class="st">vector's name prints the entire vector. This is by 'indexing'. An index is a</span></span>
-<span id="cb41-538"><a href="#cb41-538" aria-hidden="true" tabindex="-1"></a><span class="st">number from 1[^first-steps-rstudio-4] to the length of a vector which gives the</span></span>
-<span id="cb41-539"><a href="#cb41-539" aria-hidden="true" tabindex="-1"></a><span class="st">position in the vector and is denoted by square brackets. For example, to pull</span></span>
-<span id="cb41-540"><a href="#cb41-540" aria-hidden="true" tabindex="-1"></a><span class="st">out the second element of `ages`:</span></span>
-<span id="cb41-541"><a href="#cb41-541" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-542"><a href="#cb41-542" aria-hidden="true" tabindex="-1"></a><span class="st">[^first-steps-rstudio-4]: We start counting from 1 in R. Most programming</span></span>
-<span id="cb41-543"><a href="#cb41-543" aria-hidden="true" tabindex="-1"></a><span class="st">    languages count from zero.</span></span>
+<span id="cb41-536"><a href="#cb41-536" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-537"><a href="#cb41-537" aria-hidden="true" tabindex="-1"></a>chocolate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb41-538"><a href="#cb41-538" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-539"><a href="#cb41-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-540"><a href="#cb41-540" aria-hidden="true" tabindex="-1"></a>Remember, because <span class="in">`TRUE`</span> and <span class="in">`FALSE`</span> are special words we do not need quote</span>
+<span id="cb41-541"><a href="#cb41-541" aria-hidden="true" tabindex="-1"></a>them.</span>
+<span id="cb41-542"><a href="#cb41-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-543"><a href="#cb41-543" aria-hidden="true" tabindex="-1"></a><span class="fu">### Indexing vectors</span></span>
 <span id="cb41-544"><a href="#cb41-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-547"><a href="#cb41-547" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-548"><a href="#cb41-548" aria-hidden="true" tabindex="-1"></a><span class="st">ages[2]</span></span>
-<span id="cb41-549"><a href="#cb41-549" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-545"><a href="#cb41-545" aria-hidden="true" tabindex="-1"></a>You might be wondering how to get a single element out of a vector if typing the</span>
+<span id="cb41-546"><a href="#cb41-546" aria-hidden="true" tabindex="-1"></a>vector's name prints the entire vector. This is by 'indexing'. An index is a</span>
+<span id="cb41-547"><a href="#cb41-547" aria-hidden="true" tabindex="-1"></a>number from 1<span class="ot">[^first-steps-rstudio-4]</span> to the length of a vector which gives the</span>
+<span id="cb41-548"><a href="#cb41-548" aria-hidden="true" tabindex="-1"></a>position in the vector and is denoted by square brackets. For example, to pull</span>
+<span id="cb41-549"><a href="#cb41-549" aria-hidden="true" tabindex="-1"></a>out the second element of <span class="in">`ages`</span>:</span>
 <span id="cb41-550"><a href="#cb41-550" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-551"><a href="#cb41-551" aria-hidden="true" tabindex="-1"></a><span class="st">Your turn! Print the last element of `names`:</span></span>
-<span id="cb41-552"><a href="#cb41-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-555"><a href="#cb41-555" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-556"><a href="#cb41-556" aria-hidden="true" tabindex="-1"></a><span class="st">#| code-fold: true</span></span>
-<span id="cb41-557"><a href="#cb41-557" aria-hidden="true" tabindex="-1"></a><span class="st">names[6]</span></span>
-<span id="cb41-558"><a href="#cb41-558" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-551"><a href="#cb41-551" aria-hidden="true" tabindex="-1"></a><span class="ot">[^first-steps-rstudio-4]: </span>We start counting from 1 in R. Most programming</span>
+<span id="cb41-552"><a href="#cb41-552" aria-hidden="true" tabindex="-1"></a>    languages count from zero.</span>
+<span id="cb41-553"><a href="#cb41-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-556"><a href="#cb41-556" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-557"><a href="#cb41-557" aria-hidden="true" tabindex="-1"></a>ages[<span class="dv">2</span>]</span>
+<span id="cb41-558"><a href="#cb41-558" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-559"><a href="#cb41-559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-560"><a href="#cb41-560" aria-hidden="true" tabindex="-1"></a><span class="st">We an extract more than one element by giving more than one index. If the</span></span>
-<span id="cb41-561"><a href="#cb41-561" aria-hidden="true" tabindex="-1"></a><span class="st">indices are adjacent like 3rd, 4th and 5th, we have use the colon:</span></span>
-<span id="cb41-562"><a href="#cb41-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-565"><a href="#cb41-565" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-566"><a href="#cb41-566" aria-hidden="true" tabindex="-1"></a><span class="st">names[3:5]</span></span>
-<span id="cb41-567"><a href="#cb41-567" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-560"><a href="#cb41-560" aria-hidden="true" tabindex="-1"></a>Your turn! Print the last element of <span class="in">`names`</span>:</span>
+<span id="cb41-561"><a href="#cb41-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-564"><a href="#cb41-564" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-565"><a href="#cb41-565" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb41-566"><a href="#cb41-566" aria-hidden="true" tabindex="-1"></a>names[<span class="dv">6</span>]</span>
+<span id="cb41-567"><a href="#cb41-567" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-568"><a href="#cb41-568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-569"><a href="#cb41-569" aria-hidden="true" tabindex="-1"></a><span class="st">If the indices are not adjacent, like 2 and 6 with need to combine them with</span></span>
-<span id="cb41-570"><a href="#cb41-570" aria-hidden="true" tabindex="-1"></a><span class="st">`c()`:</span></span>
+<span id="cb41-569"><a href="#cb41-569" aria-hidden="true" tabindex="-1"></a>We an extract more than one element by giving more than one index. If the</span>
+<span id="cb41-570"><a href="#cb41-570" aria-hidden="true" tabindex="-1"></a>indices are adjacent like 3rd, 4th and 5th, we have use the colon:</span>
 <span id="cb41-571"><a href="#cb41-571" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-574"><a href="#cb41-574" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-575"><a href="#cb41-575" aria-hidden="true" tabindex="-1"></a><span class="st">names[c(2, 6)]</span></span>
-<span id="cb41-576"><a href="#cb41-576" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-575"><a href="#cb41-575" aria-hidden="true" tabindex="-1"></a>names[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb41-576"><a href="#cb41-576" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-577"><a href="#cb41-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-578"><a href="#cb41-578" aria-hidden="true" tabindex="-1"></a><span class="st">We can also use a logical vector to extract elements. Suppose you want to</span></span>
-<span id="cb41-579"><a href="#cb41-579" aria-hidden="true" tabindex="-1"></a><span class="st">extract the names and ages of the people who like chocolate:</span></span>
+<span id="cb41-578"><a href="#cb41-578" aria-hidden="true" tabindex="-1"></a>If the indices are not adjacent, like 2 and 6 with need to combine them with</span>
+<span id="cb41-579"><a href="#cb41-579" aria-hidden="true" tabindex="-1"></a><span class="in">`c()`</span>:</span>
 <span id="cb41-580"><a href="#cb41-580" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-583"><a href="#cb41-583" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-584"><a href="#cb41-584" aria-hidden="true" tabindex="-1"></a><span class="st">names[chocolate]</span></span>
-<span id="cb41-585"><a href="#cb41-585" aria-hidden="true" tabindex="-1"></a><span class="st">ages[chocolate]</span></span>
-<span id="cb41-586"><a href="#cb41-586" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-587"><a href="#cb41-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-588"><a href="#cb41-588" aria-hidden="true" tabindex="-1"></a><span class="st">At each of the indices in `chocolate` that contain `TRUE`, the name and age are</span></span>
-<span id="cb41-589"><a href="#cb41-589" aria-hidden="true" tabindex="-1"></a><span class="st">returned.</span></span>
-<span id="cb41-590"><a href="#cb41-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-591"><a href="#cb41-591" aria-hidden="true" tabindex="-1"></a><span class="st">### Changing the defaults for a function</span></span>
-<span id="cb41-592"><a href="#cb41-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-593"><a href="#cb41-593" aria-hidden="true" tabindex="-1"></a><span class="st">The functions we have used so far, `c()` and `str()` have worked without us</span></span>
-<span id="cb41-594"><a href="#cb41-594" aria-hidden="true" tabindex="-1"></a><span class="st">having to change default behaviour. For example, if we want to calculate the</span></span>
-<span id="cb41-595"><a href="#cb41-595" aria-hidden="true" tabindex="-1"></a><span class="st">mean age of our people we can use the `mean()` function in default form:</span></span>
+<span id="cb41-584"><a href="#cb41-584" aria-hidden="true" tabindex="-1"></a>names[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)]</span>
+<span id="cb41-585"><a href="#cb41-585" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-586"><a href="#cb41-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-587"><a href="#cb41-587" aria-hidden="true" tabindex="-1"></a>We can also use a logical vector to extract elements. Suppose you want to</span>
+<span id="cb41-588"><a href="#cb41-588" aria-hidden="true" tabindex="-1"></a>extract the names and ages of the people who like chocolate:</span>
+<span id="cb41-589"><a href="#cb41-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-592"><a href="#cb41-592" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-593"><a href="#cb41-593" aria-hidden="true" tabindex="-1"></a>names[chocolate]</span>
+<span id="cb41-594"><a href="#cb41-594" aria-hidden="true" tabindex="-1"></a>ages[chocolate]</span>
+<span id="cb41-595"><a href="#cb41-595" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-596"><a href="#cb41-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-599"><a href="#cb41-599" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-600"><a href="#cb41-600" aria-hidden="true" tabindex="-1"></a><span class="st">mean(ages)</span></span>
-<span id="cb41-601"><a href="#cb41-601" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-602"><a href="#cb41-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-603"><a href="#cb41-603" aria-hidden="true" tabindex="-1"></a><span class="st">Imagine Charlie would like their age removed from the dataset or that we never</span></span>
-<span id="cb41-604"><a href="#cb41-604" aria-hidden="true" tabindex="-1"></a><span class="st">knew their age. We would not want a vector containing just five elements because</span></span>
-<span id="cb41-605"><a href="#cb41-605" aria-hidden="true" tabindex="-1"></a><span class="st">the ages would not match the people in the same position in the vector. Instead,</span></span>
-<span id="cb41-606"><a href="#cb41-606" aria-hidden="true" tabindex="-1"></a><span class="st">we would have a missing value at that position. Missing values are `NA` (not</span></span>
-<span id="cb41-607"><a href="#cb41-607" aria-hidden="true" tabindex="-1"></a><span class="st">applicable) in R and `NA` is another special word, like `TRUE` and `FALSE`, that</span></span>
-<span id="cb41-608"><a href="#cb41-608" aria-hidden="true" tabindex="-1"></a><span class="st">doesn't need quotes. We can set Charlie's age to NA using indexing:</span></span>
-<span id="cb41-609"><a href="#cb41-609" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-612"><a href="#cb41-612" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-613"><a href="#cb41-613" aria-hidden="true" tabindex="-1"></a><span class="st">ages[names == "</span>Charlie<span class="st">"] &lt;- NA</span></span>
-<span id="cb41-614"><a href="#cb41-614" aria-hidden="true" tabindex="-1"></a><span class="st">ages</span></span>
-<span id="cb41-615"><a href="#cb41-615" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-616"><a href="#cb41-616" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-617"><a href="#cb41-617" aria-hidden="true" tabindex="-1"></a><span class="st">The `==` means "</span>is equal to<span class="st">" and the result of `names == "</span>Charlie<span class="st">"` is a vector</span></span>
-<span id="cb41-618"><a href="#cb41-618" aria-hidden="true" tabindex="-1"></a><span class="st">of logicals: `FALSE FALSE FALSE  TRUE FALSE FALSE`. This means</span></span>
-<span id="cb41-619"><a href="#cb41-619" aria-hidden="true" tabindex="-1"></a><span class="st">`ages[names == "</span>Charlie<span class="st">"]` references the age in `ages` at the index of Charlie</span></span>
-<span id="cb41-620"><a href="#cb41-620" aria-hidden="true" tabindex="-1"></a><span class="st">in `names`</span></span>
-<span id="cb41-621"><a href="#cb41-621" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-622"><a href="#cb41-622" aria-hidden="true" tabindex="-1"></a><span class="st">If we now try to calculate the mean age:</span></span>
-<span id="cb41-623"><a href="#cb41-623" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-626"><a href="#cb41-626" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-627"><a href="#cb41-627" aria-hidden="true" tabindex="-1"></a><span class="st">mean(ages)</span></span>
-<span id="cb41-628"><a href="#cb41-628" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-629"><a href="#cb41-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-630"><a href="#cb41-630" aria-hidden="true" tabindex="-1"></a><span class="st">We get an NA! What we really want is an average of the ages we do have. The</span></span>
-<span id="cb41-631"><a href="#cb41-631" aria-hidden="true" tabindex="-1"></a><span class="st">`mean()` function has an argument that allows you to cope with that situation</span></span>
-<span id="cb41-632"><a href="#cb41-632" aria-hidden="true" tabindex="-1"></a><span class="st">called `na.rm`. By default, `na.rm` is set to `FALSE` but we can set it to</span></span>
-<span id="cb41-633"><a href="#cb41-633" aria-hidden="true" tabindex="-1"></a><span class="st">`TRUE` using</span></span>
-<span id="cb41-634"><a href="#cb41-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-637"><a href="#cb41-637" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-638"><a href="#cb41-638" aria-hidden="true" tabindex="-1"></a><span class="st">mean(ages, na.rm = TRUE)</span></span>
-<span id="cb41-639"><a href="#cb41-639" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-640"><a href="#cb41-640" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-641"><a href="#cb41-641" aria-hidden="true" tabindex="-1"></a><span class="st">### Data structures: dataframes</span></span>
-<span id="cb41-642"><a href="#cb41-642" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-643"><a href="#cb41-643" aria-hidden="true" tabindex="-1"></a><span class="st">We have three vectors, `names`, `ages` and `chocolate` which are all part of the</span></span>
-<span id="cb41-644"><a href="#cb41-644" aria-hidden="true" tabindex="-1"></a><span class="st">same dataset. By far the most common way of organising data in R is within a</span></span>
-<span id="cb41-645"><a href="#cb41-645" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>dataframe<span class="st">". A dataframe, has rows and columns: each column represents a</span></span>
-<span id="cb41-646"><a href="#cb41-646" aria-hidden="true" tabindex="-1"></a><span class="st">variable and each row represents a case. To make a dataframe using our three</span></span>
-<span id="cb41-647"><a href="#cb41-647" aria-hidden="true" tabindex="-1"></a><span class="st">vectors we use:</span></span>
-<span id="cb41-648"><a href="#cb41-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-651"><a href="#cb41-651" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-652"><a href="#cb41-652" aria-hidden="true" tabindex="-1"></a><span class="st">people &lt;- data.frame(names, ages, chocolate)</span></span>
-<span id="cb41-653"><a href="#cb41-653" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-654"><a href="#cb41-654" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-655"><a href="#cb41-655" aria-hidden="true" tabindex="-1"></a><span class="st">You will see `people` listed in the Global environment under Data. To open a</span></span>
-<span id="cb41-656"><a href="#cb41-656" aria-hidden="true" tabindex="-1"></a><span class="st">spreadsheet-like view of the dataframe click its name in the Global Environment</span></span>
-<span id="cb41-657"><a href="#cb41-657" aria-hidden="true" tabindex="-1"></a><span class="st">@fig-view-dataframe</span></span>
-<span id="cb41-658"><a href="#cb41-658" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-659"><a href="#cb41-659" aria-hidden="true" tabindex="-1"></a><span class="st">::: {#fig-view-dataframe}</span></span>
-<span id="cb41-660"><a href="#cb41-660" aria-hidden="true" tabindex="-1"></a><span class="st">![](images/view-dataframe.png)</span></span>
-<span id="cb41-661"><a href="#cb41-661" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-662"><a href="#cb41-662" aria-hidden="true" tabindex="-1"></a><span class="st">**A screenshot of RStudio showing the `people` dataframe over the script on the</span></span>
-<span id="cb41-663"><a href="#cb41-663" aria-hidden="true" tabindex="-1"></a><span class="st">left and the Environment pane on the right** To open a spreadsheet-like view of</span></span>
-<span id="cb41-664"><a href="#cb41-664" aria-hidden="true" tabindex="-1"></a><span class="st">the dataframe click its name in the Global Environment.</span></span>
-<span id="cb41-665"><a href="#cb41-665" aria-hidden="true" tabindex="-1"></a><span class="st">:::</span></span>
-<span id="cb41-666"><a href="#cb41-666" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-667"><a href="#cb41-667" aria-hidden="true" tabindex="-1"></a><span class="st">## Install your first R package</span></span>
-<span id="cb41-668"><a href="#cb41-668" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-669"><a href="#cb41-669" aria-hidden="true" tabindex="-1"></a><span class="st">We will be using the **`tidyverse`** [@tidyverse] package in this book.</span></span>
+<span id="cb41-597"><a href="#cb41-597" aria-hidden="true" tabindex="-1"></a>At each of the indices in <span class="in">`chocolate`</span> that contain <span class="in">`TRUE`</span>, the name and age are</span>
+<span id="cb41-598"><a href="#cb41-598" aria-hidden="true" tabindex="-1"></a>returned.</span>
+<span id="cb41-599"><a href="#cb41-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-600"><a href="#cb41-600" aria-hidden="true" tabindex="-1"></a><span class="fu">### Changing the defaults for a function</span></span>
+<span id="cb41-601"><a href="#cb41-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-602"><a href="#cb41-602" aria-hidden="true" tabindex="-1"></a>The functions we have used so far, <span class="in">`c()`</span> and <span class="in">`str()`</span> have worked without us</span>
+<span id="cb41-603"><a href="#cb41-603" aria-hidden="true" tabindex="-1"></a>having to change default behaviour. For example, if we want to calculate the</span>
+<span id="cb41-604"><a href="#cb41-604" aria-hidden="true" tabindex="-1"></a>mean age of our people we can use the <span class="in">`mean()`</span> function in default form:</span>
+<span id="cb41-605"><a href="#cb41-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-608"><a href="#cb41-608" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-609"><a href="#cb41-609" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ages)</span>
+<span id="cb41-610"><a href="#cb41-610" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-611"><a href="#cb41-611" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-612"><a href="#cb41-612" aria-hidden="true" tabindex="-1"></a>Imagine Charlie would like their age removed from the dataset or that we never</span>
+<span id="cb41-613"><a href="#cb41-613" aria-hidden="true" tabindex="-1"></a>knew their age. We would not want a vector containing just five elements because</span>
+<span id="cb41-614"><a href="#cb41-614" aria-hidden="true" tabindex="-1"></a>the ages would not match the people in the same position in the vector. Instead,</span>
+<span id="cb41-615"><a href="#cb41-615" aria-hidden="true" tabindex="-1"></a>we would have a missing value at that position. Missing values are <span class="in">`NA`</span> (not</span>
+<span id="cb41-616"><a href="#cb41-616" aria-hidden="true" tabindex="-1"></a>applicable) in R and <span class="in">`NA`</span> is another special word, like <span class="in">`TRUE`</span> and <span class="in">`FALSE`</span>, that</span>
+<span id="cb41-617"><a href="#cb41-617" aria-hidden="true" tabindex="-1"></a>doesn't need quotes. We can set Charlie's age to NA using indexing:</span>
+<span id="cb41-618"><a href="#cb41-618" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-621"><a href="#cb41-621" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-622"><a href="#cb41-622" aria-hidden="true" tabindex="-1"></a>ages[names <span class="sc">==</span> <span class="st">"Charlie"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb41-623"><a href="#cb41-623" aria-hidden="true" tabindex="-1"></a>ages</span>
+<span id="cb41-624"><a href="#cb41-624" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-625"><a href="#cb41-625" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-626"><a href="#cb41-626" aria-hidden="true" tabindex="-1"></a>The <span class="in">`==`</span> means "is equal to" and the result of <span class="in">`names == "Charlie"`</span> is a vector</span>
+<span id="cb41-627"><a href="#cb41-627" aria-hidden="true" tabindex="-1"></a>of logicals: <span class="in">`FALSE FALSE FALSE  TRUE FALSE FALSE`</span>. This means</span>
+<span id="cb41-628"><a href="#cb41-628" aria-hidden="true" tabindex="-1"></a><span class="in">`ages[names == "Charlie"]`</span> references the age in <span class="in">`ages`</span> at the index of Charlie</span>
+<span id="cb41-629"><a href="#cb41-629" aria-hidden="true" tabindex="-1"></a>in <span class="in">`names`</span></span>
+<span id="cb41-630"><a href="#cb41-630" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-631"><a href="#cb41-631" aria-hidden="true" tabindex="-1"></a>If we now try to calculate the mean age:</span>
+<span id="cb41-632"><a href="#cb41-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-635"><a href="#cb41-635" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-636"><a href="#cb41-636" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ages)</span>
+<span id="cb41-637"><a href="#cb41-637" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-638"><a href="#cb41-638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-639"><a href="#cb41-639" aria-hidden="true" tabindex="-1"></a>We get an NA! What we really want is an average of the ages we do have. The</span>
+<span id="cb41-640"><a href="#cb41-640" aria-hidden="true" tabindex="-1"></a><span class="in">`mean()`</span> function has an argument that allows you to cope with that situation</span>
+<span id="cb41-641"><a href="#cb41-641" aria-hidden="true" tabindex="-1"></a>called <span class="in">`na.rm`</span>. By default, <span class="in">`na.rm`</span> is set to <span class="in">`FALSE`</span> but we can set it to</span>
+<span id="cb41-642"><a href="#cb41-642" aria-hidden="true" tabindex="-1"></a><span class="in">`TRUE`</span> using</span>
+<span id="cb41-643"><a href="#cb41-643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-646"><a href="#cb41-646" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-647"><a href="#cb41-647" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ages, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb41-648"><a href="#cb41-648" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-649"><a href="#cb41-649" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-650"><a href="#cb41-650" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data structures: dataframes</span></span>
+<span id="cb41-651"><a href="#cb41-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-652"><a href="#cb41-652" aria-hidden="true" tabindex="-1"></a>We have three vectors, <span class="in">`names`</span>, <span class="in">`ages`</span> and <span class="in">`chocolate`</span> which are all part of the</span>
+<span id="cb41-653"><a href="#cb41-653" aria-hidden="true" tabindex="-1"></a>same dataset. By far the most common way of organising data in R is within a</span>
+<span id="cb41-654"><a href="#cb41-654" aria-hidden="true" tabindex="-1"></a>"dataframe". A dataframe, has rows and columns: each column represents a</span>
+<span id="cb41-655"><a href="#cb41-655" aria-hidden="true" tabindex="-1"></a>variable and each row represents a case. To make a dataframe using our three</span>
+<span id="cb41-656"><a href="#cb41-656" aria-hidden="true" tabindex="-1"></a>vectors we use:</span>
+<span id="cb41-657"><a href="#cb41-657" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-660"><a href="#cb41-660" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-661"><a href="#cb41-661" aria-hidden="true" tabindex="-1"></a>people <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(names, ages, chocolate)</span>
+<span id="cb41-662"><a href="#cb41-662" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-663"><a href="#cb41-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-664"><a href="#cb41-664" aria-hidden="true" tabindex="-1"></a>You will see <span class="in">`people`</span> listed in the Global environment under Data. To open a</span>
+<span id="cb41-665"><a href="#cb41-665" aria-hidden="true" tabindex="-1"></a>spreadsheet-like view of the dataframe click its name in the Global Environment</span>
+<span id="cb41-666"><a href="#cb41-666" aria-hidden="true" tabindex="-1"></a>@fig-view-dataframe</span>
+<span id="cb41-667"><a href="#cb41-667" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-668"><a href="#cb41-668" aria-hidden="true" tabindex="-1"></a>::: {#fig-view-dataframe}</span>
+<span id="cb41-669"><a href="#cb41-669" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/view-dataframe.png)</span></span>
 <span id="cb41-670"><a href="#cb41-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-671"><a href="#cb41-671" aria-hidden="true" tabindex="-1"></a><span class="st">Install **`tidyverse`** like this:</span></span>
-<span id="cb41-672"><a href="#cb41-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-675"><a href="#cb41-675" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-676"><a href="#cb41-676" aria-hidden="true" tabindex="-1"></a><span class="st">#| eval: false</span></span>
-<span id="cb41-677"><a href="#cb41-677" aria-hidden="true" tabindex="-1"></a><span class="st">install.packages("</span>tidyverse<span class="st">")</span></span>
-<span id="cb41-678"><a href="#cb41-678" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb41-671"><a href="#cb41-671" aria-hidden="true" tabindex="-1"></a>**A screenshot of RStudio showing the <span class="in">`people`</span> dataframe over the script on the</span>
+<span id="cb41-672"><a href="#cb41-672" aria-hidden="true" tabindex="-1"></a>left and the Environment pane on the right** To open a spreadsheet-like view of</span>
+<span id="cb41-673"><a href="#cb41-673" aria-hidden="true" tabindex="-1"></a>the dataframe click its name in the Global Environment.</span>
+<span id="cb41-674"><a href="#cb41-674" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb41-675"><a href="#cb41-675" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-676"><a href="#cb41-676" aria-hidden="true" tabindex="-1"></a><span class="fu">## Install your first R package</span></span>
+<span id="cb41-677"><a href="#cb41-677" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-678"><a href="#cb41-678" aria-hidden="true" tabindex="-1"></a>We will be using the **`tidyverse`** <span class="co">[</span><span class="ot">@tidyverse</span><span class="co">]</span> package in this book.</span>
 <span id="cb41-679"><a href="#cb41-679" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-680"><a href="#cb41-680" aria-hidden="true" tabindex="-1"></a><span class="st">*Installing* a package means downloading it from the internet and placing its</span></span>
-<span id="cb41-681"><a href="#cb41-681" aria-hidden="true" tabindex="-1"></a><span class="st">code on your computer. You only need to do this once -- or each time you update</span></span>
-<span id="cb41-682"><a href="#cb41-682" aria-hidden="true" tabindex="-1"></a><span class="st">your version of R. To use the package once it has been installed you need to</span></span>
-<span id="cb41-683"><a href="#cb41-683" aria-hidden="true" tabindex="-1"></a><span class="st">*load* it with:</span></span>
-<span id="cb41-684"><a href="#cb41-684" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-687"><a href="#cb41-687" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb41-688"><a href="#cb41-688" aria-hidden="true" tabindex="-1"></a><span class="st">library(tidyverse)</span></span>
-<span id="cb41-689"><a href="#cb41-689" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb41-690"><a href="#cb41-690" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-691"><a href="#cb41-691" aria-hidden="true" tabindex="-1"></a><span class="st">Loading a package means telling R you want to use functions from that package in</span></span>
-<span id="cb41-692"><a href="#cb41-692" aria-hidden="true" tabindex="-1"></a><span class="st">an R session. You need to load packages each time you start a new R session.</span></span>
+<span id="cb41-680"><a href="#cb41-680" aria-hidden="true" tabindex="-1"></a>Install **`tidyverse`** like this:</span>
+<span id="cb41-681"><a href="#cb41-681" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-684"><a href="#cb41-684" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-685"><a href="#cb41-685" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb41-686"><a href="#cb41-686" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb41-687"><a href="#cb41-687" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb41-688"><a href="#cb41-688" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-689"><a href="#cb41-689" aria-hidden="true" tabindex="-1"></a>*Installing* a package means downloading it from the internet and placing its</span>
+<span id="cb41-690"><a href="#cb41-690" aria-hidden="true" tabindex="-1"></a>code on your computer. You only need to do this once -- or each time you update</span>
+<span id="cb41-691"><a href="#cb41-691" aria-hidden="true" tabindex="-1"></a>your version of R. To use the package once it has been installed you need to</span>
+<span id="cb41-692"><a href="#cb41-692" aria-hidden="true" tabindex="-1"></a>*load* it with:</span>
 <span id="cb41-693"><a href="#cb41-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-694"><a href="#cb41-694" aria-hidden="true" tabindex="-1"></a><span class="st">## Summary</span></span>
-<span id="cb41-695"><a href="#cb41-695" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-696"><a href="#cb41-696" aria-hidden="true" tabindex="-1"></a><span class="st">1.  R can be used like a calculator. Commands are typed at the console prompt</span></span>
-<span id="cb41-697"><a href="#cb41-697" aria-hidden="true" tabindex="-1"></a><span class="st">    (`&gt;`), and output appears below with line indices. Good practice includes</span></span>
-<span id="cb41-698"><a href="#cb41-698" aria-hidden="true" tabindex="-1"></a><span class="st">    using spaces around operators for readability.</span></span>
+<span id="cb41-696"><a href="#cb41-696" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb41-697"><a href="#cb41-697" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb41-698"><a href="#cb41-698" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb41-699"><a href="#cb41-699" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-700"><a href="#cb41-700" aria-hidden="true" tabindex="-1"></a><span class="st">2.  **Variables** are created using `&lt;-` (e.g., `x &lt;- 3`). This is called</span></span>
-<span id="cb41-701"><a href="#cb41-701" aria-hidden="true" tabindex="-1"></a><span class="st">    **assignment**. These values can be reused in calculations, and errors (like</span></span>
-<span id="cb41-702"><a href="#cb41-702" aria-hidden="true" tabindex="-1"></a><span class="st">    using an undefined variable) are common and part of the learning process.</span></span>
-<span id="cb41-703"><a href="#cb41-703" aria-hidden="true" tabindex="-1"></a><span class="st">    Use the Environment tab and command history to track objects and</span></span>
-<span id="cb41-704"><a href="#cb41-704" aria-hidden="true" tabindex="-1"></a><span class="st">    troubleshoot.</span></span>
-<span id="cb41-705"><a href="#cb41-705" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-706"><a href="#cb41-706" aria-hidden="true" tabindex="-1"></a><span class="st">3.  Rather than typing directly into the console, use `.R` **scripts** to write</span></span>
-<span id="cb41-707"><a href="#cb41-707" aria-hidden="true" tabindex="-1"></a><span class="st">    and execute code. Scripts help keep a record of correct commands and allow</span></span>
-<span id="cb41-708"><a href="#cb41-708" aria-hidden="true" tabindex="-1"></a><span class="st">    **comments** (using `#`) to explain code.</span></span>
-<span id="cb41-709"><a href="#cb41-709" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-710"><a href="#cb41-710" aria-hidden="true" tabindex="-1"></a><span class="st">4.  Change some of the default RStudio settings: decide a default working</span></span>
-<span id="cb41-711"><a href="#cb41-711" aria-hidden="true" tabindex="-1"></a><span class="st">    directory and adjust workspace options to start clean each time (e.g., do</span></span>
-<span id="cb41-712"><a href="#cb41-712" aria-hidden="true" tabindex="-1"></a><span class="st">    not restore `.RData` on startup or save workspace on exit).</span></span>
-<span id="cb41-713"><a href="#cb41-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-714"><a href="#cb41-714" aria-hidden="true" tabindex="-1"></a><span class="st">5.  R uses basic data types like **numeric**, **character** (strings), and</span></span>
-<span id="cb41-715"><a href="#cb41-715" aria-hidden="true" tabindex="-1"></a><span class="st">    logical (**`TRUE`**/**`FALSE`**). **Vectors** are collections of values,</span></span>
-<span id="cb41-716"><a href="#cb41-716" aria-hidden="true" tabindex="-1"></a><span class="st">    created with `c()`. Indexing (e.g., `ages[2]`) retrieves elements by</span></span>
-<span id="cb41-717"><a href="#cb41-717" aria-hidden="true" tabindex="-1"></a><span class="st">    position or condition.</span></span>
+<span id="cb41-700"><a href="#cb41-700" aria-hidden="true" tabindex="-1"></a>Loading a package means telling R you want to use functions from that package in</span>
+<span id="cb41-701"><a href="#cb41-701" aria-hidden="true" tabindex="-1"></a>an R session. You need to load packages each time you start a new R session.</span>
+<span id="cb41-702"><a href="#cb41-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-703"><a href="#cb41-703" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb41-704"><a href="#cb41-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-705"><a href="#cb41-705" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>R can be used like a calculator. Commands are typed at the console prompt</span>
+<span id="cb41-706"><a href="#cb41-706" aria-hidden="true" tabindex="-1"></a>    (<span class="in">`&gt;`</span>), and output appears below with line indices. Good practice includes</span>
+<span id="cb41-707"><a href="#cb41-707" aria-hidden="true" tabindex="-1"></a>    using spaces around operators for readability.</span>
+<span id="cb41-708"><a href="#cb41-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-709"><a href="#cb41-709" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Variables** are created using <span class="in">`&lt;-`</span> (e.g., <span class="in">`x &lt;- 3`</span>). This is called</span>
+<span id="cb41-710"><a href="#cb41-710" aria-hidden="true" tabindex="-1"></a>    **assignment**. These values can be reused in calculations, and errors (like</span>
+<span id="cb41-711"><a href="#cb41-711" aria-hidden="true" tabindex="-1"></a>    using an undefined variable) are common and part of the learning process.</span>
+<span id="cb41-712"><a href="#cb41-712" aria-hidden="true" tabindex="-1"></a>    Use the Environment tab and command history to track objects and</span>
+<span id="cb41-713"><a href="#cb41-713" aria-hidden="true" tabindex="-1"></a>    troubleshoot.</span>
+<span id="cb41-714"><a href="#cb41-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-715"><a href="#cb41-715" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Rather than typing directly into the console, use <span class="in">`.R`</span> **scripts** to write</span>
+<span id="cb41-716"><a href="#cb41-716" aria-hidden="true" tabindex="-1"></a>    and execute code. Scripts help keep a record of correct commands and allow</span>
+<span id="cb41-717"><a href="#cb41-717" aria-hidden="true" tabindex="-1"></a>    **comments** (using <span class="in">`#`</span>) to explain code.</span>
 <span id="cb41-718"><a href="#cb41-718" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-719"><a href="#cb41-719" aria-hidden="true" tabindex="-1"></a><span class="st">6.  **Functions** take arguments in parentheses (e.g., `mean(ages)`). Some</span></span>
-<span id="cb41-720"><a href="#cb41-720" aria-hidden="true" tabindex="-1"></a><span class="st">    functions have default settings that can be changed (e.g., `na.rm = TRUE` to</span></span>
-<span id="cb41-721"><a href="#cb41-721" aria-hidden="true" tabindex="-1"></a><span class="st">    ignore missing values in `mean()`).</span></span>
+<span id="cb41-719"><a href="#cb41-719" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Change some of the default RStudio settings: decide a default working</span>
+<span id="cb41-720"><a href="#cb41-720" aria-hidden="true" tabindex="-1"></a>    directory and adjust workspace options to start clean each time (e.g., do</span>
+<span id="cb41-721"><a href="#cb41-721" aria-hidden="true" tabindex="-1"></a>    not restore <span class="in">`.RData`</span> on startup or save workspace on exit).</span>
 <span id="cb41-722"><a href="#cb41-722" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-723"><a href="#cb41-723" aria-hidden="true" tabindex="-1"></a><span class="st">7.  **Data frame** are rectangular and the most common structure for datasets in</span></span>
-<span id="cb41-724"><a href="#cb41-724" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-725"><a href="#cb41-725" aria-hidden="true" tabindex="-1"></a><span class="st">    R.  </span></span>
+<span id="cb41-723"><a href="#cb41-723" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>R uses basic data types like **numeric**, **character** (strings), and</span>
+<span id="cb41-724"><a href="#cb41-724" aria-hidden="true" tabindex="-1"></a>    logical (**`TRUE`**/**`FALSE`**). **Vectors** are collections of values,</span>
+<span id="cb41-725"><a href="#cb41-725" aria-hidden="true" tabindex="-1"></a>    created with <span class="in">`c()`</span>. Indexing (e.g., <span class="in">`ages[2]`</span>) retrieves elements by</span>
+<span id="cb41-726"><a href="#cb41-726" aria-hidden="true" tabindex="-1"></a>    position or condition.</span>
+<span id="cb41-727"><a href="#cb41-727" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-728"><a href="#cb41-728" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>**Functions** take arguments in parentheses (e.g., <span class="in">`mean(ages)`</span>). Some</span>
+<span id="cb41-729"><a href="#cb41-729" aria-hidden="true" tabindex="-1"></a>    functions have default settings that can be changed (e.g., <span class="in">`na.rm = TRUE`</span> to</span>
+<span id="cb41-730"><a href="#cb41-730" aria-hidden="true" tabindex="-1"></a>    ignore missing values in <span class="in">`mean()`</span>).</span>
+<span id="cb41-731"><a href="#cb41-731" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-732"><a href="#cb41-732" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>**Data frame** are rectangular and the most common structure for datasets in</span>
+<span id="cb41-733"><a href="#cb41-733" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-734"><a href="#cb41-734" aria-hidden="true" tabindex="-1"></a>    R.  </span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
